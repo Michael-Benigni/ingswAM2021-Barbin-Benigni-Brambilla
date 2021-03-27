@@ -10,6 +10,7 @@
 #intelliJ
 /.idea
 /*.iml
+/target
 
 #MacOS
 /.DS_Store
