@@ -34,4 +34,15 @@ public class FaithPoint implements Resource{
     public void activate() {
         //TODO: what kind of actions will be performed ?
     }
+
+    /**
+     * this method creates a copy of the object FaithPoint
+     * @return the created copy
+     * @throws NegativeResourceAmountException
+     */
+    @Override
+    public Resource copyResource() throws NegativeResourceAmountException {
+        FaithPoint copy = new FaithPoint(this.points);
+        return copy;
+    }
 }

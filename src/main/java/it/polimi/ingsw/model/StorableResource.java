@@ -90,5 +90,14 @@ public class StorableResource implements Resource{
     //TO DO: what kind of action need to be executed by the activation of stockResource ??
     }
 
-
+    /**
+     * this method creates a copy of the object StorableResource
+     * @return the created copy
+     * @throws NegativeResourceAmountException
+     */
+    @Override
+    public Resource copyResource() throws NegativeResourceAmountException {
+        StorableResource copy = new StorableResource(this.resourceType, this.amount);
+        return copy;
+    }
 }
