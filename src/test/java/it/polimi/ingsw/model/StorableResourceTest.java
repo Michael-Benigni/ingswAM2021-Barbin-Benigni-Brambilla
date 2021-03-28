@@ -74,8 +74,8 @@ public class StorableResourceTest {
     @Test
     void checkIncreaseAmountIfDifferentResourceType() throws NegativeResourceAmountException {
 
-        int amountStockResource = 5;
-        StorableResource stockResource = new StorableResource(ResourceType.SHIELD, amountStockResource);
+        int amountStoredResource = 5;
+        StorableResource storedResource = new StorableResource(ResourceType.SHIELD, amountStoredResource);
 
 
         int amountNewResource = 3;
@@ -83,10 +83,10 @@ public class StorableResourceTest {
 
 
         try{
-            stockResource.increaseAmount(newResource);
+            storedResource.increaseAmount(newResource);
             fail();
         } catch (NotEqualResourceTypeException e){
-            assertEquals(stockResource.getAmount(),amountStockResource);
+            assertEquals(storedResource.getAmount(),amountStoredResource);
         }
 
     }
@@ -99,8 +99,8 @@ public class StorableResourceTest {
     @Test
     void checkDecreaseAmountIfCorrect() throws NegativeResourceAmountException {
 
-        int amountStockResource = 15;
-        StorableResource stockResource = new StorableResource(ResourceType.COIN, amountStockResource);
+        int amountStoredResource = 15;
+        StorableResource storedResource = new StorableResource(ResourceType.COIN, amountStoredResource);
 
 
         int amountNewResource = 9;
@@ -108,12 +108,12 @@ public class StorableResourceTest {
 
 
         try{
-            stockResource.decreaseAmount(newResource);
+            storedResource.decreaseAmount(newResource);
         } catch (NegativeResourceAmountException | NotEqualResourceTypeException e) {
             fail();
         }
 
-        assertEquals(stockResource.getAmount(),(amountStockResource - amountNewResource));
+        assertEquals(storedResource.getAmount(),(amountStoredResource - amountNewResource));
 
     }
 
@@ -125,8 +125,8 @@ public class StorableResourceTest {
     @Test
     void checkDecreaseAmountIfDifferentResourceType() throws NegativeResourceAmountException {
 
-        int amountStockResource = 7;
-        StorableResource stockResource = new StorableResource(ResourceType.SHIELD, amountStockResource);
+        int amountStoredResource = 7;
+        StorableResource storedResource = new StorableResource(ResourceType.SHIELD, amountStoredResource);
 
 
         int amountNewResource = 2;
@@ -134,12 +134,12 @@ public class StorableResourceTest {
 
 
         try{
-            stockResource.decreaseAmount(newResource);
+            storedResource.decreaseAmount(newResource);
             fail();
         } catch (NegativeResourceAmountException e) {
             fail();
         } catch (NotEqualResourceTypeException e){
-            assertEquals(stockResource.getAmount(),amountStockResource);
+            assertEquals(storedResource.getAmount(),amountStoredResource);
         }
 
     }
@@ -152,8 +152,8 @@ public class StorableResourceTest {
     @Test
     void checkDecreaseAmountIfNegativeResourceAmount() throws NegativeResourceAmountException {
 
-        int amountStockResource = 10;
-        StorableResource stockResource = new StorableResource(ResourceType.COIN, amountStockResource);
+        int amountStoredResource = 10;
+        StorableResource storedResource = new StorableResource(ResourceType.COIN, amountStoredResource);
 
 
         int amountNewResource = 19;
@@ -161,10 +161,10 @@ public class StorableResourceTest {
 
 
         try{
-            stockResource.decreaseAmount(newResource);
+            storedResource.decreaseAmount(newResource);
             fail();
         } catch (NegativeResourceAmountException e) {
-            assertEquals(stockResource.getAmount(), amountStockResource);
+            assertEquals(storedResource.getAmount(), amountStoredResource);
         } catch (NotEqualResourceTypeException e){
             fail();
         }
