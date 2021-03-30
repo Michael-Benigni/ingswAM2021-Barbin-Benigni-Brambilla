@@ -17,7 +17,7 @@ public class FaithPointTest {
      * Test if the created object is accordant to the provided parameters
      */
     @Test
-    void CheckConstructorIfCorrect() throws NegativeResourceAmountException {
+    void checkConstructorIfCorrect() throws NegativeResourceAmountException {
 
         int numPoints = 20;
         FaithPoint faithPoint = new FaithPoint(numPoints);
@@ -30,9 +30,8 @@ public class FaithPointTest {
      * Test on constructor method
      * Test if the method throws the NegativeResourceAmountException successfully
      */
-    @SuppressWarnings("unused")
     @Test
-    void CheckConstructorIfNegativeAmount()
+    void checkConstructorIfNegativeAmount()
     {
 
         int numPoints = -3;

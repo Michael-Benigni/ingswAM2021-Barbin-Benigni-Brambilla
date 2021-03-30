@@ -32,7 +32,7 @@ public class StorableResource implements Resource{
      * Method that sum two resources of the same type: need to be the same type
      * @param resource -> resource to add
      */
-    void increaseAmount(StorableResource resource) throws NegativeResourceAmountException, NotEqualResourceTypeException {
+    void increaseAmount(StorableResource resource) throws NotEqualResourceTypeException {
 
         if(this.getResourceType() != resource.getResourceType())
             throw new NotEqualResourceTypeException();
@@ -64,7 +64,7 @@ public class StorableResource implements Resource{
      * Getter method for amount
      * @return -> return int
      */
-    int getAmount() {
+    private int getAmount() {
 
         return amount;
 
@@ -75,7 +75,7 @@ public class StorableResource implements Resource{
      * Getter method for ResourceType
      * @return -> return ResourceType of StorableResource
      */
-    ResourceType getResourceType() {
+    private ResourceType getResourceType() {
 
         return resourceType;
 
@@ -87,17 +87,63 @@ public class StorableResource implements Resource{
      */
     @Override
     public void activate() {
-    //TO DO: what kind of action need to be executed by the activation of stockResource ??
+    //TODO: what kind of action need to be executed by the activation of stockResource ??
     }
+
 
     /**
      * this method creates a copy of the object StorableResource
      * @return the created copy
-     * @throws NegativeResourceAmountException
+     * @throws NegativeResourceAmountException -> can be throwed by the constructor method if StorableResource class
      */
     @Override
     public Resource copyResource() throws NegativeResourceAmountException {
         StorableResource copy = new StorableResource(this.resourceType, this.amount);
         return copy;
     }
+
+
+    /**
+     * Method that verify if the two resources have the same resourceType
+     * This method is called on the first resource to compare
+     * @param resourceToCompare -> second resource to compare
+     * @return -> boolean that represents if the two objects share the resourceType
+     */
+    boolean ifSameResourceType(StorableResource resourceToCompare)
+    {
+        return this.resourceType.equals(resourceToCompare.resourceType);
+    }
+
+
+    /**
+     * Method that return if two resources have same type and same amount
+     * @param resourceToCompare -> resource to be compared to this
+     * @return -> boolean: true if equal
+     */
+    boolean equals(StorableResource resourceToCompare)
+    {
+        return this.getAmount() == resourceToCompare.getAmount() && this.ifSameResourceType(resourceToCompare);
+    }
+
+
+    /**
+     * Method that return if the resource has the provided amount.
+     * @param amountToCompare -> integer to be compare to the resource's amount.
+     * @return -> boolean: true if the two amounts are equal.
+     */
+    boolean amountEqualTo(int amountToCompare)
+    {
+        return this.getAmount() == amountToCompare;
+    }
+
+
+    /**
+     * Method that return if the resource has the provided resource type.
+     * @param resourceType -> resource type to be compared to the resource's type.
+     * @return -> boolean: true if the twotype are equal
+     */
+    boolean resourceTypeEqualTo(ResourceType resourceType){
+        return this.getResourceType() == resourceType;
+    }
+
 }

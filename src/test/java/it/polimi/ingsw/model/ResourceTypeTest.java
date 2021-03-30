@@ -17,7 +17,7 @@ public class ResourceTypeTest {
      * Test if the created object is accordant to the provided parameters
      */
     @Test
-    void CheckConstructorIfCorrect()
+    void checkConstructorIfCorrect()
     {
         ResourceType resourceType = ResourceType.STONE;
         assertSame(resourceType, ResourceType.STONE);
