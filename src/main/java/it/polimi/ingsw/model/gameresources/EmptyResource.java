@@ -1,11 +1,11 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gameresources;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 
 /**
  * This class represents the resource contained into a white marble
  */
-public class EmptyResource implements Resource{
+public class EmptyResource implements Resource {
 
     /**
      * Constructor method of EmptyResource class

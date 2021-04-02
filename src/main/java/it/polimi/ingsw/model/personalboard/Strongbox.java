@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.personalboard;
 
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;

@@ -1,7 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.cards.developmentcards;
+
+import it.polimi.ingsw.model.gameresources.Resource;
+import it.polimi.ingsw.model.personalboard.StorableResource;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * this class models the development card with all its attributes like the price, the production power, etc.
@@ -19,7 +21,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard{
      * @param consumedResources -> attribute that indicates the resources that the player has to spend to star the production power
      * @param producedResources -> attribute that indicates the earned resources after the activation of the production power
      */
-    DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList <StorableResource> cost, ArrayList <StorableResource> consumedResources, ArrayList <Resource> producedResources) {
+    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Resource> producedResources) {
         super(cardColour, cardLevel);
         this.cost = cost;
         this.consumedResources = consumedResources;

@@ -1,13 +1,15 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.personalboard;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.model.gameresources.Resource;
+import it.polimi.ingsw.model.gameresources.ResourceType;
 
 
 /**
  * Class that represents 1 between 4 different type of resources, and also the quantity of that resource
  */
-public class StorableResource implements Resource{
+public class StorableResource implements Resource {
 
 
     private int amount;
@@ -19,7 +21,7 @@ public class StorableResource implements Resource{
      * @param resourceType -> What kind of resource
      * @param amount -> How many copies of that resource: need to be greater or equal than "0"
      */
-    StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
+    public StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
         if(amount < 0)
             throw new NegativeResourceAmountException();
         else

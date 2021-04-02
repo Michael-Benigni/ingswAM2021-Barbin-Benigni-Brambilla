@@ -1,8 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.personalboard;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotContainedResourceException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.model.gameresources.ResourceType;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

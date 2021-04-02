@@ -1,6 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gameboard.markettray;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.model.gameresources.Resource;
 
 /**
  * class that models the fishable marbles from the market tray
