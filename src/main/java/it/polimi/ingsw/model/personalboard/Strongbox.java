@@ -31,8 +31,9 @@ public class Strongbox {
      */
     private boolean ifEmptyStrongbox()
     {
-        return resourceContained.isEmpty();
+        return resourceContained.size() == 0;
     }
+    //This method is only used in test class till now 3/4/21.
 
 
     /**
@@ -53,6 +54,8 @@ public class Strongbox {
      * Method that looks at the array and returns the element which have the same Type of the provided resource
      * @param storableResource -> resource that contained the type of resource i'm looking for
      * @return -> element of the array which has same resourceType of the provided resource, otherwise returns null
+     * @throws NotContainedResourceException -> thrown if doesn't exist a resource contained in this strongbox with the
+     * same type of the one provided.
      */
     private StorableResource searchResourceInStrongbox(StorableResource storableResource) throws NotContainedResourceException {
         int pos;
@@ -63,7 +66,6 @@ public class Strongbox {
                 return resourceContained.get(pos);
             }
         throw new NotContainedResourceException();
-    //TODO: check if the exception is necessary
     }
 
 
@@ -74,7 +76,7 @@ public class Strongbox {
      * @throws NotEqualResourceTypeException -> can be throwed by "increaseAmount" method
      */
     void storeResourceInStrongbox(StorableResource storableResource)
-            throws NotEqualResourceTypeException, NotContainedResourceException {
+            throws Exception {
 
         if(ifAlreadyContained(storableResource)) {
             searchResourceInStrongbox(storableResource).increaseAmount(storableResource);
@@ -88,11 +90,16 @@ public class Strongbox {
 
     /**
      * Method that return a copy of the entire array of resources that are contained into the strongbox
-     * @return -> the copy of the array.
+     * @return -> the array of resources.
+     * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
      */
-    private ArrayList<StorableResource> getAllStoredResources()
-    {
-        return resourceContained;
+    ArrayList<StorableResource> getAllStoredResources() throws NegativeResourceAmountException {
+        ArrayList<StorableResource> copyList = new ArrayList<>(0);
+        for(StorableResource r : resourceContained) {
+            StorableResource temporaryStorableResource = (StorableResource) r.copyResource();
+            copyList.add(temporaryStorableResource);
+        }
+        return copyList;
     }
 
 
@@ -100,18 +107,16 @@ public class Strongbox {
      * Method that decrease the amount of the stored resource by the amount provided. If the amount reaches "0", the
      * element is removed from the array.
      * @param storableResource -> contains the type of the resource to be decremented and by how much to decrement it
-     * @throws NotEqualResourceTypeException -> can be throwed by "decreaseAmount" method
-     * @throws NegativeResourceAmountException -> can be throwed by "decreaseAmount" method
-     * @throws NotContainedResourceException -> exception throwed if the provided resource type doesn't have a correspondent
-     * resource in the strongbox
+     * @throws Exception -> exception thrown if the provided resource is not contained in this strongbox. Can also be
+     * thrown by "decreaseAmount" method
      */
     void removeResourceFromStrongbox(StorableResource storableResource)
-            throws NotEqualResourceTypeException, NegativeResourceAmountException, NotContainedResourceException {
+            throws Exception {
 
         if(ifAlreadyContained(storableResource))
         {
             searchResourceInStrongbox(storableResource).decreaseAmount(storableResource);
-            if(searchResourceInStrongbox(storableResource).amountEqualTo(0)) //metti equal to zero
+            if(searchResourceInStrongbox(storableResource).amountEqualTo(0))
                 resourceContained.remove(searchResourceInStrongbox(storableResource));
         }
         else{ throw new NotContainedResourceException();}

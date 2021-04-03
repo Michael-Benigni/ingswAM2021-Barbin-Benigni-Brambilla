@@ -138,6 +138,16 @@ public class StorableResource implements Resource {
 
 
     /**
+     * Method that returns if this resource has amount less tha the one provided.
+     * @param amountToCompare -> integer to be compared to the amount of this resource.
+     * @return -> boolean: true if this resource has amount less than the one provided.
+     */
+    boolean amountLessThan(int amountToCompare){
+        return this.getAmount() < amountToCompare;
+    }
+
+
+    /**
      * Method that return if the resource has the provided resource type.
      * @param resourceType -> resource type to be compared to the resource's type.
      * @return -> boolean: true if the twotype are equal

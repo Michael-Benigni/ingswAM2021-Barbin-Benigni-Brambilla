@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model.personalboard;
 
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotContainedResourceException;
-import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -24,17 +22,18 @@ public class StrongboxTest {
         assertInstanceOf(Strongbox.class, newStrongbox);
         assertTrue(newStrongbox.ifEmptyStrongbox());
     }*/
+    //Now "ifEmptyStrongbox()" method of "Strongbox" class is declared private, so this test result useless... Keep it write if that method should become friendly/public.
+
 
 
     /**
-     * Test on the "storeResourceInStrongbox" method
-     * Test if the method put a new resource in an empty strongbox
-     * @throws NegativeResourceAmountException -> can be throwed by constructor method of "StorableResource" class
-     * @throws NotEqualResourceTypeException -> can be throwed by "storeResourceInStrongbox" method
+     * Test on the "storeResourceInStrongbox" method.
+     * Test if the method put a new resource in an empty strongbox.
+     * @throws Exception -> can be throwed by "storeResourceInStrongbox" method.
      */
-    /*@Test
+    @Test
     void checkStoreProductedResourceIfAddResourceWhenEmpty()
-            throws NegativeResourceAmountException, NotEqualResourceTypeException, NotContainedResourceException {
+            throws Exception {
 
         Strongbox newStrongbox = new Strongbox();
 
@@ -45,22 +44,22 @@ public class StrongboxTest {
 
         newStrongbox.storeResourceInStrongbox(resourceCoin);
 
-        assertFalse(newStrongbox.ifEmptyStrongbox());
-
-        ArrayList<StorableResource> resourceStrongbox = newStrongbox.getAllStoredResources();
-        assertEquals(resourceStrongbox, resourceArray);
-    }*/
+        for(int i = 0; i < newStrongbox.getAllStoredResources().size() && i < resourceArray.size(); i++){
+            if(!(newStrongbox.getAllStoredResources().get(i).equals(resourceArray.get(i)))){
+                fail();
+            }
+        }
+    }
 
 
     /**
-     * Test on "storeResourceInStrongbox" method
-     * Test if the method put a new resource in a strongbox that already contains a resource with different type
-     * @throws NotEqualResourceTypeException -> can be throwed by constructor method of "StorableResource" class
-     * @throws NegativeResourceAmountException -> can be throwed by "storeResourceInStrongbox" method
+     * Test on "storeResourceInStrongbox" method.
+     * Test if the method put a new resource in a strongbox that already contains a resource with different type.
+     * @throws Exception -> can be throwed by "storeResourceInStrongbox" method.
      */
-    /*@Test
+    @Test
     void checkStoreProductedResourceIfNotAlreadyContained()
-            throws NotEqualResourceTypeException, NegativeResourceAmountException, NotContainedResourceException {
+            throws Exception {
 
         Strongbox newStrongbox = new Strongbox();
 
@@ -76,21 +75,22 @@ public class StrongboxTest {
         newStrongbox.storeResourceInStrongbox(resourceStone);
         newStrongbox.storeResourceInStrongbox(resourceShield);
 
-        ArrayList<StorableResource> resourceStrongbox = newStrongbox.getAllStoredResources();
-        assertEquals(resourceStrongbox, resourceArray);
-    }*/
+        for(int i = 0; i < newStrongbox.getAllStoredResources().size() && i < resourceArray.size(); i++){
+            if(!(newStrongbox.getAllStoredResources().get(i).equals(resourceArray.get(i)))){
+                fail();
+            }
+        }
+    }
 
 
     /**
-     * Test on "storeResourceInStrongbox" method
-     * Test if the method increases the amount of a contained resource correctly
-     * @throws NotEqualResourceTypeException -> can be throwed by constructor method of "StorableResource" class
-     * @throws NegativeResourceAmountException -> can be throwed by "storeResourceInStrongbox" method
-     * @throws NotContainedResourceException -> can be throwed by "storeResourceInStrongbox"
+     * Test on "storeResourceInStrongbox" method.
+     * Test if the method increases the amount of a contained resource correctly.
+     * @throws Exception -> can be throwed by "storeResourceInStrongbox" method.
      */
-    /*@Test
+    @Test
     void checkStoreProductedResourceIfAlreadyContained()
-            throws NotEqualResourceTypeException, NegativeResourceAmountException, NotContainedResourceException {
+            throws Exception {
 
         int amountOfCoin1 = 5;
         int amountOfCoin2 = 13;
@@ -110,19 +110,17 @@ public class StrongboxTest {
         ArrayList<StorableResource> resourceStrongbox = newStrongbox.getAllStoredResources();
         assertTrue(resourceArray.get(0).equals(resourceStrongbox.get(0)));
 
-    }*/
+    }
 
 
     /**
      * Test on "removeResourceFromStrongbox" method
-     * Test if the method decrease the amount of the stored resource correctly
-     * @throws NegativeResourceAmountException -> can be throwed by constructor method of "StorableResource" class
-     * @throws NotEqualResourceTypeException -> can be throwed by "storeResourceInStrongbox" method
-     * @throws NotContainedResourceException -> can be throwed by "storeResourceInStrongbox" method
+     * Test if the method decrease the amount of the stored resource correctly.
+     * @throws Exception -> can be throwed by "storeResourceInStrongbox" method.
      */
-    /*@Test
+    @Test
     void checkRemoveResourceFromStrongboxIfCorrect()
-            throws NegativeResourceAmountException, NotEqualResourceTypeException, NotContainedResourceException {
+            throws Exception {
 
         Strongbox newStrongbox = new Strongbox();
 
@@ -134,19 +132,17 @@ public class StrongboxTest {
         newStrongbox.removeResourceFromStrongbox(resourceCoin2);
 
         assertTrue(newStrongbox.getAllStoredResources().get(0).equals(resourceCoin3));
-    }*/
+    }
 
 
     /**
-     * Test on "removeResourceFromStrongbox" method
-     * Test if the method throws the NotContainedResourceException successfully
-     * @throws NotEqualResourceTypeException -> can be throwed by "decreaseAmount" method
-     * @throws NotContainedResourceException -> can be throwed by "removeResourceFromStrongbox" method
-     * @throws NegativeResourceAmountException -> can be throwed by "decreaseAmount" method
+     * Test on "removeResourceFromStrongbox" method.
+     * Test if the method throws the NotContainedResourceException successfully.
+     * @throws Exception -> can be throwed by "storeResourceInStrongbox" method.
      */
-    /*@Test
+    @Test
     void checkRemoveResourceFromStrongboxIfNotStored()
-            throws NotEqualResourceTypeException, NotContainedResourceException, NegativeResourceAmountException {
+            throws Exception {
         Strongbox newStrongbox = new Strongbox();
 
         StorableResource resourceStone = new StorableResource(ResourceType.STONE, 15);
@@ -159,8 +155,12 @@ public class StrongboxTest {
             newStrongbox.removeResourceFromStrongbox(resourceShield);
             fail();
         }catch (NotContainedResourceException e){
-            assertTrue(resourceArray.equals(newStrongbox.getAllStoredResources()));
+            for(int i = 0; i < newStrongbox.getAllStoredResources().size() && i < resourceArray.size(); i++){
+                if(!(newStrongbox.getAllStoredResources().get(i).equals(resourceArray.get(i)))){
+                    fail();
+                }
+            }
         }
-    }*/
+    }
 
 }
