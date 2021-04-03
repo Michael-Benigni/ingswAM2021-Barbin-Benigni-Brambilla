@@ -72,4 +72,22 @@ public class DevelopmentCard extends GeneralDevelopmentCard{
     boolean isEqual(DevelopmentCard cardToCompare) {
         return this.getCardColour() == cardToCompare.getCardColour() && this.getCardLevel() == cardToCompare.getCardLevel() && this.cost.equals(cardToCompare.getCost()) && this.consumedResources.equals(cardToCompare.getConsumedResources()) && this.producedResources.equals(cardToCompare.getProducedResources());
     }
+
+    public boolean isTheLevelRight(DevelopmentCard card) {
+        if(this.getCardLevel().ordinal() == card.getCardLevel().ordinal() + 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean isTheLevelRight() {
+        if(this.getCardLevel().ordinal() == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
