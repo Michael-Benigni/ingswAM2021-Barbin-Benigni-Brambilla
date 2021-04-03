@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.personalboard;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.model.gameresources.ResourceType;
-import it.polimi.ingsw.model.personalboard.StorableResource;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
