@@ -101,8 +101,7 @@ public class WarehouseDepots {
      * @param depotIndex -> integer useful to recognize the right depot.
      * @throws Exception -> can be thrown by "removeResourceFromDepot" method of "Depot" class.
      */
-    void removeResourceFromWarehouse(StorableResource resourceToRemove, int depotIndex)
-            throws Exception {
+    void removeResourceFromWarehouse(StorableResource resourceToRemove, int depotIndex) throws Exception {
 
         Depot currentDepot;
         if(ifDepotIndexIsCorrect(depotIndex)) {
@@ -121,14 +120,11 @@ public class WarehouseDepots {
     void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
 
         Depot temporaryDepot;
-        if(depotIndex1 < 1 || depotIndex2 < 1)
+        if(ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2))
         {
-            throw new WrongDepotIndexException();
-        }
-        else{
-            temporaryDepot = listDepot.get(depotIndex1 - 1);
-            listDepot.set(depotIndex1 - 1, listDepot.get(depotIndex2 - 1));
-            listDepot.set(depotIndex2 - 1, temporaryDepot);
+            temporaryDepot = listDepot.get(depotIndex1);
+            listDepot.set(depotIndex1, listDepot.get(depotIndex2));
+            listDepot.set(depotIndex2, temporaryDepot);
         }
     }
 
