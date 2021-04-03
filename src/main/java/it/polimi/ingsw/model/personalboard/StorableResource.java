@@ -47,7 +47,7 @@ public class StorableResource implements Resource {
      * than resource.amount
      * @param resource -> resource to subtract
      */
-    void decreaseAmount(StorableResource resource) throws NotEqualResourceTypeException, NegativeResourceAmountException {
+    void decreaseAmount(StorableResource resource) throws Exception {
 
         if(this.getResourceType() != resource.getResourceType())
             throw new NotEqualResourceTypeException();
@@ -150,7 +150,7 @@ public class StorableResource implements Resource {
     /**
      * Method that return if the resource has the provided resource type.
      * @param resourceType -> resource type to be compared to the resource's type.
-     * @return -> boolean: true if the twotype are equal
+     * @return -> boolean: true if the two types are equal
      */
     boolean resourceTypeEqualTo(ResourceType resourceType){
         return this.getResourceType() == resourceType;

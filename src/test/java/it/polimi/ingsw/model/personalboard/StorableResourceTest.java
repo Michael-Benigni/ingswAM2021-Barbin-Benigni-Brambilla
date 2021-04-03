@@ -96,7 +96,7 @@ public class StorableResourceTest {
      * Test if the method returns exactly the difference between the 2 amounts of resources
      */
     @Test
-    void checkDecreaseAmountIfCorrect() throws NegativeResourceAmountException {
+    void checkDecreaseAmountIfCorrect() throws Exception {
 
         int amountStoredResource = 15;
         StorableResource storedResource = new StorableResource(ResourceType.COIN, amountStoredResource);
@@ -122,7 +122,7 @@ public class StorableResourceTest {
      * Test if the method throws the NotEqualResourceTypeException successfully
      */
     @Test
-    void checkDecreaseAmountIfDifferentResourceType() throws NegativeResourceAmountException {
+    void checkDecreaseAmountIfDifferentResourceType() throws Exception {
 
         int amountStoredResource = 7;
         StorableResource storedResource = new StorableResource(ResourceType.SHIELD, amountStoredResource);
@@ -149,7 +149,7 @@ public class StorableResourceTest {
      * Test if the method throws the NegativeResourceAmountException successfully
      */
     @Test
-    void checkDecreaseAmountIfNegativeResourceAmount() throws NegativeResourceAmountException {
+    void checkDecreaseAmountIfNegativeResourceAmount() throws Exception {
 
         int amountStoredResource = 10;
         StorableResource storedResource = new StorableResource(ResourceType.COIN, amountStoredResource);

@@ -41,8 +41,8 @@ public class Strongbox {
      * @param storableResource -> resource that i want to compare
      * @return -> return a boolean that represents if the resource is already contained
      */
-    private boolean ifAlreadyContained(StorableResource storableResource)
-    {
+    private boolean ifAlreadyContained(StorableResource storableResource) {
+
         for(StorableResource s : this.resourceContained)
             if(s.ifSameResourceType(storableResource))
                 return true;
@@ -58,6 +58,7 @@ public class Strongbox {
      * same type of the one provided.
      */
     private StorableResource searchResourceInStrongbox(StorableResource storableResource) throws NotContainedResourceException {
+
         int pos;
         for(StorableResource s : this.resourceContained)
             if(s.ifSameResourceType(storableResource))
@@ -75,8 +76,7 @@ public class Strongbox {
      * @param storableResource -> resource to store in the strongbox
      * @throws NotEqualResourceTypeException -> can be throwed by "increaseAmount" method
      */
-    void storeResourceInStrongbox(StorableResource storableResource)
-            throws Exception {
+    void storeResourceInStrongbox(StorableResource storableResource) throws Exception {
 
         if(ifAlreadyContained(storableResource)) {
             searchResourceInStrongbox(storableResource).increaseAmount(storableResource);
@@ -94,6 +94,7 @@ public class Strongbox {
      * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
      */
     ArrayList<StorableResource> getAllStoredResources() throws NegativeResourceAmountException {
+
         ArrayList<StorableResource> copyList = new ArrayList<>(0);
         for(StorableResource r : resourceContained) {
             StorableResource temporaryStorableResource = (StorableResource) r.copyResource();
