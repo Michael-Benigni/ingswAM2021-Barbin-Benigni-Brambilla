@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.cards.Requirements;
 /**
  * this class models the development card only with its colour and level
  */
-public class GeneralDevelopmentCard implements Requirements {
+class GeneralDevelopmentCard implements Requirements {
     private final CardColour cardColour;
     private final CardLevel cardLevel;
 

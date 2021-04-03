@@ -4,7 +4,7 @@ package it.polimi.ingsw.model.personalboard;
 /**
  * Class that represents all resources which can be stocked inside Depots and Strongbox
  */
-public enum ResourceType {
+enum ResourceType {
 
     COIN("coin"), SERVANT("servant"), SHIELD("shield"), STONE("stone");
 
