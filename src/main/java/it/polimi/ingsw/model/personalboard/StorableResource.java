@@ -19,7 +19,7 @@ public class StorableResource implements Resource {
      * @param resourceType -> What kind of resource
      * @param amount -> How many copies of that resource: need to be greater or equal than "0"
      */
-    public StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
+    StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
         if(amount < 0)
             throw new NegativeResourceAmountException();
         else

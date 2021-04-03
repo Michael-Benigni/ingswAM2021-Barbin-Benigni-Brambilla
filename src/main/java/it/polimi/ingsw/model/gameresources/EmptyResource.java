@@ -10,7 +10,7 @@ class EmptyResource implements Resource {
     /**
      * Constructor method of EmptyResource class
      */
-    public EmptyResource() {
+    EmptyResource() {
     }
 
 

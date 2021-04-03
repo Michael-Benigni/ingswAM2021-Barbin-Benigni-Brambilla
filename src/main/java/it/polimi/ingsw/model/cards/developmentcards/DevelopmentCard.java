@@ -21,7 +21,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard{
      * @param consumedResources -> attribute that indicates the resources that the player has to spend to star the production power
      * @param producedResources -> attribute that indicates the earned resources after the activation of the production power
      */
-    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Resource> producedResources) {
+    DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Resource> producedResources) {
         super(cardColour, cardLevel);
         this.cost = cost;
         this.consumedResources = consumedResources;
