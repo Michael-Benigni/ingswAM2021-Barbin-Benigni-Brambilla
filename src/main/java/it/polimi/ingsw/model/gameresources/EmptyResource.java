@@ -5,7 +5,7 @@ import it.polimi.ingsw.exception.NegativeResourceAmountException;
 /**
  * This class represents the resource contained into a white marble
  */
-public class EmptyResource implements Resource {
+class EmptyResource implements Resource {
 
     /**
      * Constructor method of EmptyResource class

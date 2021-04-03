@@ -29,7 +29,7 @@ public class Strongbox {
      * Method that checks if the array "ResourceContained" is empty.
      * @return -> boolean: true if the array is null, false otherwise.
      */
-    boolean ifEmptyStrongbox()
+    private boolean ifEmptyStrongbox()
     {
         return resourceContained.isEmpty();
     }
@@ -90,7 +90,7 @@ public class Strongbox {
      * Method that return a copy of the entire array of resources that are contained into the strongbox
      * @return -> the copy of the array.
      */
-    ArrayList<StorableResource> getAllStoredResources()
+    private ArrayList<StorableResource> getAllStoredResources()
     {
         return resourceContained;
     }

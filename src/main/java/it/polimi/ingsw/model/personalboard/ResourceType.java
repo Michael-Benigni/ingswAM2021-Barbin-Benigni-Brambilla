@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gameresources;
+package it.polimi.ingsw.model.personalboard;
 
 
 /**

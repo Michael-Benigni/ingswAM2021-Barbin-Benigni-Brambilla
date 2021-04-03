@@ -6,7 +6,7 @@ import it.polimi.ingsw.exception.NegativeResourceAmountException;
 /**
  * Class that represents a group of faith points, can be also "0", but not negative
  */
-public class FaithPoint implements Resource{
+class FaithPoint implements Resource{
 
     private int points;
 

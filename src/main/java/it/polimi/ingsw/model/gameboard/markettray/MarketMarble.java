@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.gameresources.Resource;
 /**
  * class that models the fishable marbles from the market tray
  */
-public class MarketMarble {
+class MarketMarble {
 
     private final MarbleColour colour;
     private final Resource resource;

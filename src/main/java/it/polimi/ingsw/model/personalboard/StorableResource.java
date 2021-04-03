@@ -3,8 +3,6 @@ package it.polimi.ingsw.model.personalboard;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.model.gameresources.Resource;
-import it.polimi.ingsw.model.gameresources.ResourceType;
-
 
 /**
  * Class that represents 1 between 4 different type of resources, and also the quantity of that resource
