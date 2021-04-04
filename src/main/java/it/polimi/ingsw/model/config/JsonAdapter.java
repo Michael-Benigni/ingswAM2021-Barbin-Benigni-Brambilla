@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gameresources;
+package it.polimi.ingsw.model.config;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;

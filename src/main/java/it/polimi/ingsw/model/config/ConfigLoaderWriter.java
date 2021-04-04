@@ -5,7 +5,7 @@ import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.exception.NoPathFoundException;
 import it.polimi.ingsw.model.gameboard.markettray.MarketMarble;
 import it.polimi.ingsw.model.gameresources.Resource;
-import it.polimi.ingsw.model.gameresources.JsonAdapter;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
