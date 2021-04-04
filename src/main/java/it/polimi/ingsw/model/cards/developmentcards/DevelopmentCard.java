@@ -56,23 +56,35 @@ public class DevelopmentCard extends GeneralDevelopmentCard{
     }
 
     /**
-     * this method provides a copy of the development card
-     * @return the created copy
+     * redefinition of the Object class method equals
+     * @param card -> card we want to compare
+     * @return true if the two cards are equal
      */
-    DevelopmentCard createCopy() {
+    @Override
+    public boolean equals(Object card) {
+        if(this.getCardLevel().compareTo(((DevelopmentCard)card).getCardLevel()) == 0 && this.getCardColour().compareTo(((DevelopmentCard)card).getCardColour()) == 0 && this.cost.equals(((DevelopmentCard) card).cost) && this.consumedResources.equals(((DevelopmentCard) card).consumedResources) && this.producedResources.equals(((DevelopmentCard) card).producedResources)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * redefinition of the Object class method clone
+     * @return an object that is che created copy of the caller object
+     */
+    @Override
+    public Object clone() {
         DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), this.getCost(), this.getConsumedResources(), this.getProducedResources());
         return copy;
     }
 
     /**
-     * this is a method that compares this development card with another one
-     * @param cardToCompare -> the card we want to compare
-     * @return true if the two cards are equal
+     * method that verify if the level of the caller card is higher by one than the card passed in parameters
+     * @param card
+     * @return true if the condition specified is verified
      */
-    boolean isEqual(DevelopmentCard cardToCompare) {
-        return this.getCardColour() == cardToCompare.getCardColour() && this.getCardLevel() == cardToCompare.getCardLevel() && this.cost.equals(cardToCompare.getCost()) && this.consumedResources.equals(cardToCompare.getConsumedResources()) && this.producedResources.equals(cardToCompare.getProducedResources());
-    }
-
     public boolean isTheLevelRight(DevelopmentCard card) {
         if(this.getCardLevel().ordinal() == card.getCardLevel().ordinal() + 1) {
             return true;
@@ -82,6 +94,10 @@ public class DevelopmentCard extends GeneralDevelopmentCard{
         }
     }
 
+    /**
+     * method that verify if the level of the caller card is the first
+     * @return true if the level of the caller card is the first
+     */
     public boolean isTheLevelRight() {
         if(this.getCardLevel().ordinal() == 1) {
             return true;
