@@ -1,0 +1,32 @@
+{
+  "cost": [
+    {
+      "amount": 1,
+      "resourceType": "SERVANT"
+    },
+    {
+      "amount": 1,
+      "resourceType": "SHIELD"
+    }
+  ],
+  "consumedResources": [
+    {
+      "amount": 1,
+      "resourceType": "COIN"
+    }
+  ],
+  "producedResources": [
+    {
+      "amount": 1,
+      "resourceType": "SHIELD",
+      "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+    },
+    {
+      "amount": 1,
+      "resourceType": "SERVANT",
+      "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+    }
+  ],
+  "cardColour": "YELLOW",
+  "cardLevel": "ONE"
+}
