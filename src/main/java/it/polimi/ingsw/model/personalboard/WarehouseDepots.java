@@ -25,6 +25,19 @@ public class WarehouseDepots {
         listDepot.add(temporaryDepot2);
     }
 
+    //The method above is used temporarily for testing waiting for the parser. The method below will be the real method.
+
+    /*
+    WarehouseDepots(){
+        //read from Json file: numDepots.
+        listDepot = new ArrayList<>(0);
+        for(int i = 0; i < numDepots; i++){
+            //read from Json file the capacity of the i-th depot: depotCapacity.
+            Depot temporaryDepot = new Depot(depotCapaity);
+            listDepot.add(temporaryDepot);
+        }
+    }*/
+
 
     /**
      * Method that checks if this warehouse is empty.
