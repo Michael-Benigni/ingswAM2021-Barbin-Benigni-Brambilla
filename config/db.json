@@ -1,0 +1,2375 @@
+{
+  "MarketTray": {
+    "rows": 3,
+    "columns": 4,
+    "typesOfMarbles": [
+      {
+        "colour": "WHITE",
+        "resource": {
+          "className": "it.polimi.ingsw.model.personalboard.EmptyResource"
+        }
+      },
+      {
+        "colour": "GREY",
+        "resource": {
+          "amount": 1,
+          "resourceType": "STONE",
+          "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+        }
+      },
+      {
+        "colour": "PURPLE",
+        "resource": {
+          "amount": 1,
+          "resourceType": "SERVANT",
+          "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+        }
+      },
+      {
+        "colour": "YELLOW",
+        "resource": {
+          "amount": 1,
+          "resourceType": "COIN",
+          "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+        }
+      },
+      {
+        "colour": "BLUE",
+        "resource": {
+          "amount": 1,
+          "resourceType": "SHIELD",
+          "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+        }
+      },
+      {
+        "colour": "RED",
+        "resource": {
+          "points": 1,
+          "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+        }
+      }
+    ],
+    "howManyMarbleOfThisColour": {
+      "RED": 1,
+      "GREY": 2,
+      "BLUE": 2,
+      "YELLOW": 2,
+      "WHITE": 4,
+      "PURPLE": 2
+    }
+  },
+  "SlotDevelopmentCards": {
+
+  },
+  "WarehouseDepots": {
+
+  },
+  "CardsGrid": {
+    "cardsList": [
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      },
+      {
+        "cost": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "consumedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN"
+          }
+        ],
+        "producedResources": [
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          },
+          {
+            "points": 1,
+            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
+          },
+          {
+            "amount": 2,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+          }
+        ],
+        "cardColour": "BLUE",
+        "cardLevel": "ONE"
+      }
+    ]
+  }
+}
