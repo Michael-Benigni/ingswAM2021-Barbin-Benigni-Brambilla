@@ -39,17 +39,12 @@ public class SlotDevelopmentCards {
      * @return an array list of DevelopmentCard
      */
     ArrayList <DevelopmentCard> getAllCards() throws EmptySlotException {
-        try {
-            ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
-            listOfAllCards.add(this.getTopCard());
-            for (int i = listOfDevelopmentCards.size() - 2; i > 0; i--) {
-                listOfAllCards.add((DevelopmentCard) listOfDevelopmentCards.get(i).clone());
-            }
-            return listOfAllCards;
+        ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
+        listOfAllCards.add(this.getTopCard());
+        for (int i = listOfDevelopmentCards.size() - 2; i > 0; i--) {
+            listOfAllCards.add((DevelopmentCard) listOfDevelopmentCards.get(i).clone());
         }
-        catch (EmptySlotException exc){
-            throw new EmptySlotException();
-        }
+        return listOfAllCards;
     }
 
     /**
