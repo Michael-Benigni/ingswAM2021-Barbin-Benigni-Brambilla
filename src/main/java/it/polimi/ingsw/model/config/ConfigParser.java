@@ -18,6 +18,6 @@ class ConfigParser {
     }
 
     static void setSeparator(char sep) {
-
+        SEPARATOR = String.valueOf(sep);
     }
 }
