@@ -53,6 +53,14 @@ public class ConfigLoaderWriter {
         return gson.fromJson(attributeAsJsonObject, attributeTofill.getClass());
     }
 
+    static Object getAttribute(Object attributeTofill, String attributeName, Class ownerOfAttribute, String filePath) throws FileNotFoundException {
+        JsonObject DBAsJsonObject = getFileAsJsonElement(filePath).getAsJsonObject();
+        JsonObject classParameters = DBAsJsonObject.get(ownerOfAttribute.getSimpleName()).getAsJsonObject();
+        JsonElement attributeAsJsonObject = classParameters.get(attributeName);
+        Gson gson = initGson();
+        return gson.fromJson(attributeAsJsonObject, attributeTofill.getClass());
+    }
+
     /**
      * This method save a java Object as a Json file
      * @param pathFile path of the file for saving the object
