@@ -48,6 +48,7 @@ class SlotDevelopmentCardsTest {
         }
     }
 
+    //TODO: missing test for the exception SlotDevelopmentCardsIsFullException in method placeOnTop
     //TODO: the tests below don't work because we can't build the development card entity
     /*
     @Test

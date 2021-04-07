@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.personalboard;
 
 import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
 import it.polimi.ingsw.exception.EmptySlotException;
+import it.polimi.ingsw.exception.SlotDevelopmentCardsIsFullException;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 
 import java.util.ArrayList;
@@ -10,7 +11,10 @@ import java.util.ArrayList;
  * this class models a single slot where the player can place his development cards
  */
 public class SlotDevelopmentCards {
+    private int maxNumberOfCardsInSlot;
     private ArrayList <DevelopmentCard> listOfDevelopmentCards;
+
+    //TODO: missing parameter maxNumberOfCardsInSlot in constructor method
 
     /**
      * constructor of the class SlotDevelopmentCards
@@ -53,22 +57,27 @@ public class SlotDevelopmentCards {
      * @throws Exception ->  EmptySlotException, DevelopmentCardNotAddableException
      */
     void placeOnTop (DevelopmentCard cardToAdd) throws Exception {
-        try {
-            DevelopmentCard card = getTopCard();
-            if(cardToAdd.isTheLevelRight(card)) {
-                this.listOfDevelopmentCards.add(cardToAdd);
+        if(listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
+            try {
+                DevelopmentCard card = getTopCard();
+                if(cardToAdd.isTheLevelRight(card)) {
+                    this.listOfDevelopmentCards.add(cardToAdd);
+                }
+                else {
+                    throw new DevelopmentCardNotAddableException();
+                }
             }
-            else {
-                throw new DevelopmentCardNotAddableException();
+            catch (EmptySlotException exc) {
+                if(cardToAdd.isTheLevelRight()) {
+                    this.listOfDevelopmentCards.add(cardToAdd);
+                }
+                else {
+                    throw new DevelopmentCardNotAddableException();
+                }
             }
         }
-        catch (EmptySlotException exc) {
-            if(cardToAdd.isTheLevelRight()) {
-                this.listOfDevelopmentCards.add(cardToAdd);
-            }
-            else {
-                throw new DevelopmentCardNotAddableException();
-            }
+        else {
+            throw new SlotDevelopmentCardsIsFullException();
         }
     }
 }
