@@ -1,12 +1,13 @@
-package it.polimi.ingsw.model.gameresources;
+package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.model.gameresources.Resource;
 
 
 /**
  * Class that represents a group of faith points, can be also "0", but not negative
  */
-class FaithPoint implements Resource{
+class FaithPoint implements Resource {
 
     private int points;
 

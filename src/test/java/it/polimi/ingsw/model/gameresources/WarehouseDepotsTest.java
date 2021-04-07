@@ -1,7 +1,10 @@
-package it.polimi.ingsw.model.personalboard;
+package it.polimi.ingsw.model.gameresources;
 
 
 import it.polimi.ingsw.exception.*;
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
+import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

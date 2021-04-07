@@ -1,6 +1,7 @@
-package it.polimi.ingsw.model.gameboard.markettray;
+package it.polimi.ingsw.model.gameresources.markettray;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.model.gameresources.MarbleColour;
 import it.polimi.ingsw.model.gameresources.Resource;
 
 /**

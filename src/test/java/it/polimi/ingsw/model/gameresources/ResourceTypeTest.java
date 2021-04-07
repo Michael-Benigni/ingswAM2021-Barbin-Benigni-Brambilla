@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.gameresources;
 
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -14,7 +16,7 @@ public class ResourceTypeTest {
      * Test on the constructor method
      * Test if the created object is accordant to the provided parameters
      */
-    /*@Test
+    @Test
     void checkConstructorIfCorrect()
     {
         ResourceType resourceType = ResourceType.STONE;
@@ -22,6 +24,6 @@ public class ResourceTypeTest {
         assertNotSame(resourceType, ResourceType.COIN);
         assertNotSame(resourceType, ResourceType.SERVANT);
         assertNotSame(resourceType, ResourceType.SHIELD);
-    }*/
+    }
 
 }

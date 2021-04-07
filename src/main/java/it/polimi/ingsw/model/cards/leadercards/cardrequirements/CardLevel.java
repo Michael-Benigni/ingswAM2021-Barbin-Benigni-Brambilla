@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.cards.developmentcards;
+package it.polimi.ingsw.model.cards.leadercards.cardrequirements;
 
 /**
  * enumeration of the levels that the development card can take on

@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.cards.developmentcards;
+package it.polimi.ingsw.model.cards.leadercards.cardrequirements;
 
-import it.polimi.ingsw.model.cards.Requirements;
+import it.polimi.ingsw.model.cards.leadercards.Requirements;
 
 /**
  * this class models the development card only with its colour and level

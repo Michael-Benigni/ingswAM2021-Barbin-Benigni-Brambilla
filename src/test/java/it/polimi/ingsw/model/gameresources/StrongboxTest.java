@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model.personalboard;
+package it.polimi.ingsw.model.gameresources;
 
 import it.polimi.ingsw.exception.NotContainedResourceException;
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
+import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

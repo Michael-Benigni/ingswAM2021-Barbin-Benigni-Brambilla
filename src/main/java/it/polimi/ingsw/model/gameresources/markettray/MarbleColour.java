@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gameboard.markettray;
+package it.polimi.ingsw.model.gameresources.markettray;
 
 /**
  * enumeration of the colours that the marbles can take on

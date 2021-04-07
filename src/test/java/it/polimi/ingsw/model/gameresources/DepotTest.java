@@ -1,7 +1,10 @@
-package it.polimi.ingsw.model.personalboard;
+package it.polimi.ingsw.model.gameresources;
 
 import it.polimi.ingsw.exception.DifferentResourceTypeInDepotException;
 import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
+import it.polimi.ingsw.model.gameresources.stores.Depot;
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

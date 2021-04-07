@@ -1,6 +1,7 @@
-package it.polimi.ingsw.model.gameresources;
+package it.polimi.ingsw.model.gameresources.markettray;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.model.gameresources.Resource;
 
 /**
  * This class represents the resource contained into a white marble

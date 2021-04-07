@@ -3,14 +3,7 @@ package it.polimi.ingsw.model.config;
 //import it.polimi.ingsw.model.cards.developmentcards.CardColour;
 //import it.polimi.ingsw.model.cards.developmentcards.CardLevel;
 //import it.polimi.ingsw.model.personalboard.ResourceType;
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
-import it.polimi.ingsw.model.gameresources.Resource;
-import it.polimi.ingsw.model.personalboard.StorableResource;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.io.IOException;
-import java.util.ArrayList;
 
 class ConfigLoaderWriterTest {
     /*@Test

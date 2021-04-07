@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.personalboard;
+package it.polimi.ingsw.model.gameresources.stores;
 
 
 import it.polimi.ingsw.exception.DifferentResourceTypeInDepotException;

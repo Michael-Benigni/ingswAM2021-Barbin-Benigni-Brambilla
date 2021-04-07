@@ -1,13 +1,6 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.model.gameresources.Resource;
-import it.polimi.ingsw.model.personalboard.StorableResource;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * test class of the DevelopmentCard class

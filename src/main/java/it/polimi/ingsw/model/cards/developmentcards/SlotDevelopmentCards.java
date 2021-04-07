@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.personalboard;
+package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
 import it.polimi.ingsw.exception.EmptySlotException;

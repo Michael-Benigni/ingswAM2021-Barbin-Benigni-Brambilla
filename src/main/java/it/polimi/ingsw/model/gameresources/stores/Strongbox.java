@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.personalboard;
+package it.polimi.ingsw.model.gameresources.stores;
 
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
@@ -20,7 +20,7 @@ public class Strongbox {
      * This method use the constructor method of ArrayList with a parameter "initialCapacity" = 0; so it will create an
      * empty array which first element is "EMPTY_ELEMENTDATA".
      */
-    Strongbox() {
+    public Strongbox() {
         this.resourceContained = new ArrayList<>(0);
     }
 

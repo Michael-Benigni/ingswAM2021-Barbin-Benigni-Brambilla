@@ -1,15 +1,14 @@
-package it.polimi.ingsw.model.personalboard;
+package it.polimi.ingsw.model.gameresources;
 
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
+import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 //unused import
-import it.polimi.ingsw.model.gameresources.Resource;
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
+
 
 /**
  * this is the test class for SlotDevelopmentCards

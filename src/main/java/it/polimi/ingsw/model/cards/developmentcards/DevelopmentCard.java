@@ -1,14 +1,17 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
+import it.polimi.ingsw.model.cards.leadercards.CardColour;
+import it.polimi.ingsw.model.cards.leadercards.CardLevel;
+import it.polimi.ingsw.model.cards.leadercards.GeneralDevelopmentCard;
 import it.polimi.ingsw.model.gameresources.Resource;
-import it.polimi.ingsw.model.personalboard.StorableResource;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 
 import java.util.ArrayList;
 
 /**
  * this class models the development card with all its attributes like the price, the production power, etc.
  */
-public class DevelopmentCard extends GeneralDevelopmentCard{
+public class DevelopmentCard extends GeneralDevelopmentCard {
     private final ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Resource> producedResources;
@@ -85,7 +88,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard{
      * @param card
      * @return true if the condition specified is verified
      */
-    public boolean isTheLevelRight(DevelopmentCard card) {
+    boolean isTheLevelRight(DevelopmentCard card) {
         if(this.getCardLevel().ordinal() == card.getCardLevel().ordinal() + 1) {
             return true;
         }
@@ -98,7 +101,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard{
      * method that verify if the level of the caller card is the first
      * @return true if the level of the caller card is the first
      */
-    public boolean isTheLevelRight() {
+    boolean isTheLevelRight() {
         if(this.getCardLevel().ordinal() == 1) {
             return true;
         }
