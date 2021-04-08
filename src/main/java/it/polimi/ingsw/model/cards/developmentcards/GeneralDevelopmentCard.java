@@ -34,4 +34,32 @@ class GeneralDevelopmentCard implements Requirements {
     protected CardLevel getCardLevel() {
         return cardLevel;
     }
+
+    /**
+     * this method return true if the two compared cards have the same level
+     * @param cardToCompare
+     * @return
+     */
+    boolean hasSameLevel(DevelopmentCard cardToCompare) {
+        if(this.cardLevel.compareTo(cardToCompare.getCardLevel()) == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * this method return true if the two compared cards have the same colour
+     * @param cardToCompare
+     * @return
+     */
+    boolean hasSameColour(DevelopmentCard cardToCompare) {
+        if(this.cardColour.compareTo(cardToCompare.getCardColour()) == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
