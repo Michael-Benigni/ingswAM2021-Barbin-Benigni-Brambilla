@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.config;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import it.polimi.ingsw.model.gameresources.Resource;
+import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gameresources.faithtrack.Section;
+import it.polimi.ingsw.model.gameresources.faithtrack.Cell;
 import java.io.*;
 
 //TODO: check doc
@@ -37,6 +39,8 @@ public class ConfigLoaderWriter {
      */
     private static void registerAllTypeAdapters(GsonBuilder gsonBuilder) {
         gsonBuilder.registerTypeAdapter(Resource.class, new JsonAdapter<Resource>());
+        gsonBuilder.registerTypeAdapter(Cell.class, new JsonAdapter<Cell>());
+        gsonBuilder.registerTypeAdapter(Section.class, new JsonAdapter<Section>());
     }
 
     private static JsonElement getFileAsJsonElement (String filePath) throws FileNotFoundException {

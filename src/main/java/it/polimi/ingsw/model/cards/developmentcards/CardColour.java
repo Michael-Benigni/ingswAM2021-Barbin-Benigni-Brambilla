@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.cards.leadercards.cardrequirements;
+package it.polimi.ingsw.model.cards.developmentcards;
 
 /**
  * enumeration of the colours that the development card can take on

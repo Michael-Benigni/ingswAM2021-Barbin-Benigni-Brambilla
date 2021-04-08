@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.cards.leadercards.cardrequirements;
+package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.model.cards.leadercards.Requirements;
 

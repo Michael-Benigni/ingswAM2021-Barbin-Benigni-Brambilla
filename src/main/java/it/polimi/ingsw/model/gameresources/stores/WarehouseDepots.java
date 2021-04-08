@@ -43,7 +43,7 @@ public class WarehouseDepots {
      * Method that checks if this warehouse is empty.
      * @return -> boolean: true if all depots are empty, otherwise false.
      */
-    boolean ifWarehouseIsEmpty(){
+    private boolean ifWarehouseIsEmpty(){
         for(Depot d : listDepot){
             if(! d.ifDepotIsEmpty())
                 return false;
@@ -130,7 +130,7 @@ public class WarehouseDepots {
      * @param depotIndex2 -> index of the second depot.
      * @throws WrongDepotIndexException -> exception thrown if one of the provided integers is less than 1.
      */
-    void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
+    private void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
 
         Depot temporaryDepot;
         if(ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2))

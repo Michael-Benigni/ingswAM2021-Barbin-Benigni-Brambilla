@@ -10,7 +10,7 @@ import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
  * Class which represents a single depot of the warehouse depots.
  * of storable Resources.
  */
-public class Depot {
+class Depot {
 
     private StorableResource storedResource;
     private final int capacity;
@@ -101,7 +101,7 @@ public class Depot {
      * @return -> the stored resource casted to a "StorableResource" object.
      * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
      */
-    StorableResource getStoredResource() throws NegativeResourceAmountException {
+    StorableResource getStoredResource() throws NegativeResourceAmountException, CloneNotSupportedException {
         if(this.ifDepotIsEmpty()) {
             return null;
         } else{

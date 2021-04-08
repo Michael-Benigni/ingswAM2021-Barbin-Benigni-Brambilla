@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.model.gameresources.Resource;
+import it.polimi.ingsw.model.gameresources.markettray.Resource;
 
 
 /**
@@ -42,8 +42,7 @@ class FaithPoint implements Resource {
      * @throws NegativeResourceAmountException
      */
     @Override
-    public Resource copyResource() throws NegativeResourceAmountException {
-        FaithPoint copy = new FaithPoint(this.points);
-        return copy;
+    public Resource copyResource() throws CloneNotSupportedException {
+        return (FaithPoint) this.clone();
     }
 }

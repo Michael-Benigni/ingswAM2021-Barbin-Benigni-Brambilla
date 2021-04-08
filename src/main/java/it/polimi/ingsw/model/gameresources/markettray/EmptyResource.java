@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.gameresources.markettray;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.model.gameresources.Resource;
 
 /**
  * This class represents the resource contained into a white marble
  */
-class EmptyResource implements Resource {
+class EmptyResource extends Resource {
 
     /**
      * Constructor method of EmptyResource class
@@ -29,8 +28,7 @@ class EmptyResource implements Resource {
      * @throws NegativeResourceAmountException
      */
     @Override
-    public Resource copyResource() throws NegativeResourceAmountException {
-        EmptyResource copy = new EmptyResource();
-        return copy;
+    public Resource copyResource() throws CloneNotSupportedException {
+        return (EmptyResource) this.clone();
     }
 }

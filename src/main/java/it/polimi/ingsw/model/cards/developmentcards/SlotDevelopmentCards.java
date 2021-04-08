@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.SlotDevelopmentCardsIsFullException;
-import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 
 import java.util.ArrayList;
 
@@ -32,9 +31,7 @@ public class SlotDevelopmentCards {
             DevelopmentCard topCard = (DevelopmentCard) listOfDevelopmentCards.get((listOfDevelopmentCards.size() - 1)).clone();
             return topCard; //the first position in the list is occupied by the last added development card
         }
-        else {
-            throw new EmptySlotException();
-        }
+        throw new EmptySlotException();
     }
 
     /**
@@ -57,26 +54,19 @@ public class SlotDevelopmentCards {
      * @throws Exception ->  EmptySlotException, DevelopmentCardNotAddableException
      */
     void placeOnTop (DevelopmentCard cardToAdd) throws Exception {
-        if(listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
+        if (listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
             try {
                 DevelopmentCard card = getTopCard();
-                if(cardToAdd.isTheLevelRight(card)) {
+                if (cardToAdd.isTheLevelRight(card)) {
                     this.listOfDevelopmentCards.add(cardToAdd);
+                    return;
                 }
-                else {
-                    throw new DevelopmentCardNotAddableException();
+            } catch (EmptySlotException exc) {
+                if (cardToAdd.isFirst()) {
+                    this.listOfDevelopmentCards.add(cardToAdd);
+                    return;
                 }
             }
-            catch (EmptySlotException exc) {
-                if(cardToAdd.isTheLevelRight()) {
-                    this.listOfDevelopmentCards.add(cardToAdd);
-                }
-                else {
-                    throw new DevelopmentCardNotAddableException();
-                }
-            }
-        }
-        else {
             throw new SlotDevelopmentCardsIsFullException();
         }
     }

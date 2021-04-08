@@ -2,12 +2,12 @@ package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.model.gameresources.Resource;
+import it.polimi.ingsw.model.gameresources.markettray.Resource;
 
 /**
  * Class that represents 1 between 4 different type of resources, and also the quantity of that resource
  */
-public class StorableResource implements Resource {
+public class StorableResource extends Resource {
 
 
     private int amount;
@@ -86,7 +86,7 @@ public class StorableResource implements Resource {
      * Method inherited by the interface "Resource"
      */
     @Override
-    public void activate() {
+    protected void activate() {
     //TODO: what kind of action need to be executed by the activation of stockResource ??
     }
 
@@ -97,9 +97,8 @@ public class StorableResource implements Resource {
      * @throws NegativeResourceAmountException -> can be throwed by the constructor method if StorableResource class
      */
     @Override
-    public Resource copyResource() throws NegativeResourceAmountException {
-        StorableResource copy = new StorableResource(this.resourceType, this.amount);
-        return copy;
+    protected Resource copyResource() throws CloneNotSupportedException {
+        return (StorableResource) this.clone();
     }
 
 
@@ -109,7 +108,7 @@ public class StorableResource implements Resource {
      * @param resourceToCompare -> second resource to compare
      * @return -> boolean that represents if the two objects share the resourceType
      */
-    boolean ifSameResourceType(StorableResource resourceToCompare)
+    private boolean ifSameResourceType(StorableResource resourceToCompare)
     {
         return this.resourceType.equals(resourceToCompare.resourceType);
     }
@@ -120,7 +119,7 @@ public class StorableResource implements Resource {
      * @param resourceToCompare -> resource to be compared to this
      * @return -> boolean: true if equal
      */
-    boolean equals(StorableResource resourceToCompare)
+    private boolean equals(StorableResource resourceToCompare)
     {
         return this.getAmount() == resourceToCompare.getAmount() && this.ifSameResourceType(resourceToCompare);
     }
@@ -131,7 +130,7 @@ public class StorableResource implements Resource {
      * @param amountToCompare -> integer to be compare to the resource's amount.
      * @return -> boolean: true if the two amounts are equal.
      */
-    boolean amountEqualTo(int amountToCompare)
+    private boolean amountEqualTo(int amountToCompare)
     {
         return this.getAmount() == amountToCompare;
     }
@@ -142,7 +141,7 @@ public class StorableResource implements Resource {
      * @param amountToCompare -> integer to be compared to the amount of this resource.
      * @return -> boolean: true if this resource has amount less than the one provided.
      */
-    boolean amountLessThan(int amountToCompare){
+    private boolean amountLessThan(int amountToCompare){
         return this.getAmount() < amountToCompare;
     }
 
@@ -152,8 +151,9 @@ public class StorableResource implements Resource {
      * @param resourceType -> resource type to be compared to the resource's type.
      * @return -> boolean: true if the two types are equal
      */
-    boolean resourceTypeEqualTo(ResourceType resourceType){
+    private boolean resourceTypeEqualTo(ResourceType resourceType){
         return this.getResourceType() == resourceType;
     }
 
 }
+
