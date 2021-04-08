@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.gameresources.stores;
 
 
 import it.polimi.ingsw.exception.DifferentResourceTypeInDepotException;
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
 
 
@@ -10,17 +9,18 @@ import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
  * Class which represents a single depot of the warehouse depots.
  * of storable Resources.
  */
-class Depot {
+public class Depot {
 
     private StorableResource storedResource;
     private final int capacity;
 
+    int getCapacity(){ return capacity;}
 
     /**
      * Constructor method of "Depot" class. This method create an empty Arraylist of storable resources and reads
      * the capacity from a json file.
      */
-    Depot(int capacity) {   //TODO: replace with reading by json file.
+    Depot(int capacity) {
         storedResource = null;
         this.capacity = capacity;
     }
@@ -94,56 +94,3 @@ class Depot {
             return temporaryStorableResource;
         else{ throw new ResourceOverflowInDepotException(); }
     }
-
-
-    /**
-     * Method that returns the resource contained in this depot, casting it to a "StorableResource" object.
-     * @return -> the stored resource casted to a "StorableResource" object.
-     * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
-     */
-    StorableResource getStoredResource() throws NegativeResourceAmountException, CloneNotSupportedException {
-        if(this.ifDepotIsEmpty()) {
-            return null;
-        } else{
-            return (StorableResource) storedResource.copyResource();
-        }
-    }
-
-
-    /**
-     * Method that removes resources from this depot if and only if it is not empty and the contained resource has the
-     * same type as the one provided in input.
-     * @param resourceToRemove -> resource to be removed from this depot.
-     * @throws Exception -> thrown if trying to remove a resource of a type other
-     * than the one contained. Can be also thrown by "decreaseAmountInDepot" method.
-     */
-    void removeResourceFromDepot(StorableResource resourceToRemove)
-            throws Exception {
-
-        if(!ifDepotIsEmpty() && ifSameResourceTypeInDepot(resourceToRemove)){
-                storedResource = decreaseAmountInDepot(resourceToRemove);
-            }
-        else{ throw new DifferentResourceTypeInDepotException();}
-    }
-
-
-    /**
-     * Method that creates a copy of the resource contained in this depot. Then it decreases the amount by a value
-     * equals to the amount of the resource provided in input. If the obtained integer is greater than zero, the updated
-     * copy is returned. Otherwise, an object of class "EmptyResource" is created and returned.
-     * @param resourceToSubtract -> resource to be subtracted to the stored resource.
-     * @return -> the updated resource if the amount is greater than zero. Otherwise, an "EmptyResource" is returned.
-     * @throws Exception -> can be thrown by "decreaseAmount" method of "StorableResource" class.
-     */
-    private StorableResource decreaseAmountInDepot(StorableResource resourceToSubtract)
-            throws Exception {
-
-        StorableResource temporaryStorableResource;
-        temporaryStorableResource = storedResource;
-        temporaryStorableResource.decreaseAmount(resourceToSubtract);
-        if(temporaryStorableResource.amountEqualTo(0)){
-            return null;
-        }
-        else{ return temporaryStorableResource;}
-    }
-}

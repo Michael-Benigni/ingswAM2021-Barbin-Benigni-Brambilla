@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gameresources;
+package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.DifferentResourceTypeInDepotException;
 import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
@@ -173,5 +173,6 @@ public class DepotTest {
         }
 
     }
+
 }
 

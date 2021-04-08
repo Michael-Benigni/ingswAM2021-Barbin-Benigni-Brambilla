@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gameresources;
+package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.NotContainedResourceException;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;

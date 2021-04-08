@@ -62,7 +62,18 @@
 
   },
   "WarehouseDepots": {
-
+    "numberOfDepots": 3,
+    "arrayOfCapacity": [
+      {
+        "capacity": 1
+      },
+      {
+        "capacity": 2
+      },
+      {
+        "capacity": 3
+      }
+    ]
   },
   "CardsGrid": {
     "cardsList": [
@@ -2371,5 +2382,9 @@
         "cardLevel": "ONE"
       }
     ]
+  },
+  "PersonalBoard": {
+    "numberOfSlotDevelopmentCards": 3,
+    "numberOfSlotLeaderCards": 2
   }
 }

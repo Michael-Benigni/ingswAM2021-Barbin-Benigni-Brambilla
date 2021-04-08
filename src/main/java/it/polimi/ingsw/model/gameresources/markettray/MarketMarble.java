@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.gameresources.markettray;
 
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
-
 /**
  * class that models the fishable marbles from the market tray
  */
@@ -24,7 +22,7 @@ class MarketMarble {
      * this method creates a copy of the marble's resource
      * @return the created copy to the caller
      */
-    Resource getCorrespondentResource() throws NegativeResourceAmountException {
+    Resource getCorrespondentResource() throws CloneNotSupportedException {
         Resource resourceCopy = resource.copyResource();
         return resourceCopy;
     }

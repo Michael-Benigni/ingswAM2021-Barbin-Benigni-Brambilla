@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.*;
+import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -14,36 +16,28 @@ public class WarehouseDepots {
 
 
     /**
-     * Constructor method of this class.
+     * Constructor method of this class. It reads from the database how many depots are contained and the capacity of each one.
      */
-    WarehouseDepots(int capacityOfDepot1, int capacityOfDepot2) {
-        //TODO: read from json file: how many depots and their capacity. Then create all the depots and put then in the arraylist.
+    public WarehouseDepots() throws FileNotFoundException {
+        Integer numDepots = 0;
+        ConfigLoaderWriter.getAttribute(numDepots, "numberOfDepots" , WarehouseDepots.class);
         listDepot = new ArrayList<>(0);
-        Depot temporaryDepot1 = new Depot(capacityOfDepot1);
-        listDepot.add(temporaryDepot1);
-        Depot temporaryDepot2 = new Depot(capacityOfDepot2);
-        listDepot.add(temporaryDepot2);
-    }
-
-    //The method above is used temporarily for testing waiting for the parser. The method below will be the real method.
-
-    /*
-    WarehouseDepots(){
-        //read from Json file: numDepots.
-        listDepot = new ArrayList<>(0);
+        ArrayList<Integer> arrayCapacity = new ArrayList<>(0);
+        ConfigLoaderWriter.getAttribute(arrayCapacity, "arrayOfCapacity", WarehouseDepots.class);
         for(int i = 0; i < numDepots; i++){
-            //read from Json file the capacity of the i-th depot: depotCapacity.
-            Depot temporaryDepot = new Depot(depotCapaity);
+            Depot temporaryDepot = new Depot(arrayCapacity.get(i));
             listDepot.add(temporaryDepot);
         }
-    }*/
+    }
 
+    Integer getNumberOfDepots(){ return listDepot.size();}
+    int getDepotCapacity(int depotIndex){ return listDepot.get(depotIndex).getCapacity();}
 
     /**
      * Method that checks if this warehouse is empty.
      * @return -> boolean: true if all depots are empty, otherwise false.
      */
-    private boolean ifWarehouseIsEmpty(){
+    boolean ifWarehouseIsEmpty(){
         for(Depot d : listDepot){
             if(! d.ifDepotIsEmpty())
                 return false;
@@ -130,7 +124,7 @@ public class WarehouseDepots {
      * @param depotIndex2 -> index of the second depot.
      * @throws WrongDepotIndexException -> exception thrown if one of the provided integers is less than 1.
      */
-    private void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
+    void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
 
         Depot temporaryDepot;
         if(ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2))

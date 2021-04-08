@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gameresources;
+package it.polimi.ingsw.model.gameresources.stores;
 
 
 import it.polimi.ingsw.exception.*;
@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import org.junit.jupiter.api.Test;
+
+import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,14 +19,19 @@ public class WarehouseDepotsTest {
 
     /**
      * Test on the constructor method.
-     * Tests if the method creates an empty warehouse successfully.
-      */
+     * Tests if the method creates an empty warehouse successfully from the json file in the database
+     */
     @Test
-    void checkConstructorIfCorrect()
-    {
-        WarehouseDepots newWarehouseDepots = new WarehouseDepots(5, 7);
+    void checkConstructorIfCorrect() throws FileNotFoundException {
+        WarehouseDepots newWarehouseDepots = new WarehouseDepots();
         assertTrue(newWarehouseDepots.ifWarehouseIsEmpty());
-    }
+        int numberOfDepots = newWarehouseDepots.getNumberOfDepots();
+        assertTrue(numberOfDepots == 3);
+        for(int i = 0; i < numberOfDepots; i++){
+            int capacity = newWarehouseDepots.getDepotCapacity(i);
+            assertTrue(capacity == (i + 1));
+        }
+    }//Quando hai checkato ricordati di eliminare i seguenti metodi: "getNumberOfDepots" e "getDepotCapacity" da "WarehouseDepots"; "getCapacity" da Depot.
 
 
     /**
