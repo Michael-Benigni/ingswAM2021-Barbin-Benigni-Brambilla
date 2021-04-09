@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 import java.util.ArrayList;
 
 /**
- * Abstract class that represents a section of the faith truck. A section can be a classic one or a vatican report one.
+ * Abstract class that represents a section of the faith track. A section can be a classic one or a vatican report one.
  */
 public abstract class Section {
 
