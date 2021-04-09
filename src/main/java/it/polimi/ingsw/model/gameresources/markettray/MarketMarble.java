@@ -23,7 +23,7 @@ class MarketMarble {
      * @return the created copy to the caller
      */
     Resource getCorrespondentResource() throws CloneNotSupportedException {
-        Resource resourceCopy = resource.copyResource();
+        Resource resourceCopy = resource.clone();
         return resourceCopy;
     }
 

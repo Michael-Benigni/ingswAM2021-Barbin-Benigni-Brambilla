@@ -3,23 +3,31 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.SlotDevelopmentCardsIsFullException;
+import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
  * this class models a single slot where the player can place his development cards
  */
 public class SlotDevelopmentCards {
-    private int maxNumberOfCardsInSlot;
+    private Integer maxNumberOfCardsInSlot;
     private ArrayList <DevelopmentCard> listOfDevelopmentCards;
 
-    //TODO: missing parameter maxNumberOfCardsInSlot in constructor method
 
+    //TODO: missing parameter maxNumberOfCardsInSlot in constructor method
     /**
      * constructor of the class SlotDevelopmentCards
      */
-    SlotDevelopmentCards() {
+    public SlotDevelopmentCards() throws FileNotFoundException {
+        setMaxNumberOfCardsInSlot();
         this.listOfDevelopmentCards = new ArrayList <DevelopmentCard> (0);
+    }
+
+    public void setMaxNumberOfCardsInSlot() throws FileNotFoundException {
+        this.maxNumberOfCardsInSlot = 0;
+        ConfigLoaderWriter.getAttribute(maxNumberOfCardsInSlot, "maxNumberOfCardsInSlot", SlotDevelopmentCards.class);
     }
 
     /**
@@ -53,21 +61,20 @@ public class SlotDevelopmentCards {
      * @param cardToAdd
      * @throws Exception ->  EmptySlotException, DevelopmentCardNotAddableException
      */
-    void placeOnTop (DevelopmentCard cardToAdd) throws Exception {
+    void placeOnTop (DevelopmentCard cardToAdd) throws DevelopmentCardNotAddableException, SlotDevelopmentCardsIsFullException {
         if (listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
+            DevelopmentCard card;
             try {
-                DevelopmentCard card = getTopCard();
-                if (cardToAdd.isTheLevelRight(card)) {
-                    this.listOfDevelopmentCards.add(cardToAdd);
-                    return;
-                }
+                card = getTopCard();
             } catch (EmptySlotException exc) {
-                if (cardToAdd.isFirst()) {
-                    this.listOfDevelopmentCards.add(cardToAdd);
-                    return;
-                }
+                card = null;
             }
-            throw new SlotDevelopmentCardsIsFullException();
+            if (cardToAdd.isOfNextLevel(card)) {
+                this.listOfDevelopmentCards.add(cardToAdd);
+                return;
+            }
+            throw new DevelopmentCardNotAddableException();
         }
+        throw new SlotDevelopmentCardsIsFullException();
     }
 }

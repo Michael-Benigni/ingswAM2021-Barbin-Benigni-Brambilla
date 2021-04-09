@@ -32,7 +32,7 @@ class DevelopmentCard extends GeneralDevelopmentCard {
      * @return the created copy of the cost attribute
      */
     private ArrayList <StorableResource> getCost() {
-        ArrayList <StorableResource> costCopy = new ArrayList <StorableResource> (this.cost);
+        ArrayList <StorableResource> costCopy = new ArrayList <> (this.cost);
         return costCopy;
     }
 
@@ -41,7 +41,7 @@ class DevelopmentCard extends GeneralDevelopmentCard {
      * @return the created copy of the consumed resources attribute
      */
     private ArrayList <StorableResource> getConsumedResources(){
-        ArrayList <StorableResource> consumedResourcesCopy = new ArrayList <StorableResource> (this.consumedResources);
+        ArrayList <StorableResource> consumedResourcesCopy = new ArrayList <> (this.consumedResources);
         return consumedResourcesCopy;
     }
 
@@ -50,7 +50,7 @@ class DevelopmentCard extends GeneralDevelopmentCard {
      * @return the created copy of the produced resources attribute
      */
     private ArrayList <Resource> getProducedResources(){
-        ArrayList <Resource> producedResourcesCopy = new ArrayList <Resource> (this.producedResources);
+        ArrayList <Resource> producedResourcesCopy = new ArrayList <> (this.producedResources);
         return producedResourcesCopy;
     }
 
@@ -74,33 +74,8 @@ class DevelopmentCard extends GeneralDevelopmentCard {
      * @return an object that is che created copy of the caller object
      */
     @Override
-    public Object clone() {
+    protected Object clone() {
         DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), this.getCost(), this.getConsumedResources(), this.getProducedResources());
         return copy;
-    }
-
-    /**
-     * method that verify if the level of the caller card is higher by one than the card passed in parameters
-     * @param card
-     * @return true if the condition specified is verified
-     */
-    boolean isTheLevelRight(DevelopmentCard card) {
-        if(this.getCardLevel().ordinal() == card.getCardLevel().ordinal() + 1) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /**
-     * method that verify if the level of the caller card is the first
-     * @return true if the level of the caller card is the first
-     */
-    boolean isFirst() {
-        if(this.getCardLevel().ordinal() == 1)
-            return true;
-        return false;
-
     }
 }

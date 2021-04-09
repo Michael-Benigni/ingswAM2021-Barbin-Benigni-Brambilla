@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
-
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotContainedResourceException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.exception.NullResourceAmountException;
 
 import java.util.ArrayList;
 
@@ -33,41 +33,7 @@ public class Strongbox {
     {
         return resourceContained.size() == 0;
     }
-    //This method is only used in test class till now 3/4/21.
-
-
-    /**
-     * Method that checks if a resource of the given type already exists in the array
-     * @param storableResource -> resource that i want to compare
-     * @return -> return a boolean that represents if the resource is already contained
-     */
-    private boolean ifAlreadyContained(StorableResource storableResource) {
-
-        for(StorableResource s : this.resourceContained)
-            if(s.ifSameResourceType(storableResource))
-                return true;
-        return false;
-    }
-
-
-    /**
-     * Method that looks at the array and returns the element which have the same Type of the provided resource
-     * @param storableResource -> resource that contained the type of resource i'm looking for
-     * @return -> element of the array which has same resourceType of the provided resource, otherwise returns null
-     * @throws NotContainedResourceException -> thrown if doesn't exist a resource contained in this strongbox with the
-     * same type of the one provided.
-     */
-    private StorableResource searchResourceInStrongbox(StorableResource storableResource) throws NotContainedResourceException {
-
-        int pos;
-        for(StorableResource s : this.resourceContained)
-            if(s.ifSameResourceType(storableResource))
-            {
-                pos = resourceContained.indexOf(s);
-                return resourceContained.get(pos);
-            }
-        throw new NotContainedResourceException();
-    }
+    //TODO: This method is only used in test class till now 3/4/21. Detachable?
 
 
     /**
@@ -77,14 +43,16 @@ public class Strongbox {
      * @throws NotEqualResourceTypeException -> can be throwed by "increaseAmount" method
      */
     void storeResourceInStrongbox(StorableResource storableResource) throws Exception {
-
-        if(ifAlreadyContained(storableResource)) {
-            searchResourceInStrongbox(storableResource).increaseAmount(storableResource);
+        for (int i = 0; i < resourceContained.size(); ) {
+            try {
+                StorableResource increasedResource = this.resourceContained.get(i).increaseAmount(storableResource);
+                this.resourceContained.add(i, increasedResource);
+                return;
+            } catch (NotEqualResourceTypeException e) {
+                i++;
+            }
         }
-        else {
-            resourceContained.add(storableResource);
-        }
-
+        resourceContained.add(storableResource);
     }
 
 
@@ -93,11 +61,10 @@ public class Strongbox {
      * @return -> the array of resources.
      * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
      */
-    ArrayList<StorableResource> getAllStoredResources() throws NegativeResourceAmountException {
-
+    ArrayList<StorableResource> getAllStoredResources() throws NegativeResourceAmountException, CloneNotSupportedException {
         ArrayList<StorableResource> copyList = new ArrayList<>(0);
         for(StorableResource r : resourceContained) {
-            StorableResource temporaryStorableResource = (StorableResource) r.copyResource();
+            StorableResource temporaryStorableResource = (StorableResource) r.clone();
             copyList.add(temporaryStorableResource);
         }
         return copyList;
@@ -111,16 +78,19 @@ public class Strongbox {
      * @throws Exception -> exception thrown if the provided resource is not contained in this strongbox. Can also be
      * thrown by "decreaseAmount" method
      */
-    void removeResourceFromStrongbox(StorableResource storableResource)
-            throws Exception {
-
-        if(ifAlreadyContained(storableResource))
-        {
-            searchResourceInStrongbox(storableResource).decreaseAmount(storableResource);
-            if(searchResourceInStrongbox(storableResource).amountEqualTo(0))
-                resourceContained.remove(searchResourceInStrongbox(storableResource));
+    void removeResourceFromStrongbox(StorableResource storableResource) throws NegativeResourceAmountException, NotContainedResourceException {
+        for (int i = 0; i < resourceContained.size(); ) {
+            try {
+                StorableResource decreasedResource = this.resourceContained.get(i).decreaseAmount(storableResource);
+                this.resourceContained.add(i, decreasedResource);
+                return;
+            } catch (NotEqualResourceTypeException e) {
+                i++;
+            } catch (NullResourceAmountException e) {
+                this.resourceContained.remove(i);
+                return;
+            }
         }
-        else{ throw new NotContainedResourceException();}
-
+        throw new NotContainedResourceException();
     }
 }

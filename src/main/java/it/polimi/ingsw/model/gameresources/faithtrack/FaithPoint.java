@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.gameresources.markettray.Resource;
 /**
  * Class that represents a group of faith points, can be also "0", but not negative
  */
-class FaithPoint implements Resource {
+class FaithPoint extends Resource {
 
     private int points;
 
@@ -42,7 +42,7 @@ class FaithPoint implements Resource {
      * @throws NegativeResourceAmountException
      */
     @Override
-    public Resource copyResource() throws CloneNotSupportedException {
-        return (FaithPoint) this.clone();
+    public Resource clone() throws CloneNotSupportedException {
+        return (FaithPoint) super.clone();
     }
 }

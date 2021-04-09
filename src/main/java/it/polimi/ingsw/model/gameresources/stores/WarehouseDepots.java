@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -10,8 +9,8 @@ import java.util.ArrayList;
  * Class that represents a collection of depots.
  */
 public class WarehouseDepots {
-
-
+    private Integer numberOfDepots;
+    private ArrayList<Integer> capacities;
     private ArrayList<Depot> listDepot;
 
 
@@ -19,30 +18,27 @@ public class WarehouseDepots {
      * Constructor method of this class. It reads from the database how many depots are contained and the capacity of each one.
      */
     public WarehouseDepots() throws FileNotFoundException {
-        Integer numDepots = 0;
-        ConfigLoaderWriter.getAttribute(numDepots, "numberOfDepots" , WarehouseDepots.class);
-        listDepot = new ArrayList<>(0);
-        ArrayList<Integer> arrayCapacity = new ArrayList<>(0);
-        ConfigLoaderWriter.getAttribute(arrayCapacity, "arrayOfCapacity", WarehouseDepots.class);
-        for(int i = 0; i < numDepots; i++){
-            Depot temporaryDepot = new Depot(arrayCapacity.get(i));
-            listDepot.add(temporaryDepot);
-        }
+        setNumberOfDepots();
+        setCapacities();
+        setListDepot();
     }
 
-    Integer getNumberOfDepots(){ return listDepot.size();}
-    int getDepotCapacity(int depotIndex){ return listDepot.get(depotIndex).getCapacity();}
+    private void setNumberOfDepots() throws FileNotFoundException {
+        numberOfDepots = 0;
+        ConfigLoaderWriter.getAttribute(numberOfDepots, "numberOfDepots" , WarehouseDepots.class);
+    }
 
-    /**
-     * Method that checks if this warehouse is empty.
-     * @return -> boolean: true if all depots are empty, otherwise false.
-     */
-    boolean ifWarehouseIsEmpty(){
-        for(Depot d : listDepot){
-            if(! d.ifDepotIsEmpty())
-                return false;
+    private void setCapacities() throws FileNotFoundException {
+        capacities = new ArrayList<>(0);
+        ConfigLoaderWriter.getAttribute(capacities, "capacities", WarehouseDepots.class);
+    }
+
+    private void setListDepot() {
+        listDepot = new ArrayList<>();
+        for (int i = 0; i < numberOfDepots; i++) {
+            Depot depot = new Depot(capacities.get(i));
+            listDepot.add(depot);
         }
-        return true;
     }
 
 
@@ -54,20 +50,14 @@ public class WarehouseDepots {
      * @throws Exception -> exception thrown if there is another depot that contains a resource with the same type of the one
      * provided.
      */
-    private boolean ifNotSameTypeInOtherDepots(StorableResource resourceToCompare, int depotIndex)
-            throws Exception {
-
-        for(Depot d : listDepot){
-            if(listDepot.lastIndexOf(d) != depotIndex){
-                if(!(d.ifDepotIsEmpty())){
-                    if(d.getStoredResource().ifSameResourceType(resourceToCompare)) {
-                        throw new SameResourceTypeInDifferentDepotsException();
-                    }
-                }
-            }
-        }
-        return true;
+    private boolean ifAlreadyContainedInOtherDepots(StorableResource resourceToCompare, int depotIndex) {
+        boolean isContainedInWarehouse = false;
+        for (int i = 0; i < listDepot.size(); i++)
+            if(i != depotIndex)
+                isContainedInWarehouse = isContainedInWarehouse & listDepot.get(i).alreadyContained(resourceToCompare);
+        return isContainedInWarehouse;
     }
+
 
 
     /**
@@ -91,13 +81,12 @@ public class WarehouseDepots {
      * @throws Exception -> thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
      */
     void storeResourceInWarehouse(StorableResource resourceToStore, int depotIndex) throws Exception {
-
-        Depot currentDepot;
-        if(ifDepotIndexIsCorrect(depotIndex)){
-            if (ifNotSameTypeInOtherDepots(resourceToStore, depotIndex)) {
-                currentDepot = listDepot.get(depotIndex);
-                currentDepot.storeResourceInDepot(resourceToStore);
+        if (ifDepotIndexIsCorrect(depotIndex)) {
+            if (ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex)) {
+                listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
+                return;
             }
+            throw new WrongDepotIndexException();
         }
     }
 
@@ -109,7 +98,6 @@ public class WarehouseDepots {
      * @throws Exception -> can be thrown by "removeResourceFromDepot" method of "Depot" class.
      */
     void removeResourceFromWarehouse(StorableResource resourceToRemove, int depotIndex) throws Exception {
-
         Depot currentDepot;
         if(ifDepotIndexIsCorrect(depotIndex)) {
             currentDepot = listDepot.get(depotIndex);
@@ -125,7 +113,6 @@ public class WarehouseDepots {
      * @throws WrongDepotIndexException -> exception thrown if one of the provided integers is less than 1.
      */
     void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
-
         Depot temporaryDepot;
         if(ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2))
         {
@@ -141,12 +128,11 @@ public class WarehouseDepots {
      * @return -> a copy of the resource contained inside the specified depot.
      * @throws NegativeResourceAmountException -> can be thrown by "copyStorableResource" method of "StorableResource" class.
      */
-    StorableResource getResourceFromDepot(int depotIndex) throws NegativeResourceAmountException {
-
+    private StorableResource getResourceFromDepot(int depotIndex) throws CloneNotSupportedException {
         StorableResource temporaryResource;
         temporaryResource = listDepot.get(depotIndex).getStoredResource();
         if(temporaryResource != null)
-            return (StorableResource) temporaryResource.copyResource();
+            return (StorableResource) temporaryResource.clone();
         else
             return null;
     }

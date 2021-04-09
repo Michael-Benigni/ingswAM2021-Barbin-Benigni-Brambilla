@@ -15,12 +15,15 @@ public abstract class Resource {
 
     }
 
+
     /**
      * this method create a copy of the resource
      * @return the created copy
      * @throws NegativeResourceAmountException
      */
-    protected Resource copyResource() throws CloneNotSupportedException {
-        return (Resource) this.clone();
+    @Override
+    protected Resource clone() throws CloneNotSupportedException {
+        return (Resource) super.clone();
     }
+
 }

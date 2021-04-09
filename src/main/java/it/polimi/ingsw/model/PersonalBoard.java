@@ -1,12 +1,10 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
-import it.polimi.ingsw.exception.WrongSlotIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
-import it.polimi.ingsw.model.personalboard.Strongbox;
-import it.polimi.ingsw.model.personalboard.WarehouseDepots;
-
+import it.polimi.ingsw.model.gameresources.stores.Strongbox;
+import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -15,43 +13,51 @@ import java.util.ArrayList;
  * like Strongbox, Depots...
  */
 public class PersonalBoard {
+    private Integer numberOfSlotDevCards;
 
+    private Integer numberOfSlotLeaderCards;
     private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
     //private Arraylist<SlotLeaderCard> listOfSlotLC;
 
-
     /**
      * Constructor method of this class. It creates an empty personal board.
      * The method is public because called by Action/Game/Controller outside this package.
      */
-    PersonalBoard() {
-    }
-
-
-    /**
-     * Method that builds every element of the personal board.
-     */
-    void prepareGameBoard() throws FileNotFoundException {
+    PersonalBoard() throws FileNotFoundException {
         strongbox = new Strongbox();
         warehouseDepots = new WarehouseDepots();
-        Integer numberOfSlotDevelopmentCards = 0;
-        ConfigLoaderWriter.getAttribute(numberOfSlotDevelopmentCards, "numberOfSlotDevelopmentCards", PersonalBoard.class);
-        listOfSlotDevelopmentCards = new ArrayList<SlotDevelopmentCards>(0);
-        for(int i = 0; i < numberOfSlotDevelopmentCards; i++) {
+        setNumberOfSlotLeaderCards();
+        setNumberOfSlotLeaderCards();
+        setListOfSlotDevelopmentCards();
+    }
+        //create an Arraylist of SlotLeaderCard.
+
+    public void setNumberOfSlotDevCards() throws FileNotFoundException {
+        numberOfSlotDevCards = 0;
+        ConfigLoaderWriter.getAttribute(numberOfSlotDevCards, "numberOfSlotDevelopmentCards", PersonalBoard.class);
+    }
+
+    public void setNumberOfSlotLeaderCards() throws FileNotFoundException {
+        numberOfSlotLeaderCards = 0;
+        ConfigLoaderWriter.getAttribute(numberOfSlotLeaderCards, "numberOfSlotLeaderCards", PersonalBoard.class);
+
+    }
+
+    public void setListOfSlotDevelopmentCards() throws FileNotFoundException {
+        listOfSlotDevelopmentCards = new ArrayList<>(0);
+        for(int i = 0; i < numberOfSlotDevCards; i++) {
             SlotDevelopmentCards temporarySlot = new SlotDevelopmentCards();
             listOfSlotDevelopmentCards.add(temporarySlot);
         }
-        //create an Arraylist of SlotLeaderCard.
     }
-
 
     /**
      * Method that return the real strongbox (not a copy) to the caller.
      * @return -> the real strongbox, that is an attribute of this personal board.
      */
-    Strongbox getStrongbox(){
+    Strongbox getStrongbox () {
         return strongbox;
     }
 

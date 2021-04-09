@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.model.gameresources.FaithPoint;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

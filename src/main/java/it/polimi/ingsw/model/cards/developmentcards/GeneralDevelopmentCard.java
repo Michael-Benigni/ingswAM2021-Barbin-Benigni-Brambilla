@@ -41,12 +41,9 @@ class GeneralDevelopmentCard implements Requirements {
      * @return
      */
     boolean hasSameLevel(DevelopmentCard cardToCompare) {
-        if(this.cardLevel.compareTo(cardToCompare.getCardLevel()) == 0) {
+        if(this.cardLevel.compareTo(cardToCompare.getCardLevel()) == 0)
             return true;
-        }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -55,11 +52,34 @@ class GeneralDevelopmentCard implements Requirements {
      * @return
      */
     boolean hasSameColour(DevelopmentCard cardToCompare) {
-        if(this.cardColour.compareTo(cardToCompare.getCardColour()) == 0) {
+        if (this.cardColour.compareTo(cardToCompare.getCardColour()) == 0)
             return true;
-        }
-        else {
-            return false;
-        }
+        return false;
     }
+
+    /** method that verify if the level of the caller card is higher by one than the card passed in parameters
+     * @param card
+     * @return true if the condition specified is verified
+     */
+    boolean isOfNextLevel(DevelopmentCard card) {
+        boolean result = false;
+        try {
+            if (this.getCardLevel().ordinal() == card.getCardLevel().ordinal() + 1)
+                result = true;
+        } catch (NullPointerException e) {
+            result = isOfFirstLevel();
+        }
+        return result;
+    }
+
+    /**
+     * method that verify if the level of the caller card is the first
+     * @return true if the level of the caller card is the first
+     */
+    private boolean isOfFirstLevel() {
+        if (this.getCardLevel().ordinal() == 1)
+            return true;
+        return false;
+    }
+
 }

@@ -28,7 +28,7 @@ class EmptyResource extends Resource {
      * @throws NegativeResourceAmountException
      */
     @Override
-    public Resource copyResource() throws CloneNotSupportedException {
-        return (EmptyResource) this.clone();
+    public Resource clone() throws CloneNotSupportedException {
+        return (EmptyResource) super.clone();
     }
 }
