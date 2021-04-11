@@ -20,7 +20,7 @@ class SlotDevelopmentCardsTest {
      */
     @Test
     void getTopCardTestException() throws Exception {
-        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards();
+        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards(3);
         DevelopmentCard card;
         try {
             card = slotDevelopmentCards.getTopCard();
@@ -36,7 +36,7 @@ class SlotDevelopmentCardsTest {
      */
     @Test
     void getAllCardsTestException() throws Exception {
-        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards();
+        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards(3);
         ArrayList <DevelopmentCard> card;
         try {
             card = slotDevelopmentCards.getAllCards();
@@ -64,7 +64,7 @@ class SlotDevelopmentCardsTest {
         DevelopmentCard firstAddedCard = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
         DevelopmentCard topCard = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources);
         DevelopmentCard middleCard = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cost, consumedResources, producedResources);
-        SlotDevelopmentCards slot = new SlotDevelopmentCards();
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
         slot.placeOnTop(firstAddedCard);
         slot.placeOnTop(middleCard);
         slot.placeOnTop(topCard);
@@ -88,7 +88,7 @@ class SlotDevelopmentCardsTest {
         DevelopmentCard firstAddedCard = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
         DevelopmentCard topCard = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources);
         DevelopmentCard middleCard = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cost, consumedResources, producedResources);
-        SlotDevelopmentCards slot = new SlotDevelopmentCards();
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
         slot.placeOnTop(firstAddedCard);
         slot.placeOnTop(middleCard);
         slot.placeOnTop(topCard);
@@ -122,7 +122,7 @@ class SlotDevelopmentCardsTest {
         producedResources.add(shield);
         producedResources.add(servant);
         DevelopmentCard cardToAdd = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
-        SlotDevelopmentCards slot = new SlotDevelopmentCards();
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
         slot.placeOnTop(cardToAdd);
         assertTrue(cardToAdd.equals(slot.getTopCard()));
     }

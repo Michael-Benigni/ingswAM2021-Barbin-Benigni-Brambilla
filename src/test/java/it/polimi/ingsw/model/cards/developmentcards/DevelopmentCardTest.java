@@ -18,7 +18,7 @@ class DevelopmentCardTest {
      * @throws NegativeResourceAmountException
      */
     @Test
-    void createCopyTest() throws NegativeResourceAmountException {
+    void cloneTest() throws NegativeResourceAmountException {
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
         StorableResource shield = new StorableResource(ResourceType.SHIELD, 1);
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
@@ -32,7 +32,7 @@ class DevelopmentCardTest {
         producedResources.add(servant);
         DevelopmentCard card = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
         DevelopmentCard cardCopy;
-        cardCopy = card.clone();
+        cardCopy = (DevelopmentCard) card.clone();
         assertTrue(card.equals(cardCopy));
     }
 
@@ -41,7 +41,7 @@ class DevelopmentCardTest {
      * @throws NegativeResourceAmountException
      */
     @Test
-    void isEqualTest() throws NegativeResourceAmountException {
+    void equalsTest() throws NegativeResourceAmountException {
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
         StorableResource shield = new StorableResource(ResourceType.SHIELD, 1);
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
