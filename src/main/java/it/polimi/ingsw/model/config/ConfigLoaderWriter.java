@@ -49,10 +49,10 @@ public class ConfigLoaderWriter {
     }
 
     //TODO: check if is better to have attributeClass or the object attribute
-    public static Object getAttribute(Object attributeTofill, String attributeName, Class ownerOfAttribute) throws FileNotFoundException {
+    public static Object getAttribute(Object attributeTofill, String propertyKey, String JsonObjectKey) throws FileNotFoundException {
         JsonObject DBAsJsonObject = getFileAsJsonElement(PATH_TO_DB).getAsJsonObject();
-        JsonObject classParameters = DBAsJsonObject.get(ownerOfAttribute.getSimpleName()).getAsJsonObject();
-        JsonElement attributeAsJsonObject = classParameters.get(attributeName);
+        JsonObject classParameters = DBAsJsonObject.get(JsonObjectKey).getAsJsonObject();
+        JsonElement attributeAsJsonObject = classParameters.get(propertyKey);
         Gson gson = initGson();
         return gson.fromJson(attributeAsJsonObject, attributeTofill.getClass());
     }

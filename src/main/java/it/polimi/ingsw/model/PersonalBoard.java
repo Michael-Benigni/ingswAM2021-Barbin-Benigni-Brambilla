@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class PersonalBoard {
     private Integer numberOfSlotDevCards;
-
     private Integer numberOfSlotLeaderCards;
     private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
@@ -25,32 +24,21 @@ public class PersonalBoard {
      * Constructor method of this class. It creates an empty personal board.
      * The method is public because called by Action/Game/Controller outside this package.
      */
-    PersonalBoard() throws FileNotFoundException {
+    PersonalBoard(int numberOfSlotDevCards, int numberOfSlotLeaderCards) {
+        this.numberOfSlotDevCards = numberOfSlotDevCards;
+        this.numberOfSlotLeaderCards = numberOfSlotLeaderCards;
         strongbox = new Strongbox();
-        warehouseDepots = new WarehouseDepots();
-        setNumberOfSlotLeaderCards();
-        setNumberOfSlotLeaderCards();
-        setListOfSlotDevelopmentCards();
-    }
-        //create an Arraylist of SlotLeaderCard.
-
-    public void setNumberOfSlotDevCards() throws FileNotFoundException {
-        numberOfSlotDevCards = 0;
-        ConfigLoaderWriter.getAttribute(numberOfSlotDevCards, "numberOfSlotDevelopmentCards", PersonalBoard.class);
+        warehouseDepots = createWarehouseDepotsFromJSON();
+        listOfSlotDevelopmentCards = createListOfSlotDevCardsFromJSON();
+        //TODO : LEADER CARDS SLOT
     }
 
-    public void setNumberOfSlotLeaderCards() throws FileNotFoundException {
-        numberOfSlotLeaderCards = 0;
-        ConfigLoaderWriter.getAttribute(numberOfSlotLeaderCards, "numberOfSlotLeaderCards", PersonalBoard.class);
-
+    private WarehouseDepots createWarehouseDepotsFromJSON() {
+        return new WarehouseDepots();
     }
 
-    public void setListOfSlotDevelopmentCards() throws FileNotFoundException {
-        listOfSlotDevelopmentCards = new ArrayList<>(0);
-        for(int i = 0; i < numberOfSlotDevCards; i++) {
-            SlotDevelopmentCards temporarySlot = new SlotDevelopmentCards();
-            listOfSlotDevelopmentCards.add(temporarySlot);
-        }
+    private ArrayList<SlotDevelopmentCards> createListOfSlotDevCardsFromJSON() {
+        return
     }
 
     /**
