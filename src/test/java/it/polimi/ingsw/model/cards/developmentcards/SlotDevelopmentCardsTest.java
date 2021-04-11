@@ -1,13 +1,12 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.EmptySlotException;
-import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
-import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
+import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
-
-//unused import
 
 
 /**
@@ -49,7 +48,6 @@ class SlotDevelopmentCardsTest {
 
     //TODO: missing test for the exception SlotDevelopmentCardsIsFullException in method placeOnTop
     //TODO: the tests below don't work because we can't build the development card entity
-    /*
     @Test
     void getTopCardTest() throws Exception {
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
@@ -127,5 +125,5 @@ class SlotDevelopmentCardsTest {
         SlotDevelopmentCards slot = new SlotDevelopmentCards();
         slot.placeOnTop(cardToAdd);
         assertTrue(cardToAdd.equals(slot.getTopCard()));
-    }*/
+    }
 }

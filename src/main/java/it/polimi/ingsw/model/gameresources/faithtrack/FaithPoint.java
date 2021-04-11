@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.gameresources.markettray.Resource;
 /**
  * Class that represents a group of faith points, can be also "0", but not negative
  */
-class FaithPoint extends Resource {
+public class FaithPoint extends Resource {
 
     private int points;
 
@@ -16,7 +16,7 @@ class FaithPoint extends Resource {
      * Constructor method of the FaithPoint class
      * @param points -> how many faith points
      */
-    FaithPoint(int points) throws NegativeResourceAmountException {
+    public FaithPoint(int points) throws NegativeResourceAmountException {
         if(points < 0)
             throw new NegativeResourceAmountException();
         else

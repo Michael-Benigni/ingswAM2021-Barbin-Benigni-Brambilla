@@ -14,17 +14,14 @@ public class StorableResource extends Resource {
     private int amount;
     private ResourceType resourceType;
 
-    // TODO: check if we need this method
-    private StorableResource() {
-    }
-
     /**
      * Constructor method of the StorableResource class
      *
      * @param resourceType -> What kind of resource
      * @param amount       -> How many copies of that resource: need to be greater or equal than "0"
      */
-    private StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
+
+    public StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
         if (amount < 0)
             throw new NegativeResourceAmountException();
         else

@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.gameresources.markettray;
 /**
  * class that models the fishable marbles from the market tray
  */
-class MarketMarble {
+public class MarketMarble {
 
     private final MarbleColour colour;
     private final Resource resource;
@@ -13,7 +13,7 @@ class MarketMarble {
      * @param colour -> attribute that indicates the marble's colour
      * @param resource -> attribute that associates the marble's colour to the correspondent resource
      */
-    MarketMarble(MarbleColour colour, Resource resource) {
+    public MarketMarble(MarbleColour colour, Resource resource) {
         this.colour = colour;
         this.resource = resource;
     }
@@ -27,7 +27,7 @@ class MarketMarble {
         return resourceCopy;
     }
 
-    private MarbleColour getColour () {
+    MarbleColour getColour() {
         return this.colour;
     }
 

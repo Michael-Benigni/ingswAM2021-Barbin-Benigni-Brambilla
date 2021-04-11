@@ -20,14 +20,8 @@ public class SlotDevelopmentCards {
     /**
      * constructor of the class SlotDevelopmentCards
      */
-    public SlotDevelopmentCards() throws FileNotFoundException {
-        setMaxNumberOfCardsInSlot();
-        this.listOfDevelopmentCards = new ArrayList <DevelopmentCard> (0);
-    }
-
-    public void setMaxNumberOfCardsInSlot() throws FileNotFoundException {
-        this.maxNumberOfCardsInSlot = 0;
-        ConfigLoaderWriter.getAttribute(maxNumberOfCardsInSlot, "maxNumberOfCardsInSlot", SlotDevelopmentCards.class);
+    public SlotDevelopmentCards(int maxNumberOfCardsInSlot) {
+        this.maxNumberOfCardsInSlot = maxNumberOfCardsInSlot;
     }
 
     /**

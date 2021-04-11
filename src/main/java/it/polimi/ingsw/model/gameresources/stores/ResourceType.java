@@ -4,7 +4,7 @@ package it.polimi.ingsw.model.gameresources.stores;
 /**
  * Class that represents all resources which can be stocked inside Depots and Strongbox
  */
-enum ResourceType {
+public enum ResourceType {
 
     COIN("coin"), SERVANT("servant"), SHIELD("shield"), STONE("stone");
 

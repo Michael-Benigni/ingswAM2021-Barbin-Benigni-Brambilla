@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.cards.developmentcards;
 /**
  * enumeration of the levels that the development card can take on
  */
-enum CardLevel {
+public enum CardLevel {
     ONE(1), TWO(2), THREE(3);
 
     private final int level;

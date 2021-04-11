@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.*;
-import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -17,20 +16,10 @@ public class WarehouseDepots {
     /**
      * Constructor method of this class. It reads from the database how many depots are contained and the capacity of each one.
      */
-    public WarehouseDepots() throws FileNotFoundException {
-        setNumberOfDepots();
-        setCapacities();
+    public WarehouseDepots(int numberOfDepots, ArrayList<Integer> capacities) {
+        this.numberOfDepots = numberOfDepots;
+        this.capacities = capacities;
         setListDepot();
-    }
-
-    private void setNumberOfDepots() throws FileNotFoundException {
-        numberOfDepots = 0;
-        ConfigLoaderWriter.getAttribute(numberOfDepots, "numberOfDepots" , WarehouseDepots.class);
-    }
-
-    private void setCapacities() throws FileNotFoundException {
-        capacities = new ArrayList<>(0);
-        ConfigLoaderWriter.getAttribute(capacities, "capacities", WarehouseDepots.class);
     }
 
     private void setListDepot() {

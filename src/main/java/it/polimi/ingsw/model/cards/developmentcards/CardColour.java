@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.cards.developmentcards;
 /**
  * enumeration of the colours that the development card can take on
  */
-enum CardColour {
+public enum CardColour {
     YELLOW("yellow"), BLUE("blue"), GREEN("green"), PURPLE("purple");
 
     private final String cardColour;

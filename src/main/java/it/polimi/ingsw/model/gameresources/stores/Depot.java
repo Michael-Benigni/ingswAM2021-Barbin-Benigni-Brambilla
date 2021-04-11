@@ -6,7 +6,7 @@ import it.polimi.ingsw.exception.*;
  * Class which represents a single depot of the warehouse depots.
  * of storable Resources.
  */
-public class Depot {
+class Depot {
 
     private StorableResource storedResource;
     private final int capacity;
