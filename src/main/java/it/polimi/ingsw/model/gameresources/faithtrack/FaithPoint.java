@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.model.GameBoard;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 
 
@@ -24,24 +26,33 @@ public class FaithPoint extends Resource {
     }
 
 
+    /**
+     * Getter method for the attribute "points".
+     * @return -> the attribute "points".
+     */
     private int getPoints() {
         return points;
     }
 
+
     /**
-     * Method inherited by the implementation of "Resource" interface
+     * Method inherited by the implementation of "Resource" interface.
+     * This method find the faith track and move the marker of the provided player by a number of steps equal to this.point.
      */
     @Override
-    public void activate() {
-        //TODO: what kind of actions will be performed ?
+    protected void activate(Player player) throws Exception {
+        GameBoard gameBoard = player.getGameBoard();
+        FaithTrack faithTrack = gameBoard.getFaithTrack();
+        faithTrack.moveMarkerForward(player, points);
     }
+
 
     /**
      * this method creates a copy of the object FaithPoint
      * @return the created copy
      */
     @Override
-    public Resource clone() throws CloneNotSupportedException {
+    protected Resource clone() throws CloneNotSupportedException {
         FaithPoint faithPoint = null;
         try {
             faithPoint = new FaithPoint(points);

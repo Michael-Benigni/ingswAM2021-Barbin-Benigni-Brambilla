@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gameresources.stores;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 
 /**
@@ -93,7 +94,7 @@ public class StorableResource extends Resource {
      * Method inherited by the interface "Resource"
      */
     @Override
-    protected void activate() {
+    protected void activate(Player player) {
         //TODO: what kind of action need to be executed by the activation of stockResource ??
     }
 
