@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.*;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Class that represents a collection of depots.
@@ -124,5 +124,20 @@ public class WarehouseDepots {
             return (StorableResource) temporaryResource.clone();
         else
             return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WarehouseDepots that = (WarehouseDepots) o;
+        return Objects.equals(numberOfDepots, that.numberOfDepots)
+                && Objects.equals(capacities, that.capacities)
+                && Objects.equals(listDepot, that.listDepot);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numberOfDepots, capacities, listDepot);
     }
 }

@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.*;
 
+import java.util.Objects;
+
 /**
  * Class which represents a single depot of the warehouse depots.
  * of storable Resources.
@@ -66,5 +68,18 @@ class Depot {
 
     StorableResource getStoredResource() {
         return storedResource;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Depot depot = (Depot) o;
+        return capacity == depot.capacity && Objects.equals(storedResource, depot.storedResource);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(storedResource, capacity);
     }
 }

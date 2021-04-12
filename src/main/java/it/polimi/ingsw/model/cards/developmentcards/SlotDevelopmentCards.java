@@ -3,10 +3,8 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.SlotDevelopmentCardsIsFullException;
-import it.polimi.ingsw.model.config.ConfigLoaderWriter;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * this class models a single slot where the player can place his development cards
@@ -70,5 +68,19 @@ public class SlotDevelopmentCards {
             throw new DevelopmentCardNotAddableException();
         }
         throw new SlotDevelopmentCardsIsFullException();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SlotDevelopmentCards that = (SlotDevelopmentCards) o;
+        return Objects.equals(maxNumberOfCardsInSlot, that.maxNumberOfCardsInSlot)
+                && Objects.equals(listOfDevelopmentCards, that.listOfDevelopmentCards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maxNumberOfCardsInSlot, listOfDevelopmentCards);
     }
 }

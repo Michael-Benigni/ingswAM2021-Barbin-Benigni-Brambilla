@@ -43,6 +43,13 @@ public class FaithPoint extends Resource {
      */
     @Override
     public Resource clone() throws CloneNotSupportedException {
-        return (FaithPoint) super.clone();
+        FaithPoint faithPoint = null;
+        try {
+            faithPoint = new FaithPoint(points);
+        } catch (NegativeResourceAmountException e) {
+            this.points = 0;
+            faithPoint = (FaithPoint) this.clone();
+        }
+        return faithPoint;
     }
 }

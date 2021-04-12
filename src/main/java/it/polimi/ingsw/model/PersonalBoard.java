@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Class that represents the board that belongs to a player. It's a collection of game elements,
@@ -28,17 +29,42 @@ public class PersonalBoard {
         this.numberOfSlotDevCards = numberOfSlotDevCards;
         this.numberOfSlotLeaderCards = numberOfSlotLeaderCards;
         strongbox = new Strongbox();
+        warehouseDepots = new WarehouseDepots(0, null);
+        listOfSlotDevelopmentCards = createListOfSlotDevCards(numberOfSlotDevCards, 0);
+        //TODO: createListOfLeaderCards(numberOfSlotLeaderCards);
+    }
+
+    PersonalBoard inizializeFromJSON () throws FileNotFoundException {
         warehouseDepots = createWarehouseDepotsFromJSON();
         listOfSlotDevelopmentCards = createListOfSlotDevCardsFromJSON();
         //TODO : LEADER CARDS SLOT
+        return this;
     }
 
-    private WarehouseDepots createWarehouseDepotsFromJSON() {
-        return new WarehouseDepots();
+    private ArrayList<SlotDevelopmentCards> createListOfSlotDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
+        ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = new ArrayList<>(numberOfSlotDevCards);
+        for (int i = 0; i < numberOfSlotDevCards; i++) {
+            slotsOfDevCardsArray.add(new SlotDevelopmentCards(maxNumberOfDevCards));
+        }
+        return slotsOfDevCardsArray;
     }
 
-    private ArrayList<SlotDevelopmentCards> createListOfSlotDevCardsFromJSON() {
-        return
+    private WarehouseDepots createWarehouseDepotsFromJSON() throws FileNotFoundException {
+        final String keyInJSON = "WarehouseDepots";
+        int numberOfDepots = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "/numberOfDepots");
+        ArrayList<Integer> capacities = new ArrayList<>(numberOfDepots);
+        for (int i = 0; i < numberOfDepots; i++) {
+            int capacity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, keyInJSON + "/capacities", i);
+            capacities.add(capacity);
+        }
+        return new WarehouseDepots(numberOfDepots, capacities);
+    }
+
+    private ArrayList<SlotDevelopmentCards> createListOfSlotDevCardsFromJSON() throws FileNotFoundException {
+        final String keyInJSON = "SlotDevelopmentCards";
+        int maxNumberOfDevCardsInSlot = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "/maxNumberOfCardsInSlot");
+        ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = createListOfSlotDevCards(numberOfSlotDevCards, maxNumberOfDevCardsInSlot);
+        return slotsOfDevCardsArray;
     }
 
     /**
@@ -70,6 +96,23 @@ public class PersonalBoard {
         if(slotIndex >= 0 && slotIndex < listOfSlotDevelopmentCards.size())
             return listOfSlotDevelopmentCards.get(slotIndex);
         else { throw new WrongSlotDevelopmentIndexException();}
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonalBoard that = (PersonalBoard) o;
+        return numberOfSlotDevCards.equals(that.numberOfSlotDevCards)
+                && Objects.equals(numberOfSlotLeaderCards, that.numberOfSlotLeaderCards)
+                && Objects.equals(strongbox, that.strongbox)
+                && Objects.equals(warehouseDepots, that.warehouseDepots)
+                && Objects.equals(listOfSlotDevelopmentCards, that.listOfSlotDevelopmentCards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numberOfSlotDevCards, numberOfSlotLeaderCards, strongbox, warehouseDepots, listOfSlotDevelopmentCards);
     }
 
     //public Arraylist<SlotDevelopmentCard> getAllSlotDevelopmentCard(){ return listOfSlotDC;}

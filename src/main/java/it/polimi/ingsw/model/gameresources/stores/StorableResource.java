@@ -106,7 +106,14 @@ public class StorableResource extends Resource {
      */
     @Override
     protected Resource clone() throws CloneNotSupportedException {
-        return (StorableResource) super.clone();
+        StorableResource storableResource = null;
+        try {
+            storableResource = new StorableResource(resourceType, amount);
+        } catch (NegativeResourceAmountException e) {
+            this.amount = 0;
+            storableResource = (StorableResource) this.clone();
+        }
+        return storableResource;
     }
 
 

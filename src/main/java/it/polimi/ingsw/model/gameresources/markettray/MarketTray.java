@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gameresources.markettray;
 import it.polimi.ingsw.exception.InvalidMarketColumnException;
 import it.polimi.ingsw.exception.InvalidMarketRowException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MarketTray {
     private ArrayList<ArrayList<MarketMarble>> marblesMatrix;
@@ -15,7 +16,6 @@ public class MarketTray {
         this.columns = columns;
         this.rows = rows;
         this.howManyMarbles = howManyMarbles;
-        setInitialMarblesConfiguration(allMarbles());
     }
 
     private ArrayList<MarketMarble> allMarbles () {
@@ -30,7 +30,8 @@ public class MarketTray {
         return allMarbles;
     }
 
-    private void setInitialMarblesConfiguration(ArrayList<MarketMarble> marbles) {
+    MarketTray setInitialShuffleDisposition() {
+        ArrayList<MarketMarble> marbles = allMarbles();
         Collections.shuffle(marbles);
         marblesMatrix = new ArrayList<>();
         ArrayList<MarketMarble> column = null;
@@ -49,6 +50,7 @@ public class MarketTray {
             }
         }
         setNewMarbleOnSlide(marbles.get(0));
+        return this;
     }
 
     private void setNewMarbleOnSlide(MarketMarble marbleOnSlide) {
@@ -94,12 +96,11 @@ public class MarketTray {
         return marblesMatrix.get(row).get(column);
     }
 
-    private List<Resource> getResources(ArrayList<MarketMarble> vectorOfMarbles) throws CloneNotSupportedException {
-        ArrayList<Resource> resources = new ArrayList<>(0);
-        for (int i = 0; i < vectorOfMarbles.size(); i++) {
-            resources.add(vectorOfMarbles.get(i).getCorrespondentResource());
-        }
-        return resources;
+    private List<Resource> getResources(ArrayList<MarketMarble> vectorOfMarbles) {
+        return vectorOfMarbles
+                .stream()
+                .map((marble)-> marble.getCorrespondentResource())
+                .collect(Collectors.toList());
     }
 
     private ArrayList<MarketMarble> swap(ArrayList<MarketMarble> vectorToSwap) {
@@ -108,7 +109,24 @@ public class MarketTray {
         for (int i = 0; i < vectorToSwap.size() - 1; i++) {
             vectorToSwap.set(i, vectorToSwap.get(i + 1));
         }
-        vectorToSwap.set(vectorToSwap.size(), oldMarbleOnSlide);
+        vectorToSwap.set(vectorToSwap.size() - 1, oldMarbleOnSlide);
         return vectorToSwap;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MarketTray that = (MarketTray) o;
+        return Objects.equals(marblesMatrix, that.marblesMatrix)
+                && Objects.equals(marbleOnSlide, that.marbleOnSlide)
+                && Objects.equals(rows, that.rows)
+                && Objects.equals(columns, that.columns)
+                && Objects.equals(howManyMarbles, that.howManyMarbles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(marblesMatrix, marbleOnSlide, rows, columns, howManyMarbles);
     }
 }

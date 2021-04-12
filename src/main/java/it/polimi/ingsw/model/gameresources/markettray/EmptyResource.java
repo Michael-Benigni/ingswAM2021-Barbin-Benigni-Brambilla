@@ -29,6 +29,6 @@ class EmptyResource extends Resource {
      */
     @Override
     public Resource clone() throws CloneNotSupportedException {
-        return (EmptyResource) super.clone();
+        return new EmptyResource();
     }
 }

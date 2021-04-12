@@ -16,14 +16,8 @@ public abstract class Resource {
     }
 
 
-    /**
-     * this method create a copy of the resource
-     * @return the created copy
-     * @throws NegativeResourceAmountException
-     */
     @Override
-    protected Resource clone() throws CloneNotSupportedException {
-        return (Resource) super.clone();
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
-
 }

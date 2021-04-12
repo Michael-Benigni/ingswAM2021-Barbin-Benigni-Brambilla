@@ -6,6 +6,7 @@ import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Class that represents the player's strongbox on the personal board. It's a collection of resources
@@ -92,5 +93,18 @@ public class Strongbox {
             }
         }
         throw new NotContainedResourceException();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Strongbox strongbox = (Strongbox) o;
+        return Objects.equals(resourceContained, strongbox.resourceContained);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(resourceContained);
     }
 }

@@ -17,7 +17,7 @@ class ConfigParser {
         return listNodes;
     }
 
-    static void setSeparator(char sep) {
-        SEPARATOR = String.valueOf(sep);
+    static void setSeparator(String sep) {
+        SEPARATOR = sep;
     }
 }
