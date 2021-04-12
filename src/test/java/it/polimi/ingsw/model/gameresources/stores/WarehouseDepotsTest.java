@@ -21,7 +21,7 @@ public class WarehouseDepotsTest {
      * Test on the constructor method.
      * Tests if the method creates an empty warehouse successfully from the json file in the database
      */
-    @Test
+    /*@Test
     void checkConstructorIfCorrect() throws FileNotFoundException {
         WarehouseDepots newWarehouseDepots = new WarehouseDepots();
         assertTrue(newWarehouseDepots.ifWarehouseIsEmpty());
@@ -31,7 +31,7 @@ public class WarehouseDepotsTest {
             int capacity = newWarehouseDepots.getDepotCapacity(i);
             assertTrue(capacity == (i + 1));
         }
-    }//Quando hai checkato ricordati di eliminare i seguenti metodi: "getNumberOfDepots" e "getDepotCapacity" da "WarehouseDepots"; "getCapacity" da Depot.
+    }*/ //Quando hai checkato ricordati di eliminare i seguenti metodi: "getNumberOfDepots" e "getDepotCapacity" da "WarehouseDepots"; "getCapacity" da Depot.
 
 
     /**
@@ -39,7 +39,7 @@ public class WarehouseDepotsTest {
      * Tests if the method correctly inserts, in the created strongbox, a resource.
      * @throws Exception -> can be thrown by "storeResourceInWarehouse" method.
      */
-    @Test
+    /*@Test
     void checkStoreResourceIfCorrect()
             throws Exception {
 
@@ -52,7 +52,7 @@ public class WarehouseDepotsTest {
 
         newWarehouseDepots.storeResourceInWarehouse(resourceToStore2, 1);
         assertTrue(newWarehouseDepots.getResourceFromDepot(1).equals(resourceToStore2));
-    }
+    }*/
 
 
     /**
@@ -61,7 +61,7 @@ public class WarehouseDepotsTest {
      * number of depots.
      * @throws Exception -> can be thrown by "storeResourceInWarehouse" method.
      */
-    @Test
+    /*@Test
     void checkStoreResourceIfWrongIndex()
             throws Exception {
 
@@ -78,7 +78,7 @@ public class WarehouseDepotsTest {
         }catch (WrongDepotIndexException e){
             assertTrue(newWarehouseDepots.ifWarehouseIsEmpty());
         }
-    }
+    }*/
 
 
     /**
@@ -86,7 +86,7 @@ public class WarehouseDepotsTest {
      * Tests if the method works correctly.
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
-    @Test
+    /*@Test
     void checkRemoveResourceIfCorrect()
             throws Exception {
 
@@ -105,6 +105,6 @@ public class WarehouseDepotsTest {
 
         assertTrue(newWarehouseDepots.getResourceFromDepot(0).equals(resourceRemained));
         assertTrue(newWarehouseDepots.getResourceFromDepot(1) == null);
-    }
+    }*/
 
 }

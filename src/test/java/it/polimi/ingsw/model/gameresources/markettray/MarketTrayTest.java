@@ -35,7 +35,7 @@ class MarketTrayTest {
     void pickResourcesOnRow() throws NegativeResourceAmountException {
         int col = 4;
         int row = 3;
-        MarketTray marketTray = new MarketTray(col, row, marbles()).setInitialShuffleDisposition();
+        MarketTray marketTray = new MarketTray(col, row, marbles());
         List<Resource> resourceList = null;
         try {
             resourceList = marketTray.pickResourcesOnRow(1);
@@ -56,7 +56,7 @@ class MarketTrayTest {
     void pickResourcesOnColumn() throws NegativeResourceAmountException {
         int col = 4;
         int row = 3;
-        MarketTray marketTray = new MarketTray(col, row, marbles()).setInitialShuffleDisposition();
+        MarketTray marketTray = new MarketTray(col, row, marbles());
         List<Resource> resourceList = null;
         try {
             resourceList = marketTray.pickResourcesOnColumn(1);

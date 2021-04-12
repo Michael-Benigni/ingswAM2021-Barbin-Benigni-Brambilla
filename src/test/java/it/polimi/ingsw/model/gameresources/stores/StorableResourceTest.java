@@ -17,13 +17,13 @@ public class StorableResourceTest {
      * Test on the constructor method
      * Test if the created object is accordant to the provided parameters.
      */
-    @Test
+    /*@Test
     void checkConstructorIfCorrect() throws NegativeResourceAmountException {
         int amount = 5;
         StorableResource resource = new StorableResource(ResourceType.COIN, amount);
         assertTrue(resource.amountEqualTo(amount));
         assertTrue(resource.resourceTypeEqualTo(ResourceType.COIN));
-    }
+    }*/
 
 
     /**
@@ -46,7 +46,7 @@ public class StorableResourceTest {
      * Test on "increaseAmount()" method
      * Test if the method returns exactly the sum of the 2 amounts of resources
      */
-    @Test
+    /*@Test
     void checkIncreaseAmountIfCorrect() throws NegativeResourceAmountException {
 
         int amountStoredResource = 3;
@@ -65,14 +65,14 @@ public class StorableResourceTest {
 
         assertTrue(storedResource.amountEqualTo(amountStoredResource + amountNewResource));
 
-    }
+    }*/
 
 
     /**
      * Test on "increaseAmount()" method
      * Test if the method throws the NotEqualResourceTypeException successfully
      */
-    @Test
+    /*@Test
     void checkIncreaseAmountIfDifferentResourceType() throws NegativeResourceAmountException {
 
         int amountStoredResource = 5;
@@ -90,14 +90,14 @@ public class StorableResourceTest {
             assertTrue(storedResource.amountEqualTo(amountStoredResource));
         }
 
-    }
+    }*/
 
 
     /**
      * Test on "decreaseAmount()" method
      * Test if the method returns exactly the difference between the 2 amounts of resources
      */
-    @Test
+    /*@Test
     void checkDecreaseAmountIfCorrect() throws Exception {
 
         int amountStoredResource = 15;
@@ -116,14 +116,14 @@ public class StorableResourceTest {
 
         assertTrue(storedResource.amountEqualTo(amountStoredResource - amountNewResource));
 
-    }
+    }*/
 
 
     /**
      * Test on "decreaseAmount()" method
      * Test if the method throws the NotEqualResourceTypeException successfully
      */
-    @Test
+    /*@Test
     void checkDecreaseAmountIfDifferentResourceType() throws Exception {
 
         int amountStoredResource = 7;
@@ -143,14 +143,14 @@ public class StorableResourceTest {
             assertTrue(storedResource.amountEqualTo(amountStoredResource));
         }
 
-    }
+    }*/
 
 
     /**
      * Test on "decreaseAmount()" method
      * Test if the method throws the NegativeResourceAmountException successfully
      */
-    @Test
+    /*@Test
     void checkDecreaseAmountIfNegativeResourceAmount() throws Exception {
 
         int amountStoredResource = 10;
@@ -170,7 +170,7 @@ public class StorableResourceTest {
             fail();
         }
 
-    }
+    }*/
 
 
     /**

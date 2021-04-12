@@ -16,6 +16,7 @@ public class MarketTray {
         this.columns = columns;
         this.rows = rows;
         this.howManyMarbles = howManyMarbles;
+        setInitialShuffleDisposition();
     }
 
     private ArrayList<MarketMarble> allMarbles () {
@@ -30,7 +31,7 @@ public class MarketTray {
         return allMarbles;
     }
 
-    MarketTray setInitialShuffleDisposition() {
+    private MarketTray setInitialShuffleDisposition() {
         ArrayList<MarketMarble> marbles = allMarbles();
         Collections.shuffle(marbles);
         marblesMatrix = new ArrayList<>();
@@ -99,6 +100,7 @@ public class MarketTray {
     private List<Resource> getResources(ArrayList<MarketMarble> vectorOfMarbles) {
         return vectorOfMarbles
                 .stream()
+                .parallel()
                 .map((marble)-> marble.getCorrespondentResource())
                 .collect(Collectors.toList());
     }
