@@ -35,16 +35,13 @@ public class WarehouseDepots {
      * Method that checks if the provided resource is already contained into another depot.
      * @param resourceToCompare -> resource provided in input.
      * @param depotIndex -> integer that represents the number of the depot in which you want to store the resource.
-     * @return -> boolean: true if every other depot contains a different type of resource.
-     * @throws Exception -> exception thrown if there is another depot that contains a resource with the same type of the one
-     * provided.
+     * @return -> boolean: false if every other depot contains a different type of resource.
      */
     private boolean ifAlreadyContainedInOtherDepots(StorableResource resourceToCompare, int depotIndex) {
-        boolean isContainedInWarehouse = false;
         for (int i = 0; i < listDepot.size(); i++)
-            if(i != depotIndex)
-                isContainedInWarehouse = isContainedInWarehouse & listDepot.get(i).alreadyContained(resourceToCompare);
-        return isContainedInWarehouse;
+            if(i != depotIndex && listDepot.get(i).alreadyContained(resourceToCompare))
+                return true;
+        return false;
     }
 
 
@@ -71,7 +68,7 @@ public class WarehouseDepots {
      */
     void storeResourceInWarehouse(StorableResource resourceToStore, int depotIndex) throws Exception {
         if (ifDepotIndexIsCorrect(depotIndex)) {
-            if (ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex)) {
+            if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex)) {
                 listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
                 return;
             }
