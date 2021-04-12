@@ -59,23 +59,15 @@
     }
   },
   "SlotDevelopmentCards": {
-
+    "maxNumberOfCardsInSlot": 3
   },
   "WarehouseDepots": {
     "numberOfDepots": 3,
-    "arrayOfCapacity": [
-      {
-        "capacity": 1
-      },
-      {
-        "capacity": 2
-      },
-      {
-        "capacity": 3
-      }
-    ]
+    "capacities": [1, 2, 3]
   },
   "CardsGrid": {
+    "rows": 3,
+    "columns": 4,
     "cardsList": [
       {
         "cost": [
