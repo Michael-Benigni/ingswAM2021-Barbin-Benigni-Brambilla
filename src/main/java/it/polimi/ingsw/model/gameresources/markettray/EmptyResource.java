@@ -25,10 +25,15 @@ class EmptyResource extends Resource {
     /**
      * this method creates a copy of the object EmptyResource
      * @return the created copy
-     * @throws NegativeResourceAmountException
+     *
      */
     @Override
-    public Resource clone() throws CloneNotSupportedException {
-        return new EmptyResource();
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

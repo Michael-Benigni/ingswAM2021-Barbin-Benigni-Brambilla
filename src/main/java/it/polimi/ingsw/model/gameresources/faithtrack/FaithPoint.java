@@ -24,7 +24,7 @@ public class FaithPoint extends Resource {
     }
 
 
-    int getPoints() {
+    private int getPoints() {
         return points;
     }
 
@@ -39,7 +39,6 @@ public class FaithPoint extends Resource {
     /**
      * this method creates a copy of the object FaithPoint
      * @return the created copy
-     * @throws NegativeResourceAmountException
      */
     @Override
     public Resource clone() throws CloneNotSupportedException {

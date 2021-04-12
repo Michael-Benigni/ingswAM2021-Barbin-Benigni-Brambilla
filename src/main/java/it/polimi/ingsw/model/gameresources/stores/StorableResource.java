@@ -102,7 +102,6 @@ public class StorableResource extends Resource {
      * this method creates a copy of the object StorableResource
      *
      * @return the created copy
-     * @throws NegativeResourceAmountException -> can be throwed by the constructor method if StorableResource class
      */
     @Override
     protected Resource clone() throws CloneNotSupportedException {

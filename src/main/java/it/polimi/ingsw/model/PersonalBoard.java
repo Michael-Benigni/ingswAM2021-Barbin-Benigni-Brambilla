@@ -30,18 +30,18 @@ public class PersonalBoard {
         this.numberOfSlotLeaderCards = numberOfSlotLeaderCards;
         strongbox = new Strongbox();
         warehouseDepots = new WarehouseDepots(0, null);
-        listOfSlotDevelopmentCards = createListOfSlotDevCards(numberOfSlotDevCards, 0);
+        listOfSlotDevelopmentCards = initSlotsDevCards(numberOfSlotDevCards, 0);
         //TODO: createListOfLeaderCards(numberOfSlotLeaderCards);
     }
 
-    PersonalBoard inizializeFromJSON () throws FileNotFoundException {
-        warehouseDepots = createWarehouseDepotsFromJSON();
-        listOfSlotDevelopmentCards = createListOfSlotDevCardsFromJSON();
+    PersonalBoard initFromJSON() throws FileNotFoundException {
+        warehouseDepots = initWarehouseFromJSON();
+        listOfSlotDevelopmentCards = initSlotsDevCardsFromJSON();
         //TODO : LEADER CARDS SLOT
         return this;
     }
 
-    private ArrayList<SlotDevelopmentCards> createListOfSlotDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
+    private ArrayList<SlotDevelopmentCards> initSlotsDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
         ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = new ArrayList<>(numberOfSlotDevCards);
         for (int i = 0; i < numberOfSlotDevCards; i++) {
             slotsOfDevCardsArray.add(new SlotDevelopmentCards(maxNumberOfDevCards));
@@ -49,7 +49,7 @@ public class PersonalBoard {
         return slotsOfDevCardsArray;
     }
 
-    private WarehouseDepots createWarehouseDepotsFromJSON() throws FileNotFoundException {
+    private WarehouseDepots initWarehouseFromJSON() throws FileNotFoundException {
         final String keyInJSON = "WarehouseDepots";
         int numberOfDepots = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "/numberOfDepots");
         ArrayList<Integer> capacities = new ArrayList<>(numberOfDepots);
@@ -60,10 +60,10 @@ public class PersonalBoard {
         return new WarehouseDepots(numberOfDepots, capacities);
     }
 
-    private ArrayList<SlotDevelopmentCards> createListOfSlotDevCardsFromJSON() throws FileNotFoundException {
+    private ArrayList<SlotDevelopmentCards> initSlotsDevCardsFromJSON() throws FileNotFoundException {
         final String keyInJSON = "SlotDevelopmentCards";
         int maxNumberOfDevCardsInSlot = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "/maxNumberOfCardsInSlot");
-        ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = createListOfSlotDevCards(numberOfSlotDevCards, maxNumberOfDevCardsInSlot);
+        ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = initSlotsDevCards(numberOfSlotDevCards, maxNumberOfDevCardsInSlot);
         return slotsOfDevCardsArray;
     }
 

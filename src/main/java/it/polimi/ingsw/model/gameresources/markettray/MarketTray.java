@@ -34,7 +34,7 @@ public class MarketTray {
     private MarketTray setInitialShuffleDisposition() {
         ArrayList<MarketMarble> marbles = allMarbles();
         Collections.shuffle(marbles);
-        marblesMatrix = new ArrayList<>();
+        marblesMatrix = new ArrayList<>(0);
         ArrayList<MarketMarble> column = null;
         int i, j;
         for (i = 0; i < columns; i++) {

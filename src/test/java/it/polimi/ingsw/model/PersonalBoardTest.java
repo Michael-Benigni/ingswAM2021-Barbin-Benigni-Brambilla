@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -58,8 +57,8 @@ public class PersonalBoardTest {
     }
 
     @Test
-    void initializeFromJSON() throws FileNotFoundException, WrongSlotDevelopmentIndexException {
-        PersonalBoard p = new PersonalBoard(3, 2).inizializeFromJSON();
+    void initFromJSON() throws FileNotFoundException, WrongSlotDevelopmentIndexException {
+        PersonalBoard p = new PersonalBoard(3, 2).initFromJSON();
         WarehouseDepots warehouseDepots = p.getWarehouseDepots();
         assertNotNull(warehouseDepots);
         Integer [] capacities = {1, 2, 3};
