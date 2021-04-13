@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.GameBoard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 
+import java.util.Objects;
+
 
 /**
  * Class that represents a group of faith points, can be also "0", but not negative
@@ -61,5 +63,19 @@ public class FaithPoint extends Resource {
             faithPoint = (FaithPoint) this.clone();
         }
         return faithPoint;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FaithPoint that = (FaithPoint) o;
+        return points == that.points;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), points);
     }
 }
