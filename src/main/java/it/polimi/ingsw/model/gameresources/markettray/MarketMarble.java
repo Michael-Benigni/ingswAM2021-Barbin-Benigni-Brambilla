@@ -26,11 +26,7 @@ public class MarketMarble {
      */
     Resource getCorrespondentResource() {
         Resource resourceCopy = null;
-        try {
-            resourceCopy = (Resource) resource.clone();
-        } catch (CloneNotSupportedException e) {
-            resourceCopy = new EmptyResource();
-        }
+        resourceCopy = (Resource) resource.clone();
         return resourceCopy;
     }
 

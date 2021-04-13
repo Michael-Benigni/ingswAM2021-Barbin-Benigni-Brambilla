@@ -23,6 +23,11 @@ class EmptyResource extends Resource {
         //Empty method
     }
 
+    @Override
+    protected Object clone() {
+        return super.clone();
+    }
+
     /**
      * this method creates a copy of the object EmptyResource
      * @return the created copy
@@ -34,7 +39,10 @@ class EmptyResource extends Resource {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return true;
     }
+
 }

@@ -48,34 +48,22 @@ public class FaithPoint extends Resource {
         faithTrack.moveMarkerForward(player, points);
     }
 
-
-    /**
-     * this method creates a copy of the object FaithPoint
-     * @return the created copy
-     */
     @Override
-    protected Resource clone() throws CloneNotSupportedException {
-        FaithPoint faithPoint = null;
-        try {
-            faithPoint = new FaithPoint(points);
-        } catch (NegativeResourceAmountException e) {
-            this.points = 0;
-            faithPoint = (FaithPoint) this.clone();
-        }
-        return faithPoint;
+    protected Object clone() {
+        return super.clone();
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         FaithPoint that = (FaithPoint) o;
         return points == that.points;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), points);
+        return Objects.hash(points);
     }
 }

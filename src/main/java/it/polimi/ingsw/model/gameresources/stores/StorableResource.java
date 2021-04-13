@@ -102,24 +102,6 @@ public class StorableResource extends Resource {
 
 
     /**
-     * this method creates a copy of the object StorableResource
-     *
-     * @return the created copy
-     */
-    @Override
-    protected Resource clone() throws CloneNotSupportedException {
-        StorableResource storableResource = null;
-        try {
-            storableResource = new StorableResource(resourceType, amount);
-        } catch (NegativeResourceAmountException e) {
-            this.amount = 0;
-            storableResource = (StorableResource) this.clone();
-        }
-        return storableResource;
-    }
-
-
-    /**
      * Method that verify if the two resources have the same resourceType
      * This method is called on the first resource to compare
      *
@@ -144,9 +126,13 @@ public class StorableResource extends Resource {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         StorableResource that = (StorableResource) o;
         return amount == that.amount && resourceType == that.resourceType;
+    }
+
+    @Override
+    protected Object clone() {
+        return super.clone();
     }
 
     @Override

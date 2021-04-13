@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Player;
 /**
  * Interface that join all the resources (storable, faith points...) in this unique common name
  */
-public abstract class Resource {
+public abstract class Resource implements Cloneable{
 
     /**
      * This method "activate()" will be redefined in every class that implements this interface
@@ -13,17 +13,11 @@ public abstract class Resource {
     protected abstract void activate(Player player) throws Exception;
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    protected Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 }
