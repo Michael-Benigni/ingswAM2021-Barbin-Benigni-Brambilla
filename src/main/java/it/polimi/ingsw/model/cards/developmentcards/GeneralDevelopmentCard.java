@@ -77,7 +77,7 @@ class GeneralDevelopmentCard implements Requirements {
      * @return true if the level of the caller card is the first
      */
     private boolean isOfFirstLevel() {
-        if (this.getCardLevel().ordinal() == 1)
+        if (this.getCardLevel().equals(CardLevel.ONE))
             return true;
         return false;
     }

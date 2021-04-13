@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class SlotDevelopmentCards {
     private Integer maxNumberOfCardsInSlot;
-    private ArrayList <DevelopmentCard> listOfDevelopmentCards;
+    private ArrayList <DevelopmentCard> listOfDevelopmentCards = new ArrayList<>(0);
 
 
     //TODO: missing parameter maxNumberOfCardsInSlot in constructor method
@@ -41,19 +41,25 @@ public class SlotDevelopmentCards {
      */
     ArrayList <DevelopmentCard> getAllCards() throws EmptySlotException {
         ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
-        listOfAllCards.add(this.getTopCard());
-        for (int i = listOfDevelopmentCards.size() - 2; i > 0; i--) {
-            listOfAllCards.add((DevelopmentCard) listOfDevelopmentCards.get(i).clone());
+        ArrayList <DevelopmentCard> auxiliaryList = new ArrayList<>(0);
+        auxiliaryList.add(this.getTopCard());
+        for(int i = listOfDevelopmentCards.size() - 2; i >= 0; i--) {
+            auxiliaryList.add((DevelopmentCard) listOfDevelopmentCards.get(i).clone());
+        }
+        for(int j = auxiliaryList.size() - 1; j >= 0; j-- ) {
+            listOfAllCards.add(auxiliaryList.get(j));
         }
         return listOfAllCards;
     }
 
     /**
-     * this method adds a new development card on top of the slot
-     * @param cardToAdd
-     * @throws Exception ->  EmptySlotException, DevelopmentCardNotAddableException
+     * this method adds a new
+     * development card on top of the slot
+     * @param cardToAdd -> the card that the player wants to add
+     * @throws DevelopmentCardNotAddableException
+     * @throws SlotDevelopmentCardsIsFullException
      */
-    void placeOnTop (DevelopmentCard cardToAdd) throws DevelopmentCardNotAddableException, SlotDevelopmentCardsIsFullException {
+    void placeOnTop (DevelopmentCard cardToAdd) throws Exception {
         if (listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
             DevelopmentCard card;
             try {
