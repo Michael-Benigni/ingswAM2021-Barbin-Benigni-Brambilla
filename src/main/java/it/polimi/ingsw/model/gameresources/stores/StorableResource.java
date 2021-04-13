@@ -3,7 +3,10 @@ package it.polimi.ingsw.model.gameresources.stores;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
+
+import java.util.Objects;
 
 /**
  * Class that represents 1 between 4 different type of resources, and also the quantity of that resource
@@ -93,7 +96,7 @@ public class StorableResource extends Resource {
      * Method inherited by the interface "Resource"
      */
     @Override
-    protected void activate() {
+    protected void activate(Player player) {
         //TODO: what kind of action need to be executed by the activation of stockResource ??
     }
 
@@ -135,6 +138,20 @@ public class StorableResource extends Resource {
      */
     boolean amountLessEqualThan(int amountToCompare) {
         return this.getAmount() <= amountToCompare;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        StorableResource that = (StorableResource) o;
+        return amount == that.amount && resourceType == that.resourceType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), amount, resourceType);
     }
 }
 

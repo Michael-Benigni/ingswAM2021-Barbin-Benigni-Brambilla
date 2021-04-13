@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gameresources.markettray;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.model.Player;
 
 /**
  * This class represents the resource contained into a white marble
@@ -18,7 +19,7 @@ class EmptyResource extends Resource {
      * Method inherited by the implementation of "Resource" interface, but doesn't append any function
      */
     @Override
-    public void activate() {
+    protected void activate(Player player) {
         //Empty method
     }
 

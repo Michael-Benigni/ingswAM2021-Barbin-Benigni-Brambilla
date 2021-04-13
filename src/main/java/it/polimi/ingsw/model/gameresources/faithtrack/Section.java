@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
+import it.polimi.ingsw.exception.*;
+
 import java.util.ArrayList;
 
 /**
@@ -7,11 +9,76 @@ import java.util.ArrayList;
  */
 public abstract class Section {
 
-    ArrayList<Cell> listCell;
+    private final ArrayList<Cell> listCell;
 
     //TODO: this constructor method is wrong. It's used only to build correctly the faith track on the json file.
+
+    /**
+     * Constructor method of this class.
+     * @param listCell -> array of cells.
+     */
     public Section(ArrayList<Cell> listCell) {
         this.listCell = listCell;
+    }
+
+
+    /**
+     * Method that returns the cell in the position determined by cellIndex.
+     * @param cellIndex -> position of the cell you want to obtain.
+     * @return -> the cell in cellIndex position.
+     * @throws WrongCellIndexException -> exception thrown if the cellIndex is less than zero or greater than the
+     * size of this section.
+     */
+    Cell getCell(int cellIndex) throws WrongCellIndexException {
+        if(cellIndex < 0 || cellIndex >= listCell.size())
+            throw new WrongCellIndexException();
+        else
+            return this.listCell.get(0);
+    }
+
+
+    /**
+     * Method that returns the next cell of the one provided.
+     * @param currentCell -> cell in input.
+     * @return -> the next cell if it exists.
+     * @throws LastCellInSectionException -> exception thrown if the method finds the cell but it's the last of this
+     * section, so it can't return the next one.
+     * @throws CellNotFoundInSectionException -> exception thrown if the cell isn't in this section.
+     */
+    Cell searchNextCellInSection(Cell currentCell) throws LastCellInSectionException, CellNotFoundInSectionException {
+        for(int i = 0; i < listCell.size(); i++) {
+            if(listCell.get(i) == currentCell) {
+                if( i == (listCell.size() - 1)) {
+                    throw new LastCellInSectionException();
+                }
+                else {
+                    return listCell.get(i);
+                }
+            }
+        }
+        throw new CellNotFoundInSectionException();
+    }
+
+
+    /**
+     * Method that returns the first cell of this section.
+     * @return -> the first cell of this section.
+     */
+    Cell firstCellInSection() {
+        return listCell.get(0);
+    }
+
+
+    /**
+     * Method that throws an exception if the provided cell isn't a cell of this section.
+     * @param currentCell -> cell to be found in this section
+     * @throws CellNotFoundInSectionException
+     */
+    boolean searchInThisSection(Cell currentCell) throws CellNotFoundInSectionException {
+        for(Cell c : listCell) {
+            return true;
+        }
+        throw new CellNotFoundInSectionException();
     }
 
 }
