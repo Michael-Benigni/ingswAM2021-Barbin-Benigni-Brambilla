@@ -1,9 +1,7 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
-import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
-import it.polimi.ingsw.exception.EmptySlotException;
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.exception.SlotDevelopmentCardsIsFullException;
+import it.polimi.ingsw.exception.*;
+import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
@@ -159,7 +157,7 @@ class SlotDevelopmentCardsTest {
      * @return the created list of development cards
      * @throws NegativeResourceAmountException
      */
-    private ArrayList <DevelopmentCard> buildCardsForTests() throws NegativeResourceAmountException {
+    private ArrayList <DevelopmentCard> buildCardsForTests() throws NegativeResourceAmountException, NegativeVPAmountException {
         ArrayList <DevelopmentCard> listOfCards = new ArrayList<>(0);
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
         StorableResource shield = new StorableResource(ResourceType.SHIELD, 1);
@@ -172,9 +170,10 @@ class SlotDevelopmentCardsTest {
         consumedResources.add(coin);
         producedResources.add(shield);
         producedResources.add(servant);
-        DevelopmentCard firstAddedCard = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
-        DevelopmentCard middleCard = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources);
-        DevelopmentCard topCard = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cost, consumedResources, producedResources);
+        VictoryPoint victoryPoints = new VictoryPoint(4);
+        DevelopmentCard firstAddedCard = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard middleCard = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard topCard = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
         listOfCards.add(firstAddedCard);
         listOfCards.add(middleCard);
         listOfCards.add(topCard);

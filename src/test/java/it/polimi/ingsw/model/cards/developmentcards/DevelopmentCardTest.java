@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.exception.NegativeVPAmountException;
+import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
@@ -14,11 +16,12 @@ import java.util.ArrayList;
 class DevelopmentCardTest {
 
     /**
-     * this method tests the createCopy method
+     * this method tests the clone method
      * @throws NegativeResourceAmountException
+     * @throws NegativeVPAmountException
      */
     @Test
-    void cloneTest() throws NegativeResourceAmountException {
+    void cloneTest() throws NegativeResourceAmountException, NegativeVPAmountException {
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
         StorableResource shield = new StorableResource(ResourceType.SHIELD, 1);
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
@@ -28,9 +31,10 @@ class DevelopmentCardTest {
         cost.add(servant);
         cost.add(shield);
         consumedResources.add(coin);
+        VictoryPoint victoryPoints = new VictoryPoint(3);
         producedResources.add(shield);
         producedResources.add(servant);
-        DevelopmentCard card = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
+        DevelopmentCard card = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
         DevelopmentCard cardCopy;
         cardCopy = (DevelopmentCard) card.clone();
         assertTrue(card.equals(cardCopy));
@@ -41,7 +45,7 @@ class DevelopmentCardTest {
      * @throws NegativeResourceAmountException
      */
     @Test
-    void equalsTest() throws NegativeResourceAmountException {
+    void equalsTest() throws NegativeResourceAmountException, NegativeVPAmountException {
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
         StorableResource shield = new StorableResource(ResourceType.SHIELD, 1);
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
@@ -53,8 +57,9 @@ class DevelopmentCardTest {
         consumedResources.add(coin);
         producedResources.add(shield);
         producedResources.add(servant);
-        DevelopmentCard cardOne = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
-        DevelopmentCard cardTwo = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
+        VictoryPoint victoryPoints = new VictoryPoint(4);
+        DevelopmentCard cardOne = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard cardTwo = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
         assertTrue(cardOne.equals(cardTwo));
     }
 }

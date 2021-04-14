@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
+import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
     private final ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Resource> producedResources;
+    private final VictoryPoint victoryPoints;
 
     /**
      * constructor of the class DevelopmentCard
@@ -19,12 +21,14 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * @param cost -> attribute that indicates che price of the card in terms of the resources that the player has to spend to earn the card
      * @param consumedResources -> attribute that indicates the resources that the player has to spend to star the production power
      * @param producedResources -> attribute that indicates the earned resources after the activation of the production power
+     * @param victoryPoints
      */
-    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Resource> producedResources) {
+    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Resource> producedResources, VictoryPoint victoryPoints) {
         super(cardColour, cardLevel);
         this.cost = cost;
         this.consumedResources = consumedResources;
         this.producedResources = producedResources;
+        this.victoryPoints = victoryPoints;
     }
 
     /**
@@ -75,7 +79,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      */
     @Override
     protected Object clone() {
-        DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), this.getCost(), this.getConsumedResources(), this.getProducedResources());
+        DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), this.getCost(), this.getConsumedResources(), this.getProducedResources(), victoryPoints);
         return copy;
     }
 }
