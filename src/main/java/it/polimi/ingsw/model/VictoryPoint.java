@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 
 /**
@@ -43,8 +42,18 @@ public class VictoryPoint {
      */
     public void decreaseVictoryPoints(VictoryPoint pointToSubtract) throws NegativeVPAmountException {
         if(this.amount >= pointToSubtract.amount)
-            this.amount = this.amount + pointToSubtract.amount;
+            this.amount = this.amount - pointToSubtract.amount;
         else
             throw new NegativeVPAmountException();
+    }
+
+
+    /**
+     * Method that returns if the provided victory points has the same amounts of this instance of victory point.
+     * @param pointsToCompare -> victory point to be compared to this.
+     * @return -> boolean: true if the two amounts are the same, false otherwise.
+     */
+    boolean equals(VictoryPoint pointsToCompare) {
+        return this.amount == pointsToCompare.amount;
     }
 }

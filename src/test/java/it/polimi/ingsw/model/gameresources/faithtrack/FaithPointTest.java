@@ -11,29 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class FaithPointTest {
 
-
-    /**
-     * Test on constructor method
-     * Test if the created object is accordant to the provided parameters
-     */
-    @Test
-    void checkConstructorIfCorrect() throws NegativeResourceAmountException {
-
-        int numPoints = 20;
-        FaithPoint faithPoint = new FaithPoint(numPoints);
-
-        //assertEquals(faithPoint.getPoints(), numPoints);
-    }
-
-
-    /**
+        /**
      * Test on constructor method
      * Test if the method throws the NegativeResourceAmountException successfully
      */
     @Test
     void checkConstructorIfNegativeAmount()
     {
-
         int numPoints = -3;
 
         try{
@@ -41,6 +25,23 @@ public class FaithPointTest {
             fail();
         } catch (NegativeResourceAmountException e){
             assertTrue(true);
+        }
+    }
+
+
+    /**
+     * Test on "Clone" method.
+     * Tests if the method creates a correct copy of the faith point provided.
+     * @throws CloneNotSupportedException -> can be thrown by "equals" method of "FaithPoint" class.
+     */
+    @Test
+    void checkCloneIfCorrect() throws CloneNotSupportedException {
+        try {
+            FaithPoint newFaithPoint = new FaithPoint(5);
+            FaithPoint copiedFaithPoint = (FaithPoint) newFaithPoint.clone();
+            assertTrue(copiedFaithPoint.equals(copiedFaithPoint));
+        } catch (NegativeResourceAmountException e) {
+            fail();
         }
     }
 
