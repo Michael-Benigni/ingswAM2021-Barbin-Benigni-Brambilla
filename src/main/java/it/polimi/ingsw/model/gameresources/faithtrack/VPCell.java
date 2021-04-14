@@ -1,10 +1,8 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
 
-import java.util.Objects;
 
 /**
  * Class that represents a cell in the faith truck that can earn a player some victory points.
