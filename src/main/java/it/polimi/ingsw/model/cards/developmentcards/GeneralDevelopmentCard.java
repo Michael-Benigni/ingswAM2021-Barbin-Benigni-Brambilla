@@ -1,11 +1,11 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
-import it.polimi.ingsw.model.cards.leadercards.Requirements;
+import it.polimi.ingsw.model.cards.leadercards.Requirement;
 
 /**
  * this class models the development card only with its colour and level
  */
-class GeneralDevelopmentCard implements Requirements {
+class GeneralDevelopmentCard implements Requirement {
     private final CardColour cardColour;
     private final CardLevel cardLevel;
 
