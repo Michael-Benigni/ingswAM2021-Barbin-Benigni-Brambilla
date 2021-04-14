@@ -4,6 +4,7 @@ import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.leadercards.Requirement;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
 /**
  * Class that represents 1 between 4 different type of resources, and also the quantity of that resource
  */
-public class StorableResource extends Resource {
+public class StorableResource extends Resource implements Requirement {
 
 
     private int amount;
@@ -138,6 +139,11 @@ public class StorableResource extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), amount, resourceType);
+    }
+
+    @Override
+    public boolean containedIn() {
+        return false;
     }
 }
 

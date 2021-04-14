@@ -82,4 +82,8 @@ class GeneralDevelopmentCard implements Requirement {
         return false;
     }
 
+    @Override
+    public boolean containedIn() {
+        return false;
+    }
 }
