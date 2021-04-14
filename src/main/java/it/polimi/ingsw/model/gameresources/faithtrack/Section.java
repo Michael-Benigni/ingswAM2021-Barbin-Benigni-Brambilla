@@ -33,7 +33,7 @@ public abstract class Section {
         if(cellIndex < 0 || cellIndex >= listCell.size())
             throw new WrongCellIndexException();
         else
-            return this.listCell.get(0);
+            return this.listCell.get(cellIndex);
     }
 
 
@@ -52,7 +52,7 @@ public abstract class Section {
                     throw new LastCellInSectionException();
                 }
                 else {
-                    return listCell.get(i);
+                    return listCell.get(i + 1);
                 }
             }
         }
@@ -64,8 +64,8 @@ public abstract class Section {
      * Method that returns the first cell of this section.
      * @return -> the first cell of this section.
      */
-    Cell firstCellInSection() {
-        return listCell.get(0);
+    Cell firstCellInSection() throws WrongCellIndexException {
+        return getCell(0);
     }
 
 
@@ -76,7 +76,8 @@ public abstract class Section {
      */
     boolean searchInThisSection(Cell currentCell) throws CellNotFoundInSectionException {
         for(Cell c : listCell) {
-            return true;
+            if(c.equals(currentCell))
+                return true;
         }
         throw new CellNotFoundInSectionException();
     }

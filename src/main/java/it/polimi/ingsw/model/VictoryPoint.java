@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 
+import java.util.Objects;
+
 /**
  * Class that represents the victory points. It's composed by an integer that represents the amount of victory points.
  */
@@ -50,10 +52,14 @@ public class VictoryPoint {
 
     /**
      * Method that returns if the provided victory points has the same amounts of this instance of victory point.
-     * @param pointsToCompare -> victory point to be compared to this.
      * @return -> boolean: true if the two amounts are the same, false otherwise.
      */
-    boolean equals(VictoryPoint pointsToCompare) {
-        return this.amount == pointsToCompare.amount;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VictoryPoint that = (VictoryPoint) o;
+        return amount == that.amount;
     }
+
 }

@@ -45,7 +45,7 @@ public class FaithTrack {
      * @param currentCell -> the current cell, so the caller wants the next one.
      * @return -> the next cell.
      */
-    Cell nextCell(Cell currentCell) throws CellNotFoundInFaithTrackException {
+    Cell nextCell(Cell currentCell) throws CellNotFoundInFaithTrackException, WrongCellIndexException {
         for (Section s : listOfSection) {
             try {
                 Cell nextCell = s.searchNextCellInSection(currentCell);

@@ -4,6 +4,8 @@ import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
 
+import java.util.Objects;
+
 /**
  * Class that represents a cell in the faith truck that can earn a player some victory points.
  */
@@ -27,5 +29,19 @@ public class VPCell extends Cell{
     protected void activateCell(FaithMarker faithMarker) throws NegativeVPAmountException {
         VictoryPoint currentVP = new VictoryPoint(numVictoryPoints);
         faithMarker.updateVictoryPointInFaithMarker(currentVP);
+    }
+
+
+    /**
+     * Method that return if two objects are both instances of this class and they have the same number of victory points..
+     * @param o -> object to be compared.
+     * @return -> boolean: true if the two objects are equals.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VPCell vpCell = (VPCell) o;
+        return numVictoryPoints == vpCell.numVictoryPoints;
     }
 }

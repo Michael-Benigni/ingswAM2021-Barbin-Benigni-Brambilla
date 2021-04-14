@@ -18,4 +18,17 @@ public class ClassicCell extends Cell{
     @Override
     protected void activateCell(FaithMarker faithMarker) {
     }
+
+
+    /**
+     * Method that return if two objects are both instances of this class.
+     * @param o -> object to be compared.
+     * @return -> boolean: true if both are instances of "ClassicCell" class.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return true;
+    }
 }
