@@ -9,15 +9,15 @@ import it.polimi.ingsw.model.VictoryPoint;
  */
 public class PopeFavourTile {
 
-    private final int numVictoryPoints;
+    private final VictoryPoint victoryPoint;
     private boolean isAlreadyActivated;
 
     /**
      * Constructor method of this class.
-     * @param numVictoryPoints -> integer useful to set the value of this tile.
+     * @param victoryPoints -> victory points earned with this tile.
      */
-    public PopeFavourTile(int numVictoryPoints) {
-        this.numVictoryPoints = numVictoryPoints;
+    public PopeFavourTile(VictoryPoint victoryPoints) {
+        this.victoryPoint = victoryPoints;
         this.isAlreadyActivated = false;
     }
 
@@ -30,9 +30,8 @@ public class PopeFavourTile {
      */
     VictoryPoint activateTile() throws NegativeVPAmountException, TileAlreadyActivatedException {
         if(!(this.isAlreadyActivated)) {
-            VictoryPoint victoryPoint = new VictoryPoint(numVictoryPoints);
             this.isAlreadyActivated = true;
-            return victoryPoint;
+            return this.victoryPoint;
         }
         else {
             throw new TileAlreadyActivatedException();

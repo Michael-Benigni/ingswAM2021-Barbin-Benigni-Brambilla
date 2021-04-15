@@ -9,15 +9,15 @@ import java.util.Objects;
  */
 public class VictoryPointsPopeSpace extends PopeSpace{
 
-    int numVictoryPoints;
+    private VictoryPoint victoryPoints;
 
     /**
      * Constructor method of this class.
-     * @param numVictoryPoints -> number of victory points.
+     * @param victoryPoints -> number of victory points.
      */
-    public VictoryPointsPopeSpace(int numVictoryPoints) {
+    public VictoryPointsPopeSpace(VictoryPoint victoryPoints) {
         super();
-        this.numVictoryPoints = numVictoryPoints;
+        this.victoryPoints = victoryPoints;
     }
 
     /**
@@ -27,8 +27,8 @@ public class VictoryPointsPopeSpace extends PopeSpace{
      */
     @Override
     public void activateCell(FaithMarker faithMarker) throws Exception {
-        VictoryPoint currentVP = new VictoryPoint(numVictoryPoints);
-        faithMarker.updateVictoryPointInFaithMarker(currentVP);
+        VictoryPoint victoryPoint = (VictoryPoint) this.victoryPoints.clone();
+        faithMarker.updateVictoryPointInFaithMarker(victoryPoint);
         super.activateCell(faithMarker);
     }
 
@@ -43,6 +43,6 @@ public class VictoryPointsPopeSpace extends PopeSpace{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         VictoryPointsPopeSpace that = (VictoryPointsPopeSpace) o;
-        return numVictoryPoints == that.numVictoryPoints;
+        return victoryPoints == that.victoryPoints;
     }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.CellNotFoundInSectionException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
+import it.polimi.ingsw.exception.WrongPlayerException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
 
@@ -55,9 +56,12 @@ public class FaithMarker {
      * @param faithTrack -> faith track to which this faith marker refers.
      * @throws Exception
      */
-    void moveForward(FaithTrack faithTrack) throws Exception {
-        this.currentCell = faithTrack.nextCell(this.currentCell);
-        this.currentCell.activateCell(this);
+    void moveForward(FaithTrack faithTrack, Player player) throws Exception {
+        if(player.equals(this.player)) {
+            this.currentCell = faithTrack.nextCell(this.currentCell);
+            this.currentCell.activateCell(this);
+        }
+        else {throw new WrongPlayerException();}
     }
 
 

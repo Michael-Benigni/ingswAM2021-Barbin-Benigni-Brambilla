@@ -19,11 +19,11 @@ public class PopeFavourTileTest {
      */
     @Test
     void checkActivateTileIfCorrect() throws NegativeVPAmountException {
-        PopeFavourTile tile = new PopeFavourTile(5);
-        VictoryPoint victoryPoint = new VictoryPoint(5);
+        VictoryPoint vp1 = new VictoryPoint(5);
+        PopeFavourTile tile = new PopeFavourTile(vp1);
         try{
             VictoryPoint newVP = tile.activateTile();
-            assertTrue(newVP.equals(victoryPoint));
+            assertTrue(newVP.equals(vp1));
         } catch (TileAlreadyActivatedException e){
             fail();
         }
@@ -37,7 +37,8 @@ public class PopeFavourTileTest {
      */
     @Test
     void checkActivateTileIfAlreadyActivated() throws NegativeVPAmountException {
-        PopeFavourTile tile = new PopeFavourTile(28);
+        VictoryPoint vp1 = new VictoryPoint(28);
+        PopeFavourTile tile = new PopeFavourTile(vp1);
         try{
             VictoryPoint newVP = tile.activateTile();
         }catch (TileAlreadyActivatedException e) {

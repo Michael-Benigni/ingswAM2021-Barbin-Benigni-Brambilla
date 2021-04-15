@@ -88,26 +88,17 @@ public class FaithTrack {
      * @throws Exception
      */
     void moveMarkerForward(Player player, int numberOfSteps) throws Exception {
-        FaithMarker faithMarker = getMarkerOfPlayer(player);
-        for(int i = 0; i < numberOfSteps; i++) {
-            faithMarker.moveForward(this);
-        }
-    }
-
-
-    /**
-     * Method that return the faith marker that belongs to the provided player.
-     * @param player
-     * @return -> the faith marker if exists.
-     * @throws PlayerHasNotMarkerException -> exception thrown if the provided player hasn't a faith marker.
-     */
-    private  FaithMarker getMarkerOfPlayer(Player player) throws PlayerHasNotMarkerException {
-        for(FaithMarker f : listOfFaithMarker) {
-            if(f.belongsTo(player)) {
-                return f;
+        for(int i = 0; i < listOfFaithMarker.size(); ) {
+            FaithMarker faithMarker = listOfFaithMarker.get(i);
+            try {
+                for(int j = 0; j < numberOfSteps; j++) {
+                    faithMarker.moveForward(this, player);
+                }
+                return ;
+            } catch (WrongPlayerException e) {
+                i++;
             }
         }
-        throw new PlayerHasNotMarkerException();
     }
 
 
@@ -132,7 +123,7 @@ public class FaithTrack {
                     player.addVictoryPointsToPlayer(victoryPoint);
                 }
             }
-        } catch (TileAlreadyActivatedException e){
+        } catch (TileAlreadyActivatedException e) {
             //do nothing, because the tile was already activated.
         }
     }

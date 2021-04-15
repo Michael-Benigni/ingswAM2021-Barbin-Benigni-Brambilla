@@ -62,4 +62,9 @@ public class VictoryPoint {
         return amount == that.amount;
     }
 
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

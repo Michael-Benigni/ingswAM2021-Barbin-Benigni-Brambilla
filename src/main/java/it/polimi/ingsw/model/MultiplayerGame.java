@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public class MultiplayerGame {
 
-    int numberOfPlayers;
-    ArrayList<Player> arrayOfPlayers;
-    GameBoard gameBoard;
+    private int numberOfPlayers;
+    private ArrayList<Player> arrayOfPlayers;
+    private GameBoard gameBoard;
 
 
     public MultiplayerGame(int numberOfPlayers) {

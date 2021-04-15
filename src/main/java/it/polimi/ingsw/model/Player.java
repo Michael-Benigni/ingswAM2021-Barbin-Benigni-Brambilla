@@ -11,6 +11,7 @@ public class Player {
     private String username;
     private VictoryPoint victoryPoints;
     private GameBoard gameBoard;
+    private PersonalBoard personalBoard;
 
     /**
      * Constructor method of this class.

@@ -9,13 +9,13 @@ import it.polimi.ingsw.model.VictoryPoint;
  */
 public class VPCell extends Cell{
 
-    private int numVictoryPoints;
+    private VictoryPoint victoryPoints;
 
     /**
      * Constructor method of this class. It reads from the database the value of "this.numVictoryPoints".
      */
-    public VPCell(int numVictoryPoints) {
-        this.numVictoryPoints = numVictoryPoints;
+    public VPCell(VictoryPoint numVictoryPoints) {
+        this.victoryPoints = numVictoryPoints;
     }
 
 
@@ -24,9 +24,9 @@ public class VPCell extends Cell{
      * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      */
     @Override
-    protected void activateCell(FaithMarker faithMarker) throws NegativeVPAmountException {
-        VictoryPoint currentVP = new VictoryPoint(numVictoryPoints);
-        faithMarker.updateVictoryPointInFaithMarker(currentVP);
+    protected void activateCell(FaithMarker faithMarker) throws NegativeVPAmountException, CloneNotSupportedException {
+        VictoryPoint victoryPoint = (VictoryPoint) this.victoryPoints.clone();
+        faithMarker.updateVictoryPointInFaithMarker(this.victoryPoints);
     }
 
 
@@ -40,6 +40,7 @@ public class VPCell extends Cell{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VPCell vpCell = (VPCell) o;
-        return numVictoryPoints == vpCell.numVictoryPoints;
+        return victoryPoints == vpCell.victoryPoints;
     }
+
 }

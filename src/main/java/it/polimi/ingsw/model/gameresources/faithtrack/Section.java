@@ -11,8 +11,6 @@ public abstract class Section {
 
     private final ArrayList<Cell> listCell;
 
-    //TODO: this constructor method is wrong. It's used only to build correctly the faith track on the json file.
-
     /**
      * Constructor method of this class.
      * @param listCell -> array of cells.

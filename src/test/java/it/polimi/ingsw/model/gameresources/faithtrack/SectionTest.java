@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.CellNotFoundInSectionException;
 import it.polimi.ingsw.exception.LastCellInSectionException;
+import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.exception.WrongCellIndexException;
+import it.polimi.ingsw.model.VictoryPoint;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -21,13 +23,15 @@ public class SectionTest {
      * @throws WrongCellIndexException -> can be thrown by "getCell" method "Section" class.
      */
     @Test
-    void checkGetCellIfCorrect() throws WrongCellIndexException {
+    void checkGetCellIfCorrect() throws WrongCellIndexException, NegativeVPAmountException {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
         Cell cell1 = new ClassicCell();
         Cell cell2 = new PopeSpace();
-        Cell cell3 = new VPCell(45);
+        VictoryPoint vp1 = new VictoryPoint(45);
+        Cell cell3 = new VPCell(vp1);
         Cell cell4 = new ClassicCell();
-        Cell cell5 = new VictoryPointsPopeSpace(12);
+        VictoryPoint vp2 = new VictoryPoint(12);
+        Cell cell5 = new VictoryPointsPopeSpace(vp2);
 
         listOfCell.add(cell1);
         listOfCell.add(cell2);
@@ -101,10 +105,12 @@ public class SectionTest {
      * @throws WrongCellIndexException -> can be thrown by "getCell" method of "Section" class.
      */
     @Test
-    void checkSearchNextCellInSectionIfLastCell() throws WrongCellIndexException {
+    void checkSearchNextCellInSectionIfLastCell() throws WrongCellIndexException, NegativeVPAmountException {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
-        Cell cell1 = new VPCell(45);
-        Cell cell2 = new VictoryPointsPopeSpace(10);
+        VictoryPoint vp1 = new VictoryPoint(33);
+        Cell cell1 = new VPCell(vp1);
+        VictoryPoint vp2 = new VictoryPoint(10);
+        Cell cell2 = new VictoryPointsPopeSpace(vp2);
         listOfCell.add(cell1);
         listOfCell.add(cell2);
         Section newSection = new ClassicSection(listOfCell);
@@ -126,9 +132,10 @@ public class SectionTest {
      * @throws WrongCellIndexException -> can be thrown by "getCell" method of "Section" class.
      */
     @Test
-    void checkSearchNextCellInSectionIfNotFound() throws WrongCellIndexException {
+    void checkSearchNextCellInSectionIfNotFound() throws WrongCellIndexException, NegativeVPAmountException {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
-        Cell cell1 = new VPCell(7);
+        VictoryPoint vp1 = new VictoryPoint(7);
+        Cell cell1 = new VPCell(vp1);
         Cell cell2 = new ClassicCell();
         Cell cell3 = new PopeSpace();
         listOfCell.add(cell1);
@@ -152,10 +159,11 @@ public class SectionTest {
      * @throws WrongCellIndexException -> can be thrown by "firstCellInSection" method of "Section" class.
      */
     @Test
-    void checkFirstCellInSectionIfCorrect() throws WrongCellIndexException {
+    void checkFirstCellInSectionIfCorrect() throws WrongCellIndexException, NegativeVPAmountException {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
         Cell cell1 = new ClassicCell();
-        Cell cell2 = new VictoryPointsPopeSpace(8);
+        VictoryPoint vp1 = new VictoryPoint(9);
+        Cell cell2 = new VictoryPointsPopeSpace(vp1);
         listOfCell.add(cell1);
         listOfCell.add(cell2);
         Section newSection = new ClassicSection(listOfCell);
@@ -191,10 +199,12 @@ public class SectionTest {
      * @throws WrongCellIndexException -> can be thrown by "getCell" method of "Section" class.
      */
     @Test
-    void checkSearchInThisSectionIfNotFound() throws WrongCellIndexException {
+    void checkSearchInThisSectionIfNotFound() throws WrongCellIndexException, NegativeVPAmountException {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
-        Cell cell1 = new VPCell(13);
-        Cell cell2 = new VictoryPointsPopeSpace(21);
+        VictoryPoint vp1 = new VictoryPoint(13);
+        Cell cell1 = new VPCell(vp1);
+        VictoryPoint vp2 = new VictoryPoint(21);
+        Cell cell2 = new VictoryPointsPopeSpace(vp2);
         Cell cell3 = new ClassicCell();
         listOfCell.add(cell1);
         listOfCell.add(cell2);
