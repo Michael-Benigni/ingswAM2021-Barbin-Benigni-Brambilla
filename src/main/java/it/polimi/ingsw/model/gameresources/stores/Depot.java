@@ -13,6 +13,7 @@ class Depot {
     private StorableResource storedResource;
     private final int capacity;
 
+    //TODO: method never used.
     private int getCapacity() {
         return capacity;
     }
@@ -27,6 +28,11 @@ class Depot {
     }
 
 
+    /**
+     * Method that returns if the type of the provided resource corresponds to the type of the one contained.
+     * @param resource -> resource to be compared to the one stored in this depot.
+     * @return -> boolean: true if the two resource have the same type, false otherwise.
+     */
     boolean alreadyContained (StorableResource resource) {
         return getStoredResource().ifSameResourceType(resource);
     }
@@ -55,10 +61,16 @@ class Depot {
     }
 
 
-    void removeResourceFromDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, NegativeResourceAmountException {
+    /**
+     * Method that decrease the amount of the contained resource.
+     * @param resourceToRemove -> Storable resource whose amount must be subtracted from the already contained resource.
+     * @throws NotEqualResourceTypeException -> can be thrown by "decreaseAmount" method of "StorableResource" class.
+     * @throws NegativeResourceAmountException -> can be thrown by "decreaseAmount" method of "StorableResource" class.
+     */
+    void removeResourceFromDepot(StorableResource resourceToRemove) throws NotEqualResourceTypeException, NegativeResourceAmountException {
         StorableResource newResource = null;
         try {
-            newResource = this.getStoredResource().decreaseAmount(resourceToStore);
+            newResource = this.getStoredResource().decreaseAmount(resourceToRemove);
         } catch (NullResourceAmountException e) {
             storedResource = null;
         }
@@ -66,10 +78,21 @@ class Depot {
     }
 
 
+    /**
+     * Getter method for "storedResource" attribute of this class.
+     * @return -> the storable resource contained in this depot.
+     */
     StorableResource getStoredResource() {
         return storedResource;
     }
 
+
+    /**
+     * Method that returns if the two object are equals.
+     * @param o -> object to be compared to this Depot.
+     * @return -> boolean: true if they are both instances of the same class and if they have the same capacity and if
+     * they have the same resource contained.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,6 +100,7 @@ class Depot {
         Depot depot = (Depot) o;
         return capacity == depot.capacity && Objects.equals(storedResource, depot.storedResource);
     }
+
 
     @Override
     public int hashCode() {

@@ -1,32 +1,16 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
-import it.polimi.ingsw.exception.DifferentResourceTypeInDepotException;
+import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
-import it.polimi.ingsw.model.gameresources.stores.Depot;
-import it.polimi.ingsw.model.gameresources.stores.ResourceType;
-import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test on the methods of "Depot" class
  */
 public class DepotTest {
-
-
-    /**
-     * Test on the constructor method of "Depot" class.
-     * Tests if the method creates a depot that contains an empty resource.
-     */
-    /*@Test
-    void checkConstructorIfCorrect()
-    {
-        Depot newDepot = new Depot(5);
-        assertTrue(newDepot.ifDepotIsEmpty());
-    }TODO: TO CHANGE*/
-
 
     /**
      * Test on "StoreResourceInDepot" method.
@@ -40,7 +24,7 @@ public class DepotTest {
         StorableResource resourceToStore = new StorableResource(ResourceType.COIN, 5);
 
         newDepot.storeResourceInDepot(resourceToStore);
-        assertTrue(newDepot.getStoredResource().equals(resourceToStore));
+        assertEquals(resourceToStore, newDepot.getStoredResource());
     }
 
 
@@ -51,8 +35,7 @@ public class DepotTest {
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
     @Test
-    void checkStoreResourceInDepotWhenSameType()
-            throws Exception {
+    void checkStoreResourceInDepotWhenSameType() throws Exception {
 
         Depot newDepot = new Depot(6);
 
@@ -64,13 +47,13 @@ public class DepotTest {
         newDepot.storeResourceInDepot(resourceToStore1);
         newDepot.storeResourceInDepot(resourceToStore2);
 
-        assertTrue(newDepot.getStoredResource().equals(resourceToStoreTot));
+        assertEquals(resourceToStoreTot, newDepot.getStoredResource());
 
         try{
             newDepot.storeResourceInDepot(resourceToStore3);
             fail();
         }catch (ResourceOverflowInDepotException e){
-            assertTrue(newDepot.getStoredResource().equals(resourceToStoreTot));
+            assertEquals(resourceToStoreTot, newDepot.getStoredResource());
         }
 
     }
@@ -81,9 +64,8 @@ public class DepotTest {
      * Tests if the method throws successfully an exception when the two resources to store have different type.
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
-    /*@Test
-    void checkStoreResourceInDepotWhenDifferentType()
-            throws Exception {
+    @Test
+    void checkStoreResourceInDepotWhenDifferentType() throws Exception {
 
         Depot newDepot = new Depot(9);
 
@@ -95,11 +77,12 @@ public class DepotTest {
         try{
             newDepot.storeResourceInDepot(resourceToStore2);
             fail();
-        }catch (DifferentResourceTypeInDepotException e){
-            assertTrue(newDepot.getStoredResource().equals(resourceToStore1));
+        }catch (NotEqualResourceTypeException e){
+            assertEquals(resourceToStore1, newDepot.getStoredResource());
+        } catch (ResourceOverflowInDepotException e) {
+            fail();
         }
-
-    }*/
+    }
 
 
     /**
@@ -119,7 +102,7 @@ public class DepotTest {
         newDepot.storeResourceInDepot(resourceToStore);
         newDepot.removeResourceFromDepot(resourceToRemove);
 
-        assertTrue(newDepot.getStoredResource().equals(resourceToCheck));
+        assertEquals(resourceToCheck, newDepot.getStoredResource());
     }
 
 
@@ -128,7 +111,7 @@ public class DepotTest {
      * Tests if the method empties completely a depot.
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
-    /*@Test
+    @Test
     void checkRemoveResourceFromDepotWhenEmpties()
             throws Exception {
         Depot newDepot = new Depot(16);
@@ -137,9 +120,9 @@ public class DepotTest {
         newDepot.storeResourceInDepot(resource);
         newDepot.removeResourceFromDepot(resource);
 
-        assertTrue(newDepot.ifDepotIsEmpty());
+        assertNull(newDepot.getStoredResource());
 
-    }*/
+    }
 
 
     /**
@@ -148,7 +131,7 @@ public class DepotTest {
      * one stored, and if the method tries to remove any resource from an empty depot.
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
-    /*@Test
+    @Test
     void checkRemoveResourceFromDepotWhenDifferentType()
             throws Exception {
 
@@ -159,8 +142,8 @@ public class DepotTest {
         try{
             newDepot.removeResourceFromDepot(resourceToRemove);
             fail();
-        }catch (DifferentResourceTypeInDepotException e){
-            assertTrue(newDepot.ifDepotIsEmpty());
+        }catch (NullPointerException e){
+            assertNull(newDepot.getStoredResource());
         }
 
         newDepot.storeResourceInDepot(resourceToStore);
@@ -168,11 +151,28 @@ public class DepotTest {
         try{
             newDepot.removeResourceFromDepot(resourceToRemove);
             fail();
-        }catch (DifferentResourceTypeInDepotException e){
+        }catch (NotEqualResourceTypeException e){
             assertTrue(newDepot.getStoredResource().equals(resourceToStore));
         }
 
-    }*/
+    }
 
+
+    /**
+     * Test on "alreadyContained" method of this class.
+     * Tests if the method returns the correct boolean in case of resources with same type and in case of resource with
+     * different type.
+     * @throws Exception
+     */
+    @Test
+    void checkAlreadyContainedIfCorrect() throws Exception {
+        Depot newDepot = new Depot(48);
+        StorableResource resourceToStore = new StorableResource(ResourceType.STONE, 15);
+        StorableResource resourceToCompare = new StorableResource(ResourceType.STONE, 2);
+        StorableResource resourceToFail = new StorableResource(ResourceType.COIN, 15);
+        newDepot.storeResourceInDepot(resourceToStore);
+        assertTrue(newDepot.alreadyContained(resourceToCompare));
+        assertFalse(newDepot.alreadyContained(resourceToFail));
+    }
 }
 
