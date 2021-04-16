@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.gameresources.faithtrack.Section;
 import it.polimi.ingsw.model.gameresources.faithtrack.Cell;
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.List;
+import java.util.ArrayList;
 
 //TODO: check doc
 /**
@@ -34,26 +34,26 @@ public class ConfigLoaderWriter {
     }
 
     //TODO: check if is better to have attributeClass or the object attribute
-    public static Object getAsJavaObjectFromJSON (Type type, String propertyKey) throws FileNotFoundException {
-        return getAsJavaObjectFromJSON(type, propertyKey, PATH_TO_DB);
+    public static Object getAsJavaObjectFromJSON (Type type, String jsonPath) throws FileNotFoundException {
+        return getAsJavaObjectFromJSON(type, jsonPath, PATH_TO_DB);
     }
 
 
-    public static Object getAsJavaObjectFromJSONArray (Type type, String propertyKey, int index) throws FileNotFoundException {
-        return getAsJavaObjectFromJSONArray(type, propertyKey, PATH_TO_DB, index);
+    public static Object getAsJavaObjectFromJSONArray (Type type, String jsonPath, int[] listIndeces) throws FileNotFoundException {
+        return getAsJavaObjectFromJSONArray(type, jsonPath, PATH_TO_DB, listIndeces);
     }
 
 
-    public static Object getAsJavaObjectFromJSON (Type type, String propertyKey, String filePath) throws FileNotFoundException {
+    public static Object getAsJavaObjectFromJSON (Type type, String jsonPath, String filePath) throws FileNotFoundException {
         JsonObject DBAsJsonObject = getFileAsJsonElement(filePath).getAsJsonObject();
-        JsonElement attributeValueAsJsonElem = getJsonElement(propertyKey, DBAsJsonObject);
+        JsonElement attributeValueAsJsonElem = getJsonElement(jsonPath, DBAsJsonObject);
         return gson.fromJson(attributeValueAsJsonElem, type);
     }
 
 
-    public static Object getAsJavaObjectFromJSONArray (Type type, String propertyKey, String filePath, int index) throws FileNotFoundException {
+    public static Object getAsJavaObjectFromJSONArray (Type type, String jsonPath, String filePath, int[] listIndeces) throws FileNotFoundException {
         JsonObject DBAsJsonObject = getFileAsJsonElement(filePath).getAsJsonObject();
-        JsonElement attributeValueAsJsonElem = getJsonElementFromJsonArray(propertyKey, DBAsJsonObject, index);
+        JsonElement attributeValueAsJsonElem = getJsonElementFromJsonArray(jsonPath, DBAsJsonObject, listIndeces);
         return gson.fromJson(attributeValueAsJsonElem, type);
     }
 
@@ -72,18 +72,28 @@ public class ConfigLoaderWriter {
     private static JsonElement getJsonElement(String pathToJsonElem, JsonElement json) {
         JsonObject obj;
         JsonElement elem = json;
-        List jsonNodes = ConfigParser.decompose(pathToJsonElem);
-        for(int i = 0; i < jsonNodes.size(); i++) {
+        ArrayList<String> jsonNodes = ConfigParser.decompose(pathToJsonElem);
+        for(int currNode = 0; currNode < jsonNodes.size(); currNode++) {
             obj = elem.getAsJsonObject();
-            elem = obj.get((String) jsonNodes.get(i));
+            try {
+                elem = obj.get(jsonNodes.get(currNode));
+                if (elem.isJsonArray()) {
+                    return elem;
+                }
+            } catch (NullPointerException e) {
+                elem = obj;
+            }
         }
         return elem;
     }
 
-    private static JsonElement getJsonElementFromJsonArray(String pathToJsonArray, JsonElement json, int index) {
-        JsonElement jsonElement = getJsonElement(pathToJsonArray, json);
-        JsonArray jsonArray = jsonElement.getAsJsonArray();
-        return jsonArray.get(index);
+    private static JsonElement getJsonElementFromJsonArray(String pathToJsonElemInArray, JsonElement json, int[] listIndeces) {
+        JsonElement elemOfJsonArray = json;
+        for (int i = 0; i < listIndeces.length && pathToJsonElemInArray.length() > 0; i++) {
+            JsonArray jsonArray = getJsonElement(pathToJsonElemInArray, elemOfJsonArray).getAsJsonArray();
+            elemOfJsonArray = jsonArray.get(listIndeces[i]);
+        }
+        return elemOfJsonArray;
     }
 
 
