@@ -1,10 +1,16 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
+import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.gameresources.faithtrack.Section;
+import it.polimi.ingsw.model.gameresources.markettray.MarketMarble;
+import it.polimi.ingsw.model.gameresources.markettray.MarketTray;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class that represents the game board, that's a collection of elements that are common to all players.
@@ -12,28 +18,57 @@ import java.util.ArrayList;
 public class GameBoard {
 
     FaithTrack faithTrack;
-    //DevelopmentCardGrid developmentCardGrid;
+    DevelopmentCardsGrid developmentCardGrid;
+    MarketTray marketTray;
 
-    /**
-     * Constructor method of this class
-     */
-    public GameBoard() {
-
-    }
 
     /**
      * Method that initializes the elements of this game board.
      * @param listOfPlayers -> array that contains all the players.
+     * @return
      */
-    public void prepareGameBoard(ArrayList<Player> listOfPlayers) throws Exception {
-        //this.developmentCardGrid = new DevelopmentCardGrid();
-        //TODO: read from json file the array of section to pass in the constructor method of "FaithTrack" class.
-        int numSections = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, "FaithTrack/numberOfSections");
-        ArrayList<Section> listOfSections = new ArrayList<>(0);
-        for(int i = 0; i < numSections; i++){
-            //listOfSections.add(getSectionFromJSON(i));
+    public GameBoard prepareGameBoard(ArrayList<Player> listOfPlayers) throws Exception {
+        initMarketFromJSON("gameBoard/");
+        initCardsGridFromJSON("gameBoard/");
+        initFaithTrackFromJSON("gameBoard/");
+        return this;
+    }
+
+    private void initFaithTrackFromJSON(String jsonPath) {
+    }
+
+    private void initMarketFromJSON(String jsonPath) throws FileNotFoundException {
+        jsonPath = jsonPath + "marketTray/";
+        int rows = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, jsonPath + "rows");
+        int columns = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, jsonPath + "columns");
+        HashMap<MarketMarble, Integer> howManyMarbles = new HashMap<>();
+        jsonPath = jsonPath + "howManyMarbles/";
+        for (int i = 0; true; i++) {
+            try {
+                int quantity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, jsonPath + "quantity", new int[] {i});
+                MarketMarble marble = (MarketMarble) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(MarketMarble.class, jsonPath, new int[] {i});
+                howManyMarbles.put(marble, quantity);
+            } catch (Exception e) {
+                break;
+            }
         }
-        this.faithTrack = new FaithTrack(listOfSections, listOfPlayers);
+        marketTray = new MarketTray(columns, rows, howManyMarbles);
+    }
+
+    private void initCardsGridFromJSON(String jsonPath) throws FileNotFoundException {
+        jsonPath = jsonPath + "developmentCardsGrid/";
+        int rows = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, jsonPath + "rows");
+        int columns = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, jsonPath + "columns");
+        ArrayList<DevelopmentCard> cards = new ArrayList<>();
+        for (int i = 0; true; i++) {
+            try {
+                DevelopmentCard card = (DevelopmentCard) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(DevelopmentCard.class, jsonPath + "cardsList/", new int[] {i});
+                cards.add(card);
+            } catch (Exception e) {
+                break;
+            }
+        }
+        developmentCardGrid = new DevelopmentCardsGrid(cards, rows, columns);
     }
 
     /*

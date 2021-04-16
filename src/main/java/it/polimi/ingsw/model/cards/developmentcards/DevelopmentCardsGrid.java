@@ -14,8 +14,8 @@ import it.polimi.ingsw.exception.EmptyDeckException;
  * the cards shown on the top of the decks are placed in the arrays in the last position
  */
 public class DevelopmentCardsGrid {
-    private Integer numberOfColumns;
-    private Integer numberOfRows;
+    private Integer columns;
+    private Integer rows;
     private ArrayList <ArrayList <ArrayList <DevelopmentCard>>> cardsGrid;
 
     /**
@@ -23,9 +23,9 @@ public class DevelopmentCardsGrid {
      * this constructor invokes the method setCardsGrid to build
      * the cards grid with the cards divided by colour and level
      */
-    public DevelopmentCardsGrid(ArrayList<DevelopmentCard> cardsList, int numberOfRows, int numberOfColumns) {
-        this.numberOfRows = numberOfRows;
-        this.numberOfColumns = numberOfColumns;
+    public DevelopmentCardsGrid(ArrayList<DevelopmentCard> cardsList, int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
         initGrid();
         setCardsGrid(cardsList);
     }
@@ -36,8 +36,8 @@ public class DevelopmentCardsGrid {
      * composes the grid
      */
     private void shuffleDecks() {
-        for (int i = 0; i < numberOfRows; i++){
-            for (int j = 0; j < numberOfColumns; j++) {
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < columns; j++) {
                 Collections.shuffle(this.cardsGrid.get(i).get(j));
             }
         }
@@ -99,10 +99,10 @@ public class DevelopmentCardsGrid {
     private void setCardsGrid(ArrayList <DevelopmentCard> cardsList) {
         ArrayList <DevelopmentCard> cardsGroupedByColour = groupByColour(cardsList);
         ArrayList <DevelopmentCard> cardsGroupedByColourSortedByLevel = sortByLevel(cardsGroupedByColour);
-        int numberOfDecks = numberOfRows * numberOfColumns;
+        int numberOfDecks = rows * columns;
         int numberOfCardsInEachDeck = cardsGroupedByColourSortedByLevel.size() / numberOfDecks;
-        for(int i = 0; i < numberOfRows; i++) {
-            for(int j = 0; j < numberOfColumns; j++) {
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < columns; j++) {
                 List<DevelopmentCard> deck = cardsGroupedByColourSortedByLevel.subList(0, numberOfCardsInEachDeck);
                 this.cardsGrid.get(i).add(new ArrayList<>(deck));
                 cardsGroupedByColourSortedByLevel.removeAll(new ArrayList<>(deck));
@@ -119,7 +119,7 @@ public class DevelopmentCardsGrid {
      */
     private ArrayList <DevelopmentCard> groupByColour(ArrayList <DevelopmentCard> cardsList) {
         ArrayList <DevelopmentCard> cardsGroupedByColour = new ArrayList<>(0);
-        for (int i = 0; i < numberOfColumns; i++) {
+        for (int i = 0; i < columns; i++) {
             ArrayList <DevelopmentCard> auxiliaryList = (ArrayList<DevelopmentCard>) cardsList
                     .stream()
                     .filter( card1 -> card1.hasSameColour(cardsList.get(0)))
@@ -151,7 +151,7 @@ public class DevelopmentCardsGrid {
      */
     private void initGrid() {
         this.cardsGrid = new ArrayList<>(0);
-        for(int i = 0; i < numberOfRows; i++){
+        for(int i = 0; i < rows; i++){
             cardsGrid.add(new ArrayList<>());
         }
     }

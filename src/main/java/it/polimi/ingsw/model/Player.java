@@ -49,4 +49,8 @@ public class Player {
     public GameBoard getGameBoard() {
         return gameBoard;
     }
+
+    public void performAction(Action action) {
+        action.execute();
+    }
 }

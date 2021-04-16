@@ -35,8 +35,8 @@ public class PersonalBoard {
     }
 
     PersonalBoard initFromJSON() throws FileNotFoundException {
-        warehouseDepots = initWarehouseFromJSON();
-        listOfSlotDevelopmentCards = initSlotsDevCardsFromJSON();
+        initWarehouseFromJSON("personalBoard/");
+        initSlotsDevCardsFromJSON("personalBoard/");
         //TODO : LEADER CARDS SLOT
         return this;
     }
@@ -49,22 +49,21 @@ public class PersonalBoard {
         return slotsOfDevCardsArray;
     }
 
-    private WarehouseDepots initWarehouseFromJSON() throws FileNotFoundException {
-        final String keyInJSON = "WarehouseDepots";
-        int numberOfDepots = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "/numberOfDepots");
+    private void initWarehouseFromJSON(String jsonPath) throws FileNotFoundException {
+        final String keyInJSON = jsonPath + "warehouseDepots/";
+        int numberOfDepots = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "numberOfDepots/");
         ArrayList<Integer> capacities = new ArrayList<>(numberOfDepots);
         for (int i = 0; i < numberOfDepots; i++) {
-            int capacity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, keyInJSON + "/capacities", i);
+            int capacity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, keyInJSON + "capacities/", new int[] {i});
             capacities.add(capacity);
         }
-        return new WarehouseDepots(numberOfDepots, capacities);
+        warehouseDepots = new WarehouseDepots(numberOfDepots, capacities);
     }
 
-    private ArrayList<SlotDevelopmentCards> initSlotsDevCardsFromJSON() throws FileNotFoundException {
-        final String keyInJSON = "SlotDevelopmentCards";
-        int maxNumberOfDevCardsInSlot = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "/maxNumberOfCardsInSlot");
-        ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = initSlotsDevCards(numberOfSlotDevCards, maxNumberOfDevCardsInSlot);
-        return slotsOfDevCardsArray;
+    private void initSlotsDevCardsFromJSON(String jsonPath) throws FileNotFoundException {
+        final String keyInJSON = jsonPath + "slotDevelopmentCards/";
+        int maxNumberOfDevCardsInSlot = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumberOfCardsInSlot/");
+        listOfSlotDevelopmentCards = initSlotsDevCards(numberOfSlotDevCards, maxNumberOfDevCardsInSlot);
     }
 
     /**

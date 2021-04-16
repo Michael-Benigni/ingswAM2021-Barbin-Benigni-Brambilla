@@ -73,7 +73,7 @@ public class ConfigLoaderWriter {
         JsonObject obj;
         JsonElement elem = json;
         ArrayList<String> jsonNodes = ConfigParser.decompose(pathToJsonElem);
-        for(int currNode = 0; currNode < jsonNodes.size(); currNode++) {
+        for(int currNode = 0; jsonNodes.size() > 0; ) {
             obj = elem.getAsJsonObject();
             try {
                 elem = obj.get(jsonNodes.get(currNode));
@@ -83,17 +83,51 @@ public class ConfigLoaderWriter {
             } catch (NullPointerException e) {
                 elem = obj;
             }
+            jsonNodes.remove(currNode);
+            pathToJsonElem = ConfigParser.compose(jsonNodes);
+            jsonNodes = ConfigParser.decompose(pathToJsonElem);
         }
         return elem;
     }
 
     private static JsonElement getJsonElementFromJsonArray(String pathToJsonElemInArray, JsonElement json, int[] listIndeces) {
         JsonElement elemOfJsonArray = json;
-        for (int i = 0; i < listIndeces.length && pathToJsonElemInArray.length() > 0; i++) {
-            JsonArray jsonArray = getJsonElement(pathToJsonElemInArray, elemOfJsonArray).getAsJsonArray();
-            elemOfJsonArray = jsonArray.get(listIndeces[i]);
+        for (int i = 0; pathToJsonElemInArray != null; i++) {
+            try {
+                JsonArray jsonArray = getJsonElement(pathToJsonElemInArray, elemOfJsonArray).getAsJsonArray();
+                elemOfJsonArray = jsonArray.get(listIndeces[i]);
+            } catch (Exception e) {
+                elemOfJsonArray = getJsonElement(pathToJsonElemInArray, elemOfJsonArray);
+            }
+            pathToJsonElemInArray = updateJsonPath(elemOfJsonArray, pathToJsonElemInArray);
         }
         return elemOfJsonArray;
+    }
+
+    private static String updateJsonPath(JsonElement element, String path) {
+        ArrayList<String> listNodes = ConfigParser.decompose(path);
+        int currNode = 0;
+        while (listNodes.size() > 0) {
+            String node = listNodes.get(currNode);
+            JsonElement test = null;
+            try {
+                test = element.getAsJsonObject().get(node);
+            } catch (Exception e) {
+                listNodes.remove(node);
+                path = ConfigParser.compose(listNodes);
+                break;
+            }
+            if(test == null) {
+                listNodes.remove(node);
+                path = ConfigParser.compose(listNodes);
+            } else {
+                listNodes.remove(node);
+                path = ConfigParser.compose(listNodes);
+                break;
+            }
+        }
+        return path;
+
     }
 
 

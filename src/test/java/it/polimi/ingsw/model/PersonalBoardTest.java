@@ -56,7 +56,7 @@ public class PersonalBoardTest {
         assertNull(toTest);
     }
 
-    @Test
+    /*@Test
     void initFromJSON() throws FileNotFoundException, WrongSlotDevelopmentIndexException {
         PersonalBoard p = new PersonalBoard(3, 2).initFromJSON();
         WarehouseDepots warehouseDepots = p.getWarehouseDepots();
@@ -69,5 +69,5 @@ public class PersonalBoardTest {
         SlotDevelopmentCards slotDevelopmentCards = p.getSlotDevelopmentCards(1);
         assertNotNull(slotDevelopmentCards);
         assertEquals(slotDevelopmentCards, new SlotDevelopmentCards(3));
-    }
+    }*/
 }
