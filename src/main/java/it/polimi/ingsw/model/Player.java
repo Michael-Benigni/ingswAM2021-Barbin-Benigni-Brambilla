@@ -51,6 +51,6 @@ public class Player {
     }
 
     public void performAction(Action action) {
-        action.execute();
+        action.executeOn(this);
     }
 }
