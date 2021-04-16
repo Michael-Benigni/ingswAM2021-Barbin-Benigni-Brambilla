@@ -1,5 +1,5 @@
 {
-  "MarketTray": {
+  "marketTray": {
     "rows": 3,
     "columns": 4,
     "typesOfMarbles": [
@@ -58,2332 +58,1709 @@
       "PURPLE": 2
     }
   },
-  "SlotDevelopmentCards": {
+  "slotDevelopmentCards": {
     "maxNumberOfCardsInSlot": 3
   },
-  "WarehouseDepots": {
+  "warehouseDepots": {
     "numberOfDepots": 3,
     "capacities": [1, 2, 3]
   },
-  "CardsGrid": {
+  "developmentCardsGrid": {
     "rows": 3,
     "columns": 4,
     "cardsList": [
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       },
       {
         "cost": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SERVANT"
           },
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
+            "amount": 1,
+            "resourceType": "SHIELD"
           }
         ],
         "consumedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN"
-          },
-          {
-            "amount": 2,
+            "amount": 1,
             "resourceType": "COIN"
           }
         ],
         "producedResources": [
           {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SHIELD",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           },
           {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.FaithPoint"
-          },
-          {
-            "amount": 2,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+            "amount": 1,
+            "resourceType": "SERVANT",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         ],
-        "cardColour": "BLUE",
+        "victoryPoints": {
+          "amount": 3
+        },
+        "cardColour": "YELLOW",
         "cardLevel": "ONE"
       }
     ]
   },
-  "PersonalBoard": {
+  "personalBoard": {
     "numberOfSlotDevelopmentCards": 3,
     "numberOfSlotLeaderCards": 2
   },
-  "FaithTrack": {
-    "numberOfSection": 6,
+  "faithTrack": {
+    "numberOfSections": 6,
     "faithTrack": [
       {
-        "listCell": [
+        "numberOfCells" : 10,
+        "listCells": [
           {
             "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
           },
@@ -2407,7 +1784,7 @@
         "tile": {
           "numVictoryPoints": 2
         },
-        "listCell": [
+        "listCells": [
           {
             "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
           },
@@ -2425,7 +1802,7 @@
         "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
       },
       {
-        "listCell": [
+        "listCells": [
           {
             "numVictoryPoints": 4,
             "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
@@ -2443,7 +1820,7 @@
         "tile": {
           "numVictoryPoints": 3
         },
-        "listCell": [
+        "listCells": [
           {
             "numVictoryPoints": 6,
             "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
@@ -2465,7 +1842,7 @@
         "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
       },
       {
-        "listCell": [
+        "listCells": [
           {
             "numVictoryPoints": 4,
             "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
@@ -2483,7 +1860,7 @@
         "tile": {
           "numVictoryPoints": 4
         },
-        "listCell": [
+        "listCells": [
           {
             "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
           },
