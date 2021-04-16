@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
+import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
@@ -19,7 +20,7 @@ public class PersonalBoard {
     private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
-    //private Arraylist<SlotLeaderCard> listOfSlotLC;
+    private ArrayList<SlotLeaderCards> listOfSlotLeaderCards;
 
     /**
      * Constructor method of this class. It creates an empty personal board.

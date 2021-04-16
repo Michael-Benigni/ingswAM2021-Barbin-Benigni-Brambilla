@@ -1,6 +1,10 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
+import it.polimi.ingsw.model.cards.leadercards.Requirement;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 /**
  * Class that represents the player in the model. It has an username provided by the client, and a number of victory
@@ -10,7 +14,6 @@ public class Player {
 
     private String username;
     private VictoryPoint victoryPoints;
-    private GameBoard gameBoard;
     private PersonalBoard personalBoard;
 
     /**
@@ -18,12 +21,15 @@ public class Player {
      * @param username -> String provided by the client.
      * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      */
-    Player(String username, GameBoard gameBoard) throws NegativeVPAmountException {
+    Player(String username) throws FileNotFoundException {
         this.username = username;
-        this.victoryPoints = new VictoryPoint(0);
-        this.gameBoard = gameBoard;
+        try {
+            this.victoryPoints = new VictoryPoint(0);
+        } catch (NegativeVPAmountException e) {
+            this.victoryPoints = null;
+        }
+        this.personalBoard = new PersonalBoard(0, 0).initFromJSON();
     }
-
 
     /**
      * Method that increases the number of victory points of this player.
@@ -43,14 +49,9 @@ public class Player {
         return super.equals(obj);
     }
 
-    /**
-     * Getter method for "gameBoard" attribute of this class.
-     */
-    public GameBoard getGameBoard() {
-        return gameBoard;
-    }
-
-    public void performAction(Action action) {
-        action.executeOn(this);
+    ArrayList<Requirement> getAllRequirements() {
+        ArrayList<Requirement> requirements = new ArrayList<>(0);
+        // getAll from Strongbox, warehouse, slots, ... and put in array;
+        return requirements;
     }
 }

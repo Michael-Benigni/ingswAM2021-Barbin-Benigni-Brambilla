@@ -4,6 +4,7 @@ import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.exception.TooManyPlayersException;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -21,9 +22,9 @@ public class MultiplayerGame {
         this.gameBoard = new GameBoard();
     }
 
-    public void addPlayer(String username) throws NegativeVPAmountException, TooManyPlayersException {
+    public void addPlayer(String username) throws TooManyPlayersException, FileNotFoundException {
         if(arrayOfPlayers.size() < numberOfPlayers) {
-            Player newPlayer = new Player(username, gameBoard);
+            Player newPlayer = new Player(username);
         }
         else{
             throw new TooManyPlayersException();
