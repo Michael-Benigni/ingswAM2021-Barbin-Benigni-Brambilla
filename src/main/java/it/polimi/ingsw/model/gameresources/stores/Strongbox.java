@@ -62,7 +62,7 @@ public class Strongbox {
      * @return -> the array of resources.
      * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
      */
-    ArrayList<StorableResource> getAllStoredResources() throws NegativeResourceAmountException, CloneNotSupportedException {
+    public ArrayList<StorableResource> getAllStoredResources() throws NegativeResourceAmountException, CloneNotSupportedException {
         ArrayList<StorableResource> copyList = new ArrayList<>(0);
         for(StorableResource r : resourceContained) {
             StorableResource temporaryStorableResource = (StorableResource) r.clone();

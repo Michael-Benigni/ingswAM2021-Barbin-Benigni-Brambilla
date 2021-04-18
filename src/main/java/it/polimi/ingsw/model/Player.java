@@ -1,14 +1,20 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exception.EmptySlotException;
+import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
+import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.leadercards.Requirement;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
- * Class that represents the player in the model. It has an username provided by the client, and a number of victory
- * points. They start to zero and can be increased during the match.
+ * Class that represents the player in the model.
+ * It has a username provided by the client,
+ * and a number of victory points.
+ * They start to zero and can be increased during the match.
  */
 public class Player {
 
@@ -49,9 +55,19 @@ public class Player {
         return super.equals(obj);
     }
 
-    ArrayList<Requirement> getAllRequirements() {
-        ArrayList<Requirement> requirements = new ArrayList<>(0);
-        // getAll from Strongbox, warehouse, slots, ... and put in array;
+    /**
+     * this method invokes the personal board
+     * method getAllRequirements to obtain an
+     * ArrayList of all the player's requirements
+     * @return an ArrayList of requirements
+     * @throws NegativeResourceAmountException
+     * @throws CloneNotSupportedException
+     * @throws EmptySlotException
+     * @throws WrongSlotDevelopmentIndexException
+     */
+    public ArrayList <Requirement> getAllRequirements() throws NegativeResourceAmountException, CloneNotSupportedException, EmptySlotException, WrongSlotDevelopmentIndexException {
+        ArrayList <Requirement> requirements;
+        requirements = this.personalBoard.getAllRequirements();
         return requirements;
     }
 }
