@@ -45,10 +45,10 @@ public class StrongboxTest {
         ArrayList<StorableResource> resourceArray = new ArrayList<>(0);
         resourceArray.add(resourceCoin);
 
-        newStrongbox.storeResourceInStrongbox(resourceCoin);
+        newStrongbox.store(resourceCoin);
 
-        for(int i = 0; i < newStrongbox.getAllStoredResources().size() && i < resourceArray.size(); i++){
-            if(!(newStrongbox.getAllStoredResources().get(i).equals(resourceArray.get(i)))){
+        for(int i = 0; i < newStrongbox.getAllResources().size() && i < resourceArray.size(); i++){
+            if(!(newStrongbox.getAllResources().get(i).equals(resourceArray.get(i)))){
                 fail();
             }
         }
@@ -75,11 +75,11 @@ public class StrongboxTest {
         StorableResource resourceShield = new StorableResource(ResourceType.SHIELD, amountOfShield);
         resourceArray.add(resourceShield);
 
-        newStrongbox.storeResourceInStrongbox(resourceStone);
-        newStrongbox.storeResourceInStrongbox(resourceShield);
+        newStrongbox.store(resourceStone);
+        newStrongbox.store(resourceShield);
 
-        for(int i = 0; i < newStrongbox.getAllStoredResources().size() && i < resourceArray.size(); i++){
-            if(!(newStrongbox.getAllStoredResources().get(i).equals(resourceArray.get(i)))){
+        for(int i = 0; i < newStrongbox.getAllResources().size() && i < resourceArray.size(); i++){
+            if(!(newStrongbox.getAllResources().get(i).equals(resourceArray.get(i)))){
                 fail();
             }
         }
@@ -107,10 +107,10 @@ public class StrongboxTest {
         resourceArray.add(resourceTotalCoin);
 
         Strongbox newStrongbox = new Strongbox();
-        newStrongbox.storeResourceInStrongbox(resourceCoin1);
-        newStrongbox.storeResourceInStrongbox(resourceCoin2);
+        newStrongbox.store(resourceCoin1);
+        newStrongbox.store(resourceCoin2);
 
-        ArrayList<StorableResource> resourceStrongbox = newStrongbox.getAllStoredResources();
+        ArrayList<StorableResource> resourceStrongbox = newStrongbox.getAllResources();
         assertTrue(resourceArray.get(0).equals(resourceStrongbox.get(0)));
 
     }
@@ -131,10 +131,10 @@ public class StrongboxTest {
         StorableResource resourceCoin2 = new StorableResource(ResourceType.COIN, 7);
         StorableResource resourceCoin3 = new StorableResource(ResourceType.COIN, 3);
 
-        newStrongbox.storeResourceInStrongbox(resourceCoin1);
-        newStrongbox.removeResourceFromStrongbox(resourceCoin2);
+        newStrongbox.store(resourceCoin1);
+        newStrongbox.removeResource(resourceCoin2);
 
-        assertTrue(newStrongbox.getAllStoredResources().get(0).equals(resourceCoin3));
+        assertTrue(newStrongbox.getAllResources().get(0).equals(resourceCoin3));
     }
 
 
@@ -153,13 +153,13 @@ public class StrongboxTest {
         resourceArray.add(resourceStone);
         StorableResource resourceShield = new StorableResource(ResourceType.SHIELD, 8);
 
-        newStrongbox.storeResourceInStrongbox(resourceStone);
+        newStrongbox.store(resourceStone);
         try{
-            newStrongbox.removeResourceFromStrongbox(resourceShield);
+            newStrongbox.removeResource(resourceShield);
             fail();
         }catch (NotContainedResourceException e){
-            for(int i = 0; i < newStrongbox.getAllStoredResources().size() && i < resourceArray.size(); i++){
-                if(!(newStrongbox.getAllStoredResources().get(i).equals(resourceArray.get(i)))){
+            for(int i = 0; i < newStrongbox.getAllResources().size() && i < resourceArray.size(); i++){
+                if(!(newStrongbox.getAllResources().get(i).equals(resourceArray.get(i)))){
                     fail();
                 }
             }
