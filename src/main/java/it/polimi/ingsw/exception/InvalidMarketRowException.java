@@ -1,4 +1,4 @@
 package it.polimi.ingsw.exception;
 
-public class InvalidMarketRowException extends Throwable {
+public class InvalidMarketRowException extends Exception {
 }

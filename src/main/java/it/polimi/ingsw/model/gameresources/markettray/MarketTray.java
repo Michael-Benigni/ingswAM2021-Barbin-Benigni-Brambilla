@@ -3,15 +3,45 @@ package it.polimi.ingsw.model.gameresources.markettray;
 import it.polimi.ingsw.exception.InvalidMarketColumnException;
 import it.polimi.ingsw.exception.InvalidMarketRowException;
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * It's the class that represents the market present in the game board
+ */
 public class MarketTray {
+
+    /**
+     * it's the matricial representation of the Market: the marbles are placed in a matrix
+     */
     private ArrayList<ArrayList<MarketMarble>> marblesMatrix;
+
+    /**
+     * it's the marble outside the matrix, used to change the matrix disposition
+     */
     private MarketMarble marbleOnSlide;
+
+    /**
+     * number of rows of the matrix
+     */
     private Integer rows;
+
+    /**
+     * number of columns of the matrix
+     */
     private Integer columns;
+
+    /**
+     * HashMap that relates a marble to a number: the number indicates the how many marbles of the associated type
+     * will be in the market
+     */
     private HashMap<MarketMarble, Integer> howManyMarbles;
 
+
+    /**
+     * Constructor. Pre-condition: columns * rows + 1 == {sum of all the integers in the values of the HashMap}
+     * @param columns number of columns of the matrix
+     * @param rows number of rows of the matrix
+     * @param howManyMarbles HashMap that indicates how many marbles of a certain colour there will be in the Market
+     */
     public MarketTray (int columns, int rows, HashMap<MarketMarble, Integer> howManyMarbles) {
         this.columns = columns;
         this.rows = rows;
@@ -19,6 +49,11 @@ public class MarketTray {
         setInitialShuffleDisposition();
     }
 
+
+    /**
+     * This method duplicates all the marbles in the needed number, according to the attribute howManyMarbles
+     * @return -> all the marbles
+     */
     private ArrayList<MarketMarble> allMarbles () {
         ArrayList<MarketMarble> allMarbles = new ArrayList<>();
         for (MarketMarble marble : howManyMarbles.keySet()) {
@@ -31,6 +66,11 @@ public class MarketTray {
         return allMarbles;
     }
 
+
+    /**
+     * This method initializes the matrix in a random way
+     * @return this whole MarketTray object
+     */
     private MarketTray setInitialShuffleDisposition() {
         ArrayList<MarketMarble> marbles = allMarbles();
         Collections.shuffle(marbles);
@@ -54,11 +94,23 @@ public class MarketTray {
         return this;
     }
 
+
+    /**
+     * set the attribute marbleOnSlide with the input parameter
+     * @param marbleOnSlide the new marbleOnSlide
+     */
     private void setNewMarbleOnSlide(MarketMarble marbleOnSlide) {
         this.marbleOnSlide = marbleOnSlide;
     }
 
-    List<Resource> pickResourcesOnRow (int selectedRow) throws InvalidMarketRowException, CloneNotSupportedException {
+
+    /**
+     * Invoked when a player wants to pick resources from a row of the market
+     * @param selectedRow row from which will be taken the resources objects
+     * @return The List of all the Resources associated to the marbles of the row number "selectedRow"
+     * @throws InvalidMarketRowException if selectedRow >= rows (look at the attributes)
+     */
+    public List<Resource> pickResourcesOnRow (int selectedRow) throws InvalidMarketRowException {
         //TODO: check how is decoded the row when this method is called
         ArrayList<MarketMarble> rowToSwap = getRow(selectedRow);
         swap(rowToSwap);
@@ -67,12 +119,25 @@ public class MarketTray {
     }
     //TODO: check how is decoded the row when this method is called
 
-    List<Resource> pickResourcesOnColumn (int selectedColumn) throws InvalidMarketColumnException, CloneNotSupportedException {
+
+    /**
+     * Invoked when a player wants to pick resources from a column of the market
+     * @param selectedColumn -> column from which the player takes the resources
+     * @return The List of all the Resources associated to the marbles of the column number "selectedColumn"
+     * @throws InvalidMarketColumnException if selectedColumn >= columns (look at the attributes)
+     */
+    public ArrayList<Resource> pickResourcesOnColumn (int selectedColumn) throws InvalidMarketColumnException {
         ArrayList<MarketMarble> columnToSwap = getColumn(selectedColumn);
         swap(columnToSwap);
         return getResources(columnToSwap);
     }
 
+
+    /**
+     * @param selectedRowIndex row from which will be taken the resources objects
+     * @return the selected row as ArrayList of MarketMarbles
+     * @throws InvalidMarketRowException if selectedRow >= rows (look at the attributes)
+     */
     private ArrayList<MarketMarble> getRow(int selectedRowIndex) throws InvalidMarketRowException {
         try {
             return marblesMatrix.get(selectedRowIndex);
@@ -81,6 +146,13 @@ public class MarketTray {
         }
     }
 
+
+    /**
+     *
+     * @param selectedColumnIndex column from which the player takes the resources
+     * @return the selected column as ArrayList of MarketMarbles
+     * @throws InvalidMarketColumnException if selectedColumn >= columns (look at the attributes)
+     */
     private ArrayList<MarketMarble> getColumn(int selectedColumnIndex) throws InvalidMarketColumnException {
         ArrayList<MarketMarble> column = new ArrayList<>();
         for(int i = 0; i < rows; i++) {
@@ -93,18 +165,39 @@ public class MarketTray {
         return column;
     }
 
+
+    /**
+     *
+     * @param row
+     * @param column
+     * @return
+     */
     private MarketMarble getMarbleAt(int row, int column) {
         return marblesMatrix.get(row).get(column);
     }
 
-    private List<Resource> getResources(ArrayList<MarketMarble> vectorOfMarbles) {
+
+    /**
+     * Invoked to obtain Resources of a correspondent vector of marbles
+     * @param vectorOfMarbles vector from which are taken the Resources
+     * @return the correspondent Resources of the vectoOfMarbles
+     */
+    private ArrayList<Resource> getResources(ArrayList<MarketMarble> vectorOfMarbles) {
         return vectorOfMarbles
                 .stream()
                 .parallel()
                 .map((marble)-> marble.getCorrespondentResource())
-                .collect(Collectors.toList());
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
 
+
+    /**
+     * Updates the matrix of marbles according to the rules of the game: the marble on slide is pushed into a row or a
+     * column and all the marbles are swapped. The last marble of the target marbles' vector will become the new marble
+     * on slide
+     * @param vectorToSwap the vector of marbles that will be updated
+     * @return the new updated vector of marbles as ArrayList of MarketMarbles
+     */
     private ArrayList<MarketMarble> swap(ArrayList<MarketMarble> vectorToSwap) {
         MarketMarble oldMarbleOnSlide = marbleOnSlide;
         setNewMarbleOnSlide(vectorToSwap.get(0));
@@ -114,6 +207,7 @@ public class MarketTray {
         vectorToSwap.set(vectorToSwap.size() - 1, oldMarbleOnSlide);
         return vectorToSwap;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -126,6 +220,7 @@ public class MarketTray {
                 && Objects.equals(columns, that.columns)
                 && Objects.equals(howManyMarbles, that.howManyMarbles);
     }
+
 
     @Override
     public int hashCode() {

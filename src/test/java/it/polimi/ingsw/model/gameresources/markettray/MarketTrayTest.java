@@ -32,18 +32,12 @@ class MarketTrayTest {
     }
 
     @Test
-    void pickResourcesOnRow() throws NegativeResourceAmountException {
+    void pickResourcesOnRow() throws NegativeResourceAmountException, InvalidMarketRowException {
         int col = 4;
         int row = 3;
         MarketTray marketTray = new MarketTray(col, row, marbles());
         List<Resource> resourceList = null;
-        try {
-            resourceList = marketTray.pickResourcesOnRow(1);
-        } catch (InvalidMarketRowException e) {
-            fail();
-        } catch (CloneNotSupportedException e) {
-            fail();
-        }
+        resourceList = marketTray.pickResourcesOnRow(1);
         assertInstanceOf(ArrayList.class, resourceList);
         assertNotNull(resourceList);
         assert (resourceList.size() == row);
@@ -53,18 +47,12 @@ class MarketTrayTest {
     }
 
     @Test
-    void pickResourcesOnColumn() throws NegativeResourceAmountException {
+    void pickResourcesOnColumn() throws NegativeResourceAmountException, InvalidMarketColumnException {
         int col = 4;
         int row = 3;
         MarketTray marketTray = new MarketTray(col, row, marbles());
         List<Resource> resourceList = null;
-        try {
-            resourceList = marketTray.pickResourcesOnColumn(1);
-        } catch (CloneNotSupportedException e) {
-            fail();
-        } catch (InvalidMarketColumnException e) {
-            fail();
-        }
+        resourceList = marketTray.pickResourcesOnColumn(1);
         assertInstanceOf(ArrayList.class, resourceList);
         assertNotNull(resourceList);
         assert (resourceList.size() == row);
