@@ -6,15 +6,13 @@ import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.leadercards.Requirement;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
-
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * Class that represents 1 between 4 different type of resources, and also the quantity of that resource
  */
 public class StorableResource extends Resource implements Requirement {
-
-
     private int amount;
     private ResourceType resourceType;
 
@@ -23,8 +21,7 @@ public class StorableResource extends Resource implements Requirement {
      *
      * @param resourceType -> What kind of resource
      * @param amount       -> How many copies of that resource: need to be greater or equal than "0"
-     */
-
+     * */
     public StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
         if (amount < 0)
             throw new NegativeResourceAmountException();
@@ -33,10 +30,8 @@ public class StorableResource extends Resource implements Requirement {
         this.resourceType = resourceType;
     }
 
-
     /**
      * Method that sum two resources of the same type: need to be the same type
-     *
      * @param resource -> resource to add
      * @return
      */
@@ -53,7 +48,6 @@ public class StorableResource extends Resource implements Requirement {
         }
     }
 
-
     /**
      * Method that subtract two resources of the same type: need to be the same type and this.amount need to be greater
      * than resource.amount
@@ -69,9 +63,7 @@ public class StorableResource extends Resource implements Requirement {
         else if (this.getAmount() == resource.getAmount())
             throw new NullResourceAmountException();
         return new StorableResource(this.getResourceType(), this.getAmount() - resource.getAmount());
-
     }
-
 
     /**
      * Getter method for amount
@@ -82,7 +74,6 @@ public class StorableResource extends Resource implements Requirement {
         return amount;
     }
 
-
     /**
      * Getter method for ResourceType
      *
@@ -92,7 +83,6 @@ public class StorableResource extends Resource implements Requirement {
         return resourceType;
     }
 
-
     /**
      * Method inherited by the interface "Resource"
      */
@@ -100,7 +90,6 @@ public class StorableResource extends Resource implements Requirement {
     protected void activate(Player player) {
         //TODO: what kind of action need to be executed by the activation of stockResource ??
     }
-
 
     /**
      * Method that verify if the two resources have the same resourceType
@@ -123,6 +112,13 @@ public class StorableResource extends Resource implements Requirement {
         return this.getAmount() <= amountToCompare;
     }
 
+    /**
+     * this method overrides the
+     * "Object" method "equals"
+     * @param o -> object we want to compare
+     * @return -> boolean value: true if the caller and the specified object are equals
+     *                           false if the caller and the specified object aren't equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,18 +127,54 @@ public class StorableResource extends Resource implements Requirement {
         return amount == that.amount && resourceType == that.resourceType;
     }
 
+    /**
+     * this method overrides the
+     * "Object" method "clone"
+     * @return -> the copy of the caller
+     */
     @Override
     protected Object clone() {
         return super.clone();
     }
 
+    /**
+     * this method overrides the
+     * "Object" method "hashCode"
+     * @return -> int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), amount, resourceType);
     }
 
+    /**
+     * this method overrides the
+     * "Requirement" method "containedIn".
+     * it checks if the player
+     * satisfies this requirements
+     * to play a leader card
+     * @param player -> player we want to examine
+     * @return boolean value: true if the player satisfies this requirements
+     *                        false if the player doesn't satisfy this requirements
+     * @throws CloneNotSupportedException
+     * @throws NullResourceAmountException
+     */
     @Override
-    public boolean containedIn() {
+    public boolean containedIn(Player player) throws CloneNotSupportedException, NullResourceAmountException {
+        ArrayList <StorableResource> requirements = player.getResourceRequirements();
+        for(int i = 0; i < requirements.size(); i++) {
+            try {
+                this.decreaseAmount(requirements.get(i));
+            }
+            catch (NegativeResourceAmountException e) {
+                return true;
+            }
+            catch (NotEqualResourceTypeException e) {
+
+            }
+        }
+        if(this.amount == 0)
+            return true;
         return false;
     }
 }

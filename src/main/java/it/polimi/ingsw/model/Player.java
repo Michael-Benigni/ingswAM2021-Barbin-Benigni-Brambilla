@@ -4,11 +4,10 @@ import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
-import it.polimi.ingsw.model.cards.leadercards.Requirement;
-
+import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Class that represents the player in the model.
@@ -57,17 +56,35 @@ public class Player {
 
     /**
      * this method invokes the personal board
-     * method getAllRequirements to obtain an
-     * ArrayList of all the player's requirements
-     * @return an ArrayList of requirements
+     * method getResourceRequirements to obtain an
+     * ArrayList of the player's requirements
+     * represented by storable resources
+     * @return an ArrayList of Requirements (StorableResource)
      * @throws NegativeResourceAmountException
      * @throws CloneNotSupportedException
      * @throws EmptySlotException
      * @throws WrongSlotDevelopmentIndexException
      */
-    public ArrayList <Requirement> getAllRequirements() throws NegativeResourceAmountException, CloneNotSupportedException, EmptySlotException, WrongSlotDevelopmentIndexException {
-        ArrayList <Requirement> requirements;
-        requirements = this.personalBoard.getAllRequirements();
-        return requirements;
+    public ArrayList <StorableResource> getResourceRequirements() throws CloneNotSupportedException {
+        ArrayList <StorableResource> resourceRequirements;
+        resourceRequirements = this.personalBoard.getResourceRequirements();
+        return resourceRequirements;
+    }
+
+    /**
+     * this method invokes the personal board
+     * method getDevCardRequirements to obtain an
+     * ArrayList of the player's requirements
+     * represented by colour and level of development cards
+     * @return an ArrayList of Requirements (DevelopmentCard)
+     * @throws NegativeResourceAmountException
+     * @throws CloneNotSupportedException
+     * @throws EmptySlotException
+     * @throws WrongSlotDevelopmentIndexException
+     */
+    public ArrayList <DevelopmentCard> getDevCardRequirements() throws EmptySlotException, WrongSlotDevelopmentIndexException {
+        ArrayList <DevelopmentCard> devCardRequirements;
+        devCardRequirements = this.personalBoard.getDevCardRequirements();
+        return devCardRequirements;
     }
 }

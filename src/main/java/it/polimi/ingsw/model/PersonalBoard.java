@@ -1,9 +1,14 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exception.EmptySlotException;
+import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
+import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
+import it.polimi.ingsw.model.cards.leadercards.Requirement;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
@@ -35,6 +40,7 @@ public class PersonalBoard {
         //TODO: createListOfLeaderCards(numberOfSlotLeaderCards);
     }
 
+    //TODO: documentation
     PersonalBoard initFromJSON() throws FileNotFoundException {
         initWarehouseFromJSON("personalBoard/");
         initSlotsDevCardsFromJSON("personalBoard/");
@@ -42,6 +48,7 @@ public class PersonalBoard {
         return this;
     }
 
+    //TODO: documentation and is this method useful? the method initSlotsDevCardsFromJSON already exists
     private ArrayList<SlotDevelopmentCards> initSlotsDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
         ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = new ArrayList<>(numberOfSlotDevCards);
         for (int i = 0; i < numberOfSlotDevCards; i++) {
@@ -50,6 +57,12 @@ public class PersonalBoard {
         return slotsOfDevCardsArray;
     }
 
+    /**
+     * this method initializes the warehouse
+     * of the player from the database
+     * @param jsonPath -> the path of the file that represents the database
+     * @throws FileNotFoundException
+     */
     private void initWarehouseFromJSON(String jsonPath) throws FileNotFoundException {
         final String keyInJSON = jsonPath + "warehouseDepots/";
         int numberOfDepots = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "numberOfDepots/");
@@ -61,6 +74,12 @@ public class PersonalBoard {
         warehouseDepots = new WarehouseDepots(numberOfDepots, capacities);
     }
 
+    /**
+     * this method initializes the slots
+     * of development cards from the database
+     * @param jsonPath -> the path of the file that represents the database
+     * @throws FileNotFoundException
+     */
     private void initSlotsDevCardsFromJSON(String jsonPath) throws FileNotFoundException {
         final String keyInJSON = jsonPath + "slotDevelopmentCards/";
         int maxNumberOfDevCardsInSlot = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumberOfCardsInSlot/");
@@ -98,6 +117,55 @@ public class PersonalBoard {
         else { throw new WrongSlotDevelopmentIndexException();}
     }
 
+    /**
+     * this method invokes the method "getAllCards" from all
+     * the slots that contain the development cards owned by
+     * the player to build a list of all the development cards of the player
+     * @return the list of all the development cards of the player
+     * @throws WrongSlotDevelopmentIndexException
+     * @throws EmptySlotException
+     */
+    private ArrayList <DevelopmentCard> getAllDevelopmentCards() throws WrongSlotDevelopmentIndexException, EmptySlotException {
+        ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
+        for(int i = 0; i < numberOfSlotDevCards; i++) {
+            listOfAllCards.addAll(getSlotDevelopmentCards(i).getAllCards());
+        }
+        return listOfAllCards;
+    }
+
+    /**
+     * this method provides an
+     * ArrayList of the player's requirements
+     * represented by storable resources
+     * @return
+     * @throws CloneNotSupportedException
+     */
+    ArrayList <StorableResource> getResourceRequirements() throws CloneNotSupportedException {
+        ArrayList <StorableResource> requirements = new ArrayList<>(0);
+        requirements.addAll(this.getStrongbox().getAllResources());
+        requirements.addAll(this.getWarehouseDepots().getAllResources());
+        return requirements;
+    }
+
+    /**
+     * this method provides an
+     * ArrayList of the player's requirements
+     * represented by development cards
+     * @return
+     * @throws EmptySlotException
+     * @throws WrongSlotDevelopmentIndexException
+     */
+    ArrayList <DevelopmentCard> getDevCardRequirements() throws EmptySlotException, WrongSlotDevelopmentIndexException {
+        ArrayList <DevelopmentCard> requirements = new ArrayList<>(0);
+        requirements.addAll(this.getAllDevelopmentCards());
+        return requirements;
+    }
+
+    /**
+     * this method overrides the Object method "equals"
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +178,10 @@ public class PersonalBoard {
                 && Objects.equals(listOfSlotDevelopmentCards, that.listOfSlotDevelopmentCards);
     }
 
+    /**
+     * this method overrides the Object method "hashCode"
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(numberOfSlotDevCards, numberOfSlotLeaderCards, strongbox, warehouseDepots, listOfSlotDevelopmentCards);

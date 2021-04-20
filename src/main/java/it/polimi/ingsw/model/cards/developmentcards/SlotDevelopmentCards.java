@@ -39,7 +39,7 @@ public class SlotDevelopmentCards {
      * the array is filled starting from the card on top of the slot
      * @return an array list of DevelopmentCard
      */
-    ArrayList <DevelopmentCard> getAllCards() throws EmptySlotException {
+    public ArrayList <DevelopmentCard> getAllCards() throws EmptySlotException {
         ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
         ArrayList <DevelopmentCard> auxiliaryList = new ArrayList<>(0);
         auxiliaryList.add(this.getTopCard());

@@ -1,9 +1,15 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
+import it.polimi.ingsw.exception.EmptySlotException;
+import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.leadercards.Requirement;
 
+import java.util.ArrayList;
+
 /**
- * this class models the development card only with its colour and level
+ * this class models the development
+ * card only with its colour and level
  */
 class GeneralDevelopmentCard implements Requirement {
     private final CardColour cardColour;
@@ -36,9 +42,14 @@ class GeneralDevelopmentCard implements Requirement {
     }
 
     /**
-     * this method return true if the two compared cards have the same level
-     * @param cardToCompare
-     * @return
+     * this method return true if the two
+     * compared cards have the same level.
+     * this method REQUIRES both cards
+     * (the caller and the parameter)
+     * having not null level field
+     * @param cardToCompare -> the card we want to compare
+     * @return -> boolean value: true if the two cards have the same level
+     *                           false if the two cards haven't the same level
      */
     boolean hasSameLevel(DevelopmentCard cardToCompare) {
         if(this.cardLevel.compareTo(cardToCompare.getCardLevel()) == 0)
@@ -47,9 +58,14 @@ class GeneralDevelopmentCard implements Requirement {
     }
 
     /**
-     * this method return true if the two compared cards have the same colour
-     * @param cardToCompare
-     * @return
+     * this method return true if the two
+     * compared cards have the same colour.
+     * this method REQUIRES both cards
+     * (the caller and the parameter)
+     * having not null colour field
+     * @param cardToCompare -> the card we want to compare
+     * @return -> boolean value: true if the two cards have the same level
+     *                           false if the two cards haven't the same level
      */
     boolean hasSameColour(DevelopmentCard cardToCompare) {
         if (this.cardColour.compareTo(cardToCompare.getCardColour()) == 0)
@@ -82,8 +98,41 @@ class GeneralDevelopmentCard implements Requirement {
         return false;
     }
 
+    /**
+     * method that overrides the
+     * "Requirement" method "containedIn".
+     * it checks if the player satisfies
+     * the requirements to play a leader card
+     * @param player -> player we want to examine
+     * @return -> boolean value: true if the player satisfies this requirements
+     *                           false if the player doesn't satisfy this requirements
+     * @throws EmptySlotException
+     * @throws WrongSlotDevelopmentIndexException
+     */
     @Override
-    public boolean containedIn() {
+    public boolean containedIn(Player player) throws EmptySlotException, WrongSlotDevelopmentIndexException {
+        ArrayList <DevelopmentCard> requirements = player.getDevCardRequirements();
+        if(this.cardColour == null) {
+            for(int i = 0; i < requirements.size(); i++) {
+                if(this.hasSameLevel(requirements.get(i))) {
+                    return true;
+                }
+            }
+        }
+        else if(this.cardLevel == null) {
+            for(int i = 0; i < requirements.size(); i++) {
+                if(this.hasSameColour(requirements.get(i))) {
+                    return true;
+                }
+            }
+        }
+        else {
+            for(int i = 0; i < requirements.size(); i++) {
+                if(this.hasSameColour(requirements.get(i)) && this.hasSameLevel(requirements.get(i))) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }

@@ -22,6 +22,9 @@ public class WarehouseDepots {
         setListDepot();
     }
 
+    /**
+     * method used to create the depots
+     */
     private void setListDepot() {
         listDepot = new ArrayList<>();
         for (int i = 0; i < numberOfDepots; i++) {
@@ -123,6 +126,27 @@ public class WarehouseDepots {
             return null;
     }
 
+    /**
+     * method that provides an ArrayList
+     * of all the storable resources
+     * contained into the warehouse
+     * @return -> list of StorableResource
+     * @throws CloneNotSupportedException
+     */
+    public ArrayList <StorableResource> getAllResources() throws CloneNotSupportedException {
+        ArrayList <StorableResource> listOfAllResources = new ArrayList<>(0);
+        for(int i = 0; i < numberOfDepots; i++) {
+            listOfAllResources.add(this.getResourceFromDepot(i));
+        }
+        return listOfAllResources;
+    }
+
+    /**
+     * override of the method equals
+     * @param o -> the object we want to compare
+     * @return -> boolean value: true if the object "o" is equal to the caller
+     *                           false if the object "o" isn't equal to the caller
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,6 +157,10 @@ public class WarehouseDepots {
                 && Objects.equals(listDepot, that.listDepot);
     }
 
+    /**
+     * override of the method hashCode
+     * @return -> int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(numberOfDepots, capacities, listDepot);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class LeaderCardsDeck {
-    private ArrayList <LeaderCard> leaderCardsDeck = new ArrayList<>(0);
+    private ArrayList <LeaderCard> leaderCardsDeck;
 
     public LeaderCardsDeck(ArrayList<LeaderCard> leaderCardsDeck) {
         this.leaderCardsDeck = leaderCardsDeck;
