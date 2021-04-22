@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.EmptySlotException;
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
-import it.polimi.ingsw.model.cards.leadercards.Requirement;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
@@ -20,12 +19,56 @@ import java.util.Objects;
  * like Strongbox, Depots...
  */
 public class PersonalBoard {
+    private class ExtraProductionPower {
+        private final StorableResource consumedResource;
+
+        private ExtraProductionPower(StorableResource consumedResource) {
+            this.consumedResource = consumedResource;
+        }
+    }
+
     private Integer numberOfSlotDevCards;
     private Integer numberOfSlotLeaderCards;
     private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
     private ArrayList<SlotLeaderCards> listOfSlotLeaderCards;
+    private ArrayList <ExtraProductionPower> extraProductionPowers;
+
+    //TODO: leader card chiama questo metodo e quando client vuole attivare l'extra production power fornirà la risorsa che vuole ottenere, il metodo di attivazione ritornerà il faith point, la action rimuoverà la risorsa dalla personal board del player e aggiungerà la risorsa scelta dal client
+
+    /**
+     * this method is called by the leader card
+     * that adds an extra production power to
+     * the personal board of a player.
+     * @param extraProductionPower -> the power that the leader card adds
+     */
+    void addExtraProductionPower(ExtraProductionPower extraProductionPower) {
+        this.extraProductionPowers.add(extraProductionPower);
+    }
+
+    //TODO: fare metodo del basic production power, tutto scelto dal client
+
+    /**
+     * this method invokes the method "containedIn"
+     * on the "consumedResources"
+     * to check if the player has all the resources
+     * he wants to spend to generate another resource
+     * @param consumedResources -> resources that the player wants to spend
+     * @param producedResource -> resource that the player wants to gain
+     * @param player -> the player that wants to start the basic power production
+     * @return -> the "producedResource" if the player has the consumed resources in his personal board
+     * @throws CloneNotSupportedException
+     * @throws NullResourceAmountException
+     */
+    StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) throws CloneNotSupportedException, NullResourceAmountException {
+        for(int i = 0; i < consumedResources.size(); i++) {
+            if(!consumedResources.get(i).containedIn(player)) {
+                return null;
+            }
+        }
+        return producedResource;
+    }
 
     /**
      * Constructor method of this class. It creates an empty personal board.
