@@ -1,30 +1,47 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
-import it.polimi.ingsw.model.GameBoard;
+import it.polimi.ingsw.exception.TileAlreadyActivatedException;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.VictoryPoint;
+
+import java.util.HashMap;
 
 /**
  * Class that represents a Pope Space cell on the faith truck.
  */
 public class PopeSpace extends Cell{
 
+    private PopeFavourTile tile;
+
     /**
      * Constructor method of this class.
      */
-    public PopeSpace() {
+    public PopeSpace(PopeFavourTile tile) {
+        this.tile = tile;
     }
+
 
     /**
      * Method inherited from "Cell" class. In this case this method would activate the right Pope Favour Tile and
-     * it would call a method on the other player that checks if they are on a Vatican Report section.
-     * @param faithMarker
+     * checks if the markers of the other players point to a cell of the same section.
+     * @param faithTrack
      */
     @Override
-    protected void activateCell(FaithMarker faithMarker) throws Exception {
-        Player player = faithMarker.getPlayer();
-        GameBoard gameBoard = player.getGameBoard();
-        FaithTrack faithTrack = gameBoard.getFaithTrack();
-        faithTrack.activatePopeSpaceEffect(this, player);
+    protected void activateCell(FaithTrack faithTrack, Player player) throws Exception {
+        try{
+            VictoryPoint pointsFromTile = this.tile.activateTile();
+            player.addVictoryPointsToPlayer(pointsFromTile);
+            HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarker();
+            Cell activatedCell = mapOfFaithMarker.get(player).getCurrentCell();
+            Section activatedSection = faithTrack.findSectionOfThisCell(activatedCell);
+            for(Player p : mapOfFaithMarker.keySet()) {
+                if(!(p.equals(player)) && mapOfFaithMarker.get(p).ifIsInThisSection(activatedSection)) {
+                    p.addVictoryPointsToPlayer(pointsFromTile);
+                }
+            }
+        } catch (TileAlreadyActivatedException e) {
+            //tile already activated, so do nothing.
+        }
     }
 
 

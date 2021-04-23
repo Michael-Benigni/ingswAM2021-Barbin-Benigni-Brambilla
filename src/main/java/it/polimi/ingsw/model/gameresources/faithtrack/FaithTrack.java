@@ -2,9 +2,9 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.VictoryPoint;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class that represents the common faith track on the game board. Every player has a marker that indicates its position on the track.
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class FaithTrack {
 
     private ArrayList<Section> listOfSection;
-    private ArrayList<FaithMarker> listOfFaithMarker;
+    private HashMap<Player, FaithMarker> mapOfFaithMarker;
 
 
     /**
@@ -21,11 +21,11 @@ public class FaithTrack {
     public FaithTrack(ArrayList<Section> arrayOfSections, ArrayList<Player> listOfPlayers) throws WrongCellIndexException, NegativeVPAmountException {
         this.listOfSection = new ArrayList<>(0);
         this.listOfSection = arrayOfSections;
-        this.listOfFaithMarker = new ArrayList<>(0);
+        this.mapOfFaithMarker = new HashMap<>(0);
         Cell firstCell = firstCellInFaithTrack();
         for(Player p : listOfPlayers) {
-            FaithMarker temporaryFaithMarker = new FaithMarker(p, firstCell);
-            this.listOfFaithMarker.add(temporaryFaithMarker);
+            FaithMarker temporaryFaithMarker = new FaithMarker(firstCell);
+            this.mapOfFaithMarker.put(p, temporaryFaithMarker);
         }
     }
 
@@ -45,13 +45,11 @@ public class FaithTrack {
      * @param currentCell -> the current cell, so the caller wants the next one.
      * @return -> the next cell.
      */
-    Cell nextCell(Cell currentCell) throws CellNotFoundInFaithTrackException, WrongCellIndexException {
+    private Cell nextCell(Cell currentCell) throws Exception {
         for (Section s : listOfSection) {
             try {
                 Cell nextCell = s.searchNextCellInSection(currentCell);
                 return nextCell;
-            } catch (CellNotFoundInSectionException e) {
-                //do nothing and go to the next section in the arraylist.
             } catch (LastCellInSectionException e) {
                 int sectionIndex = listOfSection.indexOf(s) + 1;
                 return listOfSection.get(sectionIndex).firstCellInSection();
@@ -68,7 +66,7 @@ public class FaithTrack {
      * @throws CellNotFoundInFaithTrackException -> exception thrown if the provided cell doesn't exist in this
      * faith track.
      */
-    private Section findSectionOfThisCell(Cell currentCell) throws CellNotFoundInFaithTrackException {
+    Section findSectionOfThisCell(Cell currentCell) throws CellNotFoundInFaithTrackException {
         for(Section s : listOfSection) {
             try {
                 s.searchInThisSection(currentCell);
@@ -83,48 +81,37 @@ public class FaithTrack {
 
     /**
      * Method that move the marker that belongs to the provided player by a provide number of cells.
-     * @param player
+     * @param player -> player whose marker to move.
      * @param numberOfSteps -> number of cells.
      * @throws Exception
      */
     void moveMarkerForward(Player player, int numberOfSteps) throws Exception {
-        for(int i = 0; i < listOfFaithMarker.size(); ) {
-            FaithMarker faithMarker = listOfFaithMarker.get(i);
-            try {
-                for(int j = 0; j < numberOfSteps; j++) {
-                    faithMarker.moveForward(this, player);
-                }
-                return ;
-            } catch (WrongPlayerException e) {
-                i++;
+        FaithMarker faithMarker = mapOfFaithMarker.get(player);
+        for(int i = 0; i < numberOfSteps; i++) {
+            Cell nextCell = nextCell(faithMarker.getCurrentCell());
+            faithMarker.updateCurrentCell(nextCell);
+            nextCell.activateCell(this, player);
+            if(nextCell.equals(lastCellInFaithTrack())) {
+                throw new GameOverByFaithTrackException();
             }
         }
     }
 
 
     /**
-     * Method that handles the activation of a pope space. It adds victory points to the current player and check the
-     * positions of the other players: if they share the current section with the current player, those players gain victory points too.
-     * @param popeCell -> current cell (it will always be a pope space one).
-     * @param currentPlayer -> current player, who activated the pope space.
-     * @throws Exception
+     * Getter method for the hashmap contained in this class.
+     * @return -> the entire hashmap mapOfFaithMarker.
      */
-    void activatePopeSpaceEffect(Cell popeCell, Player currentPlayer) throws Exception {
-        //activate tile of the provided player.
-        VaticanReportSection currentSection = (VaticanReportSection) findSectionOfThisCell(popeCell);
-        PopeFavourTile currentTile = currentSection.getTile();
-        try{
-            VictoryPoint victoryPoint = currentTile.activateTile();
-            currentPlayer.addVictoryPointsToPlayer(victoryPoint);
-            //if it wasn't already activated, check the other players.
-            for(FaithMarker f : listOfFaithMarker) {
-                if(!(f.belongsTo(currentPlayer)) && (f.ifIsInThisSection(currentSection))) {
-                    Player player = f.getPlayer();
-                    player.addVictoryPointsToPlayer(victoryPoint);
-                }
-            }
-        } catch (TileAlreadyActivatedException e) {
-            //do nothing, because the tile was already activated.
-        }
+    HashMap<Player, FaithMarker> getMapOfFaithMarker() {
+        return mapOfFaithMarker;
+    }
+
+
+    /**
+     * Method that returns the last cell of this faith track.
+     * @return -> the last cell of this faith track.
+     */
+    private Cell lastCellInFaithTrack() throws WrongCellIndexException {
+        return listOfSection.get(listOfSection.size() - 1).lastCellInSection();
     }
 }

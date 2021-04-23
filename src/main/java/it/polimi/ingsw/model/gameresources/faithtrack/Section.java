@@ -43,10 +43,10 @@ public abstract class Section {
      * section, so it can't return the next one.
      * @throws CellNotFoundInSectionException -> exception thrown if the cell isn't in this section.
      */
-    Cell searchNextCellInSection(Cell currentCell) throws LastCellInSectionException, CellNotFoundInSectionException {
+    Cell searchNextCellInSection(Cell currentCell) throws Exception {
         for(int i = 0; i < listCell.size(); i++) {
-            if(listCell.get(i) == currentCell) {
-                if( i == (listCell.size() - 1)) {
+            if(listCell.get(i).equals(currentCell)) {
+                if( listCell.get(i).equals(lastCellInSection())) {
                     throw new LastCellInSectionException();
                 }
                 else {
@@ -64,6 +64,16 @@ public abstract class Section {
      */
     Cell firstCellInSection() throws WrongCellIndexException {
         return getCell(0);
+    }
+
+
+    /**
+     * Method that returns the last cell of this section.
+     * @return -> the last cell of this section.
+     * @throws WrongCellIndexException
+     */
+    Cell lastCellInSection() throws WrongCellIndexException {
+        return getCell(listCell.size() - 1);
     }
 
 

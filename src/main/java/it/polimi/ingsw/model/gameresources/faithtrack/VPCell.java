@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
+
+import java.util.HashMap;
 
 
 /**
@@ -24,9 +27,11 @@ public class VPCell extends Cell{
      * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      */
     @Override
-    protected void activateCell(FaithMarker faithMarker) throws NegativeVPAmountException, CloneNotSupportedException {
+    protected void activateCell(FaithTrack faithTrack, Player player) throws Exception {
         VictoryPoint victoryPoint = (VictoryPoint) this.victoryPoints.clone();
-        faithMarker.updateVictoryPointInFaithMarker(this.victoryPoints);
+        HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarker();
+        VictoryPoint pointsToBeAddedToPlayer = mapOfFaithMarker.get(player).updateLastVictoryPoint(victoryPoint);
+        player.addVictoryPointsToPlayer(pointsToBeAddedToPlayer);
     }
 
 

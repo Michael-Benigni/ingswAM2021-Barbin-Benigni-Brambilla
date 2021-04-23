@@ -26,12 +26,18 @@ public class SectionTest {
     void checkGetCellIfCorrect() throws WrongCellIndexException, NegativeVPAmountException {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
         Cell cell1 = new ClassicCell();
-        Cell cell2 = new PopeSpace();
-        VictoryPoint vp1 = new VictoryPoint(45);
-        Cell cell3 = new VPCell(vp1);
+
+        VictoryPoint vp1 = new VictoryPoint(6);
+        PopeFavourTile newTile1 = new PopeFavourTile(vp1);
+        Cell cell2 = new PopeSpace(newTile1);
+
+        VictoryPoint vp2 = new VictoryPoint(45);
+        Cell cell3 = new VPCell(vp2);
         Cell cell4 = new ClassicCell();
-        VictoryPoint vp2 = new VictoryPoint(12);
-        Cell cell5 = new VictoryPointsPopeSpace(vp2);
+        VictoryPoint vp3 = new VictoryPoint(12);
+        VictoryPoint vp4 = new VictoryPoint(3);
+        PopeFavourTile newTile2 = new PopeFavourTile(vp4);
+        Cell cell5 = new VictoryPointsPopeSpace(vp3, newTile2);
 
         listOfCell.add(cell1);
         listOfCell.add(cell2);
@@ -81,10 +87,14 @@ public class SectionTest {
      * Tests if the method return the next cell to the one provided.
      */
     @Test
-    void checkSearchNextCellInSectionIfCorrect() {
+    void checkSearchNextCellInSectionIfCorrect() throws Exception {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
         Cell cell1 = new ClassicCell();
-        Cell cell2 = new PopeSpace();
+
+        VictoryPoint vp1 = new VictoryPoint(11);
+        PopeFavourTile newTile = new PopeFavourTile(vp1);
+        Cell cell2 = new PopeSpace(newTile);
+
         listOfCell.add(cell1);
         listOfCell.add(cell2);
         Section newSection = new ClassicSection(listOfCell);
@@ -105,12 +115,14 @@ public class SectionTest {
      * @throws WrongCellIndexException -> can be thrown by "getCell" method of "Section" class.
      */
     @Test
-    void checkSearchNextCellInSectionIfLastCell() throws WrongCellIndexException, NegativeVPAmountException {
+    void checkSearchNextCellInSectionIfLastCell() throws Exception {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
         VictoryPoint vp1 = new VictoryPoint(33);
         Cell cell1 = new VPCell(vp1);
         VictoryPoint vp2 = new VictoryPoint(10);
-        Cell cell2 = new VictoryPointsPopeSpace(vp2);
+        VictoryPoint vp3 = new VictoryPoint(21);
+        PopeFavourTile newTile1 = new PopeFavourTile(vp3);
+        Cell cell2 = new VictoryPointsPopeSpace(vp2, newTile1);
         listOfCell.add(cell1);
         listOfCell.add(cell2);
         Section newSection = new ClassicSection(listOfCell);
@@ -132,12 +144,16 @@ public class SectionTest {
      * @throws WrongCellIndexException -> can be thrown by "getCell" method of "Section" class.
      */
     @Test
-    void checkSearchNextCellInSectionIfNotFound() throws WrongCellIndexException, NegativeVPAmountException {
+    void checkSearchNextCellInSectionIfNotFound() throws Exception {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
         VictoryPoint vp1 = new VictoryPoint(7);
         Cell cell1 = new VPCell(vp1);
         Cell cell2 = new ClassicCell();
-        Cell cell3 = new PopeSpace();
+
+        VictoryPoint vp2 = new VictoryPoint(44);
+        PopeFavourTile newTile = new PopeFavourTile(vp2);
+        Cell cell3 = new PopeSpace(newTile);
+
         listOfCell.add(cell1);
         listOfCell.add(cell2);
         Section newSection = new ClassicSection(listOfCell);
@@ -163,7 +179,9 @@ public class SectionTest {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
         Cell cell1 = new ClassicCell();
         VictoryPoint vp1 = new VictoryPoint(9);
-        Cell cell2 = new VictoryPointsPopeSpace(vp1);
+        VictoryPoint vp2 = new VictoryPoint(23);
+        PopeFavourTile newTile1 = new PopeFavourTile(vp2);
+        Cell cell2 = new VictoryPointsPopeSpace(vp1, newTile1);
         listOfCell.add(cell1);
         listOfCell.add(cell2);
         Section newSection = new ClassicSection(listOfCell);
@@ -177,9 +195,11 @@ public class SectionTest {
      * Tests if the method works correctly.
      */
     @Test
-    void checkSearchInThisSectionIfCorrect() {
+    void checkSearchInThisSectionIfCorrect() throws NegativeVPAmountException {
         ArrayList<Cell> listOfCell = new ArrayList<>(0);
-        Cell cell1 = new PopeSpace();
+        VictoryPoint vp1 = new VictoryPoint(63);
+        PopeFavourTile newTile = new PopeFavourTile(vp1);
+        Cell cell1 = new PopeSpace(newTile);
         Cell cell2 = new ClassicCell();
         listOfCell.add(cell1);
         listOfCell.add(cell2);
@@ -204,7 +224,9 @@ public class SectionTest {
         VictoryPoint vp1 = new VictoryPoint(13);
         Cell cell1 = new VPCell(vp1);
         VictoryPoint vp2 = new VictoryPoint(21);
-        Cell cell2 = new VictoryPointsPopeSpace(vp2);
+        VictoryPoint vp3 = new VictoryPoint(32);
+        PopeFavourTile newTile1 = new PopeFavourTile(vp3);
+        Cell cell2 = new VictoryPointsPopeSpace(vp2, newTile1);
         Cell cell3 = new ClassicCell();
         listOfCell.add(cell1);
         listOfCell.add(cell2);

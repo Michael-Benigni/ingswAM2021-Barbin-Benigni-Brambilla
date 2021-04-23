@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
+import it.polimi.ingsw.model.Player;
+
 /**
  * Class that represents an empty cell in the faith truck.
  */
@@ -13,10 +15,11 @@ public class ClassicCell extends Cell{
 
     /**
      * Method inherited by "Cell" class. In this case, it doesn't append anything.
-     * @param faithMarker
+     * @param faithTrack
+     * @param player
      */
     @Override
-    protected void activateCell(FaithMarker faithMarker) {
+    protected void activateCell(FaithTrack faithTrack, Player player) {
     }
 
 

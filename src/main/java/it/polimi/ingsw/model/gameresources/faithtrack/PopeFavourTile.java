@@ -28,7 +28,7 @@ public class PopeFavourTile {
      * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      * @throws TileAlreadyActivatedException -> exception thrown if this tile is already activated.
      */
-    VictoryPoint activateTile() throws NegativeVPAmountException, TileAlreadyActivatedException {
+    VictoryPoint activateTile() throws TileAlreadyActivatedException {
         if(!(this.isAlreadyActivated)) {
             this.isAlreadyActivated = true;
             return this.victoryPoint;
