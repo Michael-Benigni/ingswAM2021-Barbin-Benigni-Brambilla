@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import it.polimi.ingsw.exception.EmptyDeckException;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 
 /**
  * this class models the grid that contains all
@@ -14,9 +16,38 @@ import it.polimi.ingsw.exception.EmptyDeckException;
  * the cards shown on the top of the decks are placed in the arrays in the last position
  */
 public class DevelopmentCardsGrid {
+
+    /**
+     * this class represents the players
+     * that are able to obtain a discount
+     * buying development cards from the cards grid
+     */
+    private class PlayerWithDiscount {
+        private Player playerWithDiscount;
+        private ArrayList <StorableResource> discount;
+
+        /**
+         * this is the constructor method of this class
+         * @param playerWithDiscount -> it refers to the player that has obtained the discount
+         */
+        public PlayerWithDiscount(Player playerWithDiscount) {
+            this.playerWithDiscount = playerWithDiscount;
+        }
+
+        /**
+         * this method is used to construct
+         * the list that represents the discount
+         * @param resourceDiscount -> number and type of resource discount
+         */
+        private void addDiscount(StorableResource resourceDiscount) {
+            this.discount.add(resourceDiscount);
+        }
+    }
+
     private Integer columns;
     private Integer rows;
     private ArrayList <ArrayList <ArrayList <DevelopmentCard>>> cardsGrid;
+    private ArrayList <PlayerWithDiscount> playerWithDiscounts;
 
     /**
      * this is the constructor method for the class DevelopmentCardsGrid
@@ -50,11 +81,16 @@ public class DevelopmentCardsGrid {
      * @return the card that the player has choosen
      * @throws EmptyDeckException -> thrown if the choosen deck is empty
      */
-    DevelopmentCard getChoosenCard(int iPos, int jPos) throws EmptyDeckException {
+    DevelopmentCard getChoosenCard(int iPos, int jPos, Player player) throws EmptyDeckException {
         DevelopmentCard choosenCard;
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
         int choosenDeckLastIndex = choosenDeck.size() - 1;
         choosenCard = (DevelopmentCard) choosenDeck.get(choosenDeckLastIndex).clone();
+        for(int i = 0; i < this.playerWithDiscounts.size(); i++){
+            if(this.playerWithDiscounts.get(i).equals(player)) {
+                choosenCard.reduceCost(this.playerWithDiscounts.get(i).discount);
+            }
+        }
         return choosenCard;
     }
 

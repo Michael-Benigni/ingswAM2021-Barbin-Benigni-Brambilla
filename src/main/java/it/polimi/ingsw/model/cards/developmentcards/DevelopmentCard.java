@@ -1,18 +1,51 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
+import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
 
+//TODO: la action che fa la produzione chiamerà il metodo check consumed resources che appartiene alla dev card e qui verrà chiamata la contained in sulle consumed resources. e ritorno le risorse consumate (copia) cosi la action le potrà togliere dal deposito
+
 /**
- * this class models the development card with all its attributes like the price, the production power, etc.
+ * this class models the development card with
+ * all its attributes like the price, the production power, etc.
  */
 public class DevelopmentCard extends GeneralDevelopmentCard {
     private final ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Resource> producedResources;
     private final VictoryPoint victoryPoints;
+
+    //TODO:check consumed resources 
+    void checkConsumedResources() {
+
+    }
+
+    /**
+     * this method reduces the cost of this development card
+     * @param resourceDiscount -> it represents the discount,
+     *                         the ResourceType indicates what
+     *                         resource of the cost we want to
+     *                         reduce and the amount indicates how
+     *                         much we want to reduce the cost
+     */
+    void reduceCost(ArrayList <StorableResource> resourceDiscount) {
+        for(int i = 0; i < this.cost.size(); i++) {
+            try {
+                this.cost.get(i).decreaseAmount(resourceDiscount.get(i));
+            }
+            catch (NegativeResourceAmountException | NullResourceAmountException e){
+                this.cost.remove(i);
+            }
+            catch (NotEqualResourceTypeException e) {
+
+            }
+        }
+    }
 
     /**
      * constructor of the class DevelopmentCard
@@ -54,7 +87,10 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * @return the created copy of the produced resources attribute
      */
     private ArrayList <Resource> getProducedResources(){
-        ArrayList <Resource> producedResourcesCopy = new ArrayList <> (this.producedResources);
+        ArrayList <Resource> producedResourcesCopy = new ArrayList <> (0);
+        for(int i = 0; i < this.producedResources.size(); i++) {
+            producedResourcesCopy.add((Resource) this.producedResources.get(i).clone());
+        }
         return producedResourcesCopy;
     }
 

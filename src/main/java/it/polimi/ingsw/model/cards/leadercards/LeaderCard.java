@@ -4,6 +4,9 @@ import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
+import it.polimi.ingsw.model.gameresources.stores.StorableResource;
+
 import java.util.ArrayList;
 
 /**
@@ -11,7 +14,7 @@ import java.util.ArrayList;
  * the effects of the leader card
  */
 interface Effect {
-    void applyOn(Player p);
+    void applyOn(Player p) throws NegativeResourceAmountException;
 }
 
 /**
@@ -37,10 +40,12 @@ public class LeaderCard {
         this.effects = effects;
         this.isAlreadyPlayed = false;
 
-        Effect discount = (p) -> {};
-        Effect extraDepot = (p) -> {};
+        Effect discount = (p) -> {gameboard.getCardsGrid.addPlayerWithDiscount(p, tipo di discount)};
+        Effect extraDepot = (p) -> {p.getPersonalBoard.getWarehouseDepots.addSpecialDepot(dimensione, tipo di risorsa)};
+        //viene aggiunto all'array di depots in warehouse una sottoclasse di depot
+        // che avrà una particolare risorsa che puo essere immagazzinata
         Effect transformWhiteMarble = (p) -> {};
-        Effect extraProductionPower = (p) -> {};
+        Effect extraProductionPower = (p) -> {p.getPersonalBoard.addExtraProductionPower(consumedResource)};
     }
 
     /**

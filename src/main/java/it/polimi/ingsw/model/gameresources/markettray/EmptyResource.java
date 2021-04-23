@@ -24,7 +24,7 @@ class EmptyResource extends Resource {
     }
 
     @Override
-    protected Object clone() {
+    public Object clone() {
         return super.clone();
     }
 

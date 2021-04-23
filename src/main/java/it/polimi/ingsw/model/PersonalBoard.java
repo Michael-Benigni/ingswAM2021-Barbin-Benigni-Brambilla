@@ -1,12 +1,15 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.EmptySlotException;
+import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
+import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
+import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
@@ -15,15 +18,41 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Class that represents the board that belongs to a player. It's a collection of game elements,
- * like Strongbox, Depots...
+ * Class that represents the board that belongs to a player.
+ * It's a collection of game elements, like Strongbox, Depots...
  */
 public class PersonalBoard {
+
+    /**
+     * this class models the extra
+     * production power provided
+     * by a leader card
+     */
     private class ExtraProductionPower {
         private final StorableResource consumedResource;
 
+        /**
+         * constructor method of this class
+         * @param consumedResource is the resource consumed to start the production
+         */
         private ExtraProductionPower(StorableResource consumedResource) {
             this.consumedResource = consumedResource;
+        }
+
+        /**
+         * this invokes the method "containedIn"
+         * to check if the player has all the
+         * resource required to start the production
+         * @param player is the refer to the player
+         * @return boolean value, true if the player can start the production
+         * @throws NullResourceAmountException
+         * @throws CloneNotSupportedException
+         */
+        boolean checkActivation(Player player) throws NullResourceAmountException, CloneNotSupportedException {
+            if(this.consumedResource.containedIn(player)) {
+                return true;
+            }
+            return false;
         }
     }
 
@@ -35,19 +64,52 @@ public class PersonalBoard {
     private ArrayList<SlotLeaderCards> listOfSlotLeaderCards;
     private ArrayList <ExtraProductionPower> extraProductionPowers;
 
-    //TODO: leader card chiama questo metodo e quando client vuole attivare l'extra production power fornirà la risorsa che vuole ottenere, il metodo di attivazione ritornerà il faith point, la action rimuoverà la risorsa dalla personal board del player e aggiungerà la risorsa scelta dal client
+    /**
+     * this method invokes the method "checkActivation" of the class
+     * ExtraProductionPower to checks if the player has the resources
+     * that the power uses. After the check it calls the method
+     * "activateExtraProductionPower" to start the production
+     * @param powerIndex is the index that the player provides to communicate which production power he wants to start
+     * @param player is the refer to the player
+     * @param producedResource is the resource that the player wants to gain after the production
+     * @return a boolean value, true if the production can be activated, if this method returns true
+     *                        the action has to remove the consumed resource from the personal board
+     * @throws NullResourceAmountException
+     * @throws CloneNotSupportedException
+     * @throws NegativeResourceAmountException
+     */
+    boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) throws NullResourceAmountException, CloneNotSupportedException, NegativeResourceAmountException {
+        if(this.extraProductionPowers.get(powerIndex).checkActivation(player)) {
+            activateExtraProductionPower(producedResource);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * this method activates the extra production power
+     * @param producedResource is the resource that the player wants to receive
+     * @return a list of resource, one of this resource is a faith point and the other one is the resource choosen by the player
+     * @throws NegativeResourceAmountException
+     */
+    ArrayList <Resource> activateExtraProductionPower(StorableResource producedResource) throws NegativeResourceAmountException {
+        FaithPoint faithPoint = new FaithPoint(1);
+        ArrayList <Resource> listOfResource = new ArrayList<>(0);
+        listOfResource.add(producedResource);
+        listOfResource.add(faithPoint);
+        return listOfResource;
+    }
 
     /**
      * this method is called by the leader card
      * that adds an extra production power to
      * the personal board of a player.
-     * @param extraProductionPower -> the power that the leader card adds
+     * @param consumedResource -> the resource that the extra production power uses to activate the production
      */
-    void addExtraProductionPower(ExtraProductionPower extraProductionPower) {
+    void addExtraProductionPower(StorableResource consumedResource) {
+        ExtraProductionPower extraProductionPower = new ExtraProductionPower(consumedResource);
         this.extraProductionPowers.add(extraProductionPower);
     }
-
-    //TODO: fare metodo del basic production power, tutto scelto dal client
 
     /**
      * this method invokes the method "containedIn"
@@ -61,6 +123,7 @@ public class PersonalBoard {
      * @throws CloneNotSupportedException
      * @throws NullResourceAmountException
      */
+    //TODO: forse va direttamente nella action
     StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) throws CloneNotSupportedException, NullResourceAmountException {
         for(int i = 0; i < consumedResources.size(); i++) {
             if(!consumedResources.get(i).containedIn(player)) {

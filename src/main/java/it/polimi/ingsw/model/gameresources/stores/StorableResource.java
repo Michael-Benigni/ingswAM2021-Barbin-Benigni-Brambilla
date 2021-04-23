@@ -55,7 +55,7 @@ public class StorableResource extends Resource implements Requirement {
      * @param resource -> resource to subtract
      * @return
      */
-    StorableResource decreaseAmount(StorableResource resource) throws NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException {
+    public StorableResource decreaseAmount(StorableResource resource) throws NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException {
         if (!this.getResourceType().equals(resource.getResourceType()))
             throw new NotEqualResourceTypeException();
         else if (this.getAmount() < resource.getAmount())
@@ -133,7 +133,7 @@ public class StorableResource extends Resource implements Requirement {
      * @return -> the copy of the caller
      */
     @Override
-    protected Object clone() {
+    public Object clone() {
         return super.clone();
     }
 
@@ -153,9 +153,11 @@ public class StorableResource extends Resource implements Requirement {
      * it checks if the player
      * satisfies this requirements
      * to play a leader card
+     * or to pay a development card
+     * or to start a production
      * @param player -> player we want to examine
-     * @return boolean value: true if the player satisfies this requirements
-     *                        false if the player doesn't satisfy this requirements
+     * @return boolean value: true if this resource is contained in the list of the player requirements
+     *                        false if the player doesn't satisfy the previous condition
      * @throws CloneNotSupportedException
      * @throws NullResourceAmountException
      */
@@ -166,15 +168,13 @@ public class StorableResource extends Resource implements Requirement {
             try {
                 this.decreaseAmount(requirements.get(i));
             }
-            catch (NegativeResourceAmountException e) {
+            catch (NegativeResourceAmountException | NullResourceAmountException e) {
                 return true;
             }
             catch (NotEqualResourceTypeException e) {
 
             }
         }
-        if(this.amount == 0)
-            return true;
         return false;
     }
 }

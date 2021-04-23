@@ -13,7 +13,7 @@ public abstract class Resource implements Cloneable{
     protected abstract void activate(Player player) throws Exception;
 
     @Override
-    protected Object clone() {
+    public Object clone() {
         try {
             return super.clone();
         } catch (CloneNotSupportedException e) {
