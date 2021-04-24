@@ -17,53 +17,65 @@
       "howManyMarbles": [
         {
           "quantity": 4,
-          "colour": "WHITE",
-          "resource": {
-            "className": "it.polimi.ingsw.model.gameresources.markettray.EmptyResource"
+          "marble": {
+            "colour": "WHITE",
+            "resource": {
+              "className": "it.polimi.ingsw.model.gameresources.markettray.EmptyResource"
+            }
           }
         },
         {
           "quantity": 2,
-          "colour": "GREY",
+          "marble": {
+            "colour": "GREY",
           "resource": {
             "amount": 1,
             "resourceType": "STONE",
             "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
-        },
-        {
-          "quantity": 2,
-          "colour": "PURPLE",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SERVANT",
-            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
           }
         },
         {
           "quantity": 2,
-          "colour": "YELLOW",
-          "resource": {
-            "amount": 1,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          "marble": {
+            "colour": "PURPLE",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SERVANT",
+              "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+            }
           }
         },
         {
           "quantity": 2,
-          "colour": "BLUE",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SHIELD",
-            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          "marble": {
+            "colour": "YELLOW",
+            "resource": {
+              "amount": 1,
+              "resourceType": "COIN",
+              "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+            }
+          }
+        },
+        {
+          "quantity": 2,
+          "marble": {
+            "colour": "BLUE",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SHIELD",
+              "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+            }
           }
         },
         {
           "quantity": 1,
           "colour": "RED",
-          "resource": {
-            "points": 1,
-            "className": "it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint"
+          "marble": {
+            "resource": {
+              "points": 1,
+              "className": "it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint"
+            }
           }
         }
       ]
@@ -1884,6 +1896,507 @@
           "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
         }
       ]
+    },
+    "leaderCardsDeck": {
+      "deck": [
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "extraDepot",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          "capacity": 2
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      },
+      {
+        "isAlreadyPlayed": false,
+        "requirements": [
+          {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          },
+          {
+            "cardColour": "BLUE",
+            "cardLevel": "ONE",
+            "className": "it.polimi.ingsw.model.cards.developmentcards.GeneralDevelopmentCard"
+          }
+        ],
+        "victoryPoint": {
+          "amount": 1
+        },
+        "effect": {
+          "effectType": "discount",
+          "resource": {
+            "amount": 1,
+            "resourceType": "COIN",
+            "className": "it.polimi.ingsw.model.gameresources.stores.StorableResource"
+          }
+        }
+      }
+    ]
     }
   }
 }
