@@ -2,8 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 
-import java.util.Objects;
-
 /**
  * Class that represents the victory points. It's composed by an integer that represents the amount of victory points.
  */
@@ -15,15 +13,12 @@ public class VictoryPoint {
     /**
      * Constructor method of this class.
      * @param amount -> amount of victory points you want to create.
-     * @throws NegativeVPAmountException -> exception thrown if the provided amount is less than zero.
      */
-    public VictoryPoint(int amount) throws NegativeVPAmountException {
+    public VictoryPoint(int amount) {
         if(amount < 0){
-            throw new NegativeVPAmountException();
+            amount = 0;
         }
-        else {
             this.amount = amount;
-        }
     }
 
 

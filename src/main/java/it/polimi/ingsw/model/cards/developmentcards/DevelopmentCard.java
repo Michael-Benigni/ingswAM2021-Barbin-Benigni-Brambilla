@@ -4,6 +4,7 @@ import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.model.VictoryPoint;
+import it.polimi.ingsw.model.cards.leadercards.Options;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * this class models the development card with
  * all its attributes like the price, the production power, etc.
  */
-public class DevelopmentCard extends GeneralDevelopmentCard {
+public class DevelopmentCard extends GeneralDevelopmentCard implements Options {
     private final ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Resource> producedResources;

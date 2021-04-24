@@ -3,9 +3,11 @@ package it.polimi.ingsw.model;
 import static org.junit.jupiter.api.Assertions.*;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
+import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import org.junit.jupiter.api.Test;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,8 +58,8 @@ public class PersonalBoardTest {
         assertNull(toTest);
     }
 
-    /*@Test
-    void initFromJSON() throws FileNotFoundException, WrongSlotDevelopmentIndexException {
+    @Test
+    void initFromJSON() throws WrongSlotDevelopmentIndexException, FileNotFoundException {
         PersonalBoard p = new PersonalBoard(3, 2).initFromJSON();
         WarehouseDepots warehouseDepots = p.getWarehouseDepots();
         assertNotNull(warehouseDepots);
@@ -69,5 +71,5 @@ public class PersonalBoardTest {
         SlotDevelopmentCards slotDevelopmentCards = p.getSlotDevelopmentCards(1);
         assertNotNull(slotDevelopmentCards);
         assertEquals(slotDevelopmentCards, new SlotDevelopmentCards(3));
-    }*/
+    }
 }

@@ -1,21 +1,17 @@
 package it.polimi.ingsw.model.cards.leadercards;
 
+import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.exception.*;
+import it.polimi.ingsw.model.config.ConfigLoaderWriter;
+import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
-import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-/**
- * interface that represents
- * the effects of the leader card
- */
-interface Effect {
-    void applyOn(Player p) throws NegativeResourceAmountException;
-}
 
 /**
  * this class models the leader card.
@@ -26,26 +22,54 @@ public class LeaderCard {
     private boolean isAlreadyPlayed;
     private ArrayList <Requirement> requirements;
     private VictoryPoint victoryPoint;
-    private ArrayList<Effect> effects; //TODO: is it needed to use ArrayList since the Effect is only 1?
+    private transient Effect effect; //TODO: is it needed to use ArrayList since the Effect is only 1?
 
     /**
      * this method is the constructor of this class
      * @param requirements -> requirements of this leader card
      * @param victoryPoint -> amount of victory points of this card
-     * @param effects -> effects that the leader card provides if activated
+     * @param effect -> effects that the leader card provides if activated
      */
-    public LeaderCard(ArrayList<Requirement> requirements, VictoryPoint victoryPoint, ArrayList<Effect> effects) {
+    public LeaderCard(ArrayList<Requirement> requirements, VictoryPoint victoryPoint, Effect effect) {
         this.requirements = requirements;
         this.victoryPoint = victoryPoint;
-        this.effects = effects;
+        this.effect = effect;
         this.isAlreadyPlayed = false;
+    }
 
-        Effect discount = (p) -> {gameboard.getCardsGrid.addPlayerWithDiscount(p, tipo di discount)};
-        Effect extraDepot = (p) -> {p.getPersonalBoard.getWarehouseDepots.addSpecialDepot(dimensione, tipo di risorsa)};
-        //viene aggiunto all'array di depots in warehouse una sottoclasse di depot
-        // che avrà una particolare risorsa che puo essere immagazzinata
-        Effect transformWhiteMarble = (p) -> {};
-        Effect extraProductionPower = (p) -> {p.getPersonalBoard.addExtraProductionPower(consumedResource)};
+    public final void setEffect(Effect effect) {
+        this.effect = effect;
+    }
+
+    public void setEffectFromJSON(String jsonPath, int[] ints) throws FileNotFoundException {
+        jsonPath = jsonPath + "effect/";
+        String typeEffect = (String) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(String.class, jsonPath + "effectType", ints);
+        switch (typeEffect) {
+            case "discount": {
+                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
+                this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid();//.addPlayerWithDiscount(player, resource);
+                break;
+            }
+            case "extraDepot": {
+                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
+                int depotCapacity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, jsonPath + "capacity", ints);
+                this.effect = (player, game) -> player.getPersonalBoard();//.addExtraDepot(depotCapacity, resource);
+                break;
+            }
+            case "extraProductionPower": {
+                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
+                this.effect = (player, game) -> player.getPersonalBoard();//.addExtraProductionPower(resource);
+                break;
+            }
+            case "transformWhiteMarble": {
+                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
+                this.effect = (player, game) -> {};
+                break;
+            }
+            default: {
+                //TODO:
+            }
+        }
     }
 
     /**
@@ -81,13 +105,10 @@ public class LeaderCard {
      * @throws CloneNotSupportedException
      * @throws WrongSlotDevelopmentIndexException
      */
-    private void playLeaderCard (Player player) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException {
+    private void playLeaderCard (Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException {
         this.isAlreadyPlayed = true;
-        if(checkRequirementsOf(player)) {
-            for (Effect effect : effects) {
-                effect.applyOn(player);
-            }
-        }
+        if(checkRequirementsOf(player))
+                effect.applyOn(player, game);
     }
 
     /**

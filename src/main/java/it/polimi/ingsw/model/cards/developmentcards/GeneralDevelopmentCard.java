@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * this class models the development
  * card only with its colour and level
  */
-class GeneralDevelopmentCard implements Requirement {
+public class GeneralDevelopmentCard implements Requirement {
     private final CardColour cardColour;
     private final CardLevel cardLevel;
 
@@ -20,7 +20,7 @@ class GeneralDevelopmentCard implements Requirement {
      * @param cardColour -> indicates the colour of the development card
      * @param cardLevel -> indicates the level of the development card
      */
-    GeneralDevelopmentCard(CardColour cardColour, CardLevel cardLevel) {
+    public GeneralDevelopmentCard(CardColour cardColour, CardLevel cardLevel) {
         this.cardColour = cardColour;
         this.cardLevel = cardLevel;
     }

@@ -3,9 +3,11 @@ package it.polimi.ingsw.model.config;
 //import it.polimi.ingsw.model.cards.developmentcards.CardColour;
 //import it.polimi.ingsw.model.cards.developmentcards.CardLevel;
 //import it.polimi.ingsw.model.personalboard.ResourceType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ConfigLoaderWriterTest {
+
     /*@Test
     public void getJavaObjectFromFileTest() throws NegativeResourceAmountException, IOException {
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
@@ -25,6 +27,9 @@ class ConfigLoaderWriterTest {
         DevelopmentCard cardLoaded = (DevelopmentCard) ConfigLoaderWriter.getJavaObjectFromFile(filePath, DevelopmentCard.class);
         assertTrue(cardLoaded.equals(card));
     }*/
+    @BeforeEach
+    void setUp() {
+    }
 
     @Test
     public void getJavaObjectFromMainDBTest() {
@@ -34,5 +39,25 @@ class ConfigLoaderWriterTest {
     @Test
     void saveAsJsonFile() {
 
+    }
+
+    @Test
+    void testSaveAsJsonFile() {
+    }
+
+    @Test
+    void getAsJavaObjectFromJSON() {
+    }
+
+    @Test
+    void getAsJavaObjectFromJSONArray() {
+    }
+
+    @Test
+    void testGetAsJavaObjectFromJSON() {
+    }
+
+    @Test
+    void testGetAsJavaObjectFromJSONArray() {
     }
 }

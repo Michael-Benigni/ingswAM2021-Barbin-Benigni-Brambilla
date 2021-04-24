@@ -10,3 +10,4 @@ import it.polimi.ingsw.model.Player;
 public interface Requirement {
     boolean containedIn(Player player) throws CloneNotSupportedException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, EmptySlotException, WrongSlotDevelopmentIndexException;
 }
+

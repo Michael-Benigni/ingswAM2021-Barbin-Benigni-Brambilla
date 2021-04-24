@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.config;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import it.polimi.ingsw.model.cards.leadercards.Requirement;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.faithtrack.Section;
 import it.polimi.ingsw.model.gameresources.faithtrack.Cell;
@@ -163,17 +164,15 @@ public class ConfigLoaderWriter {
      * @return the correspondent JsonElement at the path pathToJsonElemInArray
      */
     private static JsonElement getJsonElementFromJsonArray(String pathToJsonElemInArray, JsonElement json, int[] listIndeces) {
-        JsonElement elemOfJsonArray = json;
+        JsonElement element = json;
         for (int i = 0; pathToJsonElemInArray != null; i++) {
-            try {
-                JsonArray jsonArray = getJsonElement(pathToJsonElemInArray, elemOfJsonArray).getAsJsonArray();
-                elemOfJsonArray = jsonArray.get(listIndeces[i]);
-            } catch (Exception e) {
-                elemOfJsonArray = getJsonElement(pathToJsonElemInArray, elemOfJsonArray);
+            element = getJsonElement(pathToJsonElemInArray, element);
+            if(element.isJsonArray() && i < element.getAsJsonArray().size()) {
+                element = element.getAsJsonArray().get(listIndeces[i]);
             }
-            pathToJsonElemInArray = updateJsonPath(elemOfJsonArray, pathToJsonElemInArray);
+            pathToJsonElemInArray = updateJsonPath(element, pathToJsonElemInArray);
         }
-        return elemOfJsonArray;
+        return element;
     }
 
 
@@ -187,27 +186,18 @@ public class ConfigLoaderWriter {
      */
     private static String updateJsonPath(JsonElement element, String path) {
         ArrayList<String> listNodes = ConfigParser.decompose(path);
-        int currNode = 0;
+        int firstNode = 0;
+        listNodes.remove(firstNode);
         while (listNodes.size() > 0) {
-            String node = listNodes.get(currNode);
-            JsonElement test = null;
-            try {
-                test = element.getAsJsonObject().get(node);
-            } catch (Exception e) {
-                listNodes.remove(node);
-                path = ConfigParser.compose(listNodes);
-                break;
+            String node = listNodes.get(firstNode);
+            if (element.isJsonPrimitive() || element.getAsJsonObject().has(node)) {
+                if (element.isJsonPrimitive())
+                    return null;
+                return ConfigParser.compose(listNodes);
             }
-            if(test == null) {
-                listNodes.remove(node);
-                path = ConfigParser.compose(listNodes);
-            } else {
-                listNodes.remove(node);
-                path = ConfigParser.compose(listNodes);
-                break;
-            }
+            listNodes.remove(node);
         }
-        return path;
+        return null;
     }
 
 
@@ -233,5 +223,6 @@ public class ConfigLoaderWriter {
         gsonBuilder.registerTypeAdapter(Resource.class, new JsonAdapter<Resource>());
         gsonBuilder.registerTypeAdapter(Cell.class, new JsonAdapter<Cell>());
         gsonBuilder.registerTypeAdapter(Section.class, new JsonAdapter<Section>());
+        gsonBuilder.registerTypeAdapter(Requirement.class, new JsonAdapter<Requirement>());
     }
 }

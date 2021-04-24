@@ -2,39 +2,31 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Class that represents the player in the model.
- * It has a username provided by the client,
  * and a number of victory points.
  * They start to zero and can be increased during the match.
  */
 public class Player {
 
-    private String username;
     private VictoryPoint victoryPoints;
     private PersonalBoard personalBoard;
 
+
     /**
      * Constructor method of this class.
-     * @param username -> String provided by the client.
-     * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      */
-    Player(String username) throws FileNotFoundException {
-        this.username = username;
-        try {
-            this.victoryPoints = new VictoryPoint(0);
-        } catch (NegativeVPAmountException e) {
-            this.victoryPoints = null;
-        }
-        this.personalBoard = new PersonalBoard(0, 0).initFromJSON();
+    public Player() {
+        this.victoryPoints = new VictoryPoint(0);
+        this.personalBoard = new PersonalBoard(0, 0);
     }
+
 
     /**
      * Method that increases the number of victory points of this player.
@@ -44,15 +36,6 @@ public class Player {
         this.victoryPoints.increaseVictoryPoints(victoryPoint);
     }
 
-    /**
-     * Method that overrides the "equals" method of "Object" class.
-     * @param obj
-     * @return
-     */
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 
     /**
      * this method invokes the personal board
@@ -71,6 +54,7 @@ public class Player {
         return resourceRequirements;
     }
 
+
     /**
      * this method invokes the personal board
      * method getDevCardRequirements to obtain an
@@ -86,5 +70,28 @@ public class Player {
         ArrayList <DevelopmentCard> devCardRequirements;
         devCardRequirements = this.personalBoard.getDevCardRequirements();
         return devCardRequirements;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+        Player player = (Player) o;
+        return victoryPoints.equals(player.victoryPoints) && personalBoard.equals(player.personalBoard);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(victoryPoints, personalBoard);
+    }
+
+
+    /**
+     * @return the PersonalBoard of the player
+     */
+    public PersonalBoard getPersonalBoard() {
+        return personalBoard;
     }
 }
