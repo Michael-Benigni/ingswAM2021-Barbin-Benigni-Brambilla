@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards.leadercards;
 
-import com.google.gson.annotations.Expose;
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gamelogic.Game;
@@ -8,10 +7,8 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 
 /**
  * this class models the leader card.
@@ -22,13 +19,13 @@ public class LeaderCard {
     private boolean isAlreadyPlayed;
     private ArrayList <Requirement> requirements;
     private VictoryPoint victoryPoint;
-    private transient Effect effect; //TODO: is it needed to use ArrayList since the Effect is only 1?
+    private transient Effect effect;
 
     /**
      * this method is the constructor of this class
-     * @param requirements -> requirements of this leader card
-     * @param victoryPoint -> amount of victory points of this card
-     * @param effect -> effects that the leader card provides if activated
+     * @param requirements requirements of this leader card
+     * @param victoryPoint amount of victory points of this card
+     * @param effect effect that the leader card provides if activated
      */
     public LeaderCard(ArrayList<Requirement> requirements, VictoryPoint victoryPoint, Effect effect) {
         this.requirements = requirements;
@@ -47,18 +44,18 @@ public class LeaderCard {
         switch (typeEffect) {
             case "discount": {
                 StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
-                this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid();//.addPlayerWithDiscount(player, resource);
+                this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid().addPlayerWithDiscount(player, resource);
                 break;
             }
             case "extraDepot": {
                 StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
                 int depotCapacity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, jsonPath + "capacity", ints);
-                this.effect = (player, game) -> player.getPersonalBoard();//.addExtraDepot(depotCapacity, resource);
+                this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resource);
                 break;
             }
             case "extraProductionPower": {
                 StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
-                this.effect = (player, game) -> player.getPersonalBoard();//.addExtraProductionPower(resource);
+                this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
                 break;
             }
             case "transformWhiteMarble": {

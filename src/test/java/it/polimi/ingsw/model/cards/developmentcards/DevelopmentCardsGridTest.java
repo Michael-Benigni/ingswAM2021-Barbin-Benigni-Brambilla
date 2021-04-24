@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.EmptyDeckException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
@@ -25,15 +26,16 @@ class DevelopmentCardsGridTest {
     @Test
     void checkDecks() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
         int numberOfRows = 2, numberOfColumns = 3;
+        Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
         int numberOfCardsInEachDeck = cardsList.size() / (numberOfRows * numberOfColumns);
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         for(int i = 0; i < numberOfRows; i++) {
             for(int j = 0; j < numberOfColumns; j++) {
-                DevelopmentCard card = cardsGrid.getChoosenCard(i, j);
+                DevelopmentCard card = cardsGrid.getChoosenCard(i, j, player);
                 for(int k = 1; k < numberOfCardsInEachDeck; k++) {
                     cardsGrid.removeChoosenCardFromGrid(i, j);
-                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j)) || !card.hasSameLevel(cardsGrid.getChoosenCard(i, j))) {
+                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) || !card.hasSameLevel(cardsGrid.getChoosenCard(i, j, player))) {
                         fail();
                     }
                 }
@@ -51,13 +53,14 @@ class DevelopmentCardsGridTest {
     @Test
     void checkRows() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
         int numberOfRows = 2, numberOfColumns = 3;
+        Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         DevelopmentCard card;
         for(int i = 0; i < numberOfRows; i++) {
-            card = cardsGrid.getChoosenCard(i, 0);
+            card = cardsGrid.getChoosenCard(i, 0, player);
             for (int j = 1; j < numberOfColumns; j++) {
-                if(!card.hasSameLevel(cardsGrid.getChoosenCard(i, j))) {
+                if(!card.hasSameLevel(cardsGrid.getChoosenCard(i, j, player))) {
                     fail();
                 }
             }
@@ -74,13 +77,14 @@ class DevelopmentCardsGridTest {
     @Test
     void checkColumns() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
         int numberOfRows = 2, numberOfColumns = 3;
+        Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         DevelopmentCard card;
         for(int i = 0; i < numberOfColumns; i++) {
-            card = cardsGrid.getChoosenCard(0, i);
+            card = cardsGrid.getChoosenCard(0, i, player);
             for (int j = 1; j < numberOfRows; j++) {
-                if(!card.hasSameColour(cardsGrid.getChoosenCard(j, i))) {
+                if(!card.hasSameColour(cardsGrid.getChoosenCard(j, i, player))) {
                     fail();
                 }
             }

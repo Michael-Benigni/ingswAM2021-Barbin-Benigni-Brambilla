@@ -16,7 +16,6 @@ import it.polimi.ingsw.model.gameresources.stores.StorableResource;
  * the cards shown on the top of the decks are placed in the arrays in the last position
  */
 public class DevelopmentCardsGrid {
-
     /**
      * this class represents the players
      * that are able to obtain a discount
@@ -24,23 +23,16 @@ public class DevelopmentCardsGrid {
      */
     private class PlayerWithDiscount {
         private Player playerWithDiscount;
-        private ArrayList <StorableResource> discount;
+        private StorableResource discount;
 
         /**
          * this is the constructor method of this class
-         * @param playerWithDiscount -> it refers to the player that has obtained the discount
+         * @param playerWithDiscount it refers to the player that has obtained the discount
+         * @param discount it indicates the type and the amount of the discount
          */
-        public PlayerWithDiscount(Player playerWithDiscount) {
+        public PlayerWithDiscount(Player playerWithDiscount, StorableResource discount) {
             this.playerWithDiscount = playerWithDiscount;
-        }
-
-        /**
-         * this method is used to construct
-         * the list that represents the discount
-         * @param resourceDiscount -> number and type of resource discount
-         */
-        private void addDiscount(StorableResource resourceDiscount) {
-            this.discount.add(resourceDiscount);
+            this.discount = discount;
         }
     }
 
@@ -59,6 +51,16 @@ public class DevelopmentCardsGrid {
         this.columns = columns;
         initGrid();
         setCardsGrid(cardsList);
+    }
+
+    /**
+     * this method adds a new player with discount in the development cards grid
+     * @param player it refers to the player
+     * @param resource it is the discount
+     */
+    public void addPlayerWithDiscount(Player player, StorableResource resource) {
+        PlayerWithDiscount newPlayerWithDiscount = new PlayerWithDiscount(player, resource);
+        this.playerWithDiscounts.add(newPlayerWithDiscount);
     }
 
     /**

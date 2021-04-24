@@ -3,27 +3,40 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.VictoryPoint;
-import it.polimi.ingsw.model.cards.leadercards.Options;
 import it.polimi.ingsw.model.gameresources.markettray.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
-
-//TODO: la action che fa la produzione chiamerà il metodo check consumed resources che appartiene alla dev card e qui verrà chiamata la contained in sulle consumed resources. e ritorno le risorse consumate (copia) cosi la action le potrà togliere dal deposito
 
 /**
  * this class models the development card with
  * all its attributes like the price, the production power, etc.
  */
-public class DevelopmentCard extends GeneralDevelopmentCard implements Options {
+public class DevelopmentCard extends GeneralDevelopmentCard {
     private final ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Resource> producedResources;
     private final VictoryPoint victoryPoints;
 
-    //TODO:check consumed resources 
-    void checkConsumedResources() {
-
+    /**
+     * this method is called by the action when the client
+     * wants to start the production of this development card.
+     * this method checks if the player has all the required resources to start the production.
+     * @param player is the refer to the player
+     * @return if the player hasn't this resources the method returns null, else the method returns the list of the resources that the action has to remove.
+     * @throws NullResourceAmountException
+     * @throws CloneNotSupportedException
+     */
+    ArrayList <StorableResource> checkConsumedResources(Player player) throws NullResourceAmountException, CloneNotSupportedException {
+        ArrayList<StorableResource> resourcesToBeRemoved = new ArrayList<>(0);
+        for(int i = 0; i < this.consumedResources.size(); i++){
+            if(!this.consumedResources.get(i).containedIn(player)){
+                return null;
+            }
+            resourcesToBeRemoved.add((StorableResource) this.consumedResources.get(i).clone());
+        }
+        return resourcesToBeRemoved;
     }
 
     /**
@@ -34,10 +47,10 @@ public class DevelopmentCard extends GeneralDevelopmentCard implements Options {
      *                         reduce and the amount indicates how
      *                         much we want to reduce the cost
      */
-    void reduceCost(ArrayList <StorableResource> resourceDiscount) {
+    void reduceCost(StorableResource resourceDiscount) {
         for(int i = 0; i < this.cost.size(); i++) {
             try {
-                this.cost.get(i).decreaseAmount(resourceDiscount.get(i));
+                this.cost.get(i).decreaseAmount(resourceDiscount);
             }
             catch (NegativeResourceAmountException | NullResourceAmountException e){
                 this.cost.remove(i);
@@ -50,11 +63,11 @@ public class DevelopmentCard extends GeneralDevelopmentCard implements Options {
 
     /**
      * constructor of the class DevelopmentCard
-     * @param cardColour -> superclass' attribute
-     * @param cardLevel -> superclass' attribute
-     * @param cost -> attribute that indicates che price of the card in terms of the resources that the player has to spend to earn the card
-     * @param consumedResources -> attribute that indicates the resources that the player has to spend to star the production power
-     * @param producedResources -> attribute that indicates the earned resources after the activation of the production power
+     * @param cardColour superclass' attribute
+     * @param cardLevel superclass' attribute
+     * @param cost attribute that indicates che price of the card in terms of the resources that the player has to spend to earn the card
+     * @param consumedResources attribute that indicates the resources that the player has to spend to star the production power
+     * @param producedResources attribute that indicates the earned resources after the activation of the production power
      * @param victoryPoints
      */
     public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Resource> producedResources, VictoryPoint victoryPoints) {

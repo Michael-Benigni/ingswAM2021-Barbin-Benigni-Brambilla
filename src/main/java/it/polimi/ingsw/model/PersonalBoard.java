@@ -106,7 +106,7 @@ public class PersonalBoard {
      * the personal board of a player.
      * @param consumedResource -> the resource that the extra production power uses to activate the production
      */
-    void addExtraProductionPower(StorableResource consumedResource) {
+    public void addExtraProductionPower(StorableResource consumedResource) {
         ExtraProductionPower extraProductionPower = new ExtraProductionPower(consumedResource);
         this.extraProductionPowers.add(extraProductionPower);
     }
@@ -205,7 +205,7 @@ public class PersonalBoard {
      * Method that return the real warehouse (not a copy) to the caller.
      * @return -> the real warehouse, that is an attribute of this personal board.
      */
-    WarehouseDepots getWarehouseDepots(){
+    public WarehouseDepots getWarehouseDepots(){
         return warehouseDepots;
     }
 

@@ -12,7 +12,6 @@ public class WarehouseDepots {
     private ArrayList<Integer> capacities;
     private ArrayList<Depot> listDepot;
 
-
     /**
      * Constructor method of this class. It reads from the database how many depots are contained and the capacity of each one.
      */
@@ -33,12 +32,22 @@ public class WarehouseDepots {
         }
     }
 
+    /**
+     * method used to add an extra depot to the list of all depots.
+     * this depot is provided by the power of a leader card
+     * @param depotCapacity is the capacity of the extra depot
+     * @param resource is the unique resource storable in this depot
+     */
+    public void addExtraDepot(int depotCapacity, StorableResource resource) {
+        ExtraDepot extraDepot = new ExtraDepot(depotCapacity, resource);
+        this.listDepot.add(extraDepot);
+    }
 
     /**
      * Method that checks if the provided resource is already contained into another depot.
-     * @param resourceToCompare -> resource provided in input.
-     * @param depotIndex -> integer that represents the number of the depot in which you want to store the resource.
-     * @return -> boolean: false if every other depot contains a different type of resource.
+     * @param resourceToCompare is the resource provided in input.
+     * @param depotIndex is an integer that represents the number of the depot in which you want to store the resource.
+     * @return a boolean value: false if every other depot contains a different type of resource.
      */
     private boolean ifAlreadyContainedInOtherDepots(StorableResource resourceToCompare, int depotIndex) {
         for (int i = 0; i < listDepot.size(); i++)
@@ -47,13 +56,11 @@ public class WarehouseDepots {
         return false;
     }
 
-
-
     /**
      * Method that returns if the index is correct.
-     * @param depotIndex -> integer to be verified.
-     * @return -> boolean: true if the depot index is correct.
-     * @throws WrongDepotIndexException -> thrown if the integer is less than zero or exceeds the number of depots in
+     * @param depotIndex the integer we want to verify.
+     * @return a boolean value: true if the depot index is correct.
+     * @throws WrongDepotIndexException thrown if the integer is less than zero or exceeds the number of depots in
      * this warehouse.
      */
     private boolean ifDepotIndexIsCorrect(int depotIndex) throws WrongDepotIndexException {
@@ -65,9 +72,9 @@ public class WarehouseDepots {
 
     /**
      * Method that finds the right depot in the arraylist and puts the provided resource into it.
-     * @param resourceToStore -> resource to be inserted in the right depot.
-     * @param depotIndex -> integer useful to recognize the right depot.
-     * @throws Exception -> thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
+     * @param resourceToStore resource to be inserted in the right depot.
+     * @param depotIndex integer useful to recognize the right depot.
+     * @throws Exception thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
      */
     void storeResourceInWarehouse(StorableResource resourceToStore, int depotIndex) throws Exception {
         if (ifDepotIndexIsCorrect(depotIndex)) {
@@ -82,9 +89,9 @@ public class WarehouseDepots {
 
     /**
      * Method that finds the right depot in the arraylist and removes the provided resource from it.
-     * @param resourceToRemove -> resource to be removed from the right depot.
-     * @param depotIndex -> integer useful to recognize the right depot.
-     * @throws Exception -> can be thrown by "removeResourceFromDepot" method of "Depot" class.
+     * @param resourceToRemove resource to be removed from the right depot.
+     * @param depotIndex integer useful to recognize the right depot.
+     * @throws Exception can be thrown by "removeResourceFromDepot" method of "Depot" class.
      */
     void removeResourceFromWarehouse(StorableResource resourceToRemove, int depotIndex) throws Exception {
         Depot currentDepot;
@@ -94,12 +101,11 @@ public class WarehouseDepots {
         }
     }
 
-
     /**
      * Method that swaps two depots in the array with each other.
-     * @param depotIndex1 -> index of the first depot
-     * @param depotIndex2 -> index of the second depot.
-     * @throws WrongDepotIndexException -> exception thrown if one of the provided integers is less than 1.
+     * @param depotIndex1 index of the first depot
+     * @param depotIndex2 index of the second depot.
+     * @throws WrongDepotIndexException exception thrown if one of the provided integers is less than 1.
      */
     void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
         Depot temporaryDepot;
@@ -113,9 +119,9 @@ public class WarehouseDepots {
 
     /**
      * Method that returns a copy of the resource stored in the depot represented by the provided depot index.
-     * @param depotIndex -> integer that points to the right depot.
-     * @return -> a copy of the resource contained inside the specified depot.
-     * @throws NegativeResourceAmountException -> can be thrown by "copyStorableResource" method of "StorableResource" class.
+     * @param depotIndex integer that points to the right depot.
+     * @return a copy of the resource contained inside the specified depot.
+     * @throws NegativeResourceAmountException can be thrown by "copyStorableResource" method of "StorableResource" class.
      */
     private StorableResource getResourceFromDepot(int depotIndex) throws CloneNotSupportedException {
         StorableResource temporaryResource;
@@ -130,7 +136,7 @@ public class WarehouseDepots {
      * method that provides an ArrayList
      * of all the storable resources
      * contained into the warehouse
-     * @return -> list of StorableResource
+     * @return list of StorableResource
      * @throws CloneNotSupportedException
      */
     public ArrayList <StorableResource> getAllResources() throws CloneNotSupportedException {
@@ -143,8 +149,8 @@ public class WarehouseDepots {
 
     /**
      * override of the method equals
-     * @param o -> the object we want to compare
-     * @return -> boolean value: true if the object "o" is equal to the caller
+     * @param o the object we want to compare
+     * @return boolean value: true if the object "o" is equal to the caller
      *                           false if the object "o" isn't equal to the caller
      */
     @Override
@@ -159,7 +165,7 @@ public class WarehouseDepots {
 
     /**
      * override of the method hashCode
-     * @return -> int
+     * @return int
      */
     @Override
     public int hashCode() {
