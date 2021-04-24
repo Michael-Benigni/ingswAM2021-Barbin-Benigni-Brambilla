@@ -24,23 +24,23 @@ public class ActionFactory {
                 return new StartTurnAction();
             case "MARKET_ROW":
                 int row = Integer.parseInt(options.get("row"));
-                return new MarketAction();
+                return null;
             case "MARKET_COLUMN":
-                return new MarketAction();
+                return null;
             case "BUY_CARD":
-                return new MarketAction();
+                return null;
             case "START_PRODUCTION":
-                return new MarketAction();
+                return null;
             case "SWAP_DEPOTS":
-                return new MarketAction();
+                return null;
             case "STORE_RESOURCES":
-                return new MarketAction();
+                return null;
             case "LEADER_PLAY":
-                return new MarketAction();
+                return null;
             case "LEADER_DISCARD":
-                return new MarketAction();
+                return null;
             case "END_TURN":
-                return new EndTurnAction();
+                return null;
             default:
                 throw new WrongCommandException();
         }
