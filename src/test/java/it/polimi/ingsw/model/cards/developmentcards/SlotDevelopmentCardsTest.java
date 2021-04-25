@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
-import it.polimi.ingsw.model.gameresources.Resource;
+import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import org.junit.jupiter.api.Test;
@@ -164,7 +164,7 @@ class SlotDevelopmentCardsTest {
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
         ArrayList<StorableResource> cost = new ArrayList <StorableResource> (2);
         ArrayList <StorableResource> consumedResources = new ArrayList <StorableResource> (1);
-        ArrayList <Resource> producedResources = new ArrayList <Resource> (2);
+        ArrayList <Producible> producedResources = new ArrayList <Producible> (2);
         cost.add(servant);
         cost.add(shield);
         consumedResources.add(coin);

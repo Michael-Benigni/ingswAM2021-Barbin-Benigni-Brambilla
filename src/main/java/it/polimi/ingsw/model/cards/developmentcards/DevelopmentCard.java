@@ -3,11 +3,11 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
-import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * this class models the development card with
@@ -19,32 +19,6 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
     private final ArrayList <Producible> producedResources;
     private final VictoryPoint victoryPoints;
 
-    /**
-     * this method is called by the action when the client
-     * wants to start the production of this development card.
-     * this method checks if the player has all the required resources to start the production.
-     * @param player is the refer to the player
-     * @return if the player hasn't this resources the method returns null, else the method returns the list of the resources that the action has to remove.
-     * @throws NullResourceAmountException
-     * @throws CloneNotSupportedException
-     */
-    public ArrayList <StorableResource> checkConsumedResources(Player player) throws NullResourceAmountException, CloneNotSupportedException {
-        ArrayList<StorableResource> resourcesToBeRemoved = new ArrayList<>(0);
-        for (int i = 0; i < this.consumedResources.size(); i++) {
-            if (!this.consumedResources.get(i).containedIn(player)) {
-                return null;
-            }
-            resourcesToBeRemoved.add((StorableResource) this.consumedResources.get(i).clone());
-        }
-        return resourcesToBeRemoved;
-    }
-    /*boolean checkConsumedResources(Player player) throws NullResourceAmountException, CloneNotSupportedException {
-        for (StorableResource r : this.consumedResources) {
-            if (!r.containedIn(player))
-                return false;
-        }
-        return true;
-    }*/
 
     /**
      * this method reduces the cost of this development card
@@ -119,25 +93,26 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
         return producedResourcesCopy;
     }
 
-    /**
-     * redefinition of the Object class method equals
-     * @param card -> card we want to compare
-     * @return true if the two cards are equal
-     */
-    @Override
-    public boolean equals(Object card) {
-        if(this.getCardLevel().compareTo(((DevelopmentCard)card).getCardLevel()) == 0 && this.getCardColour().compareTo(((DevelopmentCard)card).getCardColour()) == 0 && this.cost.equals(((DevelopmentCard) card).cost) && this.consumedResources.equals(((DevelopmentCard) card).consumedResources) && this.producedResources.equals(((DevelopmentCard) card).producedResources)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+
 
     /**
-     * redefinition of the Object class method clone
-     * @return an object that is che created copy of the caller object
+     * redefinition of the Object class method equals
+     * @param o -> object we want to compare
+     * @return true if the two objects are equal
      */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DevelopmentCard)) return false;
+        DevelopmentCard card = (DevelopmentCard) o;
+        return getCost().equals(card.getCost()) && getConsumedResources().equals(card.getConsumedResources()) && getProducedResources().equals(card.getProducedResources()) && victoryPoints.equals(card.victoryPoints);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCost(), getConsumedResources(), getProducedResources(), victoryPoints);
+    }
+
     @Override
     protected Object clone() {
         DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), this.getCost(), this.getConsumedResources(), this.getProducedResources(), victoryPoints);

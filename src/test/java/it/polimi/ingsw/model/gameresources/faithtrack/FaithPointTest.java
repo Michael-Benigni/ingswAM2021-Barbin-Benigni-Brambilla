@@ -19,13 +19,7 @@ public class FaithPointTest {
     void checkConstructorIfNegativeAmount()
     {
         int numPoints = -3;
-
-        try{
-            FaithPoint faithPoint = new FaithPoint(numPoints);
-            fail();
-        } catch (NegativeResourceAmountException e){
-            assertTrue(true);
-        }
+        FaithPoint faithPoint = new FaithPoint(numPoints);
     }
 
 
@@ -36,13 +30,8 @@ public class FaithPointTest {
      */
     @Test
     void checkCloneIfCorrect() throws CloneNotSupportedException {
-        try {
-            FaithPoint newFaithPoint = new FaithPoint(5);
-            FaithPoint copiedFaithPoint = (FaithPoint) newFaithPoint.clone();
-            assertTrue(copiedFaithPoint.equals(copiedFaithPoint));
-        } catch (NegativeResourceAmountException e) {
-            fail();
-        }
+        FaithPoint newFaithPoint = new FaithPoint(5);
+        FaithPoint copiedFaithPoint = (FaithPoint) newFaithPoint.clone();
+        assertTrue(copiedFaithPoint.equals(copiedFaithPoint));
     }
-
 }

@@ -2,12 +2,10 @@ package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.VictoryPoint;
-import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ class DevelopmentCardTest {
      * @throws NegativeVPAmountException
      */
     @Test
-    void cloneTest() throws NegativeResourceAmountException, NegativeVPAmountException {
+    void cloneTest() throws NegativeResourceAmountException {
         DevelopmentCard card = buildCardForTests1();
         DevelopmentCard cardCopy;
         cardCopy = (DevelopmentCard) card.clone();
@@ -34,7 +32,7 @@ class DevelopmentCardTest {
      * @throws NegativeResourceAmountException
      */
     @Test
-    void equalsTest() throws NegativeResourceAmountException, NegativeVPAmountException {
+    void equalsTest() throws NegativeResourceAmountException {
         DevelopmentCard cardOne = buildCardForTests1();
         DevelopmentCard cardTwo = buildCardForTests1();
         assertTrue(cardOne.equals(cardTwo));
@@ -52,7 +50,7 @@ class DevelopmentCardTest {
         ArrayList <StorableResource> listOfResource2 = new ArrayList<>(0);
         StorableResource resource2 = new StorableResource(ResourceType.COIN, 2);
         listOfResource2.add(resource2);
-        ArrayList <Resource> list = new ArrayList<>(0);
+        ArrayList <Producible> list = new ArrayList<>(0);
         list.add(resource);
         VictoryPoint victoryPoint = new VictoryPoint(1);
         DevelopmentCard card = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, listOfResource, listOfResource, list, victoryPoint);
@@ -110,7 +108,7 @@ class DevelopmentCardTest {
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
         ArrayList <StorableResource> cost = new ArrayList<StorableResource>(2);
         ArrayList <StorableResource> consumedResources = new ArrayList <StorableResource> (1);
-        ArrayList <Resource> producedResources = new ArrayList <Resource> (2);
+        ArrayList <Producible> producedResources = new ArrayList <Producible> (2);
         cost.add(servant);
         cost.add(shield);
         consumedResources.add(coin);
@@ -131,7 +129,7 @@ class DevelopmentCardTest {
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
         ArrayList <StorableResource> cost = new ArrayList<StorableResource>(2);
         ArrayList <StorableResource> consumedResources = new ArrayList <StorableResource> (1);
-        ArrayList <Resource> producedResources = new ArrayList <Resource> (2);
+        ArrayList <Producible> producedResources = new ArrayList <Producible> (2);
         cost.add(servant);
         cost.add(shield);
         consumedResources.add(coin);
