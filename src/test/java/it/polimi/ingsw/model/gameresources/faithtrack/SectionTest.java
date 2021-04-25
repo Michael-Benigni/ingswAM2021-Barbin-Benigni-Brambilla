@@ -4,7 +4,7 @@ import it.polimi.ingsw.exception.CellNotFoundInSectionException;
 import it.polimi.ingsw.exception.LastCellInSectionException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.exception.WrongCellIndexException;
-import it.polimi.ingsw.model.VictoryPoint;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -1,13 +1,8 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
 import it.polimi.ingsw.exception.NotContainedResourceException;
-import it.polimi.ingsw.model.gameresources.stores.ResourceType;
-import it.polimi.ingsw.model.gameresources.stores.StorableResource;
-import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -132,7 +127,7 @@ public class StrongboxTest {
         StorableResource resourceCoin3 = new StorableResource(ResourceType.COIN, 3);
 
         newStrongbox.store(resourceCoin1);
-        newStrongbox.removeResource(resourceCoin2);
+        newStrongbox.remove(resourceCoin2);
 
         assertTrue(newStrongbox.getAllResources().get(0).equals(resourceCoin3));
     }
@@ -155,7 +150,7 @@ public class StrongboxTest {
 
         newStrongbox.store(resourceStone);
         try{
-            newStrongbox.removeResource(resourceShield);
+            newStrongbox.remove(resourceShield);
             fail();
         }catch (NotContainedResourceException e){
             for(int i = 0; i < newStrongbox.getAllResources().size() && i < resourceArray.size(); i++){
