@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamelogic.actions;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 
@@ -18,7 +18,7 @@ public class VictoryPoint {
         if(amount < 0){
             amount = 0;
         }
-            this.amount = amount;
+        this.amount = amount;
     }
 
 

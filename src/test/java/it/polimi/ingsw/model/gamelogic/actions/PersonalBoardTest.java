@@ -1,9 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamelogic.actions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
-import it.polimi.ingsw.model.config.ConfigLoaderWriter;
+import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import org.junit.jupiter.api.Test;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;

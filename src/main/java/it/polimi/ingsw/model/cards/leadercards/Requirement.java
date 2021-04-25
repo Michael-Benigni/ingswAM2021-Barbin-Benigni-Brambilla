@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.cards.leadercards;
 
 import it.polimi.ingsw.exception.*;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 /**
  * interface that represents the

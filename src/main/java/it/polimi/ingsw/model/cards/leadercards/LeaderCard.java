@@ -3,12 +3,13 @@ package it.polimi.ingsw.model.cards.leadercards;
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gamelogic.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.VictoryPoint;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * this class models the leader card.
@@ -60,7 +61,13 @@ public class LeaderCard {
             }
             case "transformWhiteMarble": {
                 StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
-                this.effect = (player, game) -> {};
+                this.effect = (player, game) -> {
+                    try {
+                        player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
+                    } catch (AlreadyAddedModifier alreadyAddedModifier) {
+                        player.getPersonalBoard().getTempContainer().transformEmptyResources(player, resource);
+                    }
+                };
                 break;
             }
             default: {
@@ -79,15 +86,11 @@ public class LeaderCard {
      * leader card from the slot leader card of the player
      * @return -> the faith point that the player earns
      */
-    private FaithPoint discardLeaderCard() {
-        try {
-            if(this.isAlreadyPlayed == false)
-                return new FaithPoint(1);
-            else
-                return null;
-        } catch (NegativeResourceAmountException e) {
-            return null;
-        }
+    public FaithPoint discardLeaderCard() {
+        if(this.isAlreadyPlayed == false)
+            return new FaithPoint(1);
+        else
+            return new FaithPoint(0);
     }
 
     /**
@@ -102,7 +105,7 @@ public class LeaderCard {
      * @throws CloneNotSupportedException
      * @throws WrongSlotDevelopmentIndexException
      */
-    private void playLeaderCard (Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException {
+    public void playLeaderCard (Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException, NoEmptyResourceException {
         this.isAlreadyPlayed = true;
         if(checkRequirementsOf(player))
             effect.applyOn(player, game);
@@ -130,5 +133,18 @@ public class LeaderCard {
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LeaderCard)) return false;
+        LeaderCard card = (LeaderCard) o;
+        return isAlreadyPlayed == card.isAlreadyPlayed && requirements.equals(card.requirements) && victoryPoint.equals(card.victoryPoint) && effect.equals(card.effect);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isAlreadyPlayed, requirements, victoryPoint, effect);
     }
 }

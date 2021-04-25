@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamelogic.actions;
 
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
@@ -9,9 +9,10 @@ import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
-import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gameresources.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
+import it.polimi.ingsw.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -61,9 +62,11 @@ public class PersonalBoard {
     private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
-    private ArrayList<SlotLeaderCards> listOfSlotLeaderCards;
-    private ArrayList <ExtraProductionPower> extraProductionPowers;
+    private TemporaryContainer tempContainer;
 
+    private SlotLeaderCards slotLeaderCards;
+
+    private ArrayList <ExtraProductionPower> extraProductionPowers;
     /**
      * this method invokes the method "checkActivation" of the class
      * ExtraProductionPower to checks if the player has the resources
@@ -85,7 +88,6 @@ public class PersonalBoard {
         }
         return false;
     }
-
     /**
      * this method activates the extra production power
      * @param producedResource is the resource that the player wants to receive
@@ -146,6 +148,7 @@ public class PersonalBoard {
         //TODO: createListOfLeaderCards(numberOfSlotLeaderCards);
     }
 
+
     //TODO: documentation
     PersonalBoard initFromJSON() throws FileNotFoundException {
         initWarehouseFromJSON("personalBoard/");
@@ -179,7 +182,6 @@ public class PersonalBoard {
         }
         warehouseDepots = new WarehouseDepots(numberOfDepots, capacities);
     }
-
     /**
      * this method initializes the slots
      * of development cards from the database
@@ -196,8 +198,12 @@ public class PersonalBoard {
      * Method that return the real strongbox (not a copy) to the caller.
      * @return -> the real strongbox, that is an attribute of this personal board.
      */
-    Strongbox getStrongbox () {
+    public Strongbox getStrongbox() {
         return strongbox;
+    }
+
+    SlotLeaderCards getSlotLeaderCards() {
+        return slotLeaderCards;
     }
 
 
@@ -207,6 +213,10 @@ public class PersonalBoard {
      */
     public WarehouseDepots getWarehouseDepots(){
         return warehouseDepots;
+    }
+
+    public TemporaryContainer getTempContainer() {
+        return tempContainer;
     }
 
 
@@ -231,7 +241,7 @@ public class PersonalBoard {
      * @throws WrongSlotDevelopmentIndexException
      * @throws EmptySlotException
      */
-    private ArrayList <DevelopmentCard> getAllDevelopmentCards() throws WrongSlotDevelopmentIndexException, EmptySlotException {
+    public ArrayList <DevelopmentCard> getAllDevelopmentCards() throws WrongSlotDevelopmentIndexException, EmptySlotException {
         ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
         for(int i = 0; i < numberOfSlotDevCards; i++) {
             listOfAllCards.addAll(getSlotDevelopmentCards(i).getAllCards());
@@ -246,26 +256,13 @@ public class PersonalBoard {
      * @return
      * @throws CloneNotSupportedException
      */
-    ArrayList <StorableResource> getResourceRequirements() throws CloneNotSupportedException {
+    ArrayList <StorableResource> getAllResource() throws CloneNotSupportedException {
         ArrayList <StorableResource> requirements = new ArrayList<>(0);
         requirements.addAll(this.getStrongbox().getAllResources());
         requirements.addAll(this.getWarehouseDepots().getAllResources());
         return requirements;
     }
 
-    /**
-     * this method provides an
-     * ArrayList of the player's requirements
-     * represented by development cards
-     * @return
-     * @throws EmptySlotException
-     * @throws WrongSlotDevelopmentIndexException
-     */
-    ArrayList <DevelopmentCard> getDevCardRequirements() throws EmptySlotException, WrongSlotDevelopmentIndexException {
-        ArrayList <DevelopmentCard> requirements = new ArrayList<>(0);
-        requirements.addAll(this.getAllDevelopmentCards());
-        return requirements;
-    }
 
     /**
      * this method overrides the Object method "equals"

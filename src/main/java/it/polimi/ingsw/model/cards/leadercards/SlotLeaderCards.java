@@ -9,14 +9,15 @@ import java.util.ArrayList;
  * leader cards of the players
  */
 public class SlotLeaderCards {
-    ArrayList <LeaderCard> listOfLeaderCards = new ArrayList<>(0);
-    int maxNumberOfCards;
+    private ArrayList <LeaderCard> listOfLeaderCards;
+    private int maxNumberOfCards;
 
     /**
      * constructor method of this class
      * @param maxNumberOfCards -> the capacity of the slot
      */
     public SlotLeaderCards(int maxNumberOfCards) {
+        this.listOfLeaderCards = new ArrayList<>(0);
         this.maxNumberOfCards = maxNumberOfCards;
     }
 
@@ -41,5 +42,9 @@ public class SlotLeaderCards {
             throw new LeaderCardNotFoundException();
         else
             this.listOfLeaderCards.remove(cardToRemove);
+    }
+
+    public LeaderCard get(int cardIndex) {
+        return this.listOfLeaderCards.get(cardIndex);
     }
 }

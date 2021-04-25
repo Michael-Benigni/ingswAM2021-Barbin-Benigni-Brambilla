@@ -3,8 +3,8 @@ package it.polimi.ingsw.model.gamelogic;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.exception.TooManyPlayersException;
-import it.polimi.ingsw.model.GameBoard;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 /**
  * Class that represents one match with 1 player, that will play with a COM

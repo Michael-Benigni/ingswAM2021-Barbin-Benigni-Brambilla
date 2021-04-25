@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gameresources.markettray;
 
+import it.polimi.ingsw.model.gameresources.Resource;
+
 import java.util.Objects;
 
 /**
@@ -26,7 +28,10 @@ public class MarketMarble {
      */
     Resource getCorrespondentResource() {
         Resource resourceCopy = null;
-        resourceCopy = (Resource) resource.clone();
+        try {
+            resourceCopy = (Resource) resource.clone();
+        } catch (CloneNotSupportedException e) {
+        }
         return resourceCopy;
     }
 

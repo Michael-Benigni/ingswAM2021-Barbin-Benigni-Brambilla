@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.*;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;

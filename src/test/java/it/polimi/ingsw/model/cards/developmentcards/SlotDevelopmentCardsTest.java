@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.*;
-import it.polimi.ingsw.model.VictoryPoint;
-import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.model.gameresources.Resource;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import org.junit.jupiter.api.Test;

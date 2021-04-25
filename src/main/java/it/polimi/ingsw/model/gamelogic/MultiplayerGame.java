@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.exception.NotEnoughPlayersException;
-import it.polimi.ingsw.model.GameBoard;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 import java.util.*;
 
 /**

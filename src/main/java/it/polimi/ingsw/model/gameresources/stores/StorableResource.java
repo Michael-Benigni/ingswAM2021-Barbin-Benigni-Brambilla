@@ -3,16 +3,18 @@ package it.polimi.ingsw.model.gameresources.stores;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.Game;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.cards.leadercards.Requirement;
-import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gameresources.Producible;
+import it.polimi.ingsw.model.gameresources.Storable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * Class that represents 1 between 4 different type of resources, and also the quantity of that resource
  */
-public class StorableResource extends Resource implements Requirement {
+public class StorableResource implements Storable, Requirement, Producible {
     private int amount;
     private ResourceType resourceType;
 
@@ -87,8 +89,8 @@ public class StorableResource extends Resource implements Requirement {
      * Method inherited by the interface "Resource"
      */
     @Override
-    protected void activate(Player player) {
-        //TODO: what kind of action need to be executed by the activation of stockResource ??
+    public void activate(Player player, Game game) {
+        this.store(player);
     }
 
     /**
@@ -127,15 +129,17 @@ public class StorableResource extends Resource implements Requirement {
         return amount == that.amount && resourceType == that.resourceType;
     }
 
+
     /**
      * this method overrides the
      * "Object" method "clone"
      * @return -> the copy of the caller
      */
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
 
     /**
      * this method overrides the
@@ -146,6 +150,7 @@ public class StorableResource extends Resource implements Requirement {
     public int hashCode() {
         return Objects.hash(super.hashCode(), amount, resourceType);
     }
+
 
     /**
      * this method overrides the
@@ -162,7 +167,7 @@ public class StorableResource extends Resource implements Requirement {
      * @throws NullResourceAmountException
      */
     @Override
-    public boolean containedIn(Player player) throws CloneNotSupportedException, NullResourceAmountException {
+    public boolean containedIn(Player player) throws CloneNotSupportedException {
         ArrayList <StorableResource> requirements = player.getResourceRequirements();
         for(int i = 0; i < requirements.size(); i++) {
             try {
@@ -176,6 +181,20 @@ public class StorableResource extends Resource implements Requirement {
             }
         }
         return false;
+    }
+
+    void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public void onProduced(Player player, Game game) {
+        player.getPersonalBoard().getStrongbox().store(this);
+    }
+
+    @Override
+    public void store(Player player) {
+        player.getPersonalBoard().getTempContainer().store(this);
     }
 }
 

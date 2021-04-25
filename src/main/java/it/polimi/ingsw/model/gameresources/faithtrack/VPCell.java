@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.VictoryPoint;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 
 import java.util.HashMap;
 

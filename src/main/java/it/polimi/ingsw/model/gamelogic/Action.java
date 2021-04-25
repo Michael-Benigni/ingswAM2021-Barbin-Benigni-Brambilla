@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.gamelogic;
 
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.actions.ActionType;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
+import it.polimi.ingsw.model.gamelogic.actions.ActionType;
 import java.util.ArrayList;
 
 /**
@@ -9,11 +9,6 @@ import java.util.ArrayList;
  * from a Client, the interaction from the User with the model in the MVC-pattern-based project
  */
 public abstract class Action {
-
-    /**
-     * The List of all the ActionTypes after which this Action could be performed
-     */
-    private final ArrayList<ActionType> requires;
 
     /**
      * Type of this Action
@@ -24,7 +19,6 @@ public abstract class Action {
      * Constructor.
      */
     protected Action() {
-        this.requires = getRequires();
         this.type = getType();
     }
 
@@ -36,27 +30,35 @@ public abstract class Action {
 
 
     /**
-     * @return the Actions required to perform this Action
-     */
-    protected abstract ArrayList<ActionType> getRequires();
-
-
-    /**
      * This is the method that performs this Action in the Game, and changes the actual state of the Game
      * @param game -> the Game on which this Action will be performed
      * @param player -> the Player who perform this Action
      */
-    protected abstract void perform(Game game, Player player);
+    public abstract void perform(Game game, Player player) throws Exception;
 
 
     /**
-     * @param lastAction
-     * @return -> true if this Action can be performed after the Action lastAction, otherwise it returns false. This check
-     * is done looking at the type of the lastAction, and if it is contained in the requires of this Action, this Action
+     * @param performedActions
+     * @return -> true if this Action can be performed after the Action performedActions, otherwise it returns false. This check
+     * is done looking at the type of the performedActions, and if it is contained in the requires of this Action, this Action
      * is valid
      */
-    protected boolean isValid(Action lastAction) {
-        return this.requires.contains(lastAction.type);
+    protected boolean isValid(ArrayList<Action> performedActions) {
+        ArrayList<ActionType> performedActionTypes = new ArrayList<>();
+        for (Action action : performedActions)
+            performedActionTypes.add(action.type);
+        switch (this.type) {
+            case ANYTIME:
+                return true;
+            case MUTUAL_EX:
+                return !performedActionTypes.contains(ActionType.MUTUAL_EX);
+            case END:
+                return !performedActionTypes.contains(ActionType.END);
+            case START:
+                return !performedActionTypes.contains(ActionType.START);
+            default:
+                return false;
+        }
     }
 
 }

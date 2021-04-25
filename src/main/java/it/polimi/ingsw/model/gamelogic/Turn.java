@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.exception.NoValidActionException;
+import it.polimi.ingsw.model.gamelogic.actions.ActionType;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
+
 import java.util.ArrayList;
 
 /**
@@ -60,6 +63,7 @@ public class Turn {
      */
     Turn () {
         this.performedActions = new ArrayList<>();
+        this.state = TurnState.START;
     }
 
 
@@ -70,7 +74,7 @@ public class Turn {
      */
     void add(Action nextAction) throws NoValidActionException {
         Action lastAction = this.performedActions.get(this.performedActions.size());
-        if (lastAction.isValid(nextAction) && this.state == TurnState.PLAY) {
+        if (lastAction.isValid(this.performedActions) && this.state == TurnState.PLAY) {
             this.performedActions.add(nextAction);
             this.state = TurnState.PLAY;
         }
@@ -82,7 +86,10 @@ public class Turn {
      * This method sets the state of the Turn in PLAY. After this the Player could perform actions
      */
     public void start() {
-        this.state = TurnState.PLAY;
+        if (this.state == TurnState.START) {
+            this.state = TurnState.PLAY;
+            this.performedActions.add(new StartTurnAction());
+        }
     }
 
 
@@ -93,5 +100,17 @@ public class Turn {
     public void terminate(Game game) {
         this.state = TurnState.END;
         game.setNextPlayer();
+    }
+}
+
+class StartTurnAction extends Action {
+
+    @Override
+    protected ActionType getType() {
+        return ActionType.START;
+    }
+
+    @Override
+    public void perform(Game game, Player player) {
     }
 }

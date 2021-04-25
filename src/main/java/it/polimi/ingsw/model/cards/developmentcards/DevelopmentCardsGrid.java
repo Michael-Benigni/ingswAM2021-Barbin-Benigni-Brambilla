@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import it.polimi.ingsw.exception.EmptyDeckException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 
 /**
@@ -83,7 +83,7 @@ public class DevelopmentCardsGrid {
      * @return the card that the player has choosen
      * @throws EmptyDeckException -> thrown if the choosen deck is empty
      */
-    DevelopmentCard getChoosenCard(int iPos, int jPos, Player player) throws EmptyDeckException {
+    public DevelopmentCard getChoosenCard(int iPos, int jPos, Player player) throws EmptyDeckException {
         DevelopmentCard choosenCard;
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
         int choosenDeckLastIndex = choosenDeck.size() - 1;
@@ -103,7 +103,7 @@ public class DevelopmentCardsGrid {
      * @param jPos -> index of the column
      * @throws EmptyDeckException -> thrown by getDeck if the deck is empty
      */
-    void removeChoosenCardFromGrid (int iPos, int jPos) throws EmptyDeckException {
+    public void removeChoosenCardFromGrid (int iPos, int jPos) throws EmptyDeckException {
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
         int choosenDeckLastIndex = choosenDeck.size() - 1;
         choosenDeck.remove(choosenDeckLastIndex);

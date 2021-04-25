@@ -1,31 +1,33 @@
-package it.polimi.ingsw.model.gameresources.markettray;
+package it.polimi.ingsw.model.gameresources.stores;
 
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.Game;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
+import it.polimi.ingsw.model.gameresources.Storable;
 
 /**
  * This class represents the resource contained into a white marble
  */
-class EmptyResource extends Resource {
+public class EmptyResource implements Storable, Cloneable {
 
     /**
      * Constructor method of EmptyResource class
      */
-    EmptyResource() {
-    }
+    public EmptyResource() { }
 
 
     /**
      * Method inherited by the implementation of "Resource" interface, but doesn't append any function
      */
     @Override
-    protected void activate(Player player) {
-        //Empty method
+    public void activate(Player player, Game game) {
+        this.store(player);
     }
 
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
 
     /**
      * this method creates a copy of the object EmptyResource
@@ -44,4 +46,8 @@ class EmptyResource extends Resource {
         return true;
     }
 
+    @Override
+    public void store(Player player) {
+        player.getPersonalBoard().getTempContainer().store(this);
+    }
 }

@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.CellNotFoundInSectionException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
-import it.polimi.ingsw.model.VictoryPoint;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 
 /**
  * Class that represents the indicator of a player's position on the faith track.

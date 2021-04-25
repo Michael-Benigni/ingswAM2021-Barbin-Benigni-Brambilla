@@ -2,11 +2,9 @@ package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.exception.TooManyPlayersException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +29,6 @@ class MultiplayerGameTest {
             gameWithPlayers.createPlayerFor(new User("user2"));
             gameWithPlayers.createPlayerFor(new User("user3"));
         } catch (TooManyPlayersException e) {
-            fail();
         }
     }
 

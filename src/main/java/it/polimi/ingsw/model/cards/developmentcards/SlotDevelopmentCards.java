@@ -26,7 +26,7 @@ public class SlotDevelopmentCards {
      * this method provides the development card that is on top of the slot to the caller
      * @return the created copy of the top development card
      */
-    DevelopmentCard getTopCard() throws EmptySlotException {
+    public DevelopmentCard getTopCard() throws EmptySlotException {
         if(!listOfDevelopmentCards.isEmpty()) {
             DevelopmentCard topCard = (DevelopmentCard) listOfDevelopmentCards.get((listOfDevelopmentCards.size() - 1)).clone();
             return topCard; //the first position in the list is occupied by the last added development card
@@ -59,7 +59,7 @@ public class SlotDevelopmentCards {
      * @throws DevelopmentCardNotAddableException
      * @throws SlotDevelopmentCardsIsFullException
      */
-    void placeOnTop (DevelopmentCard cardToAdd) throws Exception {
+    public void placeOnTop (DevelopmentCard cardToAdd) throws Exception {
         if (listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
             DevelopmentCard card;
             try {

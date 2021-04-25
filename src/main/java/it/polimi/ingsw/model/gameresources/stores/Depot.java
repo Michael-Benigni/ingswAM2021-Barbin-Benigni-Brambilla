@@ -13,10 +13,6 @@ class Depot {
     private StorableResource storedResource;
     private final int capacity;
 
-    //TODO: method never used.
-    private int getCapacity() {
-        return capacity;
-    }
 
     /**
      * Constructor method of "Depot" class. This method create an empty Arraylist of storable resources and reads
@@ -46,17 +42,15 @@ class Depot {
      * @throws Exception thrown if: amount that exceeds the capacity or different resource type of the provided resource
      * and the contained one.
      */
-    void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, ResourceOverflowInDepotException {
-        StorableResource newResource;
-        try {
-            newResource = this.getStoredResource().increaseAmount(resourceToStore);
-        } catch (NullPointerException e) {
-            newResource = resourceToStore;
-        }
-        if(newResource.amountLessEqualThan(capacity))
+    void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, ResourceOverflowInDepotException, NegativeResourceAmountException, NullResourceAmountException {
+        StorableResource newResource = this.getStoredResource().increaseAmount(resourceToStore);
+        if(newResource.amountLessEqualThan(capacity)) {
             storedResource = newResource;
+        }
         else {
-            throw new ResourceOverflowInDepotException();
+            storedResource.setAmount(capacity);
+            throw new ResourceOverflowInDepotException(newResource.decreaseAmount(storedResource));
+
         }
     }
 

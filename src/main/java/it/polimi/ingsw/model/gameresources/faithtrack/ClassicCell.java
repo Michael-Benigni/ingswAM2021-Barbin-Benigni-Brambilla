@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.gameresources.faithtrack;
 
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 /**
  * Class that represents an empty cell in the faith truck.

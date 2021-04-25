@@ -41,6 +41,7 @@ public class WarehouseDepots {
     public void addExtraDepot(int depotCapacity, StorableResource resource) {
         ExtraDepot extraDepot = new ExtraDepot(depotCapacity, resource);
         this.listDepot.add(extraDepot);
+        this.numberOfDepots++;
     }
 
     /**
@@ -76,7 +77,7 @@ public class WarehouseDepots {
      * @param depotIndex integer useful to recognize the right depot.
      * @throws Exception thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
      */
-    void storeResourceInWarehouse(StorableResource resourceToStore, int depotIndex) throws Exception {
+    public void store(StorableResource resourceToStore, int depotIndex) throws Exception {
         if (ifDepotIndexIsCorrect(depotIndex)) {
             if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex)) {
                 listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
@@ -93,7 +94,7 @@ public class WarehouseDepots {
      * @param depotIndex integer useful to recognize the right depot.
      * @throws Exception can be thrown by "removeResourceFromDepot" method of "Depot" class.
      */
-    void removeResourceFromWarehouse(StorableResource resourceToRemove, int depotIndex) throws Exception {
+    public void remove(StorableResource resourceToRemove, int depotIndex) throws Exception {
         Depot currentDepot;
         if(ifDepotIndexIsCorrect(depotIndex)) {
             currentDepot = listDepot.get(depotIndex);
@@ -107,14 +108,30 @@ public class WarehouseDepots {
      * @param depotIndex2 index of the second depot.
      * @throws WrongDepotIndexException exception thrown if one of the provided integers is less than 1.
      */
-    void swapDepot(int depotIndex1, int depotIndex2) throws WrongDepotIndexException {
-        Depot temporaryDepot;
-        if(ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2))
-        {
-            temporaryDepot = listDepot.get(depotIndex1);
-            listDepot.set(depotIndex1, listDepot.get(depotIndex2));
-            listDepot.set(depotIndex2, temporaryDepot);
+    public StorableResource swapDepots(int depotIndex1, int depotIndex2) throws WrongDepotIndexException, NegativeResourceAmountException, NotEqualResourceTypeException {
+        StorableResource depotOverflow = null;
+        if (ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2)) {
+            Depot depot1 = listDepot.get(depotIndex1);
+            StorableResource resource1 = depot1.getStoredResource();
+            depot1.removeResourceFromDepot(resource1);
+            Depot depot2 = listDepot.get(depotIndex2);
+            StorableResource resource2 = listDepot.get(depotIndex2).getStoredResource();
+            depot2.removeResourceFromDepot(resource2);
+            try {
+                try {
+                    depot1.storeResourceInDepot(resource2);
+                } catch (ResourceOverflowInDepotException e) {
+                    depotOverflow = e.getResource();
+                }
+                try {
+                    depot2.storeResourceInDepot(resource1);
+                } catch (ResourceOverflowInDepotException e) {
+                    depotOverflow = e.getResource();
+                }
+            } catch (NullResourceAmountException e) {
+            }
         }
+        return depotOverflow;
     }
 
     /**

@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.exception.TileAlreadyActivatedException;
-import it.polimi.ingsw.model.VictoryPoint;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 
 /**
  * Class that represents the tile that can be flipped to increase the number of victory points

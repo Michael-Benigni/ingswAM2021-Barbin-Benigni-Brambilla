@@ -2,10 +2,9 @@ package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.exception.*;
-import it.polimi.ingsw.model.GameBoard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.actions.ActionFactory;
-import it.polimi.ingsw.model.actions.EndTurnAction;
+import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -59,7 +58,6 @@ public abstract class Game {
     public void setup() throws NotEnoughPlayersException {
         this.playersOrder = new LinkedList<>(setPlayersOrder(getAllPlayers()));
         this.setNextPlayer();
-        this.currentTurn = new Turn();
     }
 
 
@@ -84,19 +82,15 @@ public abstract class Game {
     /**
      *
      * @param user
-     * @param command
-     * @param options
      * @throws NoValidActionException
      * @throws IsNotCurrentPlayerException
      * @throws WrongCommandException
      */
-    public void performUserCommand(User user, String command, HashMap<String, String> options) throws NoValidActionException, IsNotCurrentPlayerException, WrongCommandException {
+    public void performUserCommand(User user, Action action) throws Exception {
         Player player = userPlayerHashMap.get(user);
         if (player.equals(currentPlayer)) {
-            Action action = new ActionFactory().getAction(command, options);
             this.getCurrentTurn().add(action);
-            Action action1 = new EndTurnAction();
-            action.perform(this, this.currentPlayer);
+            action.perform(this, player);
         }
         throw new IsNotCurrentPlayerException();
     }
@@ -142,7 +136,7 @@ public abstract class Game {
      * This ArrayList is ordered according to the Players' order of registration in the game.
      * @throws NotEnoughPlayersException if has not been reached the numberOfPlayers registered when this method is called.
      */
-    private ArrayList<Player> getAllPlayers() throws NotEnoughPlayersException {
+    public ArrayList<Player> getAllPlayers() throws NotEnoughPlayersException {
         if (userPlayerHashMap.size() == numberOfPlayers) {
             ArrayList<Player> players = this.userPlayerHashMap
                     .values()

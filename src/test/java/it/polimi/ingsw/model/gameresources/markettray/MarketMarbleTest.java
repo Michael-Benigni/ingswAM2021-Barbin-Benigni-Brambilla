@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gameresources.markettray;
 
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.model.gameresources.Resource;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
@@ -10,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class MarketMarbleTest {
 
     @Test
-    void getCorrespondentResourceEmptyResource()  {
-        Resource resource = new EmptyResource();
+    void getCorrespondentResourceEmptyResource() throws NegativeResourceAmountException {
+        Resource resource = new StorableResource(ResourceType.COIN, 1);
         MarketMarble marble = new MarketMarble(MarbleColour.BLUE, resource);
         Resource resourceToTest = marble.getCorrespondentResource();
-        assertTrue(resourceToTest instanceof EmptyResource);
+        assertTrue(resourceToTest instanceof StorableResource);
         assertEquals(resourceToTest, resource);
     }
 
     @Test
-    void getCorrespondentResourceFaithPoint() throws NegativeResourceAmountException {
+    void getCorrespondentResourceFaithPoint() {
         Resource resource = new FaithPoint(1);
         MarketMarble marble = new MarketMarble(MarbleColour.BLUE, resource);
         Resource resourceToTest = marble.getCorrespondentResource();

@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.config;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.model.cards.leadercards.Requirement;
-import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gameresources.Resource;
 import it.polimi.ingsw.model.gameresources.faithtrack.Section;
 import it.polimi.ingsw.model.gameresources.faithtrack.Cell;
 import java.io.*;

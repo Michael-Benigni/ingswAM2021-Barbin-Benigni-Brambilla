@@ -1,7 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamelogic.actions;
 
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
@@ -50,7 +51,7 @@ public class Player {
      */
     public ArrayList <StorableResource> getResourceRequirements() throws CloneNotSupportedException {
         ArrayList <StorableResource> resourceRequirements;
-        resourceRequirements = this.personalBoard.getResourceRequirements();
+        resourceRequirements = this.personalBoard.getAllResource();
         return resourceRequirements;
     }
 
@@ -68,7 +69,7 @@ public class Player {
      */
     public ArrayList <DevelopmentCard> getDevCardRequirements() throws EmptySlotException, WrongSlotDevelopmentIndexException {
         ArrayList <DevelopmentCard> devCardRequirements;
-        devCardRequirements = this.personalBoard.getDevCardRequirements();
+        devCardRequirements = this.personalBoard.getAllDevelopmentCards();
         return devCardRequirements;
     }
 
@@ -93,5 +94,22 @@ public class Player {
      */
     public PersonalBoard getPersonalBoard() {
         return personalBoard;
+    }
+
+
+    /**
+     *
+     */
+    boolean canBuy (DevelopmentCard card) {
+        boolean result = false;
+        ArrayList<StorableResource> cost = card.getCost();
+        for (StorableResource resource : cost) {
+            try {
+                result = resource.containedIn(this);
+            } catch (CloneNotSupportedException e) {
+                return false;
+            }
+        }
+        return result;
     }
 }

@@ -1,4 +1,4 @@
 package it.polimi.ingsw.exception;
 
-public class NullResourceAmountException extends Throwable {
+public class NullResourceAmountException extends Exception {
 }

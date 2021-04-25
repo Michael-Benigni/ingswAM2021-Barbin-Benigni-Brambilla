@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.cards.developmentcards;
 
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.cards.leadercards.Requirement;
 
 import java.util.ArrayList;

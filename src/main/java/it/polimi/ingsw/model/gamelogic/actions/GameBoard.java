@@ -1,8 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamelogic.actions;
 
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCardsGrid;
-import it.polimi.ingsw.model.cards.leadercards.Effect;
 import it.polimi.ingsw.model.cards.leadercards.LeaderCard;
 import it.polimi.ingsw.model.cards.leadercards.LeaderCardsDeck;
 import it.polimi.ingsw.model.config.ConfigLoaderWriter;
@@ -92,7 +91,7 @@ public class GameBoard {
         this.leaderCardsDeck = new LeaderCardsDeck(leaderCards);
     }
 
-    MarketTray getMarketTray() {
+    public MarketTray getMarketTray() {
         return this.marketTray;
     }
 

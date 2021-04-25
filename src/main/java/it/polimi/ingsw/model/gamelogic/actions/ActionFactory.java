@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.actions;
+package it.polimi.ingsw.model.gamelogic.actions;
 
 import it.polimi.ingsw.exception.WrongCommandException;
 import it.polimi.ingsw.model.gamelogic.Action;
@@ -21,7 +21,7 @@ public class ActionFactory {
     public Action getAction(String command, HashMap<String, String> options) throws WrongCommandException {
         switch (command) {
             case "START_TURN":
-                return new StartTurnAction();
+                return null;
             case "MARKET_ROW":
                 int row = Integer.parseInt(options.get("row"));
                 return null;

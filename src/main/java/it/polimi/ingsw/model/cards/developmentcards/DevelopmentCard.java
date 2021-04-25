@@ -3,9 +3,9 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.NullResourceAmountException;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.VictoryPoint;
-import it.polimi.ingsw.model.gameresources.markettray.Resource;
+import it.polimi.ingsw.model.gamelogic.actions.Player;
+import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DevelopmentCard extends GeneralDevelopmentCard {
     private ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
-    private final ArrayList <Resource> producedResources;
+    private final ArrayList <Producible> producedResources;
     private final VictoryPoint victoryPoints;
 
     /**
@@ -28,16 +28,23 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * @throws NullResourceAmountException
      * @throws CloneNotSupportedException
      */
-    ArrayList <StorableResource> checkConsumedResources(Player player) throws NullResourceAmountException, CloneNotSupportedException {
+    public ArrayList <StorableResource> checkConsumedResources(Player player) throws NullResourceAmountException, CloneNotSupportedException {
         ArrayList<StorableResource> resourcesToBeRemoved = new ArrayList<>(0);
-        for(int i = 0; i < this.consumedResources.size(); i++){
-            if(!this.consumedResources.get(i).containedIn(player)){
+        for (int i = 0; i < this.consumedResources.size(); i++) {
+            if (!this.consumedResources.get(i).containedIn(player)) {
                 return null;
             }
             resourcesToBeRemoved.add((StorableResource) this.consumedResources.get(i).clone());
         }
         return resourcesToBeRemoved;
     }
+    /*boolean checkConsumedResources(Player player) throws NullResourceAmountException, CloneNotSupportedException {
+        for (StorableResource r : this.consumedResources) {
+            if (!r.containedIn(player))
+                return false;
+        }
+        return true;
+    }*/
 
     /**
      * this method reduces the cost of this development card
@@ -71,7 +78,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * @param producedResources attribute that indicates the earned resources after the activation of the production power
      * @param victoryPoints
      */
-    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Resource> producedResources, VictoryPoint victoryPoints) {
+    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Producible> producedResources, VictoryPoint victoryPoints) {
         super(cardColour, cardLevel);
         this.cost = cost;
         this.consumedResources = consumedResources;
@@ -83,7 +90,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * getter for the cost attribute
      * @return the created copy of the cost attribute
      */
-    private ArrayList <StorableResource> getCost() {
+    public ArrayList <StorableResource> getCost() {
         ArrayList <StorableResource> costCopy = new ArrayList <> (this.cost);
         return costCopy;
     }
@@ -92,7 +99,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * getter for the consumed resources attribute
      * @return the created copy of the consumed resources attribute
      */
-    private ArrayList <StorableResource> getConsumedResources(){
+    public ArrayList <StorableResource> getConsumedResources(){
         ArrayList <StorableResource> consumedResourcesCopy = new ArrayList <> (this.consumedResources);
         return consumedResourcesCopy;
     }
@@ -101,10 +108,13 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * getter for the produced resources attribute
      * @return the created copy of the produced resources attribute
      */
-    private ArrayList <Resource> getProducedResources(){
-        ArrayList <Resource> producedResourcesCopy = new ArrayList <> (0);
+    public ArrayList <Producible> getProducedResources(){
+        ArrayList <Producible> producedResourcesCopy = new ArrayList <> (0);
         for(int i = 0; i < this.producedResources.size(); i++) {
-            producedResourcesCopy.add((Resource) this.producedResources.get(i).clone());
+            try {
+                producedResourcesCopy.add((Producible) this.producedResources.get(i).clone());
+            } catch (CloneNotSupportedException e) {
+            }
         }
         return producedResourcesCopy;
     }

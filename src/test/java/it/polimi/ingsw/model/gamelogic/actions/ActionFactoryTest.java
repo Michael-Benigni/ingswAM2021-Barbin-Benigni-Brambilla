@@ -1,10 +1,8 @@
-package it.polimi.ingsw.model.actions;
+package it.polimi.ingsw.model.gamelogic.actions;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ActionFactoryTest {
 
