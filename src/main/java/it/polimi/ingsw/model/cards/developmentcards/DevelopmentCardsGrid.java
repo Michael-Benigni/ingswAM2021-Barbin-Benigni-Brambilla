@@ -39,7 +39,7 @@ public class DevelopmentCardsGrid {
     private Integer columns;
     private Integer rows;
     private ArrayList <ArrayList <ArrayList <DevelopmentCard>>> cardsGrid;
-    private ArrayList <PlayerWithDiscount> playerWithDiscounts;
+    private ArrayList <PlayerWithDiscount> playerWithDiscounts = new ArrayList<>(0);
 
     /**
      * this is the constructor method for the class DevelopmentCardsGrid
@@ -89,7 +89,7 @@ public class DevelopmentCardsGrid {
         int choosenDeckLastIndex = choosenDeck.size() - 1;
         choosenCard = (DevelopmentCard) choosenDeck.get(choosenDeckLastIndex).clone();
         for(int i = 0; i < this.playerWithDiscounts.size(); i++){
-            if(this.playerWithDiscounts.get(i).equals(player)) {
+            if(this.playerWithDiscounts.get(i).playerWithDiscount.equals(player)) {
                 choosenCard.reduceCost(this.playerWithDiscounts.get(i).discount);
             }
         }
