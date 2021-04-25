@@ -105,7 +105,7 @@ public class LeaderCard {
     private void playLeaderCard (Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException {
         this.isAlreadyPlayed = true;
         if(checkRequirementsOf(player))
-                effect.applyOn(player, game);
+            effect.applyOn(player, game);
     }
 
     /**

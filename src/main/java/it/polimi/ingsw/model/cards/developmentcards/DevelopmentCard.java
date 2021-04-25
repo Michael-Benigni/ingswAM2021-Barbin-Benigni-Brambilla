@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * all its attributes like the price, the production power, etc.
  */
 public class DevelopmentCard extends GeneralDevelopmentCard {
-    private final ArrayList <StorableResource> cost;
+    private ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Resource> producedResources;
     private final VictoryPoint victoryPoints;
@@ -50,7 +50,8 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
     void reduceCost(StorableResource resourceDiscount) {
         for(int i = 0; i < this.cost.size(); i++) {
             try {
-                this.cost.get(i).decreaseAmount(resourceDiscount);
+                StorableResource newCost = this.cost.get(i).decreaseAmount(resourceDiscount);
+                this.cost.set(i, newCost);
             }
             catch (NegativeResourceAmountException | NullResourceAmountException e){
                 this.cost.remove(i);
