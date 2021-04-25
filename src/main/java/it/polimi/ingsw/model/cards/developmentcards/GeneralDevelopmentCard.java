@@ -44,14 +44,13 @@ public class GeneralDevelopmentCard implements Requirement {
     /**
      * this method return true if the two
      * compared cards have the same level.
-     * this method REQUIRES both cards
-     * (the caller and the parameter)
-     * having not null level field
      * @param cardToCompare -> the card we want to compare
      * @return -> boolean value: true if the two cards have the same level
      *                           false if the two cards haven't the same level
      */
     boolean hasSameLevel(DevelopmentCard cardToCompare) {
+        if(this.cardLevel == null || cardToCompare.getCardLevel() == null)
+            return true;
         if(this.cardLevel.compareTo(cardToCompare.getCardLevel()) == 0)
             return true;
         return false;
@@ -60,20 +59,21 @@ public class GeneralDevelopmentCard implements Requirement {
     /**
      * this method return true if the two
      * compared cards have the same colour.
-     * this method REQUIRES both cards
-     * (the caller and the parameter)
-     * having not null colour field
      * @param cardToCompare -> the card we want to compare
      * @return -> boolean value: true if the two cards have the same level
      *                           false if the two cards haven't the same level
      */
     boolean hasSameColour(DevelopmentCard cardToCompare) {
+        if(this.cardColour == null || cardToCompare.getCardColour() == null)
+            return true;
         if (this.cardColour.compareTo(cardToCompare.getCardColour()) == 0)
             return true;
         return false;
     }
 
-    /** method that verify if the level of the caller card is higher by one than the card passed in parameters
+    /**
+     * method that verify if the level of the caller
+     * card is higher by one than the card passed in parameters.
      * @param card
      * @return true if the condition specified is verified
      */
@@ -112,25 +112,9 @@ public class GeneralDevelopmentCard implements Requirement {
     @Override
     public boolean containedIn(Player player) throws EmptySlotException, WrongSlotDevelopmentIndexException {
         ArrayList <DevelopmentCard> requirements = player.getDevCardRequirements();
-        if(this.cardColour == null) {
-            for(int i = 0; i < requirements.size(); i++) {
-                if(this.hasSameLevel(requirements.get(i))) {
-                    return true;
-                }
-            }
-        }
-        else if(this.cardLevel == null) {
-            for(int i = 0; i < requirements.size(); i++) {
-                if(this.hasSameColour(requirements.get(i))) {
-                    return true;
-                }
-            }
-        }
-        else {
-            for(int i = 0; i < requirements.size(); i++) {
-                if(this.hasSameColour(requirements.get(i)) && this.hasSameLevel(requirements.get(i))) {
-                    return true;
-                }
+        for(int i = 0; i < requirements.size(); i++) {
+            if(this.hasSameColour(requirements.get(i)) && this.hasSameLevel(requirements.get(i))) {
+                return true;
             }
         }
         return false;

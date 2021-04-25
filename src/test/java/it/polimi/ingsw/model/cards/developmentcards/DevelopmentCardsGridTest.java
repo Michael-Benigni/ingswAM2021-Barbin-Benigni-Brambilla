@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DevelopmentCardsGridTest {
@@ -91,6 +90,20 @@ class DevelopmentCardsGridTest {
         }
     }
 
+    @Test
+    void addPlayerWithDiscountTest() throws NegativeResourceAmountException, NegativeVPAmountException, EmptyDeckException {
+        int numberOfRows = 2, numberOfColumns = 3;
+        Player player = new Player();
+        ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
+        DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
+        StorableResource discount = new StorableResource(ResourceType.SERVANT, 1);
+        DevelopmentCard choosenCardWithoutDiscount = cardsGrid.getChoosenCard(0, 0, player);
+        choosenCardWithoutDiscount.reduceCost(discount);
+        cardsGrid.addPlayerWithDiscount(player, discount);
+        DevelopmentCard choosenCard = cardsGrid.getChoosenCard(0, 0, player);
+        assertEquals(choosenCardWithoutDiscount, choosenCard);
+    }
+
     /**
      * this method creates all
      * the development cards
@@ -100,7 +113,7 @@ class DevelopmentCardsGridTest {
      */
     private ArrayList <DevelopmentCard> buildCardsForTests() throws NegativeResourceAmountException, NegativeVPAmountException {
         ArrayList <DevelopmentCard> cardsList = new ArrayList<>(0);
-        StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
+        StorableResource servant = new StorableResource(ResourceType.SERVANT, 2);
         ArrayList <StorableResource> cost = new ArrayList <> (0);
         ArrayList <StorableResource> consumedResources = new ArrayList <> (0);
         ArrayList <Resource> producedResources = new ArrayList <> (0);
