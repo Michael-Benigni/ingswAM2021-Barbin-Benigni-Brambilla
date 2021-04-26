@@ -35,10 +35,20 @@ public class LeaderCard {
         this.isAlreadyPlayed = false;
     }
 
+    /**
+     * setter method for the effect
+     * @param effect is the effect of the leader card, if the card is played the effect is activated
+     */
     public final void setEffect(Effect effect) {
         this.effect = effect;
     }
 
+    /**
+     * this method is used to set the effect of the leader card from the database
+     * @param jsonPath is the path of the file that represents the database
+     * @param ints is an index used to pick the information from the json file
+     * @throws FileNotFoundException
+     */
     public void setEffectFromJSON(String jsonPath, int[] ints) throws FileNotFoundException {
         jsonPath = jsonPath + "effect/";
         String typeEffect = (String) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(String.class, jsonPath + "effectType", ints);
@@ -84,20 +94,21 @@ public class LeaderCard {
      * if this method works and it returns one faith point,
      * the caller must invoke the method that removes the
      * leader card from the slot leader card of the player
-     * @return -> the faith point that the player earns
+     * @return the faith point that the player earns
      */
-    public FaithPoint discardLeaderCard() {
+    public FaithPoint onDiscarded() throws LeaderCardNotDiscardableException{
         if(this.isAlreadyPlayed == false)
             return new FaithPoint(1);
         else
-            return new FaithPoint(0);
+            throw new LeaderCardNotDiscardableException();
     }
 
     /**
      * this method invokes the checkRequirementsOf
      * and if this method returns true it activates
      * the effects of the leader card
-     * @param player -> this is the reference to the player
+     * @param player this is the reference to the player
+     * @param game this is the refer to the game
      * @throws EmptySlotException
      * @throws NegativeResourceAmountException
      * @throws NotEqualResourceTypeException
@@ -105,7 +116,7 @@ public class LeaderCard {
      * @throws CloneNotSupportedException
      * @throws WrongSlotDevelopmentIndexException
      */
-    public void playLeaderCard (Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException, NoEmptyResourceException {
+    public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException, NoEmptyResourceException {
         this.isAlreadyPlayed = true;
         if(checkRequirementsOf(player))
             effect.applyOn(player, game);
@@ -117,8 +128,8 @@ public class LeaderCard {
      * if the player satisfies all the
      * requirements of the leader card,
      * he can plays the card
-     * @param player -> this is the reference to the player
-     * @return -> boolean: true = player satisfies requirements
+     * @param player this is the reference to the player
+     * @return boolean value: true = player satisfies requirements
      *                    false = player doesn't satisfy requirements
      * @throws NegativeResourceAmountException
      * @throws CloneNotSupportedException

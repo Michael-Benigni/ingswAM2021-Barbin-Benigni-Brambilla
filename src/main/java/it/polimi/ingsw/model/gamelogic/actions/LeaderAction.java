@@ -24,11 +24,11 @@ class LeaderAction extends Action {
         LeaderCard card = player.getPersonalBoard().getSlotLeaderCards().get(numInSlot);
         switch (playOrDiscard) {
             case "play" : {
-                card.playLeaderCard(player, game);
+                card.play(player, game);
                 return;
             }
             case "discard": {
-                card.discardLeaderCard().activate(player, game);
+                card.onDiscarded().activate(player, game);
                 return;
             }
             default:

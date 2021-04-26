@@ -14,7 +14,7 @@ public class SlotLeaderCards {
 
     /**
      * constructor method of this class
-     * @param maxNumberOfCards -> the capacity of the slot
+     * @param maxNumberOfCards it is the capacity of the slot
      */
     public SlotLeaderCards(int maxNumberOfCards) {
         this.listOfLeaderCards = new ArrayList<>(0);
@@ -24,7 +24,7 @@ public class SlotLeaderCards {
     /**
      * this method adds the specified
      * leader card to the slot leader card
-     * @param cardToAdd -> the card we want to add
+     * @param cardToAdd it is the card we want to add
      */
     void addLeaderCardToSlot(LeaderCard cardToAdd){
         if(this.listOfLeaderCards.size() < maxNumberOfCards)
@@ -34,7 +34,7 @@ public class SlotLeaderCards {
     /**
      * this method removes the specified
      * leader card from the slot leader card
-     * @param cardToRemove -> the card we want to remove
+     * @param cardToRemove it is the card we want to remove
      * @throws LeaderCardNotFoundException
      */
     void discardLeaderCard(LeaderCard cardToRemove) throws LeaderCardNotFoundException {
@@ -44,7 +44,9 @@ public class SlotLeaderCards {
             this.listOfLeaderCards.remove(cardToRemove);
     }
 
-    public LeaderCard get(int cardIndex) {
+    public LeaderCard get(int cardIndex) throws LeaderCardNotFoundException {
+        if(!listOfLeaderCards.contains(cardIndex))
+            throw new LeaderCardNotFoundException();
         return this.listOfLeaderCards.get(cardIndex);
     }
 }
