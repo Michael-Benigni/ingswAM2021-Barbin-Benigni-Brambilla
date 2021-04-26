@@ -8,6 +8,6 @@ import it.polimi.ingsw.model.gamelogic.actions.Player;
  * requirements of the leader cards
  */
 public interface Requirement {
-    boolean containedIn(Player player) throws CloneNotSupportedException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, EmptySlotException, WrongSlotDevelopmentIndexException;
+    boolean containedIn(Player player) throws NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, EmptySlotException, WrongSlotDevelopmentIndexException;
 }
 

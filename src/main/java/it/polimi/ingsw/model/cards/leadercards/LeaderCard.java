@@ -113,10 +113,9 @@ public class LeaderCard {
      * @throws NegativeResourceAmountException
      * @throws NotEqualResourceTypeException
      * @throws NullResourceAmountException
-     * @throws CloneNotSupportedException
      * @throws WrongSlotDevelopmentIndexException
      */
-    public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException, NoEmptyResourceException {
+    public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NoEmptyResourceException {
         this.isAlreadyPlayed = true;
         if(checkRequirementsOf(player))
             effect.applyOn(player, game);
@@ -132,13 +131,12 @@ public class LeaderCard {
      * @return boolean value: true = player satisfies requirements
      *                    false = player doesn't satisfy requirements
      * @throws NegativeResourceAmountException
-     * @throws CloneNotSupportedException
      * @throws EmptySlotException
      * @throws WrongSlotDevelopmentIndexException
      * @throws NotEqualResourceTypeException
      * @throws NullResourceAmountException
      */
-    private boolean checkRequirementsOf (Player player) throws NegativeResourceAmountException, CloneNotSupportedException, EmptySlotException, WrongSlotDevelopmentIndexException, NotEqualResourceTypeException, NullResourceAmountException {
+    private boolean checkRequirementsOf (Player player) throws NegativeResourceAmountException, EmptySlotException, WrongSlotDevelopmentIndexException, NotEqualResourceTypeException, NullResourceAmountException {
         for(int i = 0; i < this.requirements.size(); i++) {
             if(! this.requirements.get(i).containedIn(player))
                 return false;

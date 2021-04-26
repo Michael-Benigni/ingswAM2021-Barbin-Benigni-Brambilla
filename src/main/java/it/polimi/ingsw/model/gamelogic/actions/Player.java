@@ -45,11 +45,10 @@ public class Player {
      * represented by storable resources
      * @return an ArrayList of Requirements (StorableResource)
      * @throws NegativeResourceAmountException
-     * @throws CloneNotSupportedException
      * @throws EmptySlotException
      * @throws WrongSlotDevelopmentIndexException
      */
-    public ArrayList <StorableResource> getResourceRequirements() throws CloneNotSupportedException {
+    public ArrayList <StorableResource> getResourceRequirements() {
         ArrayList <StorableResource> resourceRequirements;
         resourceRequirements = this.personalBoard.getAllResource();
         return resourceRequirements;
@@ -63,7 +62,6 @@ public class Player {
      * represented by colour and level of development cards
      * @return an ArrayList of Requirements (DevelopmentCard)
      * @throws NegativeResourceAmountException
-     * @throws CloneNotSupportedException
      * @throws EmptySlotException
      * @throws WrongSlotDevelopmentIndexException
      */
@@ -103,13 +101,8 @@ public class Player {
     boolean canBuy (DevelopmentCard card) {
         boolean result = false;
         ArrayList<StorableResource> cost = card.getCost();
-        for (StorableResource resource : cost) {
-            try {
-                result = resource.containedIn(this);
-            } catch (CloneNotSupportedException e) {
-                return false;
-            }
-        }
+        for (StorableResource resource : cost)
+            result = resource.containedIn(this);
         return result;
     }
 }

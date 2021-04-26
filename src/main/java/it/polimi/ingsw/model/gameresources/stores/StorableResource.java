@@ -136,8 +136,12 @@ public class StorableResource implements Storable, Requirement, Producible {
      * @return -> the copy of the caller
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 
 
@@ -163,11 +167,10 @@ public class StorableResource implements Storable, Requirement, Producible {
      * @param player -> player we want to examine
      * @return boolean value: true if this resource is contained in the list of the player requirements
      *                        false if the player doesn't satisfy the previous condition
-     * @throws CloneNotSupportedException
      * @throws NullResourceAmountException
      */
     @Override
-    public boolean containedIn(Player player) throws CloneNotSupportedException {
+    public boolean containedIn(Player player) {
         ArrayList <StorableResource> requirements = player.getResourceRequirements();
         for(int i = 0; i < requirements.size(); i++) {
             try {

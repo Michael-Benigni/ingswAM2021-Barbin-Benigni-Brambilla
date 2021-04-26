@@ -57,7 +57,7 @@ public class UnboundedResourcesContainer {
      * @return -> the array of resources.
      * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
      */
-    public ArrayList<StorableResource> getAllResources() throws CloneNotSupportedException {
+    public ArrayList<StorableResource> getAllResources() {
         ArrayList<StorableResource> copyList = new ArrayList<>(0);
         for(StorableResource r : containedResources) {
             StorableResource temporaryStorableResource = (StorableResource) r.clone();

@@ -25,10 +25,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
 
     public FaithPoint discardAll() {
         ArrayList<StorableResource> resources = null;
-        try {
-            resources = getAllResources();
-        } catch (CloneNotSupportedException e) {
-        }
+        resources = getAllResources();
         int resourceCount = 0;
         for (StorableResource r : resources) {
             int amount = 1;

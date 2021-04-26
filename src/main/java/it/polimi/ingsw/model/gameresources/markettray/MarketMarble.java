@@ -27,12 +27,7 @@ public class MarketMarble {
      * @return the created copy to the caller
      */
     Resource getCorrespondentResource() {
-        Resource resourceCopy = null;
-        try {
-            resourceCopy = (Resource) resource.clone();
-        } catch (CloneNotSupportedException e) {
-        }
-        return resourceCopy;
+        return (Resource) resource.clone();
     }
 
     private MarbleColour getColour() {
@@ -40,8 +35,12 @@ public class MarketMarble {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    protected Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 
     @Override

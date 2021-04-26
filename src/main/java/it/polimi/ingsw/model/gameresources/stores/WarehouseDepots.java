@@ -140,7 +140,7 @@ public class WarehouseDepots {
      * @return a copy of the resource contained inside the specified depot.
      * @throws NegativeResourceAmountException can be thrown by "copyStorableResource" method of "StorableResource" class.
      */
-    private StorableResource getResourceFromDepot(int depotIndex) throws CloneNotSupportedException {
+    private StorableResource getResourceFromDepot(int depotIndex) {
         StorableResource temporaryResource;
         temporaryResource = listDepot.get(depotIndex).getStoredResource();
         if(temporaryResource != null)
@@ -154,9 +154,8 @@ public class WarehouseDepots {
      * of all the storable resources
      * contained into the warehouse
      * @return list of StorableResource
-     * @throws CloneNotSupportedException
      */
-    public ArrayList <StorableResource> getAllResources() throws CloneNotSupportedException {
+    public ArrayList <StorableResource> getAllResources() {
         ArrayList <StorableResource> listOfAllResources = new ArrayList<>(0);
         for(int i = 0; i < numberOfDepots; i++) {
             listOfAllResources.add(this.getResourceFromDepot(i));

@@ -8,10 +8,15 @@ import it.polimi.ingsw.model.gamelogic.actions.Player;
  */
 public interface Resource extends Cloneable{
 
+
     /**
      * This method "use()" will be redefined in every class that implements this interface
      */
     void activate(Player player, Game game) throws Exception;
 
-    Object clone() throws CloneNotSupportedException;
+
+    /**
+     * @return This method clone returns another instance of the object on which is invoked
+     */
+    Object clone();
 }

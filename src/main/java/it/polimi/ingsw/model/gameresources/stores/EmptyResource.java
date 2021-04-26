@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.gameresources.Storable;
 /**
  * This class represents the resource contained into a white marble
  */
-public class EmptyResource implements Storable, Cloneable {
+public class EmptyResource implements Storable {
 
     /**
      * Constructor method of EmptyResource class
@@ -24,8 +24,12 @@ public class EmptyResource implements Storable, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 
 

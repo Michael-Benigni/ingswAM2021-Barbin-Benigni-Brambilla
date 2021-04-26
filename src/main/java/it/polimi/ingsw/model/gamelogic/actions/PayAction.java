@@ -50,10 +50,7 @@ class PayAction extends Action {
 
     StorableResource getResource() {
         StorableResource clone = null;
-        try {
-            clone = (StorableResource) this.resource.clone();
-        } catch (CloneNotSupportedException e) {
-        }
+        clone = (StorableResource) this.resource.clone();
         return clone;
     }
 }

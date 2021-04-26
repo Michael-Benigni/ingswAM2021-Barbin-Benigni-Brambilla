@@ -47,9 +47,8 @@ public class PersonalBoard {
          * @param player is the refer to the player
          * @return boolean value, true if the player can start the production
          * @throws NullResourceAmountException
-         * @throws CloneNotSupportedException
          */
-        boolean checkActivation(Player player) throws NullResourceAmountException, CloneNotSupportedException {
+        boolean checkActivation(Player player) {
             if(this.consumedResource.containedIn(player)) {
                 return true;
             }
@@ -78,10 +77,9 @@ public class PersonalBoard {
      * @return a boolean value, true if the production can be activated, if this method returns true
      *                        the action has to remove the consumed resource from the personal board
      * @throws NullResourceAmountException
-     * @throws CloneNotSupportedException
      * @throws NegativeResourceAmountException
      */
-    boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) throws NullResourceAmountException, CloneNotSupportedException, NegativeResourceAmountException {
+    boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) throws NegativeResourceAmountException {
         if(this.extraProductionPowers.get(powerIndex).checkActivation(player)) {
             activateExtraProductionPower(producedResource);
             return true;
@@ -122,11 +120,10 @@ public class PersonalBoard {
      * @param producedResource -> resource that the player wants to gain
      * @param player -> the player that wants to start the basic power production
      * @return -> the "producedResource" if the player has the consumed resources in his personal board
-     * @throws CloneNotSupportedException
      * @throws NullResourceAmountException
      */
     //TODO: forse va direttamente nella action
-    StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) throws CloneNotSupportedException, NullResourceAmountException {
+    StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) {
         for(int i = 0; i < consumedResources.size(); i++) {
             if(!consumedResources.get(i).containedIn(player)) {
                 return null;
@@ -254,9 +251,8 @@ public class PersonalBoard {
      * ArrayList of the player's requirements
      * represented by storable resources
      * @return
-     * @throws CloneNotSupportedException
      */
-    ArrayList <StorableResource> getAllResource() throws CloneNotSupportedException {
+    ArrayList <StorableResource> getAllResource() {
         ArrayList <StorableResource> requirements = new ArrayList<>(0);
         requirements.addAll(this.getStrongbox().getAllResources());
         requirements.addAll(this.getWarehouseDepots().getAllResources());

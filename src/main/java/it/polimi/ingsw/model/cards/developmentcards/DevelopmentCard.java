@@ -85,10 +85,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
     public ArrayList <Producible> getProducedResources(){
         ArrayList <Producible> producedResourcesCopy = new ArrayList <> (0);
         for(int i = 0; i < this.producedResources.size(); i++) {
-            try {
-                producedResourcesCopy.add((Producible) this.producedResources.get(i).clone());
-            } catch (CloneNotSupportedException e) {
-            }
+            producedResourcesCopy.add((Producible) this.producedResources.get(i).clone());
         }
         return producedResourcesCopy;
     }
