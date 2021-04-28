@@ -132,7 +132,7 @@ public class DevelopmentCardsGrid {
      * and it puts the cards in the cards grid
      * this method builds the cards grid ordered by colour and level
      * it also calls the method shuffleDecks to shuffle the cards in each deck
-     * @param cardsList -> the list of all the development cards, picked from the database
+     * @param cardsList it is the list of all the development cards, picked from the database
      */
     private void setCardsGrid(ArrayList <DevelopmentCard> cardsList) {
         ArrayList <DevelopmentCard> cardsGroupedByColour = groupByColour(cardsList);
@@ -143,7 +143,9 @@ public class DevelopmentCardsGrid {
             for(int j = 0; j < columns; j++) {
                 List<DevelopmentCard> deck = cardsGroupedByColourSortedByLevel.subList(0, numberOfCardsInEachDeck);
                 this.cardsGrid.get(i).add(new ArrayList<>(deck));
-                cardsGroupedByColourSortedByLevel.removeAll(new ArrayList<>(deck));
+                for(int k = 0; k < numberOfCardsInEachDeck; k++){
+                    cardsGroupedByColourSortedByLevel.remove(0);
+                }
             }
         }
         shuffleDecks();
