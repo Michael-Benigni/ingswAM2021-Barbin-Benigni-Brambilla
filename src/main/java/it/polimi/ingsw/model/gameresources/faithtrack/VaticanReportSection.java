@@ -11,7 +11,7 @@ public class VaticanReportSection extends Section{
      * Constructor method of this class.
      * @param listCell -> arraylist of cells.
      */
-    public VaticanReportSection(ArrayList<Cell> listCell, PopeFavourTile tile) {
+    public VaticanReportSection(ArrayList<Cell> listCell) {
         super(listCell);
     }
 

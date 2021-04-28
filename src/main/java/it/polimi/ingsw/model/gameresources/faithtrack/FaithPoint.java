@@ -33,7 +33,6 @@ public class FaithPoint implements Producible {
      */
     @Override
     public void activate(Player player, Game game) throws Exception {
-        //TODO: get the faith track, don't provide it in input, because the other resources shouldn't see the faith track.
         game.getGameBoard().getFaithTrack().moveMarkerForward(player, this.points);
     }
 

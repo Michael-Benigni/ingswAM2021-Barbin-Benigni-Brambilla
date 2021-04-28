@@ -239,4 +239,20 @@ public class SectionTest {
             assertEquals(newSection.getCell(1), cell2);
         }
     }
+
+
+    /**
+     * Test on "lastCellInSection" method of this class.
+     * It tests if the method returns correctly the last cell of the section.
+     */
+    @Test
+    void checkLastCellInSectionIfCorrect() {
+        ArrayList<Cell> listOfCell = new ArrayList<>(0);
+        Cell cell1 = new VPCell(new VictoryPoint(10));
+        Cell cell2 = new ClassicCell();
+        listOfCell.add(cell1);
+        listOfCell.add(cell2);
+        Section newSection = new VaticanReportSection(listOfCell);
+        assertEquals(newSection.lastCellInSection(), cell2);
+    }
 }

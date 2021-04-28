@@ -14,9 +14,8 @@ public class FaithMarker {
 
     /**
      * Constructor method of this class.
-     * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      */
-    public FaithMarker(Cell startingCell) throws NegativeVPAmountException {
+    public FaithMarker(Cell startingCell) {
         lastVictoryPoint = new VictoryPoint(0);
         this.currentCell = startingCell;
     }

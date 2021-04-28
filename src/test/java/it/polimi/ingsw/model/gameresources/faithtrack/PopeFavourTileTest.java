@@ -18,7 +18,7 @@ public class PopeFavourTileTest {
      * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      */
     @Test
-    void checkActivateTileIfCorrect() throws NegativeVPAmountException {
+    void checkActivateTileIfCorrect() {
         VictoryPoint vp1 = new VictoryPoint(5);
         PopeFavourTile tile = new PopeFavourTile(vp1);
         try{
@@ -36,7 +36,7 @@ public class PopeFavourTileTest {
      * @throws NegativeVPAmountException
      */
     @Test
-    void checkActivateTileIfAlreadyActivated() throws NegativeVPAmountException {
+    void checkActivateTileIfAlreadyActivated() {
         VictoryPoint vp1 = new VictoryPoint(28);
         PopeFavourTile tile = new PopeFavourTile(vp1);
         try{

@@ -108,7 +108,7 @@ public class WarehouseDepots {
      * @param depotIndex2 index of the second depot.
      * @throws WrongDepotIndexException exception thrown if one of the provided integers is less than 1.
      */
-    public StorableResource swapDepots(int depotIndex1, int depotIndex2) throws WrongDepotIndexException, NegativeResourceAmountException, NotEqualResourceTypeException {
+    public StorableResource swapDepots(int depotIndex1, int depotIndex2) throws Exception {
         StorableResource depotOverflow = null;
         if (ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2)) {
             Depot depot1 = listDepot.get(depotIndex1);

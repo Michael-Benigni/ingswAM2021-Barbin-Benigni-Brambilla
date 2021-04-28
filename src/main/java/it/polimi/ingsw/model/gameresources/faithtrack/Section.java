@@ -70,10 +70,9 @@ public abstract class Section {
     /**
      * Method that returns the last cell of this section.
      * @return -> the last cell of this section.
-     * @throws WrongCellIndexException
      */
-    Cell lastCellInSection() throws WrongCellIndexException {
-        return getCell(listCell.size() - 1);
+    Cell lastCellInSection() {
+        return listCell.get(listCell.size() - 1);
     }
 
 

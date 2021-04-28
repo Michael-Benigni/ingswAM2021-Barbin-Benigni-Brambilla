@@ -42,7 +42,7 @@ class Depot {
      * @throws Exception thrown if: amount that exceeds the capacity or different resource type of the provided resource
      * and the contained one.
      */
-    void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, ResourceOverflowInDepotException, NegativeResourceAmountException, NullResourceAmountException {
+    void storeResourceInDepot(StorableResource resourceToStore) throws Exception {
         StorableResource newResource = this.getStoredResource().increaseAmount(resourceToStore);
         if(newResource.amountLessEqualThan(capacity)) {
             storedResource = newResource;
