@@ -7,14 +7,12 @@ import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
-import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.model.gameresources.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -30,8 +28,8 @@ public class PersonalBoard {
      * by a leader card
      */
     private class ExtraProductionPower {
-        private final StorableResource consumedResource;
 
+        private final StorableResource consumedResource;
         /**
          * constructor method of this class
          * @param consumedResource is the resource consumed to start the production
@@ -54,18 +52,30 @@ public class PersonalBoard {
             }
             return false;
         }
+
     }
 
-    private Integer numberOfSlotDevCards;
-    private Integer numberOfSlotLeaderCards;
     private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
     private TemporaryContainer tempContainer;
-
     private SlotLeaderCards slotLeaderCards;
-
     private ArrayList <ExtraProductionPower> extraProductionPowers;
+
+
+    /**
+     * Constructor method of this class. It creates an empty personal board.
+     * The method is public because called by Action/Game/Controller outside this package.
+     */
+    public PersonalBoard(WarehouseDepots warehouseDepots, int numberOfSlotDevCards, int maxDevCardsInSlot, int maxLeaderCardsInSlot) {
+        strongbox = new Strongbox();
+        this.warehouseDepots = warehouseDepots;
+        this.listOfSlotDevelopmentCards = initSlotsDevCards(numberOfSlotDevCards, maxDevCardsInSlot);
+        this.slotLeaderCards = new SlotLeaderCards(maxLeaderCardsInSlot);
+        this.tempContainer = new TemporaryContainer();
+        this.extraProductionPowers = new ArrayList<>();
+    }
+
     /**
      * this method invokes the method "checkActivation" of the class
      * ExtraProductionPower to checks if the player has the resources
@@ -79,26 +89,29 @@ public class PersonalBoard {
      * @throws NullResourceAmountException
      * @throws NegativeResourceAmountException
      */
-    boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) throws NegativeResourceAmountException {
+    boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) {
         if(this.extraProductionPowers.get(powerIndex).checkActivation(player)) {
             activateExtraProductionPower(producedResource);
             return true;
         }
         return false;
     }
+
+
     /**
      * this method activates the extra production power
      * @param producedResource is the resource that the player wants to receive
      * @return a list of resource, one of this resource is a faith point and the other one is the resource choosen by the player
      * @throws NegativeResourceAmountException
      */
-    ArrayList <Resource> activateExtraProductionPower(StorableResource producedResource) throws NegativeResourceAmountException {
+    ArrayList <Resource> activateExtraProductionPower(StorableResource producedResource) {
         FaithPoint faithPoint = new FaithPoint(1);
         ArrayList <Resource> listOfResource = new ArrayList<>(0);
         listOfResource.add(producedResource);
         listOfResource.add(faithPoint);
         return listOfResource;
     }
+
 
     /**
      * this method is called by the leader card
@@ -110,6 +123,7 @@ public class PersonalBoard {
         ExtraProductionPower extraProductionPower = new ExtraProductionPower(consumedResource);
         this.extraProductionPowers.add(extraProductionPower);
     }
+
 
     /**
      * this method invokes the method "containedIn"
@@ -132,29 +146,13 @@ public class PersonalBoard {
         return producedResource;
     }
 
+
     /**
-     * Constructor method of this class. It creates an empty personal board.
-     * The method is public because called by Action/Game/Controller outside this package.
+     * //TODO:
+     * @param numberOfSlotDevCards
+     * @param maxNumberOfDevCards
+     * @return
      */
-    PersonalBoard(int numberOfSlotDevCards, int numberOfSlotLeaderCards) {
-        this.numberOfSlotDevCards = numberOfSlotDevCards;
-        this.numberOfSlotLeaderCards = numberOfSlotLeaderCards;
-        strongbox = new Strongbox();
-        warehouseDepots = new WarehouseDepots(0, null);
-        listOfSlotDevelopmentCards = initSlotsDevCards(numberOfSlotDevCards, 0);
-        //TODO: createListOfLeaderCards(numberOfSlotLeaderCards);
-    }
-
-
-    //TODO: documentation
-    PersonalBoard initFromJSON() throws FileNotFoundException {
-        initWarehouseFromJSON("personalBoard/");
-        initSlotsDevCardsFromJSON("personalBoard/");
-        //TODO : LEADER CARDS SLOT
-        return this;
-    }
-
-    //TODO: documentation and is this method useful? the method initSlotsDevCardsFromJSON already exists
     private ArrayList<SlotDevelopmentCards> initSlotsDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
         ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = new ArrayList<>(numberOfSlotDevCards);
         for (int i = 0; i < numberOfSlotDevCards; i++) {
@@ -163,33 +161,6 @@ public class PersonalBoard {
         return slotsOfDevCardsArray;
     }
 
-    /**
-     * this method initializes the warehouse
-     * of the player from the database
-     * @param jsonPath -> the path of the file that represents the database
-     * @throws FileNotFoundException
-     */
-    private void initWarehouseFromJSON(String jsonPath) throws FileNotFoundException {
-        final String keyInJSON = jsonPath + "warehouseDepots/";
-        int numberOfDepots = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "numberOfDepots/");
-        ArrayList<Integer> capacities = new ArrayList<>(numberOfDepots);
-        for (int i = 0; i < numberOfDepots; i++) {
-            int capacity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, keyInJSON + "capacities/", new int[] {i});
-            capacities.add(capacity);
-        }
-        warehouseDepots = new WarehouseDepots(numberOfDepots, capacities);
-    }
-    /**
-     * this method initializes the slots
-     * of development cards from the database
-     * @param jsonPath -> the path of the file that represents the database
-     * @throws FileNotFoundException
-     */
-    private void initSlotsDevCardsFromJSON(String jsonPath) throws FileNotFoundException {
-        final String keyInJSON = jsonPath + "slotDevelopmentCards/";
-        int maxNumberOfDevCardsInSlot = (int) ConfigLoaderWriter.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumberOfCardsInSlot/");
-        listOfSlotDevelopmentCards = initSlotsDevCards(numberOfSlotDevCards, maxNumberOfDevCardsInSlot);
-    }
 
     /**
      * Method that return the real strongbox (not a copy) to the caller.
@@ -199,6 +170,11 @@ public class PersonalBoard {
         return strongbox;
     }
 
+
+    /**
+     * //TODO:
+     * @return
+     */
     SlotLeaderCards getSlotLeaderCards() {
         return slotLeaderCards;
     }
@@ -212,6 +188,11 @@ public class PersonalBoard {
         return warehouseDepots;
     }
 
+
+    /**
+     * TODO:
+     * @return
+     */
     public TemporaryContainer getTempContainer() {
         return tempContainer;
     }
@@ -230,6 +211,7 @@ public class PersonalBoard {
         else { throw new WrongSlotDevelopmentIndexException();}
     }
 
+
     /**
      * this method invokes the method "getAllCards" from all
      * the slots that contain the development cards owned by
@@ -240,11 +222,12 @@ public class PersonalBoard {
      */
     public ArrayList <DevelopmentCard> getAllDevelopmentCards() throws WrongSlotDevelopmentIndexException, EmptySlotException {
         ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
-        for(int i = 0; i < numberOfSlotDevCards; i++) {
+        for(int i = 0; i < listOfSlotDevelopmentCards.size(); i++) {
             listOfAllCards.addAll(getSlotDevelopmentCards(i).getAllCards());
         }
         return listOfAllCards;
     }
+
 
     /**
      * this method provides an
@@ -261,33 +244,25 @@ public class PersonalBoard {
 
 
     /**
-     * this method overrides the Object method "equals"
+     * equals method.
      * @param o
      * @return
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof PersonalBoard)) return false;
         PersonalBoard that = (PersonalBoard) o;
-        return numberOfSlotDevCards.equals(that.numberOfSlotDevCards)
-                && Objects.equals(numberOfSlotLeaderCards, that.numberOfSlotLeaderCards)
-                && Objects.equals(strongbox, that.strongbox)
-                && Objects.equals(warehouseDepots, that.warehouseDepots)
-                && Objects.equals(listOfSlotDevelopmentCards, that.listOfSlotDevelopmentCards);
+        return getStrongbox().equals(that.getStrongbox()) && getWarehouseDepots().equals(that.getWarehouseDepots()) && listOfSlotDevelopmentCards.equals(that.listOfSlotDevelopmentCards) && getTempContainer().equals(that.getTempContainer()) && getSlotLeaderCards().equals(that.getSlotLeaderCards()) && extraProductionPowers.equals(that.extraProductionPowers);
     }
 
+
     /**
-     * this method overrides the Object method "hashCode"
+     * hashcode method.
      * @return
      */
     @Override
     public int hashCode() {
-        return Objects.hash(numberOfSlotDevCards, numberOfSlotLeaderCards, strongbox, warehouseDepots, listOfSlotDevelopmentCards);
+        return Objects.hash(getStrongbox(), getWarehouseDepots(), listOfSlotDevelopmentCards, getTempContainer(), getSlotLeaderCards(), extraProductionPowers);
     }
-
-    //public Arraylist<SlotDevelopmentCard> getAllSlotDevelopmentCard(){ return listOfSlotDC;}
-    //public SlotLeaderCard getSlotLeaderCard(int slotIndex){ return listOfSlotLC.get(slotIndex);}
-    //public Arraylist<SlotLeaderCard> getAllSlotLeaderCard(){ return listOfSlotLC;}
-    //may be useful a private method that checks if the provided index has sense or not.
 }

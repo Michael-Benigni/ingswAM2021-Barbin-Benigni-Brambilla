@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.config;
+package it.polimi.ingsw.config;
 
 //import it.polimi.ingsw.model.cards.developmentcards.CardColour;
 //import it.polimi.ingsw.model.cards.developmentcards.CardLevel;
@@ -6,7 +6,7 @@ package it.polimi.ingsw.model.config;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ConfigLoaderWriterTest {
+class JsonHandlerTest {
 
     /*@Test
     public void getJavaObjectFromFileTest() throws NegativeResourceAmountException, IOException {
@@ -23,8 +23,8 @@ class ConfigLoaderWriterTest {
         producedResources.add(servant);
         DevelopmentCard card = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources);
         String filePath = "config/getJavaObjectFromFileTest.json";
-        ConfigLoaderWriter.saveAsJsonFile(filePath, card);
-        DevelopmentCard cardLoaded = (DevelopmentCard) ConfigLoaderWriter.getJavaObjectFromFile(filePath, DevelopmentCard.class);
+        JsonHandler.saveAsJsonFile(filePath, card);
+        DevelopmentCard cardLoaded = (DevelopmentCard) JsonHandler.getJavaObjectFromFile(filePath, DevelopmentCard.class);
         assertTrue(cardLoaded.equals(card));
     }*/
     @BeforeEach

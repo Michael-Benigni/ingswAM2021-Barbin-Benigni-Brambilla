@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.UnboundedResourcesContainer;
 import java.util.ArrayList;
 
-public abstract class UNDOableAction extends Action {
+abstract class UNDOableAction extends Action {
     private final ArrayList<PayAction> fromWhereAndWhatRemove;
 
     protected UNDOableAction(ArrayList<PayAction> fromWhereAndWhatRemove) {

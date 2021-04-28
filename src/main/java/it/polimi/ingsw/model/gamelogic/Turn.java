@@ -73,8 +73,7 @@ public class Turn {
      * @throws NoValidActionException if the action is not valid in this Turn
      */
     void add(Action nextAction) throws NoValidActionException {
-        Action lastAction = this.performedActions.get(this.performedActions.size());
-        if (lastAction.isValid(this.performedActions) && this.state == TurnState.PLAY) {
+        if (nextAction.isValid(this.performedActions) && this.state == TurnState.PLAY) {
             this.performedActions.add(nextAction);
             this.state = TurnState.PLAY;
         }
@@ -85,7 +84,7 @@ public class Turn {
     /**
      * This method sets the state of the Turn in PLAY. After this the Player could perform actions
      */
-    public void start() {
+    void start() {
         if (this.state == TurnState.START) {
             this.state = TurnState.PLAY;
             this.performedActions.add(new StartTurnAction());

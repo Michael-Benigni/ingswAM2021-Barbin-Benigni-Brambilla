@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.gameresources.Producible;
-
 import java.util.Objects;
 
 

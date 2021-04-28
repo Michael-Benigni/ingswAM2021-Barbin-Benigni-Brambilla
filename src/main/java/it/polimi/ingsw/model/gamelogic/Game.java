@@ -3,16 +3,22 @@ package it.polimi.ingsw.model.gamelogic;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
+import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import static java.util.Collections.shuffle;
 
 /**
  * This class represent the abstract class of the game
  */
 public abstract class Game {
+
+    /**
+     * It's the Max Number of Players in a game
+     */
+    private static final int MAX_NUM_PLAYER = 4;
 
     /**
      * the number of Players in this Game
@@ -22,10 +28,15 @@ public abstract class Game {
     /**
      * HashMap between Users and the correspondent Players
      */
-    private HashMap<User, Player> userPlayerHashMap;
+    private HashMap<User, Player> userToPlayerMap;
 
     /**
-     * All the players, linked according to the setted order of the round
+     * HashMap between Players and the correspondent Users
+     */
+    private HashMap<Player, User> playerToUserMap;
+
+    /**
+     * All the players, linked according to the set order of the round
      */
     private LinkedList<Player> playersOrder;
 
@@ -39,25 +50,37 @@ public abstract class Game {
      */
     private Turn currentTurn;
 
+    /**
+     * the gameboard of the game
+     */
+    private GameBoard gameBoard;
+
 
     /**
      * Constructor that will be reused in the subclasses
      * @param numberOfPlayers
      */
-    protected Game(int numberOfPlayers) {
+    protected Game(int numberOfPlayers) throws IllegalNumberOfPlayersException {
+        if (numberOfPlayers <= 0 || numberOfPlayers > MAX_NUM_PLAYER)
+            throw new IllegalNumberOfPlayersException();
         this.numberOfPlayers = numberOfPlayers;
-        this.userPlayerHashMap = new HashMap<>();
+        this.userToPlayerMap = new HashMap<>();
+        this.playerToUserMap = new HashMap<>();
     }
 
 
     /**
      * This method prepare the game, setting the players' order, creating the first turn, setting the first Player, and
      * the game board
-     * @throws NotEnoughPlayersException (see getAllPlayers())
      */
-    public void setup() throws NotEnoughPlayersException {
-        this.playersOrder = new LinkedList<>(setPlayersOrder(getAllPlayers()));
-        this.setNextPlayer();
+    public void setup(PersonalBoard personalBoard, GameBoard gameBoard) {
+        this.setPlayersOrder();
+        for (Player player : this.playersOrder)
+            player.buildBoard(personalBoard);
+        this.gameBoard = gameBoard;
+        this.currentPlayer = playersOrder.getFirst();
+        this.currentTurn = new Turn();
+        this.currentTurn.start();
     }
 
 
@@ -68,14 +91,19 @@ public abstract class Game {
      * @throws TooManyPlayersException if the game has already reached the number of players setted for that specific
      * instance of the game
      */
-    public Player createPlayerFor(User user) throws TooManyPlayersException {
-        if(userPlayerHashMap.size() < numberOfPlayers) {
-            Player newPlayer = new Player();
-            userPlayerHashMap.put(user, newPlayer);
-            return newPlayer;
+    public Player createPlayerFor(User user) throws TooManyPlayersException, UserAlreadyPresentInThisGame {
+        Player newPlayer = null;
+        if(userToPlayerMap.size() <= numberOfPlayers && !userToPlayerMap.containsKey(user)) {
+            newPlayer = new Player();
+            userToPlayerMap.put(user, newPlayer);
+            playerToUserMap.put(newPlayer, user);
         }
-        else
+        else {
+            if (!userToPlayerMap.containsKey(user))
+                throw new UserAlreadyPresentInThisGame();
             throw new TooManyPlayersException();
+        }
+        return newPlayer;
     }
 
 
@@ -87,8 +115,8 @@ public abstract class Game {
      * @throws WrongCommandException
      */
     public void performUserCommand(User user, Action action) throws Exception {
-        Player player = userPlayerHashMap.get(user);
-        if (player.equals(currentPlayer)) {
+        Player player = userToPlayerMap.get(user);
+        if (player == currentPlayer) {
             this.getCurrentTurn().add(action);
             action.perform(this, player);
         }
@@ -97,12 +125,11 @@ public abstract class Game {
 
 
     /**
-     * @param players
-     * @return the ArrayList of Players ordered in a certain way (see subclasses: by default the method return the same
-     * ArrayList with the same order)
+     * This method sets the order of the Players in a random way
      */
-    protected ArrayList<Player> setPlayersOrder(ArrayList<Player> players) {
-        return players;
+    private void setPlayersOrder() {
+        this.playersOrder = new LinkedList<>(getAllPlayers());
+        shuffle(this.playersOrder);
     }
 
 
@@ -132,19 +159,12 @@ public abstract class Game {
 
     /**
      *
-     * @return the ArrayList of all the Players registered in the instance of the game on which this method has been called.
+     * @return the ArrayList of all the actual (not copies) Players registered in the instance of the game on which this method has been called.
      * This ArrayList is ordered according to the Players' order of registration in the game.
      * @throws NotEnoughPlayersException if has not been reached the numberOfPlayers registered when this method is called.
      */
-    public ArrayList<Player> getAllPlayers() throws NotEnoughPlayersException {
-        if (userPlayerHashMap.size() == numberOfPlayers) {
-            ArrayList<Player> players = this.userPlayerHashMap
-                    .values()
-                    .stream()
-                    .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-            return players;
-        }
-        throw new NotEnoughPlayersException();
+    public ArrayList<Player> getAllPlayers() {
+        return new ArrayList (this.userToPlayerMap.values());
     }
 
 
@@ -155,6 +175,13 @@ public abstract class Game {
         return currentPlayer;
     }
 
-    public abstract GameBoard getGameBoard();
+
+    protected User getCurrentUser () {
+        return playerToUserMap.get(this.currentPlayer);
+    }
+
+    public GameBoard getGameBoard() {
+        return this.gameBoard;
+    }
 
 }

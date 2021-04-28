@@ -25,7 +25,11 @@ public class Player {
      */
     public Player() {
         this.victoryPoints = new VictoryPoint(0);
-        this.personalBoard = new PersonalBoard(0, 0);
+    }
+
+
+    public void buildBoard(PersonalBoard personalBoard) {
+        this.personalBoard = personalBoard;
     }
 
 

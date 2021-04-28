@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.stores.UnboundedResourcesContainer;
 import java.util.ArrayList;
 
-public class ProductionAction extends UNDOableAction {
+class ProductionAction extends UNDOableAction {
     private final ArrayList<Integer> numSlots;
 
     public ProductionAction(ArrayList<Integer> numSlots, ArrayList<PayAction> payments) {

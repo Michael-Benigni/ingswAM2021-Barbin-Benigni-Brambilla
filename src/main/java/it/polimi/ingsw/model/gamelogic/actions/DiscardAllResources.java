@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 
-public class DiscardAllResources extends Action {
+class DiscardAllResources extends Action {
     @Override
     protected ActionType getType() {
         return ActionType.ANYTIME;

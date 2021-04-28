@@ -1,8 +1,6 @@
-package it.polimi.ingsw.model.config;
+package it.polimi.ingsw.config;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class JsonAdapterTest {
 

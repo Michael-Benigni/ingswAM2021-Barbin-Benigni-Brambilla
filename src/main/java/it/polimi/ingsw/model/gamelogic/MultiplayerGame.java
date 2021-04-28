@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.gamelogic;
 
+import it.polimi.ingsw.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
+import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import java.util.*;
 
@@ -20,8 +22,10 @@ public class MultiplayerGame extends Game {
      * Constructor.
      * @param numberOfPlayers
      */
-    protected MultiplayerGame(int numberOfPlayers) {
+    protected MultiplayerGame(int numberOfPlayers) throws IllegalNumberOfPlayersException {
         super(numberOfPlayers);
+        if (numberOfPlayers == 1)
+            throw new IllegalNumberOfPlayersException();
     }
 
 
@@ -31,23 +35,7 @@ public class MultiplayerGame extends Game {
      * @throws NotEnoughPlayersException
      */
     @Override
-    public void setup() throws NotEnoughPlayersException {
-        super.setup();
-    }
-
-
-    /**
-     * @param players
-     * @return the list of players ordered in a shuffle way
-     */
-    @Override
-    protected ArrayList<Player> setPlayersOrder(ArrayList<Player> players) {
-        Collections.shuffle(players);
-        return players;
-    }
-
-    @Override
-    public GameBoard getGameBoard() {
-        return null;
+    public void setup(PersonalBoard personalBoard, GameBoard gameBoard) {
+        super.setup(personalBoard, gameBoard);
     }
 }

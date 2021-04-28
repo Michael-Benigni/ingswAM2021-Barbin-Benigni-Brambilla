@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.config;
+package it.polimi.ingsw.config;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * It's the class that creates the objects requested from other parts of the project reading a json file, and it can also
  * write a json file to save objects' status
  */
-public class ConfigLoaderWriter {
+public class JsonHandler {
 
     /**
      * It's the path of the main database with all the objects needed for the game
@@ -46,7 +46,7 @@ public class ConfigLoaderWriter {
      *
      * @param type is the class of the object that will be deserialized
      * @param jsonPath is a string that represents the json keys to access to obtain the desired object: with this path
-     *                 the ConfigLoaderWriter knows always what property it have to access
+     *                 the JsonHandler knows always what property it have to access
      * @return the deserialized Json object, as Java object
      * @throws FileNotFoundException if the loading file does not exist
      */
@@ -132,7 +132,7 @@ public class ConfigLoaderWriter {
     private static JsonElement getJsonElement(String pathToJsonElem, JsonElement json) {
         JsonObject obj;
         JsonElement elem = json;
-        ArrayList<String> jsonNodes = ConfigParser.decompose(pathToJsonElem);
+        ArrayList<String> jsonNodes = JsonPathParser.decompose(pathToJsonElem);
         for(int currNode = 0; jsonNodes.size() > 0; ) {
             obj = elem.getAsJsonObject();
             try {
@@ -144,8 +144,8 @@ public class ConfigLoaderWriter {
                 elem = obj;
             }
             jsonNodes.remove(currNode);
-            pathToJsonElem = ConfigParser.compose(jsonNodes);
-            jsonNodes = ConfigParser.decompose(pathToJsonElem);
+            pathToJsonElem = JsonPathParser.compose(jsonNodes);
+            jsonNodes = JsonPathParser.decompose(pathToJsonElem);
         }
         return elem;
     }
@@ -185,7 +185,7 @@ public class ConfigLoaderWriter {
      * @return
      */
     private static String updateJsonPath(JsonElement element, String path) {
-        ArrayList<String> listNodes = ConfigParser.decompose(path);
+        ArrayList<String> listNodes = JsonPathParser.decompose(path);
         int firstNode = 0;
         listNodes.remove(firstNode);
         while (listNodes.size() > 0) {
@@ -193,7 +193,7 @@ public class ConfigLoaderWriter {
             if (element.isJsonPrimitive() || element.getAsJsonObject().has(node)) {
                 if (element.isJsonPrimitive())
                     return null;
-                return ConfigParser.compose(listNodes);
+                return JsonPathParser.compose(listNodes);
             }
             listNodes.remove(node);
         }
