@@ -105,4 +105,14 @@ public class Player {
             result = resource.containedIn(this);
         return result;
     }
+
+
+    /**
+     * Getter method for "victoryPoints" attribute of this class.
+     * @return -> a copy of the stored victory point.
+     */
+    public VictoryPoint getVictoryPoints() {
+        VictoryPoint copyVictoryPoints = (VictoryPoint) this.victoryPoints.clone();
+        return copyVictoryPoints;
+    }
 }

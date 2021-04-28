@@ -45,8 +45,8 @@ public abstract class Section {
      */
     Cell searchNextCellInSection(Cell currentCell) throws Exception {
         for(int i = 0; i < listCell.size(); i++) {
-            if(listCell.get(i).equals(currentCell)) {
-                if( listCell.get(i).equals(lastCellInSection())) {
+            if(listCell.get(i) == currentCell) {
+                if( listCell.get(i) == lastCellInSection()) {
                     throw new LastCellInSectionException();
                 }
                 else {
@@ -83,7 +83,7 @@ public abstract class Section {
      */
     boolean searchInThisSection(Cell currentCell) throws CellNotFoundInSectionException {
         for(Cell c : listCell) {
-            if(c.equals(currentCell))
+            if(c == currentCell)
                 return true;
         }
         throw new CellNotFoundInSectionException();

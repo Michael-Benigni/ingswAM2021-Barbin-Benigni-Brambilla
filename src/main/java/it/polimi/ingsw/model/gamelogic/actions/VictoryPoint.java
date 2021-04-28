@@ -5,7 +5,7 @@ import it.polimi.ingsw.exception.NegativeVPAmountException;
 /**
  * Class that represents the victory points. It's composed by an integer that represents the amount of victory points.
  */
-public class VictoryPoint {
+public class VictoryPoint implements Cloneable{
 
     private int amount;
 

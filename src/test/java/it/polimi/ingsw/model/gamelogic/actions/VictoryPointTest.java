@@ -1,11 +1,9 @@
 package it.polimi.ingsw.model.gamelogic.actions;
 
 import it.polimi.ingsw.exception.NegativeVPAmountException;
-import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests on the "VictoryPoint" class.
@@ -18,12 +16,8 @@ public class VictoryPointTest {
      */
     @Test
     void checkConstructorIfNegativeAmount() {
-        /*try{
-            VictoryPoint newVictoryPoint = new VictoryPoint(-3);
-            fail();
-        } catch (NegativeVPAmountException e) {
-            assertTrue(true);
-        }*/
+        VictoryPoint newVictoryPoint = new VictoryPoint(-3);
+        assertTrue(newVictoryPoint.equals(new VictoryPoint(0)));
     }
 
 
@@ -33,15 +27,11 @@ public class VictoryPointTest {
      */
     @Test
     void checkIncreaseVictoryPointsIfCorrect() {
-        /*try {
-            VictoryPoint pointsToAdd1 = new VictoryPoint(3);
-            VictoryPoint pointsToAdd2 = new VictoryPoint(14);
-            VictoryPoint totalPoints = new VictoryPoint(3 + 14);
-            pointsToAdd1.increaseVictoryPoints(pointsToAdd2);
-            assertTrue(pointsToAdd1.equals(totalPoints));
-        } catch(NegativeVPAmountException e) {
-            fail();
-        }*/
+        VictoryPoint pointsToAdd1 = new VictoryPoint(3);
+        VictoryPoint pointsToAdd2 = new VictoryPoint(14);
+        VictoryPoint totalPoints = new VictoryPoint(3 + 14);
+        pointsToAdd1.increaseVictoryPoints(pointsToAdd2);
+        assertTrue(pointsToAdd1.equals(totalPoints));
     }
 
 
@@ -80,5 +70,17 @@ public class VictoryPointTest {
         } catch (NegativeVPAmountException e) {
             assertTrue(newVictoryPoint1.equals(newVictoryPoint2));
         }
+    }
+
+
+    /**
+     * Test on "clone" method of this class.
+     * It tests if the method returns a correct copy of the provided victory point.
+     */
+    @Test
+    void checkCloneIfCorrect() {
+        VictoryPoint vp1 = new VictoryPoint(12);
+        VictoryPoint vp2 = (VictoryPoint) vp1.clone();
+        assertEquals(vp1, vp2);
     }
 }

@@ -18,7 +18,7 @@ public class FaithTrack {
     /**
      * Constructor method of this class. It reads from a json file the entire structure of the track.
      */
-    public FaithTrack(ArrayList<Section> arrayOfSections, ArrayList<Player> listOfPlayers) throws WrongCellIndexException, NegativeVPAmountException {
+    public FaithTrack(ArrayList<Section> arrayOfSections, ArrayList<Player> listOfPlayers) throws WrongCellIndexException {
         this.listOfSection = new ArrayList<>(0);
         this.listOfSection = arrayOfSections;
         this.mapOfFaithMarker = new HashMap<>(0);
@@ -53,6 +53,8 @@ public class FaithTrack {
             } catch (LastCellInSectionException e) {
                 int sectionIndex = listOfSection.indexOf(s) + 1;
                 return listOfSection.get(sectionIndex).firstCellInSection();
+            } catch (CellNotFoundInSectionException e) {
+                //do nothing and go to the next section.
             }
         }
         throw new CellNotFoundInFaithTrackException();
@@ -91,7 +93,7 @@ public class FaithTrack {
             Cell nextCell = nextCell(faithMarker.getCurrentCell());
             faithMarker.updateCurrentCell(nextCell);
             nextCell.activateCell(this, player);
-            if(nextCell.equals(lastCellInFaithTrack())) {
+            if(nextCell == lastCellInFaithTrack()) {
                 throw new GameOverByFaithTrackException();
             }
         }
