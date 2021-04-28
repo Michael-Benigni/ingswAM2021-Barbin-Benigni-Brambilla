@@ -1,20 +1,24 @@
 package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.controller.User;
+import it.polimi.ingsw.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.exception.TooManyPlayersException;
+import it.polimi.ingsw.exception.UserAlreadyPresentInThisGame;
 import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
+import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 /**
  * Class that represents one match with 1 player, that will play with a COM
  */
 public class SingleplayerGame extends Game {
+    private Player LORENZO_THE_MAGNIFICENT;
 
     /**
      * Constructor. The number of players is 1 + 1 for the COM
      */
-    SingleplayerGame() {
+    SingleplayerGame() throws IllegalNumberOfPlayersException {
         super(2);
     }
 
@@ -27,18 +31,10 @@ public class SingleplayerGame extends Game {
      * @throws TooManyPlayersException
      */
     @Override
-    public Player createPlayerFor(User user) throws TooManyPlayersException {
-        Player player = super.createPlayerFor(user);
-        try {
-            createPlayerFor(new User("Lorenzo_The_Magnificent"));
-        } catch (TooManyPlayersException e) {
-        }
-        return player;
-    }
-
-    @Override
-    public GameBoard getGameBoard() {
-        return null;
+    public Player createPlayerFor(User user) throws TooManyPlayersException, UserAlreadyPresentInThisGame {
+        Player newPlayer = super.createPlayerFor(user);
+        this.LORENZO_THE_MAGNIFICENT = createPlayerFor(new User("Lorenzo_The_Magnificent"));
+        return newPlayer;
     }
 
 
@@ -48,7 +44,10 @@ public class SingleplayerGame extends Game {
      * @throws NotEnoughPlayersException
      */
     @Override
-    public void setup() throws NotEnoughPlayersException {
-        super.setup();
+    public void setup(PersonalBoard personalBoard, GameBoard gameBoard) {
+        super.setup(personalBoard, gameBoard);
+        Player currPlayer = getCurrentPlayer();
+        if (currPlayer == this.LORENZO_THE_MAGNIFICENT)
+            setNextPlayer();
     }
 }

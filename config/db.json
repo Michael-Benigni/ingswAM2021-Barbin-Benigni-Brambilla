@@ -1,12 +1,10 @@
 {
   "personalBoard": {
-    "numberOfSlotDevelopmentCards": 3,
-    "numberOfSlotLeaderCards": 2,
-    "slotDevelopmentCards": {
-      "maxNumberOfCardsInSlot": 3
-    },
+    "numOfSlotDevCards": 3,
+    "maxNumOfLeaderCardsInSlot": 2,
+    "maxNumOfDevCardsInSlot": 3,
     "warehouseDepots": {
-      "numberOfDepots": 3,
+      "numOfDepots": 3,
       "capacities": [1, 2, 3]
     }
   },
@@ -14,6 +12,7 @@
     "marketTray": {
       "rows": 3,
       "columns": 4,
+      "numOfMarblesType": 6,
       "howManyMarbles": [
         {
           "quantity": 4,
@@ -83,6 +82,7 @@
     "developmentCardsGrid": {
       "rows": 3,
       "columns": 4,
+      "numOfCards": 48,
       "cardsList": [
         {
           "cost": [
@@ -1898,6 +1898,7 @@
       ]
     },
     "leaderCardsDeck": {
+      "numOfCards": 16,
       "deck": [
       {
         "isAlreadyPlayed": false,

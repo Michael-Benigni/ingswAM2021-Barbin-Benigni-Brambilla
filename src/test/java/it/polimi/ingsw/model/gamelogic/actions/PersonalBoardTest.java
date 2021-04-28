@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
@@ -11,15 +12,22 @@ import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Tests on the "PersonalBoard" class.
  */
 public class PersonalBoardTest {
+    private static PersonalBoard p;
+
+    @BeforeEach
+    static void init() {
+        ArrayList<Integer> capacities = new ArrayList<>(Arrays.asList(1, 2, 3));
+        p = new PersonalBoard(new WarehouseDepots(3, capacities), 3, 3, 4);
+    }
 
     @Test
     void getStrongbox() {
-        PersonalBoard p = new PersonalBoard(3, 2);
         Strongbox toTest = p.getStrongbox();
         assertNotNull(toTest);
         assertEquals(toTest, new Strongbox());
@@ -27,7 +35,6 @@ public class PersonalBoardTest {
 
     @Test
     void getWarehouseDepots() {
-        PersonalBoard p = new PersonalBoard(3, 2);
         WarehouseDepots toTest = p.getWarehouseDepots();
         assertNotNull(toTest);
         assertEquals(toTest, new WarehouseDepots(0, null));
@@ -35,7 +42,6 @@ public class PersonalBoardTest {
 
     @Test
     void getSlotDevelopmentCards() {
-        PersonalBoard p = new PersonalBoard(3, 2);
         SlotDevelopmentCards toTest = null;
         try {
             toTest = p.getSlotDevelopmentCards(1);
@@ -48,7 +54,6 @@ public class PersonalBoardTest {
 
     @Test
     void getSlotDevelopmentCardsThrowsExc() {
-        PersonalBoard p = new PersonalBoard(3, 2);
         SlotDevelopmentCards toTest = null;
         try {
             toTest = p.getSlotDevelopmentCards(-1);
@@ -60,7 +65,6 @@ public class PersonalBoardTest {
 
     @Test
     void initFromJSON() throws WrongSlotDevelopmentIndexException, FileNotFoundException {
-        PersonalBoard p = new PersonalBoard(3, 2).initFromJSON();
         WarehouseDepots warehouseDepots = p.getWarehouseDepots();
         assertNotNull(warehouseDepots);
         Integer [] capacities = {1, 2, 3};

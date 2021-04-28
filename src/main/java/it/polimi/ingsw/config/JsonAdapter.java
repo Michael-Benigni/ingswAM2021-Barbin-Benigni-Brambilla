@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.config;
+package it.polimi.ingsw.config;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;

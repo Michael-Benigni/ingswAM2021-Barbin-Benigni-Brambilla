@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.config;
+package it.polimi.ingsw.config;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * It's a parser that decompose a String that represents a path of Json nodes: passing through these json properties, the
  * ConfigLoader can create the Java objects from a Json file
  */
-class ConfigParser {
+class JsonPathParser {
 
     /**
      * Separator that will be present in the Strings to parse and divide

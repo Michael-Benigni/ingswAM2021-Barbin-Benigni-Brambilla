@@ -1,13 +1,11 @@
 package it.polimi.ingsw.model.cards.leadercards;
 
 import it.polimi.ingsw.exception.*;
-import it.polimi.ingsw.model.config.ConfigLoaderWriter;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -35,56 +33,33 @@ public class LeaderCard {
         this.isAlreadyPlayed = false;
     }
 
-    /**
-     * setter method for the effect
-     * @param effect is the effect of the leader card, if the card is played the effect is activated
-     */
-    public final void setEffect(Effect effect) {
-        this.effect = effect;
-    }
 
     /**
-     * this method is used to set the effect of the leader card from the database
-     * @param jsonPath is the path of the file that represents the database
-     * @param ints is an index used to pick the information from the json file
-     * @throws FileNotFoundException
+     * setter method for the effect
+     * @param
      */
-    public void setEffectFromJSON(String jsonPath, int[] ints) throws FileNotFoundException {
-        jsonPath = jsonPath + "effect/";
-        String typeEffect = (String) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(String.class, jsonPath + "effectType", ints);
-        switch (typeEffect) {
-            case "discount": {
-                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
-                this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid().addPlayerWithDiscount(player, resource);
-                break;
-            }
-            case "extraDepot": {
-                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
-                int depotCapacity = (int) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(int.class, jsonPath + "capacity", ints);
-                this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resource);
-                break;
-            }
-            case "extraProductionPower": {
-                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
-                this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
-                break;
-            }
-            case "transformWhiteMarble": {
-                StorableResource resource = (StorableResource) ConfigLoaderWriter.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);
-                this.effect = (player, game) -> {
-                    try {
-                        player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
-                    } catch (AlreadyAddedModifier alreadyAddedModifier) {
-                        player.getPersonalBoard().getTempContainer().transformEmptyResources(player, resource);
-                    }
-                };
-                break;
-            }
-            default: {
-                //TODO:
-            }
-        }
+    public void setDiscountEffect(StorableResource resource) {
+        this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid().addPlayerWithDiscount(player, resource);
     }
+
+    public void setExtraDepotEffect (StorableResource resource, int depotCapacity){
+        this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resource);
+    }
+
+    public void setExtraProductionPowerEffect(StorableResource resource) {
+        this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
+    }
+
+    public void setWhiteMarbleTrasformationEffect(StorableResource resource) {
+        this.effect = (player, game) -> {
+            try {
+                player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
+            } catch (AlreadyAddedModifier alreadyAddedModifier) {
+                player.getPersonalBoard().getTempContainer().transformEmptyResources(player, resource);
+            }
+        };
+    }
+
 
     /**
      * this method represents the action

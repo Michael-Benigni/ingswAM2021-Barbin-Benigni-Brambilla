@@ -17,7 +17,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
         emptyResources.clear();
     }
 
-    TemporaryContainer() {
+    public TemporaryContainer() {
         super();
         this.emptyResources = new ArrayList<>();
         this.modifiers = new HashMap<>();

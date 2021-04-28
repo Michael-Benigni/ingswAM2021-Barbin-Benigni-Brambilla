@@ -11,6 +11,7 @@ class EndTurnAction extends Action {
     }
 
 
+    //TODO: clear temporaryCont and be sure to not have inconsistent states
     @Override
     public void perform(Game game, Player player) {
         game.getCurrentTurn().terminate(game);
