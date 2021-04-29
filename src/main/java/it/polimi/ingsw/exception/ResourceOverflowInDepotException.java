@@ -9,9 +9,6 @@ import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 public class ResourceOverflowInDepotException extends Exception{
     private StorableResource resource;
 
-    public ResourceOverflowInDepotException() {
-    }
-
     public ResourceOverflowInDepotException(StorableResource resource) {
         this.resource = resource;
     }

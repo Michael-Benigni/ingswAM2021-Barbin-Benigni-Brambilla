@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
+import it.polimi.ingsw.exception.EmptyDepotException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.exception.NullResourceAmountException;
 import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
 
 /**
@@ -27,11 +27,12 @@ public class ExtraDepot extends Depot{
     @Override
     void removeResourceFromDepot(StorableResource resourceToRemove) throws NegativeResourceAmountException, NotEqualResourceTypeException {
         super.removeResourceFromDepot(resourceToRemove);
-        if(super.getStoredResource() == null){
+        try {
+            super.getStoredResource();
+        } catch(EmptyDepotException exception) {
             try {
                 super.storeResourceInDepot(new StorableResource(this.resource, 0));
-            }
-            catch (ResourceOverflowInDepotException e) {
+            } catch (ResourceOverflowInDepotException e) {
 
             }
         }

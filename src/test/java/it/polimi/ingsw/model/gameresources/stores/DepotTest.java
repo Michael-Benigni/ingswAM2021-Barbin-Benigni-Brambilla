@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
+import it.polimi.ingsw.exception.EmptyDepotException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotEqualResourceTypeException;
 import it.polimi.ingsw.exception.ResourceOverflowInDepotException;
@@ -35,27 +36,29 @@ public class DepotTest {
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
     @Test
-    void checkStoreResourceInDepotWhenSameType() throws Exception {
-
-        Depot newDepot = new Depot(6);
+    void checkStoreResourceInDepotWhenSameType() throws EmptyDepotException, NotEqualResourceTypeException, NegativeResourceAmountException, ResourceOverflowInDepotException {
+        int capacity = 6;
+        Depot newDepot = new Depot(capacity);
 
         StorableResource resourceToStore1 = new StorableResource(ResourceType.STONE, 2);
         StorableResource resourceToStore2 = new StorableResource(ResourceType.STONE, 3);
         StorableResource resourceToStore3 = new StorableResource(ResourceType.STONE, 80);
         StorableResource resourceToStoreTot = new StorableResource(ResourceType.STONE, 3+2);
-
+        StorableResource fillingResource = new StorableResource(ResourceType.STONE, capacity);
         newDepot.storeResourceInDepot(resourceToStore1);
         newDepot.storeResourceInDepot(resourceToStore2);
 
         assertEquals(resourceToStoreTot, newDepot.getStoredResource());
 
-        try{
+        try {
             newDepot.storeResourceInDepot(resourceToStore3);
+        } catch (ResourceOverflowInDepotException e) {
+            assertEquals(fillingResource, newDepot.getStoredResource());
+        } catch (NotEqualResourceTypeException e) {
             fail();
-        }catch (ResourceOverflowInDepotException e){
-            assertEquals(resourceToStoreTot, newDepot.getStoredResource());
+        } catch (NegativeResourceAmountException e) {
+            fail();
         }
-
     }
 
 
@@ -112,15 +115,18 @@ public class DepotTest {
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
     @Test
-    void checkRemoveResourceFromDepotWhenEmpties()
-            throws Exception {
+    void checkRemoveResourceFromDepotWhenEmpties() throws Exception {
         Depot newDepot = new Depot(16);
         StorableResource resource = new StorableResource(ResourceType.COIN, 5);
 
         newDepot.storeResourceInDepot(resource);
         newDepot.removeResourceFromDepot(resource);
 
-        assertNull(newDepot.getStoredResource());
+        try {
+            StorableResource resourceInDepot = newDepot.getStoredResource();
+        } catch(EmptyDepotException e) {
+            assertTrue(true);
+        }
 
     }
 
@@ -132,29 +138,23 @@ public class DepotTest {
      * @throws Exception -> can be thrown by "storeResourceInDepot" method.
      */
     @Test
-    void checkRemoveResourceFromDepotWhenDifferentType()
-            throws Exception {
+    void checkRemoveResourceFromDepotWhenDifferentType() throws Exception {
 
         Depot newDepot = new Depot(60);
         StorableResource resourceToStore = new StorableResource(ResourceType.STONE, 23);
         StorableResource resourceToRemove = new StorableResource(ResourceType.SHIELD, 21);
-
-        try{
-            newDepot.removeResourceFromDepot(resourceToRemove);
-            fail();
-        }catch (NullPointerException e){
-            assertNull(newDepot.getStoredResource());
+        newDepot.removeResourceFromDepot(resourceToRemove);
+        try {
+            newDepot.getStoredResource();
+        } catch(EmptyDepotException e) {
         }
-
         newDepot.storeResourceInDepot(resourceToStore);
-
         try{
             newDepot.removeResourceFromDepot(resourceToRemove);
             fail();
         }catch (NotEqualResourceTypeException e){
             assertTrue(newDepot.getStoredResource().equals(resourceToStore));
         }
-
     }
 
 

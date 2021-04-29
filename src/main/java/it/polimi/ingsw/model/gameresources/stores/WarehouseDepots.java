@@ -139,12 +139,12 @@ public class WarehouseDepots {
      * @throws NegativeResourceAmountException can be thrown by "copyStorableResource" method of "StorableResource" class.
      */
     private StorableResource getResourceFromDepot(int depotIndex) {
-        StorableResource temporaryResource;
-        temporaryResource = listDepot.get(depotIndex).getStoredResource();
-        if(temporaryResource != null)
+        try {
+            StorableResource temporaryResource = listDepot.get(depotIndex).getStoredResource();
             return (StorableResource) temporaryResource.clone();
-        else
+        } catch(EmptyDepotException e) {
             return null;
+        }
     }
 
     /**

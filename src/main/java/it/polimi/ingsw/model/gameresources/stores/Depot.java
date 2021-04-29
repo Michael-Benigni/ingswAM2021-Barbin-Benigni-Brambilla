@@ -30,7 +30,11 @@ class Depot {
      * @return -> boolean: true if the two resource have the same type, false otherwise.
      */
     boolean alreadyContained (StorableResource resource) {
-        return getStoredResource().ifSameResourceType(resource);
+        try {
+            return getStoredResource().ifSameResourceType(resource);
+        } catch (EmptyDepotException e) {
+            return false;
+        }
     }
 
 
@@ -43,18 +47,21 @@ class Depot {
      * and the contained one.
      */
     void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, NegativeResourceAmountException, ResourceOverflowInDepotException {
-        StorableResource newResource = this.getStoredResource().increaseAmount(resourceToStore);
-        if(newResource.amountLessEqualThan(capacity)) {
-            storedResource = newResource;
+        StorableResource newResource;
+        try {
+            newResource = this.getStoredResource().increaseAmount(resourceToStore);
+        } catch(EmptyDepotException e) {
+            newResource = resourceToStore;
         }
-        else {
+        if (newResource.amountLessEqualThan(capacity)) {
+            storedResource = newResource;
+        } else {
             storedResource.setAmount(capacity);
             try {
                 throw new ResourceOverflowInDepotException(newResource.decreaseAmount(storedResource));
             } catch (NullResourceAmountException e) {
 
             }
-
         }
     }
 
@@ -66,13 +73,11 @@ class Depot {
      * @throws NegativeResourceAmountException -> can be thrown by "decreaseAmount" method of "StorableResource" class.
      */
     void removeResourceFromDepot(StorableResource resourceToRemove) throws NotEqualResourceTypeException, NegativeResourceAmountException {
-        StorableResource newResource = null;
         try {
-            newResource = this.getStoredResource().decreaseAmount(resourceToRemove);
-        } catch (NullResourceAmountException e) {
-
+            storedResource = this.getStoredResource().decreaseAmount(resourceToRemove);
+        } catch (NullResourceAmountException | EmptyDepotException e) {
+            storedResource = null;
         }
-        storedResource = newResource;
     }
 
 
@@ -80,8 +85,11 @@ class Depot {
      * Getter method for "storedResource" attribute of this class.
      * @return -> the storable resource contained in this depot.
      */
-    StorableResource getStoredResource() {
-        return storedResource;
+    StorableResource getStoredResource() throws EmptyDepotException {
+        if(storedResource != null)
+            return storedResource;
+        else
+            throw new EmptyDepotException();
     }
 
 
