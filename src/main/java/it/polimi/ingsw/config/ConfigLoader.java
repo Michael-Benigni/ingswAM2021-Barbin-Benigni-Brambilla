@@ -106,7 +106,7 @@ public class ConfigLoader {
                 break;
             }
             case "transformWhiteMarble": {
-                card.setWhiteMarbleTrasformationEffect(resource);
+                card.setWhiteMarbleTransformationEffect(resource);
                 break;
             }
             default: {

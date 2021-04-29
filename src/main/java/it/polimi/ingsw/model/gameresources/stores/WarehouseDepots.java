@@ -158,7 +158,8 @@ public class WarehouseDepots {
     public ArrayList <StorableResource> getAllResources() {
         ArrayList <StorableResource> listOfAllResources = new ArrayList<>(0);
         for(int i = 0; i < numberOfDepots; i++) {
-            listOfAllResources.add(this.getResourceFromDepot(i));
+            if(this.getResourceFromDepot(i) != null)
+                listOfAllResources.add(this.getResourceFromDepot(i));
         }
         return listOfAllResources;
     }

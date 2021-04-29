@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model.gamelogic.actions;
 
-import it.polimi.ingsw.exception.EmptySlotException;
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.exception.NullResourceAmountException;
-import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
+import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
@@ -89,7 +86,9 @@ public class PersonalBoard {
      * @throws NullResourceAmountException
      * @throws NegativeResourceAmountException
      */
-    boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) {
+    public boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) throws NotExistingExtraProductionPower {
+        if(this.extraProductionPowers.size() == 0)
+            throw new NotExistingExtraProductionPower();
         if(this.extraProductionPowers.get(powerIndex).checkActivation(player)) {
             activateExtraProductionPower(producedResource);
             return true;

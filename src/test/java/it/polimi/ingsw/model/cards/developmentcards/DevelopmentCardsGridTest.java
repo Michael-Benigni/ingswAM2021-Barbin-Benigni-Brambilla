@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
-class DevelopmentCardsGridTest {
-
+public class DevelopmentCardsGridTest {
     /**
      * method that checks if each
      * deck contains cards
@@ -26,7 +25,7 @@ class DevelopmentCardsGridTest {
     void checkDecks() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
         int numberOfRows = 2, numberOfColumns = 3;
         Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
+        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         int numberOfCardsInEachDeck = cardsList.size() / (numberOfRows * numberOfColumns);
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         for(int i = 0; i < numberOfRows; i++) {
@@ -53,7 +52,7 @@ class DevelopmentCardsGridTest {
     void checkRows() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
         int numberOfRows = 2, numberOfColumns = 3;
         Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
+        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         DevelopmentCard card;
         for(int i = 0; i < numberOfRows; i++) {
@@ -77,7 +76,7 @@ class DevelopmentCardsGridTest {
     void checkColumns() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
         int numberOfRows = 2, numberOfColumns = 3;
         Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
+        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         DevelopmentCard card;
         for(int i = 0; i < numberOfColumns; i++) {
@@ -94,7 +93,7 @@ class DevelopmentCardsGridTest {
     void addPlayerWithDiscountTest() throws NegativeResourceAmountException, NegativeVPAmountException, EmptyDeckException {
         int numberOfRows = 2, numberOfColumns = 3;
         Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
+        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         StorableResource discount = new StorableResource(ResourceType.SERVANT, 1);
         DevelopmentCard choosenCardWithoutDiscount = cardsGrid.getChoosenCard(0, 0, player);
@@ -111,7 +110,7 @@ class DevelopmentCardsGridTest {
      * @return a list that contains all the created development cards
      * @throws NegativeResourceAmountException
      */
-    private ArrayList <DevelopmentCard> buildCardsForTests() throws NegativeResourceAmountException, NegativeVPAmountException {
+    public static ArrayList <DevelopmentCard> buildCardsForGrid() throws NegativeResourceAmountException {
         ArrayList <DevelopmentCard> cardsList = new ArrayList<>(0);
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 2);
         ArrayList <StorableResource> cost = new ArrayList <> (0);

@@ -50,7 +50,7 @@ public class LeaderCard {
         this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
     }
 
-    public void setWhiteMarbleTrasformationEffect(StorableResource resource) {
+    public void setWhiteMarbleTransformationEffect(StorableResource resource) {
         this.effect = (player, game) -> {
             try {
                 player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
