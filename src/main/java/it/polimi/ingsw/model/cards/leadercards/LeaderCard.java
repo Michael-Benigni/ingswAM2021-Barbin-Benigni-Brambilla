@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -42,8 +43,8 @@ public class LeaderCard {
         this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid().addPlayerWithDiscount(player, resource);
     }
 
-    public void setExtraDepotEffect (StorableResource resource, int depotCapacity){
-        this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resource);
+    public void setExtraDepotEffect (ResourceType resourceType, int depotCapacity){
+        this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resourceType);
     }
 
     public void setExtraProductionPowerEffect(StorableResource resource) {
@@ -90,7 +91,7 @@ public class LeaderCard {
      * @throws NullResourceAmountException
      * @throws WrongSlotDevelopmentIndexException
      */
-    public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NoEmptyResourceException {
+    public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NoEmptyResourceException, ResourceOverflowInDepotException {
         this.isAlreadyPlayed = true;
         if(checkRequirementsOf(player))
             effect.applyOn(player, game);

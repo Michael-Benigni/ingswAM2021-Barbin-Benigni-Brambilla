@@ -38,18 +38,22 @@ class Depot {
      * Method that puts a resource in this depot. This action is performed if and only if this depot is empty or
      * if it contains a resource of the same type as the one provided in input and, in both cases, the amount of the
      * contained resource must not exceed "capacity".
-     * @param resourceToStore -> resource to be added to this depot
+     * @param resourceToStore resource to be added to this depot
      * @throws Exception thrown if: amount that exceeds the capacity or different resource type of the provided resource
      * and the contained one.
      */
-    void storeResourceInDepot(StorableResource resourceToStore) throws Exception {
+    void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, NegativeResourceAmountException, ResourceOverflowInDepotException {
         StorableResource newResource = this.getStoredResource().increaseAmount(resourceToStore);
         if(newResource.amountLessEqualThan(capacity)) {
             storedResource = newResource;
         }
         else {
             storedResource.setAmount(capacity);
-            throw new ResourceOverflowInDepotException(newResource.decreaseAmount(storedResource));
+            try {
+                throw new ResourceOverflowInDepotException(newResource.decreaseAmount(storedResource));
+            } catch (NullResourceAmountException e) {
+
+            }
 
         }
     }
@@ -66,7 +70,7 @@ class Depot {
         try {
             newResource = this.getStoredResource().decreaseAmount(resourceToRemove);
         } catch (NullResourceAmountException e) {
-            storedResource = null;
+
         }
         storedResource = newResource;
     }

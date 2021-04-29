@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithTrack;
 import it.polimi.ingsw.model.gameresources.markettray.MarketMarble;
 import it.polimi.ingsw.model.gameresources.markettray.MarketTray;
+import it.polimi.ingsw.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
@@ -98,7 +99,8 @@ public class ConfigLoader {
             }
             case "extraDepot": {
                 int depotCapacity = (int) JsonHandler.getAsJavaObjectFromJSONArray(int.class, jsonPath + "capacity", ints);
-                card.setExtraDepotEffect(resource, depotCapacity);
+                ResourceType resourceType = (ResourceType) JsonHandler.getAsJavaObjectFromJSONArray(ResourceType.class, jsonPath + "resourceType", ints);
+                card.setExtraDepotEffect(resourceType, depotCapacity);
                 break;
             }
             case "extraProductionPower": {

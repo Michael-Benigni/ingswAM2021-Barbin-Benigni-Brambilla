@@ -4,6 +4,7 @@ import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
+import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.model.gameresources.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
@@ -80,17 +81,15 @@ public class PersonalBoard {
      * "activateExtraProductionPower" to start the production
      * @param powerIndex is the index that the player provides to communicate which production power he wants to start
      * @param player is the refer to the player
-     * @param producedResource is the resource that the player wants to gain after the production
      * @return a boolean value, true if the production can be activated, if this method returns true
      *                        the action has to remove the consumed resource from the personal board
      * @throws NullResourceAmountException
      * @throws NegativeResourceAmountException
      */
-    public boolean checkExtraPower(int powerIndex, Player player, StorableResource producedResource) throws NotExistingExtraProductionPower {
+    public boolean checkExtraPower(int powerIndex, Player player) throws NotExistingExtraProductionPower {
         if(this.extraProductionPowers.size() == 0)
             throw new NotExistingExtraProductionPower();
         if(this.extraProductionPowers.get(powerIndex).checkActivation(player)) {
-            activateExtraProductionPower(producedResource);
             return true;
         }
         return false;
@@ -103,9 +102,9 @@ public class PersonalBoard {
      * @return a list of resource, one of this resource is a faith point and the other one is the resource choosen by the player
      * @throws NegativeResourceAmountException
      */
-    ArrayList <Resource> activateExtraProductionPower(StorableResource producedResource) {
+    ArrayList <Producible> activateExtraProductionPower(StorableResource producedResource) {
         FaithPoint faithPoint = new FaithPoint(1);
-        ArrayList <Resource> listOfResource = new ArrayList<>(0);
+        ArrayList <Producible> listOfResource = new ArrayList<>(0);
         listOfResource.add(producedResource);
         listOfResource.add(faithPoint);
         return listOfResource;
@@ -136,10 +135,10 @@ public class PersonalBoard {
      * @throws NullResourceAmountException
      */
     //TODO: forse va direttamente nella action
-    StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) {
+    StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) throws NotContainedResourceException {
         for(int i = 0; i < consumedResources.size(); i++) {
             if(!consumedResources.get(i).containedIn(player)) {
-                return null;
+                throw new NotContainedResourceException();
             }
         }
         return producedResource;

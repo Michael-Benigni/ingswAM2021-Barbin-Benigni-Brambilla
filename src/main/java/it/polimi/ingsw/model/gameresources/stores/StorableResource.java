@@ -34,7 +34,7 @@ public class StorableResource implements Storable, Requirement, Producible {
 
     /**
      * Method that sum two resources of the same type: need to be the same type
-     * @param resource -> resource to add
+     * @param resource resource to add
      * @return
      */
     StorableResource increaseAmount(StorableResource resource) throws NotEqualResourceTypeException {
@@ -44,7 +44,6 @@ public class StorableResource implements Storable, Requirement, Producible {
             try {
                 return new StorableResource(this.getResourceType(), this.getAmount() + resource.getAmount());
             } catch (NegativeResourceAmountException e) {
-                e.printStackTrace();
                 return resource;
             }
         }
@@ -54,7 +53,7 @@ public class StorableResource implements Storable, Requirement, Producible {
      * Method that subtract two resources of the same type: need to be the same type and this.amount need to be greater
      * than resource.amount
      *
-     * @param resource -> resource to subtract
+     * @param resource resource to subtract
      * @return
      */
     public StorableResource decreaseAmount(StorableResource resource) throws NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException {

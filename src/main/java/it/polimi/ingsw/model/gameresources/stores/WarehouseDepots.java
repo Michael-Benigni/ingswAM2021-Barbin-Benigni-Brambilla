@@ -36,12 +36,11 @@ public class WarehouseDepots {
      * method used to add an extra depot to the list of all depots.
      * this depot is provided by the power of a leader card
      * @param depotCapacity is the capacity of the extra depot
-     * @param resource is the unique resource storable in this depot
+     * @param resourceType is the unique resourceType storable in this depot
      */
-    public void addExtraDepot(int depotCapacity, StorableResource resource) {
-        ExtraDepot extraDepot = new ExtraDepot(depotCapacity, resource);
+    public void addExtraDepot(int depotCapacity, ResourceType resourceType) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
+        ExtraDepot extraDepot = new ExtraDepot(depotCapacity, resourceType);
         this.listDepot.add(extraDepot);
-        this.numberOfDepots++;
     }
 
     /**
@@ -51,7 +50,7 @@ public class WarehouseDepots {
      * @return a boolean value: false if every other depot contains a different type of resource.
      */
     private boolean ifAlreadyContainedInOtherDepots(StorableResource resourceToCompare, int depotIndex) {
-        for (int i = 0; i < listDepot.size(); i++)
+        for (int i = 0; i < this.numberOfDepots; i++)
             if(i != depotIndex && listDepot.get(i).alreadyContained(resourceToCompare))
                 return true;
         return false;
@@ -79,10 +78,12 @@ public class WarehouseDepots {
      */
     public void store(StorableResource resourceToStore, int depotIndex) throws Exception {
         if (ifDepotIndexIsCorrect(depotIndex)) {
-            if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex)) {
+            if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex) || depotIndex > this.numberOfDepots) {
                 listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
-                return;
             }
+            return;
+        }
+        else{
             throw new WrongDepotIndexException();
         }
     }
@@ -118,17 +119,14 @@ public class WarehouseDepots {
             StorableResource resource2 = listDepot.get(depotIndex2).getStoredResource();
             depot2.removeResourceFromDepot(resource2);
             try {
-                try {
-                    depot1.storeResourceInDepot(resource2);
-                } catch (ResourceOverflowInDepotException e) {
-                    depotOverflow = e.getResource();
-                }
-                try {
-                    depot2.storeResourceInDepot(resource1);
-                } catch (ResourceOverflowInDepotException e) {
-                    depotOverflow = e.getResource();
-                }
-            } catch (NullResourceAmountException e) {
+                depot1.storeResourceInDepot(resource2);
+            } catch (ResourceOverflowInDepotException e) {
+                depotOverflow = e.getResource();
+            }
+            try {
+                depot2.storeResourceInDepot(resource1);
+            } catch (ResourceOverflowInDepotException e) {
+                depotOverflow = e.getResource();
             }
         }
         return depotOverflow;
@@ -157,7 +155,7 @@ public class WarehouseDepots {
      */
     public ArrayList <StorableResource> getAllResources() {
         ArrayList <StorableResource> listOfAllResources = new ArrayList<>(0);
-        for(int i = 0; i < numberOfDepots; i++) {
+        for(int i = 0; i < this.listDepot.size(); i++) {
             if(this.getResourceFromDepot(i) != null)
                 listOfAllResources.add(this.getResourceFromDepot(i));
         }
