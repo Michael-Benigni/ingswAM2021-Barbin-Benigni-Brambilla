@@ -11,7 +11,11 @@ public class UnboundedResourcesContainer {
 
     private ArrayList<StorableResource> containedResources;
 
-
+    /**
+     * Method that stores the provided list of resources in this unbounded resource container.
+     * @param resources arraylist of storable resource to be stored in this container.
+     * @return this updated container.
+     */
     public UnboundedResourcesContainer storeAll(ArrayList<StorableResource> resources) {
         for (StorableResource resource : resources)
             this.store(resource);
@@ -23,9 +27,9 @@ public class UnboundedResourcesContainer {
     }
 
     /**
-     * Constructor method of Strongbox class
+     * Constructor method of this class.
      * This method use the constructor method of ArrayList with a parameter "initialCapacity" = 0; so it will create an
-     * empty array which first element is "EMPTY_ELEMENTDATA".
+     * empty array.
      */
     public UnboundedResourcesContainer() {
         this.containedResources = new ArrayList<>(0);
@@ -33,16 +37,16 @@ public class UnboundedResourcesContainer {
 
 
     /**
-     * Method that store one resource inside the array of Strongbox. First it checks if a resource with the same type
+     * Method that store one resource inside this container. First it checks if a resource with the same type
      * already exists. If it exists, just increase its amount. Otherwise create a new element in the array.
-     * @param storableResource -> resource to store in the strongbox
-     * @throws NotEqualResourceTypeException -> can be throwed by "increaseAmount" method
+     * @param storableResource resource to be stored in this container.
      */
     public void store(StorableResource storableResource) {
         for (int i = 0; i < containedResources.size(); ) {
             try {
-                StorableResource increasedResource = this.containedResources.get(i).increaseAmount(storableResource);
-                this.containedResources.add(i, increasedResource);
+                StorableResource newResource = this.containedResources.get(i).increaseAmount(storableResource);
+                this.containedResources.remove(i);
+                this.containedResources.add(newResource);
                 return;
             } catch (NotEqualResourceTypeException e) {
                 i++;
@@ -54,8 +58,7 @@ public class UnboundedResourcesContainer {
 
     /**
      * Method that return a copy of the entire array of resources that are contained into the strongbox
-     * @return -> the array of resources.
-     * @throws NegativeResourceAmountException -> can be thrown by "copyResource" method of "StorableResource" class.
+     * @return a copy of the array of resources.
      */
     public ArrayList<StorableResource> getAllResources() {
         ArrayList<StorableResource> copyList = new ArrayList<>(0);
@@ -70,15 +73,15 @@ public class UnboundedResourcesContainer {
     /**
      * Method that decrease the amount of the stored resource by the amount provided. If the amount reaches "0", the
      * element is removed from the array.
-     * @param storableResource -> contains the type of the resource to be decremented and by how much to decrement it
-     * @throws Exception -> exception thrown if the provided resource is not contained in this strongbox. Can also be
-     * thrown by "decreaseAmount" method
+     * @param storableResource contains the type of the resource to be decremented and by how much to decrement it
+     * @throws NotContainedResourceException thrown if the provided resource is not contained in this container.
      */
     public void remove(StorableResource storableResource) throws NegativeResourceAmountException, NotContainedResourceException {
         for (int i = 0; i < containedResources.size(); ) {
             try {
                 StorableResource decreasedResource = this.containedResources.get(i).decreaseAmount(storableResource);
-                this.containedResources.add(i, decreasedResource);
+                this.containedResources.remove(i);
+                this.containedResources.add(decreasedResource);
                 return;
             } catch (NotEqualResourceTypeException e) {
                 i++;

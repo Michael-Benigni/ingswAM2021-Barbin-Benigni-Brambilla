@@ -136,7 +136,6 @@ public class WarehouseDepots {
      * Method that returns a copy of the resource stored in the depot represented by the provided depot index.
      * @param depotIndex integer that points to the right depot.
      * @return a copy of the resource contained inside the specified depot.
-     * @throws NegativeResourceAmountException can be thrown by "copyStorableResource" method of "StorableResource" class.
      */
     private StorableResource getResourceFromDepot(int depotIndex) {
         try {

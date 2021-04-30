@@ -38,7 +38,7 @@ public class StorableResource implements Storable, Requirement, Producible {
      * @return
      */
     StorableResource increaseAmount(StorableResource resource) throws NotEqualResourceTypeException {
-        if (!this.getResourceType().equals(resource.getResourceType()))
+        if (!this.ifSameResourceType(resource))
             throw new NotEqualResourceTypeException();
         else {
             try {
@@ -57,7 +57,7 @@ public class StorableResource implements Storable, Requirement, Producible {
      * @return
      */
     public StorableResource decreaseAmount(StorableResource resource) throws NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException {
-        if (!this.getResourceType().equals(resource.getResourceType()))
+        if (!this.ifSameResourceType(resource))
             throw new NotEqualResourceTypeException();
         else if (this.getAmount() < resource.getAmount())
             throw new NegativeResourceAmountException();
