@@ -51,14 +51,15 @@ class Depot {
         try {
             newResource = this.getStoredResource().increaseAmount(resourceToStore);
         } catch(EmptyDepotException e) {
-            newResource = resourceToStore;
+            newResource = (StorableResource) resourceToStore.clone();
         }
         if (newResource.amountLessEqualThan(capacity)) {
             storedResource = newResource;
         } else {
-            storedResource.setAmount(capacity);
+            newResource.setAmount(capacity);
+            storedResource = newResource;
             try {
-                throw new ResourceOverflowInDepotException(newResource.decreaseAmount(storedResource));
+                throw new ResourceOverflowInDepotException(resourceToStore.decreaseAmount(newResource));
             } catch (NullResourceAmountException e) {
 
             }
