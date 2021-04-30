@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
 import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
-import it.polimi.ingsw.model.gameresources.Resource;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.model.gameresources.stores.TemporaryContainer;
@@ -42,13 +41,9 @@ public class PersonalBoard {
          * resource required to start the production
          * @param player is the refer to the player
          * @return boolean value, true if the player can start the production
-         * @throws NullResourceAmountException
          */
         boolean checkActivation(Player player) {
-            if(this.consumedResource.containedIn(player)) {
-                return true;
-            }
-            return false;
+            return this.consumedResource.containedIn(player);
         }
 
     }
@@ -71,7 +66,7 @@ public class PersonalBoard {
         this.listOfSlotDevelopmentCards = initSlotsDevCards(numberOfSlotDevCards, maxDevCardsInSlot);
         this.slotLeaderCards = new SlotLeaderCards(maxLeaderCardsInSlot);
         this.tempContainer = new TemporaryContainer();
-        this.extraProductionPowers = new ArrayList<>();
+        this.extraProductionPowers = new ArrayList<>(0);
     }
 
     /**
@@ -82,25 +77,19 @@ public class PersonalBoard {
      * @param powerIndex is the index that the player provides to communicate which production power he wants to start
      * @param player is the refer to the player
      * @return a boolean value, true if the production can be activated, if this method returns true
-     *                        the action has to remove the consumed resource from the personal board
-     * @throws NullResourceAmountException
-     * @throws NegativeResourceAmountException
+     * the action has to remove the consumed resource from the personal board
      */
     public boolean checkExtraPower(int powerIndex, Player player) throws NotExistingExtraProductionPower {
         if(this.extraProductionPowers.size() == 0)
             throw new NotExistingExtraProductionPower();
-        if(this.extraProductionPowers.get(powerIndex).checkActivation(player)) {
-            return true;
-        }
-        return false;
+        return this.extraProductionPowers.get(powerIndex).checkActivation(player);
     }
 
 
     /**
      * this method activates the extra production power
      * @param producedResource is the resource that the player wants to receive
-     * @return a list of resource, one of this resource is a faith point and the other one is the resource choosen by the player
-     * @throws NegativeResourceAmountException
+     * @return a list of resource, one of this resource is a faith point and the other one is the resource choose by the player
      */
     ArrayList <Producible> activateExtraProductionPower(StorableResource producedResource) {
         FaithPoint faithPoint = new FaithPoint(1);
@@ -132,7 +121,6 @@ public class PersonalBoard {
      * @param producedResource -> resource that the player wants to gain
      * @param player -> the player that wants to start the basic power production
      * @return -> the "producedResource" if the player has the consumed resources in his personal board
-     * @throws NullResourceAmountException
      */
     //TODO: forse va direttamente nella action
     StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) throws NotContainedResourceException {
@@ -221,7 +209,11 @@ public class PersonalBoard {
     public ArrayList <DevelopmentCard> getAllDevelopmentCards() throws WrongSlotDevelopmentIndexException, EmptySlotException {
         ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
         for(int i = 0; i < listOfSlotDevelopmentCards.size(); i++) {
-            listOfAllCards.addAll(getSlotDevelopmentCards(i).getAllCards());
+            try {
+                listOfAllCards.addAll(getSlotDevelopmentCards(i).getAllCards());
+            } catch(EmptySlotException e) {
+                //do nothing, because the i-th slot is empty, so go to the next slot.
+            }
         }
         return listOfAllCards;
     }
