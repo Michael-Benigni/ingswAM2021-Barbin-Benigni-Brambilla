@@ -76,7 +76,7 @@ public class WarehouseDepots {
      * @param depotIndex integer useful to recognize the right depot.
      * @throws Exception thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
      */
-    public void store(StorableResource resourceToStore, int depotIndex) throws Exception {
+    public void store(StorableResource resourceToStore, int depotIndex) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException {
         if (ifDepotIndexIsCorrect(depotIndex)) {
             if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex) || depotIndex > this.numberOfDepots) {
                 listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
