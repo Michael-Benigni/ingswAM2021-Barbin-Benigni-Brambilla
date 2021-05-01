@@ -17,7 +17,7 @@ public class VictoryPointTest {
     @Test
     void checkConstructorIfNegativeAmount() {
         VictoryPoint newVictoryPoint = new VictoryPoint(-3);
-        assertTrue(newVictoryPoint.equals(new VictoryPoint(0)));
+        assertEquals(new VictoryPoint(0), newVictoryPoint);
     }
 
 
@@ -31,7 +31,7 @@ public class VictoryPointTest {
         VictoryPoint pointsToAdd2 = new VictoryPoint(14);
         VictoryPoint totalPoints = new VictoryPoint(3 + 14);
         pointsToAdd1.increaseVictoryPoints(pointsToAdd2);
-        assertTrue(pointsToAdd1.equals(totalPoints));
+        assertEquals(totalPoints, pointsToAdd1);
     }
 
 
@@ -46,7 +46,7 @@ public class VictoryPointTest {
             VictoryPoint pointsToBeSubtracted = new VictoryPoint(15);
             VictoryPoint totalPoint = new VictoryPoint(24 - 15);
             newVictoryPoint.decreaseVictoryPoints(pointsToBeSubtracted);
-            assertTrue(newVictoryPoint.equals(totalPoint));
+            assertEquals(totalPoint, newVictoryPoint);
         } catch (NegativeVPAmountException e) {
             fail();
         }
@@ -57,7 +57,7 @@ public class VictoryPointTest {
      * Test on "decreaseVictoryPoints" method.
      * Tests if the method throws successfully the exception when the victory points to decrease has amount less than
      * the one to be subtracted.
-     * @throws NegativeVPAmountException -> can be thrown by constructor method of this class.
+     * @throws NegativeVPAmountException can be thrown by constructor method of this class.
      */
     @Test
     void checkDecreaseVictoryPointsIfNegativeAmount() throws NegativeVPAmountException {
@@ -68,7 +68,7 @@ public class VictoryPointTest {
             newVictoryPoint1.decreaseVictoryPoints(pointsToBeSubtracted);
             fail();
         } catch (NegativeVPAmountException e) {
-            assertTrue(newVictoryPoint1.equals(newVictoryPoint2));
+            assertEquals(newVictoryPoint2, newVictoryPoint1);
         }
     }
 

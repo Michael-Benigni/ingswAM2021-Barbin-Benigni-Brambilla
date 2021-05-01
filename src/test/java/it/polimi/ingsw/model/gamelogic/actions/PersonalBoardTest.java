@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.gamelogic.actions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.exception.NotExistingExtraProductionPower;
 import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
@@ -115,6 +116,15 @@ public class PersonalBoardTest {
     }
 
     /**
+     * Test on "getAllResource" method of this class.
+     * It tests if the method successfully returns an empty arraylist when this personal board doesn't contain any resource.
+     */
+    @Test
+    void getAllResourceWhenEmpty() {
+        assertEquals(p.getAllResource(), new ArrayList<>(0));
+    }
+
+    /**
      * Test on "getAllDevelopmentCards" method of this class.
      * It tests if the method returns the correct list of cards contained in its slots.
      * @throws Exception can be thrown by constructor method of "StorableResource" class.
@@ -153,6 +163,15 @@ public class PersonalBoardTest {
         p.getSlotDevelopmentCards(0).placeOnTop(card2);
         p.getSlotDevelopmentCards(1).placeOnTop(card3);
         assertEquals(p.getAllDevelopmentCards(), listOfCards);
+    }
+
+    /**
+     * Test on "getAllDevelopmentCards" method of this class.
+     * It tests if the method successfully returns an empty arraylist when the slots are all empty.
+     */
+    @Test
+    void getAllDevelopmentCardsWhenEmpty() throws EmptySlotException, WrongSlotDevelopmentIndexException {
+        assertEquals(p.getAllDevelopmentCards(), new ArrayList<>(0));
     }
 
     /**

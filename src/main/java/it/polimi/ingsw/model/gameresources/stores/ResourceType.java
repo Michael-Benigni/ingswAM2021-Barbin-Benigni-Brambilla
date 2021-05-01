@@ -12,7 +12,7 @@ public enum ResourceType {
 
     /**
      * Constructor method of ResourceType class
-     * @param resourceTypeName -> String that can be:COIN, SERVANT, SHIELD, STONE
+     * @param resourceTypeName String that can be:COIN, SERVANT, SHIELD, STONE
      */
     ResourceType(String resourceTypeName) {
         this.resourceTypeName = resourceTypeName;

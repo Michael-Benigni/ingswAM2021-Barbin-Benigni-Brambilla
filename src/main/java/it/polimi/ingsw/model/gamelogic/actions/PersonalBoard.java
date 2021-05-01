@@ -134,10 +134,10 @@ public class PersonalBoard {
 
 
     /**
-     * //TODO:
-     * @param numberOfSlotDevCards
-     * @param maxNumberOfDevCards
-     * @return
+     * Method that initializes the slots of development cards.
+     * @param numberOfSlotDevCards integer that represents how many slots are contained in this personal board.
+     * @param maxNumberOfDevCards integer that represents how many development cards are contained in each individual slot.
+     * @return the arraylist of slot of development cards.
      */
     private ArrayList<SlotDevelopmentCards> initSlotsDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
         ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = new ArrayList<>(numberOfSlotDevCards);
@@ -149,8 +149,8 @@ public class PersonalBoard {
 
 
     /**
-     * Method that return the real strongbox (not a copy) to the caller.
-     * @return -> the real strongbox, that is an attribute of this personal board.
+     * Getter method for "strongbox" attribute of this class.
+     * @return the real (not a copy) strongbox.
      */
     public Strongbox getStrongbox() {
         return strongbox;
@@ -158,8 +158,8 @@ public class PersonalBoard {
 
 
     /**
-     * //TODO:
-     * @return
+     * Getter method for "slotLeaderCards" attribute of this class.
+     * @return the real (not a copy) slot of leader cards.
      */
     SlotLeaderCards getSlotLeaderCards() {
         return slotLeaderCards;
@@ -167,8 +167,8 @@ public class PersonalBoard {
 
 
     /**
-     * Method that return the real warehouse (not a copy) to the caller.
-     * @return -> the real warehouse, that is an attribute of this personal board.
+     * Getter method for "warehouseDepots" attribute of this class.
+     * @return the real (not a copy) warehouse depots.
      */
     public WarehouseDepots getWarehouseDepots(){
         return warehouseDepots;
@@ -176,8 +176,8 @@ public class PersonalBoard {
 
 
     /**
-     * TODO:
-     * @return
+     * Getter method for "tempContainer" attribute of this class.
+     * @return the real (not a copy) temporary container.
      */
     public TemporaryContainer getTempContainer() {
         return tempContainer;
@@ -186,9 +186,9 @@ public class PersonalBoard {
 
     /**
      * Method that return one of the real slot of development cards (not a copy) to the caller.
-     * @param slotIndex -> int that indicates which slot need to be returned.
-     * @return -> the real slot, that corresponds to an element of the array "listOfSlotDevelopmentCards".
-     * @throws WrongSlotDevelopmentIndexException -> exception thrown if the provided index is negative or
+     * @param slotIndex int that indicates which slot need to be returned.
+     * @return the real slot, that corresponds to an element of the array "listOfSlotDevelopmentCards".
+     * @throws WrongSlotDevelopmentIndexException exception thrown if the provided index is negative or
      * exceeds the number of slots.
      */
     SlotDevelopmentCards getSlotDevelopmentCards(int slotIndex) throws WrongSlotDevelopmentIndexException {

@@ -163,17 +163,17 @@ public class StorableResource implements Storable, Requirement, Producible {
      * to play a leader card
      * or to pay a development card
      * or to start a production
-     * @param player -> player we want to examine
+     * @param player player we want to examine
      * @return boolean value: true if this resource is contained in the list of the player requirements
-     *                        false if the player doesn't satisfy the previous condition
-     * @throws NullResourceAmountException
+     *                        false if the player doesn't satisfy the previous condition.
      */
     @Override
     public boolean containedIn(Player player) {
         ArrayList <StorableResource> requirements = player.getResourceRequirements();
         for(int i = 0; i < requirements.size(); i++) {
             try {
-                this.decreaseAmount(requirements.get(i));
+                StorableResource resourceDecreased = this.decreaseAmount(requirements.get(i));
+                this.setAmount(resourceDecreased.getAmount());
             }
             catch (NegativeResourceAmountException | NullResourceAmountException e) {
                 return true;
@@ -185,8 +185,14 @@ public class StorableResource implements Storable, Requirement, Producible {
         return false;
     }
 
+    /**
+     * Method that set the amount of this storable resource to the one provided if and only if the provided amount
+     * isn't negative.
+     * @param amount integer to which to set the amount of this resource.
+     */
     void setAmount(int amount) {
-        this.amount = amount;
+        if(amount >= 0)
+            this.amount = amount;
     }
 
     @Override

@@ -26,8 +26,8 @@ class Depot {
 
     /**
      * Method that returns if the type of the provided resource corresponds to the type of the one contained.
-     * @param resource -> resource to be compared to the one stored in this depot.
-     * @return -> boolean: true if the two resource have the same type, false otherwise.
+     * @param resource resource to be compared to the one stored in this depot.
+     * @return boolean: true if the two resource have the same type, false otherwise.
      */
     boolean alreadyContained (StorableResource resource) {
         try {
@@ -41,25 +41,24 @@ class Depot {
     /**
      * Method that puts a resource in this depot. This action is performed if and only if this depot is empty or
      * if it contains a resource of the same type as the one provided in input and, in both cases, the amount of the
-     * contained resource must not exceed "capacity".
-     * @param resourceToStore resource to be added to this depot
-     * @throws Exception thrown if: amount that exceeds the capacity or different resource type of the provided resource
-     * and the contained one.
+     * contained resource must not exceed "capacity". If it happens, this method fills this depot, calculates the
+     * difference and throws an exception.
+     * @param resourceToStore resource to be added to this depot.
      */
     void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, NegativeResourceAmountException, ResourceOverflowInDepotException {
-        StorableResource newResource;
+        StorableResource resourceTot;
         try {
-            newResource = this.getStoredResource().increaseAmount(resourceToStore);
+            resourceTot = this.getStoredResource().increaseAmount(resourceToStore);
         } catch(EmptyDepotException e) {
-            newResource = (StorableResource) resourceToStore.clone();
+            resourceTot = (StorableResource) resourceToStore.clone();
         }
-        if (newResource.amountLessEqualThan(capacity)) {
-            storedResource = newResource;
+        if (resourceTot.amountLessEqualThan(capacity)) {
+            storedResource = resourceTot;
         } else {
-            newResource.setAmount(capacity);
-            storedResource = newResource;
+            storedResource = resourceToStore;
+            storedResource.setAmount(capacity);
             try {
-                throw new ResourceOverflowInDepotException(resourceToStore.decreaseAmount(newResource));
+                throw new ResourceOverflowInDepotException(resourceTot.decreaseAmount(storedResource));
             } catch (NullResourceAmountException e) {
 
             }
@@ -69,9 +68,9 @@ class Depot {
 
     /**
      * Method that decrease the amount of the contained resource.
-     * @param resourceToRemove -> Storable resource whose amount must be subtracted from the already contained resource.
-     * @throws NotEqualResourceTypeException -> can be thrown by "decreaseAmount" method of "StorableResource" class.
-     * @throws NegativeResourceAmountException -> can be thrown by "decreaseAmount" method of "StorableResource" class.
+     * @param resourceToRemove Storable resource whose amount must be subtracted from the already contained resource.
+     * @throws NotEqualResourceTypeException can be thrown by "decreaseAmount" method of "StorableResource" class.
+     * @throws NegativeResourceAmountException can be thrown by "decreaseAmount" method of "StorableResource" class.
      */
     void removeResourceFromDepot(StorableResource resourceToRemove) throws NotEqualResourceTypeException, NegativeResourceAmountException {
         try {
@@ -84,7 +83,7 @@ class Depot {
 
     /**
      * Getter method for "storedResource" attribute of this class.
-     * @return -> the storable resource contained in this depot.
+     * @return the storable resource contained in this depot or throws an exception if the depot is empty.
      */
     StorableResource getStoredResource() throws EmptyDepotException {
         if(storedResource != null)
@@ -96,8 +95,8 @@ class Depot {
 
     /**
      * Method that returns if the two object are equals.
-     * @param o -> object to be compared to this Depot.
-     * @return -> boolean: true if they are both instances of the same class and if they have the same capacity and if
+     * @param o object to be compared to this Depot.
+     * @return boolean: true if they are both instances of the same class and if they have the same capacity and if
      * they have the same resource contained.
      */
     @Override

@@ -16,7 +16,7 @@ public class DepotTest {
     /**
      * Test on "StoreResourceInDepot" method.
      * Tests if the method successfully stores the provided resource in an empty depot.
-     * @throws Exception -> can be thrown by "storeResourceInDepot" method.
+     * @throws Exception can be thrown by "storeResourceInDepot" method.
      */
     @Test
     void checkStoreResourceInDepotWhenEmpty()
@@ -33,7 +33,7 @@ public class DepotTest {
      * Test on "storeResourceInDepot" method
      * Tests if the method successfully add a resource with the same type of the one contained in the depot. Then try to
      * exceeds the capacity of the depot, so the test has to catch the exception.
-     * @throws Exception -> can be thrown by "storeResourceInDepot" method.
+     * @throws Exception can be thrown by "storeResourceInDepot" method.
      */
     @Test
     void checkStoreResourceInDepotWhenSameType() throws EmptyDepotException, NotEqualResourceTypeException, NegativeResourceAmountException, ResourceOverflowInDepotException {
@@ -54,9 +54,7 @@ public class DepotTest {
             newDepot.storeResourceInDepot(resourceToStore3);
         } catch (ResourceOverflowInDepotException e) {
             assertEquals(fillingResource, newDepot.getStoredResource());
-        } catch (NotEqualResourceTypeException e) {
-            fail();
-        } catch (NegativeResourceAmountException e) {
+        } catch (NotEqualResourceTypeException | NegativeResourceAmountException e) {
             fail();
         }
     }
@@ -65,7 +63,7 @@ public class DepotTest {
     /**
      * Test on "storeResourceInDepot" method
      * Tests if the method throws successfully an exception when the two resources to store have different type.
-     * @throws Exception -> can be thrown by "storeResourceInDepot" method.
+     * @throws Exception can be thrown by "storeResourceInDepot" method.
      */
     @Test
     void checkStoreResourceInDepotWhenDifferentType() throws Exception {
@@ -87,11 +85,34 @@ public class DepotTest {
         }
     }
 
+    /**
+     * Test on "storeResourceInDepot" method of this class.
+     * It tests if the method successfully throws an exception when the resource you want to be stored makes the total
+     * amount exceeds the capacity of the depot. So the method should fills the depot and calculates the difference in
+     * exceeding.
+     * @throws Exception can be thrown by "storeResourceInDepot" method of this class.
+     */
+    @Test
+    void checkStoreResourceInDepotIfOverflow() throws Exception {
+        Depot newDepot = new Depot(6);
+        StorableResource coin5 = new StorableResource(ResourceType.COIN,5);
+        StorableResource coin6 = new StorableResource(ResourceType.COIN, 6);
+        newDepot.storeResourceInDepot(coin5);
+        try {
+            newDepot.storeResourceInDepot(coin5);
+            fail();
+        } catch (NotEqualResourceTypeException e) {
+            fail();
+        } catch (ResourceOverflowInDepotException e) {
+            assertEquals(newDepot.getStoredResource(), coin6);
+            assertEquals(e.getResource(), new StorableResource(ResourceType.COIN, 4));
+        }
+    }
 
     /**
      * Test on "removeResourceFromDepot" method.
      * Tests if the method works successfully with resources of the same type.
-     * @throws Exception -> can be thrown by "storeResourceInDepot" method.
+     * @throws Exception can be thrown by "storeResourceInDepot" method.
      */
     @Test
     void checkRemoveResourceFromDepotIfCorrect()
@@ -112,10 +133,10 @@ public class DepotTest {
     /**
      * Test on "removeResourceFromDepot" method.
      * Tests if the method empties completely a depot.
-     * @throws Exception -> can be thrown by "storeResourceInDepot" method.
+     * @throws Exception can be thrown by "storeResourceInDepot" method.
      */
     @Test
-    void checkRemoveResourceFromDepotWhenEmpties() throws Exception {
+    void checkRemoveResourceFromDepotWhenBecomeEmpty() throws Exception {
         Depot newDepot = new Depot(16);
         StorableResource resource = new StorableResource(ResourceType.COIN, 5);
 
@@ -125,9 +146,8 @@ public class DepotTest {
         try {
             StorableResource resourceInDepot = newDepot.getStoredResource();
         } catch(EmptyDepotException e) {
-            assertTrue(true);
+            assertEquals(newDepot, new Depot(16));
         }
-
     }
 
 
@@ -135,7 +155,7 @@ public class DepotTest {
      * Test on "removeResourceFromDepot" method.
      * Test if the method throws the exception successfully when the provided resource has different type than the
      * one stored, and if the method tries to remove any resource from an empty depot.
-     * @throws Exception -> can be thrown by "storeResourceInDepot" method.
+     * @throws Exception can be thrown by "storeResourceInDepot" method.
      */
     @Test
     void checkRemoveResourceFromDepotWhenDifferentType() throws Exception {
@@ -146,14 +166,16 @@ public class DepotTest {
         newDepot.removeResourceFromDepot(resourceToRemove);
         try {
             newDepot.getStoredResource();
+            fail();
         } catch(EmptyDepotException e) {
+
         }
         newDepot.storeResourceInDepot(resourceToStore);
         try{
             newDepot.removeResourceFromDepot(resourceToRemove);
             fail();
         }catch (NotEqualResourceTypeException e){
-            assertTrue(newDepot.getStoredResource().equals(resourceToStore));
+            assertEquals(resourceToStore, newDepot.getStoredResource());
         }
     }
 
@@ -162,7 +184,7 @@ public class DepotTest {
      * Test on "alreadyContained" method of this class.
      * Tests if the method returns the correct boolean in case of resources with same type and in case of resource with
      * different type.
-     * @throws Exception
+     * @throws Exception can be thrown by "storeResourceInDepot" method of this class.
      */
     @Test
     void checkAlreadyContainedIfCorrect() throws Exception {
