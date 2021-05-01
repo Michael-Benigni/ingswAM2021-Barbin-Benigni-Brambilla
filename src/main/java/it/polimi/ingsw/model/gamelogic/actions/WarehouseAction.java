@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 
-class WarehouseAction extends Action {
+class WarehouseAction extends PayAction {
     private final String storeOrRemove;
     private final StorableResource resource;
     private final int depotIdx;
@@ -36,5 +36,12 @@ class WarehouseAction extends Action {
             }
             default:
         }
+    }
+
+    @Override
+    public Action undoAction() {
+        if (this.storeOrRemove == "store")
+            return new WarehouseAction("remove", resource, depotIdx);
+        return null;
     }
 }

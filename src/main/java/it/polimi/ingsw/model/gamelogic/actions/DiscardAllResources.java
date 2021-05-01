@@ -13,10 +13,11 @@ class DiscardAllResources extends Action {
 
     @Override
     public void perform(Game game, Player player) throws Exception {
-        FaithPoint points = player.getPersonalBoard().getTempContainer().discardAll();
+        FaithPoint points = player.getPersonalBoard().getTempContainer().getPenalty();
         for(Player p : game.getAllPlayers()) {
-            if (!p.equals(player))
+            if (!(p == player))
                 points.activate(p, game);
         }
+        player.getPersonalBoard().getTempContainer().clear();
     }
 }

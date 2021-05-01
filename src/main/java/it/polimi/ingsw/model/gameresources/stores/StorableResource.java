@@ -71,7 +71,7 @@ public class StorableResource implements Storable, Requirement, Producible {
      *
      * @return -> return int
      */
-    private int getAmount() {
+    public int getAmount() {
         return amount;
     }
 
@@ -197,7 +197,7 @@ public class StorableResource implements Storable, Requirement, Producible {
 
     @Override
     public void onProduced(Player player, Game game) {
-        player.getPersonalBoard().getStrongbox().store(this);
+        store(player);
     }
 
     @Override

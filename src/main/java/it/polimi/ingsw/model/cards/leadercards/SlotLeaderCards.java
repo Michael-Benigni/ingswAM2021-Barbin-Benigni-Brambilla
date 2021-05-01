@@ -49,4 +49,13 @@ public class SlotLeaderCards {
             throw new LeaderCardNotFoundException();
         return this.listOfLeaderCards.get(cardIndex);
     }
+
+    public ArrayList<LeaderCard> getAllActiveCards() {
+        ArrayList<LeaderCard> allCards = new ArrayList<>();
+        for (LeaderCard card : this.listOfLeaderCards) {
+            if(card.isAlreadyPlayed())
+                allCards.add(card);
+        }
+        return allCards;
+    }
 }

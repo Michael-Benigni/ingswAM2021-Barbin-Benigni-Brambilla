@@ -26,7 +26,7 @@ class MultiplayerGameTest {
 
     @BeforeEach
     void init() throws IllegalNumberOfPlayersException, TooManyPlayersException, UserAlreadyPresentInThisGame {
-        testAction = null;
+        testAction = new StartTurnAction();
         user1 = new User("user1");
         user2 = new User("user2");
         user3 = new User("user3");
@@ -140,11 +140,11 @@ class MultiplayerGameTest {
         game4Players.setNextPlayer();
         Player after = game4Players.getCurrentPlayer();
         assertNotSame(before, after);
-        assertInstanceOf(Turn.class, before);
-        assertInstanceOf(Turn.class, after);
+        assertInstanceOf(Player.class, before);
+        assertInstanceOf(Player.class, after);
     }
 
-    @Test
+    /*@Test
     void performUserCommand() throws NotEnoughPlayersException {
         game4Players.setup(null, null);
         try {
@@ -153,5 +153,5 @@ class MultiplayerGameTest {
         } catch (Exception e) {
             fail();
         }
-    }
+    }*/
 }

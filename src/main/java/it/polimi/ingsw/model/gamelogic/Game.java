@@ -31,11 +31,6 @@ public abstract class Game {
     private HashMap<User, Player> userToPlayerMap;
 
     /**
-     * HashMap between Players and the correspondent Users
-     */
-    private HashMap<Player, User> playerToUserMap;
-
-    /**
      * All the players, linked according to the set order of the round
      */
     private LinkedList<Player> playersOrder;
@@ -65,7 +60,6 @@ public abstract class Game {
             throw new IllegalNumberOfPlayersException();
         this.numberOfPlayers = numberOfPlayers;
         this.userToPlayerMap = new HashMap<>();
-        this.playerToUserMap = new HashMap<>();
     }
 
 
@@ -96,7 +90,6 @@ public abstract class Game {
         if(userToPlayerMap.size() <= numberOfPlayers && !userToPlayerMap.containsKey(user)) {
             newPlayer = new Player();
             userToPlayerMap.put(user, newPlayer);
-            playerToUserMap.put(newPlayer, user);
         }
         else {
             if (!userToPlayerMap.containsKey(user))
@@ -175,10 +168,6 @@ public abstract class Game {
         return currentPlayer;
     }
 
-
-    protected User getCurrentUser () {
-        return playerToUserMap.get(this.currentPlayer);
-    }
 
     public GameBoard getGameBoard() {
         return this.gameBoard;

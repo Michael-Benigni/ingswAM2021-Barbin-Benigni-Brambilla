@@ -76,21 +76,6 @@ public class Player {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Player)) return false;
-        Player player = (Player) o;
-        return victoryPoints.equals(player.victoryPoints) && personalBoard.equals(player.personalBoard);
-    }
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(victoryPoints, personalBoard);
-    }
-
-
     /**
      * @return the PersonalBoard of the player
      */
@@ -118,5 +103,18 @@ public class Player {
     public VictoryPoint getVictoryPoints() {
         VictoryPoint copyVictoryPoints = (VictoryPoint) this.victoryPoints.clone();
         return copyVictoryPoints;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+        Player player = (Player) o;
+        return Objects.equals(getVictoryPoints(), player.getVictoryPoints()) && Objects.equals(getPersonalBoard(), player.getPersonalBoard());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getVictoryPoints(), getPersonalBoard());
     }
 }

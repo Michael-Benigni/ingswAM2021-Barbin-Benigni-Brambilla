@@ -52,13 +52,8 @@ public class LeaderCard {
     }
 
     public void setWhiteMarbleTransformationEffect(StorableResource resource) {
-        this.effect = (player, game) -> {
-            try {
+        this.effect = (player, game) ->
                 player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
-            } catch (AlreadyAddedModifier alreadyAddedModifier) {
-                player.getPersonalBoard().getTempContainer().transformEmptyResources(player, resource);
-            }
-        };
     }
 
 
@@ -131,5 +126,13 @@ public class LeaderCard {
     @Override
     public int hashCode() {
         return Objects.hash(isAlreadyPlayed, requirements, victoryPoint, effect);
+    }
+
+    boolean isAlreadyPlayed() {
+        return isAlreadyPlayed;
+    }
+
+    public VictoryPoint getVictoryPoints() {
+        return (VictoryPoint) this.victoryPoint.clone();
     }
 }

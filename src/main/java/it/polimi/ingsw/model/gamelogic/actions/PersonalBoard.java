@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gamelogic.actions;
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
+import it.polimi.ingsw.model.cards.leadercards.LeaderCard;
 import it.polimi.ingsw.model.cards.leadercards.SlotLeaderCards;
 import it.polimi.ingsw.model.gameresources.Producible;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
@@ -206,12 +207,12 @@ public class PersonalBoard {
      * @throws WrongSlotDevelopmentIndexException
      * @throws EmptySlotException
      */
-    public ArrayList <DevelopmentCard> getAllDevelopmentCards() throws WrongSlotDevelopmentIndexException, EmptySlotException {
+    public ArrayList <DevelopmentCard> getAllDevelopmentCards() {
         ArrayList <DevelopmentCard> listOfAllCards = new ArrayList<>(0);
         for(int i = 0; i < listOfSlotDevelopmentCards.size(); i++) {
             try {
                 listOfAllCards.addAll(getSlotDevelopmentCards(i).getAllCards());
-            } catch(EmptySlotException e) {
+            } catch(EmptySlotException | WrongSlotDevelopmentIndexException e) {
                 //do nothing, because the i-th slot is empty, so go to the next slot.
             }
         }
@@ -254,5 +255,23 @@ public class PersonalBoard {
     @Override
     public int hashCode() {
         return Objects.hash(getStrongbox(), getWarehouseDepots(), listOfSlotDevelopmentCards, getTempContainer(), getSlotLeaderCards(), extraProductionPowers);
+    }
+
+    VictoryPoint computeTotalVP() {
+        VictoryPoint points = new VictoryPoint(0);
+        ArrayList<DevelopmentCard> cards = getAllDevelopmentCards();
+        for (DevelopmentCard card : cards) {
+            points.increaseVictoryPoints(card.getVictoryPoints());
+        }
+        ArrayList<StorableResource> resources = getAllResource();
+        int totalAmount = 0;
+        for (StorableResource resource : resources) {
+            totalAmount += resource.getAmount();
+        }
+        ArrayList<LeaderCard> leaderCards = this.slotLeaderCards.getAllActiveCards();
+        for (LeaderCard card : leaderCards)
+            points.increaseVictoryPoints(card.getVictoryPoints());
+        points.increaseVictoryPoints(new VictoryPoint((int) Math.ceil(totalAmount / 5)));
+        return points;
     }
 }

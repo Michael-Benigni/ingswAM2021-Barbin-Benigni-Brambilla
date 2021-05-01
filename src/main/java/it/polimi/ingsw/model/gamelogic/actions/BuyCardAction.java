@@ -3,17 +3,19 @@ package it.polimi.ingsw.model.gamelogic.actions;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.model.cards.developmentcards.SlotDevelopmentCards;
+import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.UnboundedResourcesContainer;
 import java.util.*;
 
-class BuyCardAction extends UNDOableAction {
+class BuyCardAction extends Action {
     private final int row;
     private final int column;
     private final int slotIdx;
+    private final ArrayList<PayAction> payActions;
 
     public BuyCardAction(int row, int column, ArrayList<PayAction> fromWhereAndWhatRemove, int slotIdx) {
-        super(fromWhereAndWhatRemove);
+        this.payActions = fromWhereAndWhatRemove;
         this.row = row;
         this.column = column;
         this.slotIdx = slotIdx;
@@ -32,9 +34,15 @@ class BuyCardAction extends UNDOableAction {
         if(player.canBuy(chosenCard)) {
             SlotDevelopmentCards slot = player.getPersonalBoard().getSlotDevelopmentCards(this.slotIdx);
             UnboundedResourcesContainer costContainer = new UnboundedResourcesContainer().storeAll(chosenCard.getCost());
-            payOrUndo(game, player, costContainer);
-            slot.placeOnTop(chosenCard);
-            cardsGrid.removeChoosenCardFromGrid(row, column);
+            for (PayAction payAction : payActions)
+                payAction.payOrUndo(game, player);
+            if (!costContainer.getAllResources().isEmpty())
+                game.getCurrentTurn().undo(game, player);
+            else {
+                game.getCurrentTurn().clearCache();
+                slot.placeOnTop(chosenCard);
+                cardsGrid.removeChoosenCardFromGrid(row, column);
+            }
         }
     }
 }

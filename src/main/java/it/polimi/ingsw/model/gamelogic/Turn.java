@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.exception.NoValidActionException;
 import it.polimi.ingsw.model.gamelogic.actions.ActionType;
+import it.polimi.ingsw.model.gamelogic.actions.PayAction;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ public class Turn {
      * list of performed Actions in this Turn
      */
     private ArrayList<Action> performedActions;
+
+    /**
+     * list of all the payments that can be reverted if something goes wrong
+     */
+    private ArrayList<PayAction> payActions;
 
     /**
      * current state of This Turn
@@ -50,18 +56,19 @@ public class Turn {
 
         /**
          * Constructor.
+         *
          * @param stateName
          */
         TurnState(String stateName) {
             this.stateName = stateName;
         }
+
+
     }
-
-
     /**
      * Constructor.
      */
-    Turn () {
+    Turn() {
         this.performedActions = new ArrayList<>();
         this.state = TurnState.START;
     }
@@ -69,6 +76,7 @@ public class Turn {
 
     /**
      * This method adds the next action to perform if it is a valid action in this Turn
+     *
      * @param nextAction action to add
      * @throws NoValidActionException if the action is not valid in this Turn
      */
@@ -76,8 +84,7 @@ public class Turn {
         if (nextAction.isValid(this.performedActions) && this.state == TurnState.PLAY) {
             this.performedActions.add(nextAction);
             this.state = TurnState.PLAY;
-        }
-        else throw new NoValidActionException();
+        } else throw new NoValidActionException();
     }
 
 
@@ -94,11 +101,31 @@ public class Turn {
 
     /**
      * This method ends the Turn of the game, and sets the next Player in the Turn's game
+     *
      * @param game -> game in which has been performed this Turn
      */
     public void terminate(Game game) {
         this.state = TurnState.END;
         game.setNextPlayer();
+    }
+
+    public void addUndoableAction(PayAction action) {
+        this.payActions.add(action);
+    }
+
+    public ArrayList<PayAction> getUndoableActions() {
+        return this.payActions;
+    }
+
+    public void clearCache() {
+        this.payActions.clear();
+    }
+
+    public void undo(Game game, Player player) throws Exception {
+        for (PayAction payAction : this.getUndoableActions()) {
+            payAction.undoAction().perform(game, player);
+        }
+
     }
 }
 

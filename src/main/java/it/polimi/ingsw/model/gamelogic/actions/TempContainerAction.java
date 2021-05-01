@@ -32,13 +32,16 @@ class TempContainerAction extends Action {
         switch (storeOrRemove) {
             case "remove" : {
                 tempCont.remove(this.resource);
-                warehouse.store(this.resource, depotIdx);
+                new WarehouseAction("store", resource, depotIdx).perform(game, player);
                 break;
             }
             case "store": {
                 tempCont.store(this.resource);
-                warehouse.remove(this.resource, depotIdx);
+                new WarehouseAction("remove", resource, depotIdx).perform(game, player);
                 break;
+            }
+            case "clear": {
+                tempCont.clear();
             }
             default:
         }

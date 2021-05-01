@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.gameresources.stores;
 
-import it.polimi.ingsw.exception.AlreadyAddedModifier;
 import it.polimi.ingsw.exception.NoEmptyResourceException;
+import it.polimi.ingsw.exception.NotHaveThisEffectException;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithPoint;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
     private HashMap<Player, ArrayList<StorableResource>> modifiers;
 
     @Override
-    protected void clear() {
+    public void clear() {
         super.clear();
         emptyResources.clear();
     }
@@ -23,7 +23,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
         this.modifiers = new HashMap<>();
     }
 
-    public FaithPoint discardAll() {
+    public FaithPoint getPenalty() {
         ArrayList<StorableResource> resources = null;
         resources = getAllResources();
         int resourceCount = 0;
@@ -36,7 +36,6 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
         for (EmptyResource r : emptyResources) {
             resourceCount++;
         }
-        clear();
         return new FaithPoint(resourceCount);
     }
 
@@ -49,7 +48,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
      * @param resource
      * @throws NoEmptyResourceException
      */
-    public void transformEmptyResources(Player player, StorableResource resource) throws NoEmptyResourceException {
+    public void transformEmptyResources(Player player, StorableResource resource) throws NoEmptyResourceException, NotHaveThisEffectException {
         if(this.modifiers.get(player).contains(resource)) {
             try {
                 this.emptyResources.remove(emptyResources.size() - 1);
@@ -58,13 +57,12 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
                 throw new NoEmptyResourceException();
             }
         }
+        throw new NotHaveThisEffectException();
     }
 
-    public void addPlayerModifier(Player player, StorableResource resource) throws AlreadyAddedModifier {
+    public void addPlayerModifier(Player player, StorableResource resource) {
         if(this.modifiers.containsKey(player)) {
-            if(!this.modifiers.get(player).contains(resource))
                 this.modifiers.get(player).add(resource);
-            throw new AlreadyAddedModifier();
         }
         else {
             ArrayList<StorableResource> resources = new ArrayList<>();

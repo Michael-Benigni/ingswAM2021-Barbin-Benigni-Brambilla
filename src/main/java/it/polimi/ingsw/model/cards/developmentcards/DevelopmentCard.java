@@ -115,4 +115,8 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
         DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), this.getCost(), this.getConsumedResources(), this.getProducedResources(), victoryPoints);
         return copy;
     }
+
+    public VictoryPoint getVictoryPoints() {
+        return this.victoryPoints;
+    }
 }
