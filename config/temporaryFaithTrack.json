@@ -1,0 +1,135 @@
+{
+  "": "this is a comment",
+  "": "this json file contains the old version of the faith track, with the pope favour tile contained in the vatican report sections",
+  "faithTrack": {
+    "numberOfSections": 6,
+    "faithTrack": [
+      {
+        "numberOfCells": 10,
+        "listCells": [
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "numVictoryPoints": 1,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          }
+        ],
+        "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicSection"
+      },
+      {
+        "tile": {
+          "numVictoryPoints": 2
+        },
+        "listCells": [
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "numVictoryPoints": 2,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.PopeSpace"
+          }
+        ],
+        "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
+      },
+      {
+        "listCells": [
+          {
+            "numVictoryPoints": 4,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          }
+        ],
+        "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicSection"
+      },
+      {
+        "tile": {
+          "numVictoryPoints": 3
+        },
+        "listCells": [
+          {
+            "numVictoryPoints": 6,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "numVictoryPoints": 9,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.PopeSpace"
+          }
+        ],
+        "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
+      },
+      {
+        "listCells": [
+          {
+            "numVictoryPoints": 4,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          }
+        ],
+        "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicSection"
+      },
+      {
+        "tile": {
+          "numVictoryPoints": 4
+        },
+        "listCells": [
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "numVictoryPoints": 16,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VPCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
+          },
+          {
+            "numVictoryPoints": 20,
+            "className": "it.polimi.ingsw.model.gameresources.faithtrack.VictoryPointsPopeSpace"
+          }
+        ],
+        "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
+      }
+    ]
+  }
+}
