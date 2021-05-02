@@ -2,10 +2,7 @@ package it.polimi.ingsw.model.gamelogic.actions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import it.polimi.ingsw.exception.EmptySlotException;
-import it.polimi.ingsw.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.exception.NotExistingExtraProductionPower;
-import it.polimi.ingsw.exception.WrongSlotDevelopmentIndexException;
+import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.cards.developmentcards.*;
 import it.polimi.ingsw.model.cards.leadercards.Requirement;
 import it.polimi.ingsw.model.gameresources.Producible;
@@ -177,15 +174,15 @@ public class PersonalBoardTest {
     /**
      * Test on "addExtraProductionPower" method of this class.
      * It tests if the method add an extra production power to the personal board, then also checks if the
-     * "checkExtraPower" method of "PersonalBoard" class works correctly.
+     * "produce" method of "PersonalBoard" class works correctly.
      * @throws NegativeResourceAmountException can be thrown by constructor method of "StorableResource" class.
      */
-    /*@Test
+    @Test
     void addExtraProductionPower() throws NegativeResourceAmountException {
         Player player = new Player();
         player.buildBoard(p);
         try {
-            player.getPersonalBoard().checkExtraPower(0, player);
+            player.getPersonalBoard().getExtraPower(0);
             fail();
         } catch(NotExistingExtraProductionPower e) {
             assertTrue(true);
@@ -193,26 +190,20 @@ public class PersonalBoardTest {
         StorableResource coin = new StorableResource(ResourceType.COIN, 6);
         p.addExtraProductionPower(coin);
         try {
-            assertFalse(p.checkExtraPower(0, player));
-            player.getPersonalBoard().getStrongbox().store(new StorableResource(ResourceType.COIN, 10));
-            assertTrue(p.checkExtraPower(0, player));
+            p.getExtraPower(0).produce(player, coin);
         } catch(NotExistingExtraProductionPower e) {
             fail();
+        } catch (NotContainedResourceException e) {
+            assertTrue(true);
         }
-    }*/
-
-    /**
-     * Test on "activateExtraPowerProduction" method of this class.
-     * It tests if the method returns an arraylist that contains the provided storable resource and one faith point
-     * with amount equal to one.
-     * @throws NegativeResourceAmountException can be thrown by constructor method of "StorableResource" class.
-     */
-    /*@Test
-    void activateExtraPowerProduction() throws NegativeResourceAmountException {
-        ArrayList<Producible> list = new ArrayList<>(0);
-        StorableResource servant = new StorableResource(ResourceType.SERVANT, 9);
-        list.add(servant);
-        list.add(new FaithPoint(1));
-        assertEquals(p.activateExtraProductionPower(servant), list);
-    }*/
+        player.getPersonalBoard().getStrongbox().store(new StorableResource(ResourceType.COIN, 10));
+        try {
+            ArrayList<Producible> producibles = p.getExtraPower(0).produce(player, coin);
+            assertTrue(producibles.size() == 2 && producibles.contains(coin) && producibles.contains(new FaithPoint(1)));
+        } catch (NotExistingExtraProductionPower notExistingExtraProductionPower) {
+            fail();
+        } catch (NotContainedResourceException e) {
+            fail();
+        }
+    }
 }
