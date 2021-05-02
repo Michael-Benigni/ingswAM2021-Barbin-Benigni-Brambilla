@@ -180,7 +180,7 @@ public class PersonalBoardTest {
      * "checkExtraPower" method of "PersonalBoard" class works correctly.
      * @throws NegativeResourceAmountException can be thrown by constructor method of "StorableResource" class.
      */
-    @Test
+    /*@Test
     void addExtraProductionPower() throws NegativeResourceAmountException {
         Player player = new Player();
         player.buildBoard(p);
@@ -199,7 +199,7 @@ public class PersonalBoardTest {
         } catch(NotExistingExtraProductionPower e) {
             fail();
         }
-    }
+    }*/
 
     /**
      * Test on "activateExtraPowerProduction" method of this class.
@@ -207,12 +207,12 @@ public class PersonalBoardTest {
      * with amount equal to one.
      * @throws NegativeResourceAmountException can be thrown by constructor method of "StorableResource" class.
      */
-    @Test
+    /*@Test
     void activateExtraPowerProduction() throws NegativeResourceAmountException {
         ArrayList<Producible> list = new ArrayList<>(0);
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 9);
         list.add(servant);
         list.add(new FaithPoint(1));
         assertEquals(p.activateExtraProductionPower(servant), list);
-    }
+    }*/
 }
