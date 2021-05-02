@@ -3,12 +3,15 @@ package it.polimi.ingsw.model.gameresources.faithtrack;
 import it.polimi.ingsw.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.exception.GameOverByFaithTrackException;
 import it.polimi.ingsw.exception.WrongCellIndexException;
+import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,6 +53,7 @@ public class FaithTrackTest {
         ArrayList<Section> listOfSections = new ArrayList<>(0);
         listOfSections.add(section1);
         listOfSections.add(section2);
+        PersonalBoard pb = new PersonalBoard(new WarehouseDepots(2, new ArrayList<>(Arrays.asList(2, 3))), 3, 3, 4);
         listOfPlayers = new ArrayList<>(0);
         Player player1 = new Player();
         listOfPlayers.add(player1);
@@ -57,6 +61,8 @@ public class FaithTrackTest {
         listOfPlayers.add(player2);
         Player player3 = new Player();
         listOfPlayers.add(player3);
+        for(Player p: listOfPlayers)
+            p.buildBoard(pb);
         faithTrack = new FaithTrack(listOfSections, listOfPlayers);
     }
 

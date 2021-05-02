@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Class that represents the common faith track on the game board. Every player has a marker that indicates its position on the track.
@@ -88,7 +90,7 @@ public class FaithTrack {
      * @throws Exception
      */
     void moveMarkerForward(Player player, int numberOfSteps) throws Exception {
-        FaithMarker faithMarker = mapOfFaithMarker.get(player);
+        FaithMarker faithMarker = this.getMapOfFaithMarker().get(player);
         for(int i = 0; i < numberOfSteps; i++) {
             Cell nextCell = nextCell(faithMarker.getCurrentCell());
             faithMarker.updateCurrentCell(nextCell);
@@ -99,7 +101,6 @@ public class FaithTrack {
         }
     }
 
-
     /**
      * Getter method for the hashmap contained in this class.
      * @return -> the entire hashmap mapOfFaithMarker.
@@ -108,12 +109,24 @@ public class FaithTrack {
         return mapOfFaithMarker;
     }
 
-
     /**
      * Method that returns the last cell of this faith track.
      * @return -> the last cell of this faith track.
      */
-    private Cell lastCellInFaithTrack() throws WrongCellIndexException {
+    private Cell lastCellInFaithTrack() {
         return listOfSection.get(listOfSection.size() - 1).lastCellInSection();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FaithTrack)) return false;
+        FaithTrack that = (FaithTrack) o;
+        return listOfSection.equals(that.listOfSection) && mapOfFaithMarker.equals(that.mapOfFaithMarker);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(listOfSection, mapOfFaithMarker);
     }
 }

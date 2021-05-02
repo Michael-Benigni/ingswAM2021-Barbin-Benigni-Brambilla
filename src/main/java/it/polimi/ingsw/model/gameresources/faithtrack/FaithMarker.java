@@ -4,6 +4,8 @@ import it.polimi.ingsw.exception.CellNotFoundInSectionException;
 import it.polimi.ingsw.exception.NegativeVPAmountException;
 import it.polimi.ingsw.model.gamelogic.actions.VictoryPoint;
 
+import java.util.Objects;
+
 /**
  * Class that represents the indicator of a player's position on the faith track.
  */
@@ -65,5 +67,18 @@ public class FaithMarker {
      */
     void updateCurrentCell(Cell newCell) {
         this.currentCell = newCell;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FaithMarker that = (FaithMarker) o;
+        return Objects.equals(currentCell, that.currentCell) && Objects.equals(lastVictoryPoint, that.lastVictoryPoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentCell, lastVictoryPoint);
     }
 }

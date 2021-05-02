@@ -115,6 +115,6 @@ public class Player {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getVictoryPoints(), getPersonalBoard());
+        return Objects.hash(victoryPoints, personalBoard);
     }
 }
