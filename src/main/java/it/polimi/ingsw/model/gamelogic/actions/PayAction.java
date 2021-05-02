@@ -5,23 +5,35 @@ import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.UnboundedResourcesContainer;
 
-import java.util.ArrayList;
-import java.util.Optional;
 
 public abstract class PayAction extends Action {
+    private StorableResource resourceToPay;
 
-    public abstract Action undoAction();
+    protected PayAction(StorableResource resourceToPay) {
+        this.resourceToPay = resourceToPay;
+    }
 
-    void payOrUndo (Game game, Player player) throws Exception {
+    protected StorableResource getResource() {
+        return (StorableResource) this.resourceToPay.clone();
+    }
+
+
+    public abstract Action getUndoAction();
+
+    void payOrUndo (Game game, Player player, UnboundedResourcesContainer cost) throws Exception {
         try {
             perform(game, player);
+            cost.remove(getResource());
             game.getCurrentTurn().addUndoableAction(this);
         } catch (Exception e) {
-            undoAction().perform(game, player);
+            getUndoAction().perform(game, player);
             for (PayAction payAction : game.getCurrentTurn().getUndoableActions()) {
-                payAction.undoAction().perform(game, player);
+                payAction.getUndoAction().perform(game, player);
             }
         }
     }
 
+    public void setResource(StorableResource resource) {
+        this.resourceToPay = resource;
+    }
 }

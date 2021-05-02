@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.gamelogic.actions;
 import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
+import it.polimi.ingsw.model.gameresources.stores.UnboundedResourcesContainer;
+
 import java.util.ArrayList;
 
 public class BoardProductionAction extends Action {
@@ -30,9 +32,16 @@ public class BoardProductionAction extends Action {
      */
     @Override
     public void perform(Game game, Player player) throws Exception {
+        UnboundedResourcesContainer cost = new UnboundedResourcesContainer();
         for (PayAction action : payActions)
-            action.payOrUndo(game, player);
-        game.getCurrentTurn().clearCache();
-        produced.store(player);
+            cost.store(action.getResource());
+        for (PayAction action : payActions)
+            action.payOrUndo(game, player, cost);
+        if (!cost.getAllResources().isEmpty())
+            game.getCurrentTurn().undo(game, player);
+        else {
+            game.getCurrentTurn().clearCache();
+            produced.store(player);
+        }
     }
 }

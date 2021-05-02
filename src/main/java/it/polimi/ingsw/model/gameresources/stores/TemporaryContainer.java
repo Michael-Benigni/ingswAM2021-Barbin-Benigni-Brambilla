@@ -43,21 +43,23 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
         this.emptyResources.add(emptyResource);
     }
 
+
     /**
-     * Precondition: the input resource must have amount == 1
-     * @param resource
      * @throws NoEmptyResourceException
      */
-    public void transformEmptyResources(Player player, StorableResource resource) throws NoEmptyResourceException, NotHaveThisEffectException {
-        if(this.modifiers.get(player).contains(resource)) {
-            try {
-                this.emptyResources.remove(emptyResources.size() - 1);
-                store(resource);
-            } catch (IndexOutOfBoundsException e) {
-                throw new NoEmptyResourceException();
-            }
+    public void transformEmptyResources(Player player, int resourceIndex) throws NoEmptyResourceException, NotHaveThisEffectException {
+        StorableResource resource = null;
+        try {
+            resource = this.modifiers.get(player).get(resourceIndex);
+        } catch (IndexOutOfBoundsException e) {
+            throw new NotHaveThisEffectException();
         }
-        throw new NotHaveThisEffectException();
+        try {
+            this.emptyResources.remove(emptyResources.size() - 1);
+            store(resource);
+        } catch (IndexOutOfBoundsException e) {
+            throw new NoEmptyResourceException();
+        }
     }
 
     public void addPlayerModifier(Player player, StorableResource resource) {

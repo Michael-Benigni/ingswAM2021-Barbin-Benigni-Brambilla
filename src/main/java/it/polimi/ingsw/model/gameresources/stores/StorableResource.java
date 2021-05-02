@@ -200,6 +200,13 @@ public class StorableResource implements Storable, Requirement, Producible {
         store(player);
     }
 
+
+    /**
+     * This method is invoked when a StorableResource has to be stored automatically, usually after a production. It is
+     * stored in the TemporaryContainer because the player could perform different productions in one turn, but the
+     * resources produced in the same turn can not be used for other productions of the same turn.
+     * @param player
+     */
     @Override
     public void store(Player player) {
         player.getPersonalBoard().getTempContainer().store(this);

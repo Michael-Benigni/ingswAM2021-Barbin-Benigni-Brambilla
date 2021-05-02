@@ -31,7 +31,7 @@ class ProductionAction extends Action {
         DevelopmentCard card = slot.getTopCard();
         costs.storeAll(card.getConsumedResources());
         for (PayAction payAction : payActions)
-            payAction.payOrUndo(game, player);
+            payAction.payOrUndo(game, player, costs);
         if (!costs.getAllResources().isEmpty())
             game.getCurrentTurn().undo(game, player);
         else {

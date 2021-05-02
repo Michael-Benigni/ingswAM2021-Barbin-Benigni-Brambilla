@@ -1,12 +1,10 @@
 package it.polimi.ingsw.model.gamelogic;
 
-import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import static java.util.Collections.shuffle;
 
@@ -24,11 +22,6 @@ public abstract class Game {
      * the number of Players in this Game
      */
     private final int numberOfPlayers;
-
-    /**
-     * HashMap between Users and the correspondent Players
-     */
-    private HashMap<User, Player> userToPlayerMap;
 
     /**
      * All the players, linked according to the set order of the round
@@ -59,7 +52,7 @@ public abstract class Game {
         if (numberOfPlayers <= 0 || numberOfPlayers > MAX_NUM_PLAYER)
             throw new IllegalNumberOfPlayersException();
         this.numberOfPlayers = numberOfPlayers;
-        this.userToPlayerMap = new HashMap<>();
+        this.playersOrder = new LinkedList<>();
     }
 
 
@@ -80,38 +73,33 @@ public abstract class Game {
 
     /**
      * This method creates a Player in the game for a User.
-     * @param user
      * @return the new Player
      * @throws TooManyPlayersException if the game has already reached the number of players setted for that specific
      * instance of the game
      */
-    public Player createPlayerFor(User user) throws TooManyPlayersException, UserAlreadyPresentInThisGame {
+    public Player createPlayer() throws TooManyPlayersException {
         Player newPlayer = null;
-        if(userToPlayerMap.size() <= numberOfPlayers && !userToPlayerMap.containsKey(user)) {
+        if(playersOrder.size() <= numberOfPlayers) {
             newPlayer = new Player();
-            userToPlayerMap.put(user, newPlayer);
+            playersOrder.add(newPlayer);
         }
-        else {
-            if (!userToPlayerMap.containsKey(user))
-                throw new UserAlreadyPresentInThisGame();
+        else
             throw new TooManyPlayersException();
-        }
         return newPlayer;
     }
 
 
     /**
      *
-     * @param user
      * @throws NoValidActionException
      * @throws IsNotCurrentPlayerException
      * @throws WrongCommandException
      */
-    public void performUserCommand(User user, Action action) throws Exception {
-        Player player = userToPlayerMap.get(user);
+    public void performCommandOf(Player player, Action action) throws Exception {
+        Player currentPlayer = getCurrentPlayer();
         if (player == currentPlayer) {
             this.getCurrentTurn().add(action);
-            action.perform(this, player);
+            action.perform(this, currentPlayer);
         }
         throw new IsNotCurrentPlayerException();
     }
@@ -121,7 +109,6 @@ public abstract class Game {
      * This method sets the order of the Players in a random way
      */
     private void setPlayersOrder() {
-        this.playersOrder = new LinkedList<>(getAllPlayers());
         shuffle(this.playersOrder);
     }
 
@@ -157,7 +144,7 @@ public abstract class Game {
      * @throws NotEnoughPlayersException if has not been reached the numberOfPlayers registered when this method is called.
      */
     public ArrayList<Player> getAllPlayers() {
-        return new ArrayList (this.userToPlayerMap.values());
+        return new ArrayList (this.playersOrder);
     }
 
 

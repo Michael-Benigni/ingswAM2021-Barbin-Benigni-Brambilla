@@ -1,20 +1,17 @@
 package it.polimi.ingsw.model.gamelogic.actions;
 
+import it.polimi.ingsw.exception.NotUndoableAction;
 import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.model.gameresources.stores.Strongbox;
 
-import java.util.ArrayList;
-
-class StrogboxAction extends Action {
+class StrongboxAction extends PayAction {
     private final String storeOrRemove;
-    private final StorableResource resource;
 
-    public StrogboxAction(String storeOrRemove, StorableResource resource) {
-        super();
+    public StrongboxAction(String storeOrRemove, StorableResource resource) {
+        super(resource);
         this.storeOrRemove = storeOrRemove;
-        this.resource = resource;
     }
 
     @Override
@@ -28,14 +25,21 @@ class StrogboxAction extends Action {
         Strongbox strongbox = player.getPersonalBoard().getStrongbox();
         switch (this.storeOrRemove) {
             case "store" : {
-                strongbox.store(this.resource);
+                strongbox.store(this.getResource());
                 break;
             }
             case "remove" : {
-                strongbox.remove(this.resource);
+                strongbox.remove(this.getResource());
                 break;
             }
             default:
         }
+    }
+
+    @Override
+    public Action getUndoAction() {
+        if(storeOrRemove == "remove")
+            return new StrongboxAction("store", getResource());
+        return new StrongboxAction("remove", getResource());
     }
 }

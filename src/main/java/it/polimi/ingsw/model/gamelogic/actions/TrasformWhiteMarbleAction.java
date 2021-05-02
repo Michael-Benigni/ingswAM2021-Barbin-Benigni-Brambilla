@@ -2,13 +2,12 @@ package it.polimi.ingsw.model.gamelogic.actions;
 
 import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
-import it.polimi.ingsw.model.gameresources.stores.StorableResource;
 
 public class TrasformWhiteMarbleAction extends Action {
-    private final StorableResource resource;
+    private final int resourceIndex;
 
-    public TrasformWhiteMarbleAction(StorableResource resource) {
-        this.resource = resource;
+    public TrasformWhiteMarbleAction(int resourceIndex) {
+        this.resourceIndex = resourceIndex;
     }
 
     /**
@@ -27,6 +26,6 @@ public class TrasformWhiteMarbleAction extends Action {
      */
     @Override
     public void perform(Game game, Player player) throws Exception {
-        player.getPersonalBoard().getTempContainer().transformEmptyResources(player,this.resource );
+        player.getPersonalBoard().getTempContainer().transformEmptyResources(player, this.resourceIndex);
     }
 }

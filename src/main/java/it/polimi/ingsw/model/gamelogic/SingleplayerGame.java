@@ -26,14 +26,13 @@ public class SingleplayerGame extends Game {
     /**
      * Creates a Player for a User, and since in this game the Player is one, and he'll play with the COM, it's created
      * an alias for a fictitious User "Lorenzo_The_Magnificent" that will represent the COM in the game.
-     * @param user
      * @return
      * @throws TooManyPlayersException
      */
     @Override
-    public Player createPlayerFor(User user) throws TooManyPlayersException, UserAlreadyPresentInThisGame {
-        Player newPlayer = super.createPlayerFor(user);
-        this.LORENZO_THE_MAGNIFICENT = createPlayerFor(new User("Lorenzo_The_Magnificent"));
+    public Player createPlayer() throws TooManyPlayersException {
+        Player newPlayer = super.createPlayer();
+        this.LORENZO_THE_MAGNIFICENT = createPlayer();
         return newPlayer;
     }
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.cards.developmentcards;
 import it.polimi.ingsw.exception.DevelopmentCardNotAddableException;
 import it.polimi.ingsw.exception.EmptySlotException;
 import it.polimi.ingsw.exception.SlotDevelopmentCardsIsFullException;
+
 import java.util.ArrayList;
 import java.util.Objects;
 

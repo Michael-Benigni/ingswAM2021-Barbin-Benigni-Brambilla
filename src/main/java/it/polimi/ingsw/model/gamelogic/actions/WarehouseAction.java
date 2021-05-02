@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gamelogic.actions;
 
+import it.polimi.ingsw.exception.NotUndoableAction;
 import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
@@ -7,12 +8,11 @@ import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
 
 class WarehouseAction extends PayAction {
     private final String storeOrRemove;
-    private final StorableResource resource;
     private final int depotIdx;
 
-    public WarehouseAction(String storeOrRemove, StorableResource resource, int depotIdx) {
+    public WarehouseAction(String storeOrRemove, StorableResource resourceToPay, int depotIdx) {
+        super(resourceToPay);
         this.storeOrRemove = storeOrRemove;
-        this.resource = resource;
         this.depotIdx = depotIdx;
     }
 
@@ -28,20 +28,20 @@ class WarehouseAction extends PayAction {
         switch (storeOrRemove) {
             //TODO: is needed the store-case?
             case "store": {
-                warehouse.store(resource, depotIdx);
+                warehouse.store(getResource(), depotIdx);
                 break;
             }
             case "remove": {
-                warehouse.remove(resource, depotIdx);
+                warehouse.remove(getResource(), depotIdx);
             }
             default:
         }
     }
 
     @Override
-    public Action undoAction() {
-        if (this.storeOrRemove == "store")
-            return new WarehouseAction("remove", resource, depotIdx);
-        return null;
+    public Action getUndoAction() {
+        if (this.storeOrRemove == "remove")
+            return new WarehouseAction("store", getResource(), depotIdx);
+        return new WarehouseAction("remove", getResource(), depotIdx);
     }
 }

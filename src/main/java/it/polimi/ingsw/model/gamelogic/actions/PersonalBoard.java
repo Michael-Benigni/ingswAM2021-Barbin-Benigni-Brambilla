@@ -25,9 +25,10 @@ public class PersonalBoard {
      * production power provided
      * by a leader card
      */
-    private class ExtraProductionPower {
+    class ExtraProductionPower {
 
         private final StorableResource consumedResource;
+
         /**
          * constructor method of this class
          * @param consumedResource is the resource consumed to start the production
@@ -37,16 +38,42 @@ public class PersonalBoard {
         }
 
         /**
-         * this invokes the method "containedIn"
-         * to check if the player has all the
-         * resource required to start the production
-         * @param player is the refer to the player
-         * @return boolean value, true if the player can start the production
+         * It's the getter method for the consumed resource.
+         * @return
          */
-        boolean checkActivation(Player player) {
-            return this.consumedResource.containedIn(player);
+        public StorableResource getConsumedResource() {
+            return (StorableResource) consumedResource.clone();
         }
 
+        /**
+         * this method activates the extra production power
+         * @param producedResource is the resource that the player wants to receive
+         * @return a list of resource, one of this resource is a faith point and the other one is the resource choose by the player
+         */
+        ArrayList <Producible> produce(Player player, StorableResource producedResource) throws NotExistingExtraProductionPower, NotContainedResourceException {
+            if (checkExtraPower(player)) {
+                FaithPoint faithPoint = new FaithPoint(1);
+                ArrayList<Producible> listOfResource = new ArrayList<>(0);
+                listOfResource.add(producedResource);
+                listOfResource.add(faithPoint);
+                return listOfResource;
+            }
+            else
+                throw new NotContainedResourceException();
+        }
+
+        /**
+         * this method invokes the method "checkActivation" of the class
+         * ExtraProductionPower to checks if the player has the resources
+         * that the power uses. After the check it calls the method
+         * "activateExtraProductionPower" to start the production
+         * @param player is the refer to the player
+         * @return a boolean value, true if the production can be activated, if this method returns true
+         * the action has to remove the consumed resource from the personal board
+         */
+        private boolean checkExtraPower(Player player) throws NotExistingExtraProductionPower {
+            return this.consumedResource.containedIn(player);
+        }
     }
 
     private Strongbox strongbox;
@@ -70,35 +97,6 @@ public class PersonalBoard {
         this.extraProductionPowers = new ArrayList<>(0);
     }
 
-    /**
-     * this method invokes the method "checkActivation" of the class
-     * ExtraProductionPower to checks if the player has the resources
-     * that the power uses. After the check it calls the method
-     * "activateExtraProductionPower" to start the production
-     * @param powerIndex is the index that the player provides to communicate which production power he wants to start
-     * @param player is the refer to the player
-     * @return a boolean value, true if the production can be activated, if this method returns true
-     * the action has to remove the consumed resource from the personal board
-     */
-    public boolean checkExtraPower(int powerIndex, Player player) throws NotExistingExtraProductionPower {
-        if(this.extraProductionPowers.size() == 0)
-            throw new NotExistingExtraProductionPower();
-        return this.extraProductionPowers.get(powerIndex).checkActivation(player);
-    }
-
-
-    /**
-     * this method activates the extra production power
-     * @param producedResource is the resource that the player wants to receive
-     * @return a list of resource, one of this resource is a faith point and the other one is the resource choose by the player
-     */
-    ArrayList <Producible> activateExtraProductionPower(StorableResource producedResource) {
-        FaithPoint faithPoint = new FaithPoint(1);
-        ArrayList <Producible> listOfResource = new ArrayList<>(0);
-        listOfResource.add(producedResource);
-        listOfResource.add(faithPoint);
-        return listOfResource;
-    }
 
 
     /**
@@ -110,6 +108,12 @@ public class PersonalBoard {
     public void addExtraProductionPower(StorableResource consumedResource) {
         ExtraProductionPower extraProductionPower = new ExtraProductionPower(consumedResource);
         this.extraProductionPowers.add(extraProductionPower);
+    }
+
+    public ExtraProductionPower getExtraPower (int index) throws NotExistingExtraProductionPower {
+        if(this.extraProductionPowers.size() == 0 || index > this.extraProductionPowers.size() - 1)
+            throw new NotExistingExtraProductionPower();
+        return this.extraProductionPowers.get(index);
     }
 
 

@@ -123,7 +123,7 @@ public class Turn {
 
     public void undo(Game game, Player player) throws Exception {
         for (PayAction payAction : this.getUndoableActions()) {
-            payAction.undoAction().perform(game, player);
+            payAction.getUndoAction().perform(game, player);
         }
 
     }

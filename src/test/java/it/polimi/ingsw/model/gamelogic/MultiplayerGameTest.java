@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.exception.NotEnoughPlayersException;
-import it.polimi.ingsw.exception.TooManyPlayersException;
-import it.polimi.ingsw.exception.UserAlreadyPresentInThisGame;
+import it.polimi.ingsw.exception.*;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,30 +22,26 @@ class MultiplayerGameTest {
     private static Action testAction;
 
     @BeforeEach
-    void init() throws IllegalNumberOfPlayersException, TooManyPlayersException, UserAlreadyPresentInThisGame {
+    void init() throws IllegalNumberOfPlayersException, TooManyPlayersException {
         testAction = new StartTurnAction();
-        user1 = new User("user1");
-        user2 = new User("user2");
-        user3 = new User("user3");
-        user4 = new User("user4");
         gameNoPlayers = new MultiplayerGame(4);
         game4Players = new MultiplayerGame(4);
         game3Players = new MultiplayerGame(4);
         game4Players = new MultiplayerGame(4);
-        game4Players.createPlayerFor(user1);
-        game4Players.createPlayerFor(user2);
-        game4Players.createPlayerFor(user3);
-        game4Players.createPlayerFor(user4);
-        game3Players.createPlayerFor(new User("user1"));
-        game3Players.createPlayerFor(new User("user2"));
-        game3Players.createPlayerFor(new User("user3"));
+        game4Players.createPlayer();
+        game4Players.createPlayer();
+        game4Players.createPlayer();
+        game4Players.createPlayer();
+        game3Players.createPlayer();
+        game3Players.createPlayer();
+        game3Players.createPlayer();
     }
 
     @Test
     void createPlayerFor1() {
         try {
-            gameNoPlayers.createPlayerFor(new User ("test"));
-        } catch (TooManyPlayersException | UserAlreadyPresentInThisGame e) {
+            gameNoPlayers.createPlayer();
+        } catch (TooManyPlayersException e) {
             fail();
         }
     }
@@ -56,11 +49,9 @@ class MultiplayerGameTest {
     @Test
     void createPlayerFor2() {
         try {
-            game4Players.createPlayerFor(new User ("test"));
+            game4Players.createPlayer();
         } catch (TooManyPlayersException e) {
             assertTrue(true);
-        } catch (UserAlreadyPresentInThisGame userAlreadyPresentInThisGame) {
-            fail();
         }
     }
 
@@ -96,10 +87,10 @@ class MultiplayerGameTest {
 
     @Test
     void getAllPlayers1() throws TooManyPlayersException, UserAlreadyPresentInThisGame {
-        Player player1 = gameNoPlayers.createPlayerFor(new User("user1"));
-        Player player2 = gameNoPlayers.createPlayerFor(new User("user2"));
-        Player player3 = gameNoPlayers.createPlayerFor(new User("user3"));
-        Player player4 = gameNoPlayers.createPlayerFor(new User("user4"));
+        Player player1 = gameNoPlayers.createPlayer();
+        Player player2 = gameNoPlayers.createPlayer();
+        Player player3 = gameNoPlayers.createPlayer();
+        Player player4 = gameNoPlayers.createPlayer();
         ArrayList<Player> createdPlayers = new ArrayList<>();
         createdPlayers.add(player1);
         createdPlayers.add(player2);
@@ -114,7 +105,7 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void setNextPlayer() throws NotEnoughPlayersException {
+    void setNextPlayer() {
         game4Players.setup(null, null);
         Player before = game4Players.getCurrentPlayer();
         game4Players.setNextPlayer();
@@ -123,7 +114,7 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void getCurrentTurn() throws NotEnoughPlayersException {
+    void getCurrentTurn() {
         game4Players.setup(null, null);
         Turn before = game4Players.getCurrentTurn();
         game4Players.setNextPlayer();
@@ -144,14 +135,15 @@ class MultiplayerGameTest {
         assertInstanceOf(Player.class, after);
     }
 
-    /*@Test
-    void performUserCommand() throws NotEnoughPlayersException {
+    @Test
+    void performUserCommand() throws Exception {
         game4Players.setup(null, null);
         try {
-            User user = game4Players.getCurrentUser();
-            game4Players.performUserCommand(user, testAction);
-        } catch (Exception e) {
-            fail();
+            Player previousPlayer = game4Players.getCurrentPlayer();
+            game4Players.setNextPlayer();
+            game4Players.performCommandOf(previousPlayer, testAction);
+        } catch (IsNotCurrentPlayerException e) {
+            assertTrue(true);
         }
-    }*/
+    }
 }

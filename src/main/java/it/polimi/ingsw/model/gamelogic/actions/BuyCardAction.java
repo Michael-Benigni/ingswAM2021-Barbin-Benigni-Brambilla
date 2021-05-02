@@ -35,7 +35,7 @@ class BuyCardAction extends Action {
             SlotDevelopmentCards slot = player.getPersonalBoard().getSlotDevelopmentCards(this.slotIdx);
             UnboundedResourcesContainer costContainer = new UnboundedResourcesContainer().storeAll(chosenCard.getCost());
             for (PayAction payAction : payActions)
-                payAction.payOrUndo(game, player);
+                payAction.payOrUndo(game, player, costContainer);
             if (!costContainer.getAllResources().isEmpty())
                 game.getCurrentTurn().undo(game, player);
             else {
