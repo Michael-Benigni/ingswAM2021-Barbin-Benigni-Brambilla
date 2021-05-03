@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.gamelogic.actions;
 import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 
-class EndTurnAction extends Action {
+public class EndTurnAction extends Action {
 
     @Override
     protected ActionType getType() {

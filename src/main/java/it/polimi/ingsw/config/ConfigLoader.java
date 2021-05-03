@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.leadercards.LeaderCardsDeck;
 import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.model.gameresources.faithtrack.FaithTrack;
+import it.polimi.ingsw.model.gameresources.faithtrack.Section;
 import it.polimi.ingsw.model.gameresources.markettray.MarketMarble;
 import it.polimi.ingsw.model.gameresources.markettray.MarketTray;
 import it.polimi.ingsw.model.gameresources.stores.ResourceType;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 public class ConfigLoader {
     private JsonHandler jsonHandler;
 
-    private GameBoard loadGameBoard() throws FileNotFoundException {
+    GameBoard loadGameBoard() throws FileNotFoundException {
         return new GameBoard(
                 initFaithTrackFromJSON(),
                 initCardsGridFromJSON(),
@@ -28,7 +29,7 @@ public class ConfigLoader {
         );
     }
 
-    public PersonalBoard loadPersonalBoard() throws FileNotFoundException {
+    PersonalBoard loadPersonalBoard() throws FileNotFoundException {
         final String keyInJSON = "personalBoard/";
         int maxNumberOfDevCardsInSlot = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumOfDevCardsInSlot/");
         int numberSlotDevCards = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "numOfSlotDevCards/");
@@ -36,9 +37,15 @@ public class ConfigLoader {
         return new PersonalBoard(initWarehouseFromJSON(), numberSlotDevCards, maxNumberOfDevCardsInSlot, maxLeaderCardsInSlot);
     }
 
-    private FaithTrack initFaithTrackFromJSON() {
-        String jsonPath = "gameBoard/marketTray/";
-        return null;
+    private FaithTrack initFaithTrackFromJSON() throws FileNotFoundException {
+        String jsonPath = "gameBoard/faithTrack/";
+        int numOfSections = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numberOfSections/");
+        ArrayList<Section> sections = new ArrayList<>();
+        for (int i = 0; i < numOfSections; i++) {
+            Section section = (Section) JsonHandler.getAsJavaObjectFromJSONArray(Section.class, jsonPath + "listOfSections/", new int[] {i});
+            sections.add(section);
+        }
+        return new FaithTrack(sections);
     }
 
     private MarketTray initMarketFromJSON() throws FileNotFoundException {

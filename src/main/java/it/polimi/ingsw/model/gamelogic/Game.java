@@ -101,7 +101,8 @@ public abstract class Game {
             this.getCurrentTurn().add(action);
             action.perform(this, currentPlayer);
         }
-        throw new IsNotCurrentPlayerException();
+        else
+            throw new IsNotCurrentPlayerException();
     }
 
 

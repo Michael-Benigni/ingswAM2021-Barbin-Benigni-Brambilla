@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.gamelogic;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.exception.*;
+import it.polimi.ingsw.model.gamelogic.actions.EndTurnAction;
 import it.polimi.ingsw.model.gamelogic.actions.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,16 +15,12 @@ class MultiplayerGameTest {
     private static MultiplayerGame gameNoPlayers;
     private static MultiplayerGame game3Players;
     private static MultiplayerGame game4Players;
-    private static User user1;
-    private static User user2;
-    private static User user3;
-    private static User user4;
     private static MultiplayerGame gameNegativeNumOfPlayers;
     private static Action testAction;
 
     @BeforeEach
     void init() throws IllegalNumberOfPlayersException, TooManyPlayersException {
-        testAction = new StartTurnAction();
+        testAction = new EndTurnAction();
         gameNoPlayers = new MultiplayerGame(4);
         game4Players = new MultiplayerGame(4);
         game3Players = new MultiplayerGame(4);
@@ -136,7 +133,7 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void performUserCommand() throws Exception {
+    void performCommand() throws Exception {
         game4Players.setup(null, null);
         try {
             Player previousPlayer = game4Players.getCurrentPlayer();
@@ -144,6 +141,11 @@ class MultiplayerGameTest {
             game4Players.performCommandOf(previousPlayer, testAction);
         } catch (IsNotCurrentPlayerException e) {
             assertTrue(true);
+        }
+        try {
+            game4Players.performCommandOf(game4Players.getCurrentPlayer(), testAction);
+        } catch (IsNotCurrentPlayerException e) {
+            fail();
         }
     }
 }
