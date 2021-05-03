@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.gamelogic.actions;
 
-import it.polimi.ingsw.exception.NotUndoableAction;
 import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 import it.polimi.ingsw.model.gameresources.stores.StorableResource;
