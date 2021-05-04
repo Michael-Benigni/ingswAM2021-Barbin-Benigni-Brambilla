@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.gameresources.stores.UnboundedResourcesContainer;
 
 import java.util.ArrayList;
 
-public class ExtraBoardProductionAction extends Action {
+class ExtraBoardProductionAction extends Action {
     private final PayAction fromWhere;
     private final StorableResource resourceProduced;
     private final int numExtraPower;

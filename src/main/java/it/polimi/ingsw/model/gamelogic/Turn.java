@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gamelogic;
 
+import it.polimi.ingsw.exception.IllegalTurnState;
 import it.polimi.ingsw.exception.NoValidActionException;
 import it.polimi.ingsw.model.gamelogic.actions.ActionType;
 import it.polimi.ingsw.model.gamelogic.actions.PayAction;
@@ -62,9 +63,9 @@ public class Turn {
         TurnState(String stateName) {
             this.stateName = stateName;
         }
-
-
     }
+
+
     /**
      * Constructor.
      */
@@ -80,11 +81,13 @@ public class Turn {
      * @param nextAction action to add
      * @throws NoValidActionException if the action is not valid in this Turn
      */
-    void add(Action nextAction) throws NoValidActionException {
+    void add(Action nextAction) throws NoValidActionException, IllegalTurnState {
         if (nextAction.isValid(this.performedActions) && this.state == TurnState.PLAY) {
             this.performedActions.add(nextAction);
-            this.state = TurnState.PLAY;
-        } else throw new NoValidActionException();
+        } else
+            if (!nextAction.isValid(this.performedActions))
+                throw new NoValidActionException();
+            throw new IllegalTurnState();
     }
 
 
@@ -113,7 +116,7 @@ public class Turn {
         this.payActions.add(action);
     }
 
-    public ArrayList<PayAction> getUndoableActions() {
+    private ArrayList<PayAction> getUndoableActions() {
         return this.payActions;
     }
 
@@ -125,7 +128,6 @@ public class Turn {
         for (PayAction payAction : this.getUndoableActions()) {
             payAction.getUndoAction().perform(game, player);
         }
-
     }
 }
 

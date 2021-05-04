@@ -31,7 +31,7 @@ public class PopeSpace extends Cell{
         try{
             VictoryPoint pointsFromTile = this.tile.activateTile();
             player.addVictoryPointsToPlayer(pointsFromTile);
-            HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarker();
+            HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarkers();
             Cell activatedCell = mapOfFaithMarker.get(player).getCurrentCell();
             Section activatedSection = faithTrack.findSectionOfThisCell(activatedCell);
             for(Player p : mapOfFaithMarker.keySet()) {

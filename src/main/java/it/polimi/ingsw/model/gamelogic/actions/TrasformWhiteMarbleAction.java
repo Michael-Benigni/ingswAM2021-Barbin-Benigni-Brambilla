@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.gamelogic.actions;
 import it.polimi.ingsw.model.gamelogic.Action;
 import it.polimi.ingsw.model.gamelogic.Game;
 
-public class TrasformWhiteMarbleAction extends Action {
+class TrasformWhiteMarbleAction extends Action {
     private final int resourceIndex;
 
     public TrasformWhiteMarbleAction(int resourceIndex) {

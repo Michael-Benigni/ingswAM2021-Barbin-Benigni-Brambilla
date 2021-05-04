@@ -29,7 +29,7 @@ public class VPCell extends Cell{
     @Override
     protected void activateCell(FaithTrack faithTrack, Player player) throws Exception {
         VictoryPoint victoryPoint = (VictoryPoint) this.victoryPoints.clone();
-        HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarker();
+        HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarkers();
         VictoryPoint pointsToBeAddedToPlayer = mapOfFaithMarker.get(player).updateLastVictoryPoint(victoryPoint);
         player.addVictoryPointsToPlayer(pointsToBeAddedToPlayer);
     }

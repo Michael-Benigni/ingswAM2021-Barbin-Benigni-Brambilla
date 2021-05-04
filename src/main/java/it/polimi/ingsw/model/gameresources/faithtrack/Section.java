@@ -9,14 +9,14 @@ import java.util.ArrayList;
  */
 public abstract class Section {
 
-    private final ArrayList<Cell> listCell;
+    private final ArrayList<Cell> listCells;
 
     /**
      * Constructor method of this class.
-     * @param listCell -> array of cells.
+     * @param listCells -> array of cells.
      */
-    public Section(ArrayList<Cell> listCell) {
-        this.listCell = listCell;
+    public Section(ArrayList<Cell> listCells) {
+        this.listCells = listCells;
     }
 
 
@@ -28,10 +28,10 @@ public abstract class Section {
      * size of this section.
      */
     Cell getCell(int cellIndex) throws WrongCellIndexException {
-        if(cellIndex < 0 || cellIndex >= listCell.size())
+        if(cellIndex < 0 || cellIndex >= listCells.size())
             throw new WrongCellIndexException();
         else
-            return this.listCell.get(cellIndex);
+            return this.listCells.get(cellIndex);
     }
 
 
@@ -44,13 +44,13 @@ public abstract class Section {
      * @throws CellNotFoundInSectionException -> exception thrown if the cell isn't in this section.
      */
     Cell searchNextCellInSection(Cell currentCell) throws Exception {
-        for(int i = 0; i < listCell.size(); i++) {
-            if(listCell.get(i) == currentCell) {
-                if( listCell.get(i) == lastCellInSection()) {
+        for(int i = 0; i < listCells.size(); i++) {
+            if(listCells.get(i) == currentCell) {
+                if( listCells.get(i) == lastCellInSection()) {
                     throw new LastCellInSectionException();
                 }
                 else {
-                    return listCell.get(i + 1);
+                    return listCells.get(i + 1);
                 }
             }
         }
@@ -72,7 +72,7 @@ public abstract class Section {
      * @return -> the last cell of this section.
      */
     Cell lastCellInSection() {
-        return listCell.get(listCell.size() - 1);
+        return listCells.get(listCells.size() - 1);
     }
 
 
@@ -82,7 +82,7 @@ public abstract class Section {
      * @throws CellNotFoundInSectionException
      */
     boolean searchInThisSection(Cell currentCell) throws CellNotFoundInSectionException {
-        for(Cell c : listCell) {
+        for(Cell c : listCells) {
             if(c == currentCell)
                 return true;
         }

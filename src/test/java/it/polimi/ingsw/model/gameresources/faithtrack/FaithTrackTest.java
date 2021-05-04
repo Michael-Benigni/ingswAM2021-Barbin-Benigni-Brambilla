@@ -63,7 +63,8 @@ public class FaithTrackTest {
         listOfPlayers.add(player3);
         for(Player p: listOfPlayers)
             p.buildBoard(pb);
-        faithTrack = new FaithTrack(listOfSections, listOfPlayers);
+        faithTrack = new FaithTrack(listOfSections);
+        faithTrack.initMarkers(listOfPlayers);
     }
 
 

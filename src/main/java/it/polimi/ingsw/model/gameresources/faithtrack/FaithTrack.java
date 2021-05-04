@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.gamelogic.actions.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -13,24 +12,37 @@ import java.util.Objects;
  */
 public class FaithTrack {
 
-    private ArrayList<Section> listOfSection;
-    private HashMap<Player, FaithMarker> mapOfFaithMarker;
+    private ArrayList<Section> listOfSections;
+    private HashMap<Player, FaithMarker> mapOfFaithMarkers;
 
 
     /**
-     * Constructor method of this class. It reads from a json file the entire structure of the track.
+     * Constructor method of this class. It builds the entire structure of the track.
+     * @param arrayOfSections
      */
-    public FaithTrack(ArrayList<Section> arrayOfSections, ArrayList<Player> listOfPlayers) throws WrongCellIndexException {
-        this.listOfSection = new ArrayList<>(0);
-        this.listOfSection = arrayOfSections;
-        this.mapOfFaithMarker = new HashMap<>(0);
-        Cell firstCell = firstCellInFaithTrack();
-        for(Player p : listOfPlayers) {
-            FaithMarker temporaryFaithMarker = new FaithMarker(firstCell);
-            this.mapOfFaithMarker.put(p, temporaryFaithMarker);
-        }
+    public FaithTrack(ArrayList<Section> arrayOfSections) {
+        this.listOfSections = new ArrayList<>(0);
+        this.listOfSections = arrayOfSections;
     }
 
+
+    /**
+     * Method that initializes the map of faithMarkers given the all players of the game
+     * @param players
+     */
+    public void initMarkers(ArrayList<Player> players) {
+        this.mapOfFaithMarkers = new HashMap<>(0);
+        Cell firstCell = null;
+        try {
+            firstCell = firstCellInFaithTrack();
+        } catch (WrongCellIndexException e) {
+            e.printStackTrace();
+        }
+        for(Player p : players) {
+            FaithMarker temporaryFaithMarker = new FaithMarker(firstCell);
+            this.mapOfFaithMarkers.put(p, temporaryFaithMarker);
+        }
+    }
 
     /**
      * Method that returns the first cell of the track to the caller.
@@ -38,7 +50,7 @@ public class FaithTrack {
      * @return -> the first cell of the track.
      */
     private Cell firstCellInFaithTrack() throws WrongCellIndexException {
-        return listOfSection.get(0).getCell(0);
+        return listOfSections.get(0).getCell(0);
     }
 
 
@@ -48,13 +60,13 @@ public class FaithTrack {
      * @return -> the next cell.
      */
     private Cell nextCell(Cell currentCell) throws Exception {
-        for (Section s : listOfSection) {
+        for (Section s : listOfSections) {
             try {
                 Cell nextCell = s.searchNextCellInSection(currentCell);
                 return nextCell;
             } catch (LastCellInSectionException e) {
-                int sectionIndex = listOfSection.indexOf(s) + 1;
-                return listOfSection.get(sectionIndex).firstCellInSection();
+                int sectionIndex = listOfSections.indexOf(s) + 1;
+                return listOfSections.get(sectionIndex).firstCellInSection();
             } catch (CellNotFoundInSectionException e) {
                 //do nothing and go to the next section.
             }
@@ -71,7 +83,7 @@ public class FaithTrack {
      * faith track.
      */
     Section findSectionOfThisCell(Cell currentCell) throws CellNotFoundInFaithTrackException {
-        for(Section s : listOfSection) {
+        for(Section s : listOfSections) {
             try {
                 s.searchInThisSection(currentCell);
                 return s;
@@ -90,7 +102,7 @@ public class FaithTrack {
      * @throws Exception
      */
     void moveMarkerForward(Player player, int numberOfSteps) throws Exception {
-        FaithMarker faithMarker = this.getMapOfFaithMarker().get(player);
+        FaithMarker faithMarker = this.getMapOfFaithMarkers().get(player);
         for(int i = 0; i < numberOfSteps; i++) {
             Cell nextCell = nextCell(faithMarker.getCurrentCell());
             faithMarker.updateCurrentCell(nextCell);
@@ -105,8 +117,8 @@ public class FaithTrack {
      * Getter method for the hashmap contained in this class.
      * @return -> the entire hashmap mapOfFaithMarker.
      */
-    HashMap<Player, FaithMarker> getMapOfFaithMarker() {
-        return mapOfFaithMarker;
+    HashMap<Player, FaithMarker> getMapOfFaithMarkers() {
+        return mapOfFaithMarkers;
     }
 
     /**
@@ -114,7 +126,7 @@ public class FaithTrack {
      * @return -> the last cell of this faith track.
      */
     private Cell lastCellInFaithTrack() {
-        return listOfSection.get(listOfSection.size() - 1).lastCellInSection();
+        return listOfSections.get(listOfSections.size() - 1).lastCellInSection();
     }
 
     @Override
@@ -122,11 +134,11 @@ public class FaithTrack {
         if (this == o) return true;
         if (!(o instanceof FaithTrack)) return false;
         FaithTrack that = (FaithTrack) o;
-        return listOfSection.equals(that.listOfSection) && mapOfFaithMarker.equals(that.mapOfFaithMarker);
+        return listOfSections.equals(that.listOfSections) && mapOfFaithMarkers.equals(that.mapOfFaithMarkers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(listOfSection, mapOfFaithMarker);
+        return Objects.hash(listOfSections, mapOfFaithMarkers);
     }
 }

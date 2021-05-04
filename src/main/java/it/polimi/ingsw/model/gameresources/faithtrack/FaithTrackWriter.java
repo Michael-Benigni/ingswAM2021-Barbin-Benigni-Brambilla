@@ -78,7 +78,8 @@ public class FaithTrackWriter {
 
         ArrayList<Player> players = new ArrayList<>(0);
         players.add(new Player());
-        FaithTrack faithTrack = new FaithTrack(listSection, players);
+        FaithTrack faithTrack = new FaithTrack(listSection);
+        faithTrack.initMarkers(players);
         JsonHandler.saveAsJsonFile("config/temporaryFaithTrack.json", faithTrack);
     }
 }

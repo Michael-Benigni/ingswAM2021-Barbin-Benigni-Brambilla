@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.gameresources.stores.UnboundedResourcesContainer;
 
 import java.util.ArrayList;
 
-public class BoardProductionAction extends Action {
+class BoardProductionAction extends Action {
     private final StorableResource produced;
     private final ArrayList<PayAction> payActions;
 

@@ -27,9 +27,7 @@ public abstract class PayAction extends Action {
             game.getCurrentTurn().addUndoableAction(this);
         } catch (Exception e) {
             getUndoAction().perform(game, player);
-            for (PayAction payAction : game.getCurrentTurn().getUndoableActions()) {
-                payAction.getUndoAction().perform(game, player);
-            }
+            game.getCurrentTurn().undo(game, player);
         }
     }
 
