@@ -2269,11 +2269,10 @@
     ]
     },
     "faithTrack": {
-      "numberOfSection": 6,
-      "listOfSection": [
+      "numberOfSections": 6,
+      "listOfSections": [
         {
-          "numberOfCells": 5,
-          "listCell": [
+          "listCells": [
             {
               "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
             },
@@ -2296,8 +2295,7 @@
           "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicSection"
         },
         {
-          "numberOfCells": 4,
-          "listCell": [
+          "listCells": [
             {
               "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
             },
@@ -2323,8 +2321,7 @@
           "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
         },
         {
-          "numberOfCells": 3,
-          "listCell": [
+          "listCells": [
             {
               "victoryPoints": {
                 "amount": 4
@@ -2341,8 +2338,7 @@
           "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicSection"
         },
         {
-          "numberOfCells": 5,
-          "listCell": [
+          "listCells": [
             {
               "victoryPoints": {
                 "amount": 6
@@ -2374,8 +2370,7 @@
           "className": "it.polimi.ingsw.model.gameresources.faithtrack.VaticanReportSection"
         },
         {
-          "numberOfCells": 2,
-          "listCell": [
+          "listCells": [
             {
               "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
             },
@@ -2389,8 +2384,7 @@
           "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicSection"
         },
         {
-          "numberOfCells": 6,
-          "listCell": [
+          "listCells": [
             {
               "className": "it.polimi.ingsw.model.gameresources.faithtrack.ClassicCell"
             },
