@@ -29,12 +29,9 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
         int resourceCount = 0;
         for (StorableResource r : resources) {
             int amount = 1;
-            while (r.amountLessEqualThan(amount))
+            while (!r.amountLessEqualThan(amount-1))
                 amount++;
             resourceCount += amount - 1;
-        }
-        for (EmptyResource r : emptyResources) {
-            resourceCount++;
         }
         return new FaithPoint(resourceCount);
     }
@@ -49,9 +46,10 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
      */
     public void transformEmptyResources(Player player, int resourceIndex) throws NoEmptyResourceException, NotHaveThisEffectException {
         StorableResource resource = null;
-        try {
+        if(this.modifiers.containsKey(player) && resourceIndex < this.modifiers.get(player).size()){
             resource = this.modifiers.get(player).get(resourceIndex);
-        } catch (IndexOutOfBoundsException e) {
+        }
+        else{
             throw new NotHaveThisEffectException();
         }
         try {
@@ -64,7 +62,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
 
     public void addPlayerModifier(Player player, StorableResource resource) {
         if(this.modifiers.containsKey(player)) {
-                this.modifiers.get(player).add(resource);
+            this.modifiers.get(player).add(resource);
         }
         else {
             ArrayList<StorableResource> resources = new ArrayList<>();

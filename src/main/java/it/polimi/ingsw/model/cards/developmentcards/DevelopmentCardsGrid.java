@@ -89,7 +89,7 @@ public class DevelopmentCardsGrid {
         int choosenDeckLastIndex = choosenDeck.size() - 1;
         choosenCard = (DevelopmentCard) choosenDeck.get(choosenDeckLastIndex).clone();
         for(int i = 0; i < this.playerWithDiscounts.size(); i++){
-            if(this.playerWithDiscounts.get(i).playerWithDiscount.equals(player)) {
+            if(this.playerWithDiscounts.get(i).playerWithDiscount == player) {
                 choosenCard.reduceCost(this.playerWithDiscounts.get(i).discount);
             }
         }
