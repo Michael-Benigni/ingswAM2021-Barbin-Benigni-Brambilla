@@ -2,10 +2,11 @@ package it.polimi.ingsw.config;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import it.polimi.ingsw.model.cards.leadercards.Requirement;
-import it.polimi.ingsw.model.gameresources.Resource;
-import it.polimi.ingsw.model.gameresources.faithtrack.Section;
-import it.polimi.ingsw.model.gameresources.faithtrack.Cell;
+import it.polimi.ingsw.server.model.cards.leadercards.Requirement;
+import it.polimi.ingsw.server.model.gameresources.Producible;
+import it.polimi.ingsw.server.model.gameresources.Resource;
+import it.polimi.ingsw.server.model.gameresources.faithtrack.Section;
+import it.polimi.ingsw.server.model.gameresources.faithtrack.Cell;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class JsonHandler {
     /**
      * It's the path of the main database with all the objects needed for the game
      */
-    private static final String PATH_TO_DB = "config/db.json";
+    private static final String PATH_TO_DB = "src/main/resources/db.json";
 
     /**
      * it's the object provided by the Gson library to serialize and deserialize Java objects into and from Json objects
@@ -224,5 +225,6 @@ public class JsonHandler {
         gsonBuilder.registerTypeAdapter(Cell.class, new JsonAdapter<Cell>());
         gsonBuilder.registerTypeAdapter(Section.class, new JsonAdapter<Section>());
         gsonBuilder.registerTypeAdapter(Requirement.class, new JsonAdapter<Requirement>());
+        gsonBuilder.registerTypeAdapter(Producible.class, new JsonAdapter<Producible>());
     }
 }

@@ -1,20 +1,22 @@
 package it.polimi.ingsw.config;
 
-import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCard;
-import it.polimi.ingsw.model.cards.developmentcards.DevelopmentCardsGrid;
-import it.polimi.ingsw.model.cards.leadercards.LeaderCard;
-import it.polimi.ingsw.model.cards.leadercards.LeaderCardsDeck;
-import it.polimi.ingsw.model.gamelogic.actions.GameBoard;
-import it.polimi.ingsw.model.gamelogic.actions.PersonalBoard;
-import it.polimi.ingsw.model.gameresources.faithtrack.FaithTrack;
-import it.polimi.ingsw.model.gameresources.faithtrack.Section;
-import it.polimi.ingsw.model.gameresources.markettray.MarketMarble;
-import it.polimi.ingsw.model.gameresources.markettray.MarketTray;
-import it.polimi.ingsw.model.gameresources.stores.ResourceType;
-import it.polimi.ingsw.model.gameresources.stores.StorableResource;
-import it.polimi.ingsw.model.gameresources.stores.WarehouseDepots;
+import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
+import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
+import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
+import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeck;
+import it.polimi.ingsw.server.model.gamelogic.InitialParams;
+import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
+import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
+import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrack;
+import it.polimi.ingsw.server.model.gameresources.faithtrack.Section;
+import it.polimi.ingsw.server.model.gameresources.markettray.MarketMarble;
+import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
+import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
+import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
+import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class ConfigLoader {
@@ -29,15 +31,31 @@ public class ConfigLoader {
         );
     }
 
-    PersonalBoard loadPersonalBoard() throws FileNotFoundException {
+    ArrayList<PersonalBoard> loadPersonalBoards(int numOfPlayers) throws FileNotFoundException {
         final String keyInJSON = "personalBoard/";
         int maxNumberOfDevCardsInSlot = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumOfDevCardsInSlot/");
         int numberSlotDevCards = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "numOfSlotDevCards/");
         int maxLeaderCardsInSlot = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumOfLeaderCardsInSlot/");
-        return new PersonalBoard(initWarehouseFromJSON(), numberSlotDevCards, maxNumberOfDevCardsInSlot, maxLeaderCardsInSlot);
+        int maxLeaderCardsDuringGame = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxLeaderCardsDuringGame/");
+        ArrayList<PersonalBoard> boards = new ArrayList<>();
+        for (int i = 0; i < numOfPlayers; i++)
+            boards.add(new PersonalBoard(initWarehouseFromJSON(), numberSlotDevCards, maxNumberOfDevCardsInSlot, maxLeaderCardsInSlot, maxLeaderCardsDuringGame));
+        return boards;
     }
 
-    private FaithTrack initFaithTrackFromJSON() throws FileNotFoundException {
+    ArrayList<InitialParams> loadInitialParams(int maxNumOfPlayers) throws FileNotFoundException {
+        final String keyInJSON = "initialParams/";
+        ArrayList<InitialParams> paramsArrayList = new ArrayList<>();
+        ArrayList<String> keys = new ArrayList<>();
+        keys.addAll(Arrays.asList(new String[] {"first/", "second/", "third/", "fourth/"}));
+        for (int i = 0; i < maxNumOfPlayers; i++) {
+            InitialParams params = (InitialParams) JsonHandler.getAsJavaObjectFromJSON(InitialParams.class, keyInJSON + keys.get(i));
+            paramsArrayList.add(params);
+        }
+        return paramsArrayList;
+    }
+
+        private FaithTrack initFaithTrackFromJSON() throws FileNotFoundException {
         String jsonPath = "gameBoard/faithTrack/";
         int numOfSections = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numberOfSections/");
         ArrayList<Section> sections = new ArrayList<>();
@@ -77,12 +95,12 @@ public class ConfigLoader {
     }
 
     private LeaderCardsDeck initLeaderCardsDeckFromJSON() throws FileNotFoundException {
-        String jsonPath = "gameBoard/leaderCardsDeck/deck/";
+        String jsonPath = "gameBoard/leaderCardsDeck/";
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         int numOfCards = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numOfCards");
         for (int i = 0; i < numOfCards; i++) {
-            LeaderCard card = (LeaderCard) JsonHandler.getAsJavaObjectFromJSONArray(LeaderCard.class, jsonPath, new int[] {i});
-            setEffectFromJSON(card, jsonPath, new int[] {i});
+            LeaderCard card = (LeaderCard) JsonHandler.getAsJavaObjectFromJSONArray(LeaderCard.class, jsonPath + "deck/", new int[] {i});
+            setEffectFromJSON(card, jsonPath + "deck/", new int[] {i});
             leaderCards.add(card);
         }
         return new LeaderCardsDeck(leaderCards);
