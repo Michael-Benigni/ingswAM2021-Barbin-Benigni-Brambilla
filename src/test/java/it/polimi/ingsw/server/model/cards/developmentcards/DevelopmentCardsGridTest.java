@@ -33,7 +33,7 @@ public class DevelopmentCardsGridTest {
                 DevelopmentCard card = cardsGrid.getChoosenCard(i, j, player);
                 for(int k = 1; k < numberOfCardsInEachDeck; k++) {
                     cardsGrid.removeChoosenCardFromGrid(i, j);
-                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) || !card.hasSameLevel(cardsGrid.getChoosenCard(i, j, player))) {
+                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) || card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
                         fail();
                     }
                 }
@@ -58,7 +58,7 @@ public class DevelopmentCardsGridTest {
         for(int i = 0; i < numberOfRows; i++) {
             card = cardsGrid.getChoosenCard(i, 0, player);
             for (int j = 1; j < numberOfColumns; j++) {
-                if(!card.hasSameLevel(cardsGrid.getChoosenCard(i, j, player))) {
+                if(card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
                     fail();
                 }
             }

@@ -64,14 +64,14 @@ class DevelopmentCardTest {
     void hasSameLevelTest1() throws NegativeResourceAmountException {
         DevelopmentCard card1 = buildCardForTests1();
         DevelopmentCard card2 = buildCardForTests1();
-        assertTrue(card1.hasSameLevel(card2));
+        assertTrue(card1.levelCompare(card2) == 0);
     }
 
     @Test
     void hasSameLevelTest2() throws NegativeResourceAmountException {
         DevelopmentCard card1 = buildCardForTests1();
         DevelopmentCard card2 = buildCardForTests2();
-        assertTrue(!card1.hasSameLevel(card2));
+        assertTrue(card1.levelCompare(card2) != 0);
     }
 
     @Test

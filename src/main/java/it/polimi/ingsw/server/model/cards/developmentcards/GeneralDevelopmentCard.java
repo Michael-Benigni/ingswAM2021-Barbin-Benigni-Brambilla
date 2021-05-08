@@ -48,8 +48,7 @@ public class GeneralDevelopmentCard implements Requirement {
      * @return -> boolean value: true if the two cards have the same level
      *                           false if the two cards haven't the same level
      */
-    //TODO: make it private
-    boolean hasSameLevel(GeneralDevelopmentCard cardToCompare) {
+    private boolean hasSameLevel(GeneralDevelopmentCard cardToCompare) {
         if(this.cardLevel == null || cardToCompare.getCardLevel() == null)
             return true;
         if(this.cardLevel.compareTo(cardToCompare.getCardLevel()) == 0)
