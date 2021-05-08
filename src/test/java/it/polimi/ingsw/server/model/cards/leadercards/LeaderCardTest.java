@@ -110,7 +110,7 @@ public class LeaderCardTest {
     void checkDiscountEffect() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, IllegalNumberOfPlayersException, NegativeVPAmountException, EmptyDeckException, TooManyPlayersException, UserAlreadyPresentInThisGame, ResourceOverflowInDepotException {
         LeaderCard leaderCard = buildDiscountCard();
         ArrayList<DevelopmentCard> cardsList = DevelopmentCardsGridTest.buildCardsForGrid();
-        DevelopmentCardsGrid developmentCardsGrid = new DevelopmentCardsGrid(cardsList, 2, 3);
+        DevelopmentCardsGrid developmentCardsGrid = new DevelopmentCardsGrid(cardsList, 3, 4);
         GameBoard gameBoard = new GameBoard(new FaithTrackTest().getFaithTrack(), developmentCardsGrid, null, new LeaderCardsDeckTest().getLeaderCardsDeck());
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
         for (int i = 0; i < 2; i++)

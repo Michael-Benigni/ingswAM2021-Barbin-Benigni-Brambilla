@@ -23,7 +23,7 @@ public class DevelopmentCardsGridTest {
      */
     @Test
     void checkDecks() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
-        int numberOfRows = 2, numberOfColumns = 3;
+        int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         int numberOfCardsInEachDeck = cardsList.size() / (numberOfRows * numberOfColumns);
@@ -50,7 +50,7 @@ public class DevelopmentCardsGridTest {
      */
     @Test
     void checkRows() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
-        int numberOfRows = 2, numberOfColumns = 3;
+        int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
@@ -74,7 +74,7 @@ public class DevelopmentCardsGridTest {
      */
     @Test
     void checkColumns() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
-        int numberOfRows = 2, numberOfColumns = 3;
+        int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
@@ -91,7 +91,7 @@ public class DevelopmentCardsGridTest {
 
     @Test
     void addPlayerWithDiscountTest() throws NegativeResourceAmountException, NegativeVPAmountException, EmptyDeckException {
-        int numberOfRows = 2, numberOfColumns = 3;
+        int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
@@ -120,30 +120,56 @@ public class DevelopmentCardsGridTest {
         consumedResources.add(servant);
         producedResources.add(servant);
         VictoryPoint victoryPoints = new VictoryPoint(4);
-        DevelopmentCard card1 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card2 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card3 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card4 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card5 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card6 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card7 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card8 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card9 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card10 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card11 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card12 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        cardsList.add(card11);
-        cardsList.add(card9);
-        cardsList.add(card12);
-        cardsList.add(card10);
-        cardsList.add(card4);
-        cardsList.add(card6);
-        cardsList.add(card8);
+
+        DevelopmentCard card1 = new DevelopmentCard(CardColour.YELLOW, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card2 = new DevelopmentCard(CardColour.YELLOW, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card3 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card4 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card5 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card6 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card7 = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card8 = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card9 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card10 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card11 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card12 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card13 = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card14 = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card15 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card16 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card17 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card18 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card19 = new DevelopmentCard(CardColour.PURPLE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card20 = new DevelopmentCard(CardColour.PURPLE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card21 = new DevelopmentCard(CardColour.PURPLE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card22 = new DevelopmentCard(CardColour.PURPLE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card23 = new DevelopmentCard(CardColour.PURPLE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card24 = new DevelopmentCard(CardColour.PURPLE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+
+        cardsList.add(card1);
         cardsList.add(card2);
         cardsList.add(card3);
+        cardsList.add(card4);
         cardsList.add(card5);
-        cardsList.add(card1);
+        cardsList.add(card6);
         cardsList.add(card7);
+        cardsList.add(card8);
+        cardsList.add(card9);
+        cardsList.add(card10);
+        cardsList.add(card11);
+        cardsList.add(card12);
+        cardsList.add(card13);
+        cardsList.add(card14);
+        cardsList.add(card15);
+        cardsList.add(card16);
+        cardsList.add(card17);
+        cardsList.add(card18);
+        cardsList.add(card19);
+        cardsList.add(card20);
+        cardsList.add(card21);
+        cardsList.add(card22);
+        cardsList.add(card23);
+        cardsList.add(card24);
         Collections.shuffle(cardsList);
         return cardsList;
     }
