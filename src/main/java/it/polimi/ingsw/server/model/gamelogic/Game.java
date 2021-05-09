@@ -44,11 +44,6 @@ public abstract class Game {
     private Turn currentTurn;
 
     /**
-     * the gameboard of the game
-     */
-    private GameBoard gameBoard;
-
-    /**
      * this Arraylist represents the initial parameters for the players in the game according to their positions in the game
      * round, that is the index of this ArrayList.
      */
@@ -85,8 +80,6 @@ public abstract class Game {
             player.buildBoard(personalBoards.get(index));
             player.setPosition(index);
         }
-        this.gameBoard = gameBoard;
-        this.gameBoard.prepare(getAllPlayers());
         this.currentPlayer = playersOrder.getFirst();
         this.numberOfRounds = 0;
         this.currentTurn = new FirstTurn();
@@ -202,9 +195,7 @@ public abstract class Game {
     /**
      * @return the game board
      */
-    public GameBoard getGameBoard() {
-        return this.gameBoard;
-    }
+    public abstract GameBoard getGameBoard();
 
 
     /**

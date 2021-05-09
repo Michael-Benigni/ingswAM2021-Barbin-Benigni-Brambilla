@@ -28,7 +28,6 @@ public class DepotTest {
         assertEquals(resourceToStore, newDepot.getStoredResource());
     }
 
-
     /**
      * Test on "storeResourceInDepot" method
      * Tests if the method successfully add a resource with the same type of the one contained in the depot. Then try to
@@ -58,7 +57,6 @@ public class DepotTest {
             fail();
         }
     }
-
 
     /**
      * Test on "storeResourceInDepot" method
@@ -129,7 +127,6 @@ public class DepotTest {
         assertEquals(resourceToCheck, newDepot.getStoredResource());
     }
 
-
     /**
      * Test on "removeResourceFromDepot" method.
      * Tests if the method empties completely a depot.
@@ -149,7 +146,6 @@ public class DepotTest {
             assertEquals(newDepot, new Depot(16));
         }
     }
-
 
     /**
      * Test on "removeResourceFromDepot" method.
@@ -178,7 +174,6 @@ public class DepotTest {
             assertEquals(resourceToStore, newDepot.getStoredResource());
         }
     }
-
 
     /**
      * Test on "alreadyContained" method of this class.

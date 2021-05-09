@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.gamelogic.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Class that represents the common faith track on the game board. Every player has a marker that indicates its position on the track.
@@ -14,7 +15,6 @@ public class FaithTrack {
     private ArrayList<Section> listOfSections;
     private HashMap<Player, FaithMarker> mapOfFaithMarkers;
 
-
     /**
      * Constructor method of this class. It builds the entire structure of the track.
      * @param arrayOfSections
@@ -23,7 +23,6 @@ public class FaithTrack {
         this.listOfSections = new ArrayList<>(0);
         this.listOfSections = arrayOfSections;
     }
-
 
     /**
      * Method that initializes the map of faithMarkers given the all players of the game
@@ -52,13 +51,12 @@ public class FaithTrack {
         return listOfSections.get(0).getCell(0);
     }
 
-
     /**
      * Method that update the provided cell with the next on the track.
      * @param currentCell -> the current cell, so the caller wants the next one.
      * @return -> the next cell.
      */
-    private Cell nextCell(Cell currentCell) throws Exception {
+    private Cell nextCell(Cell currentCell) throws WrongCellIndexException, CellNotFoundInFaithTrackException {
         for (Section s : listOfSections) {
             try {
                 Cell nextCell = s.searchNextCellInSection(currentCell);
@@ -72,7 +70,6 @@ public class FaithTrack {
         }
         throw new CellNotFoundInFaithTrackException();
     }
-
 
     /**
      * Method that return the section that contains the provided cell.
@@ -93,14 +90,13 @@ public class FaithTrack {
         throw new CellNotFoundInFaithTrackException();
     }
 
-
     /**
      * Method that move the marker that belongs to the provided player by a provide number of cells.
      * @param player -> player whose marker to move.
      * @param numberOfSteps -> number of cells.
      * @throws Exception
      */
-    void moveMarkerForward(Player player, int numberOfSteps) throws Exception {
+    void moveMarkerForward(Player player, int numberOfSteps) throws WrongCellIndexException, CellNotFoundInFaithTrackException, NegativeVPAmountException, GameOverByFaithTrackException {
         FaithMarker faithMarker = this.getMapOfFaithMarkers().get(player);
         for(int i = 0; i < numberOfSteps; i++) {
             Cell nextCell = nextCell(faithMarker.getCurrentCell());
@@ -139,5 +135,9 @@ public class FaithTrack {
     @Override
     public int hashCode() {
         return Objects.hash(listOfSections, mapOfFaithMarkers);
+    }
+
+    public Set<Player> getPlayersFromFaithTrack() {
+        return this.mapOfFaithMarkers.keySet();
     }
 }

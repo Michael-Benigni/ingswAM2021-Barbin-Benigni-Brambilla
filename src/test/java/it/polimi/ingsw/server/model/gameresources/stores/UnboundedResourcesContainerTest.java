@@ -32,7 +32,7 @@ public class UnboundedResourcesContainerTest {
 
 
     /**
-     * Test on the "store" method.
+     * Test on "store" method.
      * Test if the method put a new resource in an empty strongbox.
      * @throws Exception can be throwed by "store" method.
      */

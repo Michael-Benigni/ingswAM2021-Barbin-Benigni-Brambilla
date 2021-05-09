@@ -9,7 +9,6 @@ public class VictoryPoint implements Cloneable{
 
     private int amount;
 
-
     /**
      * Constructor method of this class.
      * @param amount -> amount of victory points you want to create.
@@ -21,7 +20,6 @@ public class VictoryPoint implements Cloneable{
         this.amount = amount;
     }
 
-
     /**
      * Method that sum two instances of "VictoryPoint" class. This object replace its amount with the sum of the two amounts.
      * @param pointToSum -> Object of "VictoryPoints" class you want to be summed to this.
@@ -29,7 +27,6 @@ public class VictoryPoint implements Cloneable{
     public void increaseVictoryPoints(VictoryPoint pointToSum){
         this.amount = this.amount + pointToSum.amount;
     }
-
 
     /**
      * Method that subtract two instances of "VictoryPoint" class.
@@ -44,7 +41,6 @@ public class VictoryPoint implements Cloneable{
             throw new NegativeVPAmountException();
     }
 
-
     /**
      * Method that returns if the provided victory points has the same amounts of this instance of victory point.
      * @return -> boolean: true if the two amounts are the same, false otherwise.
@@ -56,7 +52,6 @@ public class VictoryPoint implements Cloneable{
         VictoryPoint that = (VictoryPoint) o;
         return amount == that.amount;
     }
-
 
     @Override
     public Object clone() {

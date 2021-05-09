@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
+import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.exception.NotContainedResourceException;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -16,7 +18,7 @@ class StrongboxAction extends PayAction implements FirstTurnAction{
 
 
     @Override
-    public void perform(Game game, Player player) throws Exception {
+    public void perform(Game game, Player player) throws NegativeResourceAmountException, NotContainedResourceException {
         Strongbox strongbox = player.getPersonalBoard().getStrongbox();
         switch (this.storeOrRemove) {
             case "store" : {
@@ -33,7 +35,7 @@ class StrongboxAction extends PayAction implements FirstTurnAction{
 
     @Override
     public Action getUndoAction() {
-        if(storeOrRemove == "remove")
+        if(storeOrRemove.equals("remove"))
             return new StrongboxAction("store", getResource());
         return new StrongboxAction("remove", getResource());
     }

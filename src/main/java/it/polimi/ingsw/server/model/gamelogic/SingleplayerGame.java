@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.server.exception.TooManyPlayersException;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
+import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,8 @@ import java.util.ArrayList;
  * Class that represents one match with 1 player, that will play with a COM
  */
 public class SingleplayerGame extends Game {
-    private Player LORENZO_THE_MAGNIFICENT;
+
+    SoloPlayerGameBoard gameBoard;
 
     /**
      * Constructor. The number of players is 1 + 1 for the COM
@@ -31,7 +33,6 @@ public class SingleplayerGame extends Game {
     @Override
     public Player createPlayer() throws TooManyPlayersException {
         Player newPlayer = super.createPlayer();
-        this.LORENZO_THE_MAGNIFICENT = createPlayer();
         return newPlayer;
     }
 
@@ -43,9 +44,13 @@ public class SingleplayerGame extends Game {
      */
     @Override
     public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) {
+        this.gameBoard = (SoloPlayerGameBoard) gameBoard;
+        this.gameBoard.prepare(getAllPlayers());
         super.setup(personalBoards, gameBoard, params);
-        Player currPlayer = getCurrentPlayer();
-        if (currPlayer == this.LORENZO_THE_MAGNIFICENT)
-            setNextPlayer();
+    }
+
+    @Override
+    public SoloPlayerGameBoard getGameBoard() {
+        return this.gameBoard;
     }
 }

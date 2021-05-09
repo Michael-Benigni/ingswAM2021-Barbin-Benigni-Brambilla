@@ -44,7 +44,7 @@ public abstract class Section {
      * section, so it can't return the next one.
      * @throws CellNotFoundInSectionException -> exception thrown if the cell isn't in this section.
      */
-    Cell searchNextCellInSection(Cell currentCell) throws Exception {
+    Cell searchNextCellInSection(Cell currentCell) throws LastCellInSectionException, CellNotFoundInSectionException {
         for(int i = 0; i < listCells.size(); i++) {
             if(listCells.get(i) == currentCell) {
                 if( listCells.get(i) == lastCellInSection()) {

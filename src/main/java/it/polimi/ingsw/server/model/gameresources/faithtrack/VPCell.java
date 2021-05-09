@@ -27,7 +27,7 @@ public class VPCell extends Cell{
      * @throws NegativeVPAmountException -> can be thrown by constructor method of "VictoryPoint" class.
      */
     @Override
-    protected void activateCell(FaithTrack faithTrack, Player player) throws Exception {
+    protected void activateCell(FaithTrack faithTrack, Player player) throws NegativeVPAmountException {
         VictoryPoint victoryPoint = (VictoryPoint) this.victoryPoints.clone();
         HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarkers();
         VictoryPoint pointsToBeAddedToPlayer = mapOfFaithMarker.get(player).updateLastVictoryPoint(victoryPoint);

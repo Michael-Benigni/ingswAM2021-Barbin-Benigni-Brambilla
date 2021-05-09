@@ -22,7 +22,6 @@ public class FaithMarker {
         this.currentCell = startingCell;
     }
 
-
     /**
      * Method that update the victory points gained by the last VPCell reached by the faith marker. Then also increase
      * the amount of victory points of that player.
@@ -35,7 +34,6 @@ public class FaithMarker {
         lastVictoryPoint = newVictoryPoint;
         return temporaryVictoryPoint;
     }
-
 
     /**
      * Method that returns if the current cell is contained in the provided section.
@@ -51,7 +49,6 @@ public class FaithMarker {
         }
     }
 
-
     /**
      * Getter method of "currentCell" method of this class.
      * @return -> the current cell of this faith marker.
@@ -59,7 +56,6 @@ public class FaithMarker {
     Cell getCurrentCell() {
         return currentCell;
     }
-
 
     /**
      * Method that update the current cell of this marker.

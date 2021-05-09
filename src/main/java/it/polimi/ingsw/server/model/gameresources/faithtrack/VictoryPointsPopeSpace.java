@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
+import it.polimi.ingsw.server.exception.CellNotFoundInFaithTrackException;
+import it.polimi.ingsw.server.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 
@@ -21,22 +23,19 @@ public class VictoryPointsPopeSpace extends PopeSpace{
         this.victoryPoints = victoryPoints;
     }
 
-
     /**
      * Method inherited by "Cell" class. In this case this method does the same actions of "VPCell" and "PopeSpace".
      * @param faithTrack
      * @param player
-     * @throws Exception
      */
     @Override
-    public void activateCell(FaithTrack faithTrack, Player player) throws Exception {
+    public void activateCell(FaithTrack faithTrack, Player player) throws NegativeVPAmountException, CellNotFoundInFaithTrackException {
         VictoryPoint victoryPoint = (VictoryPoint) this.victoryPoints.clone();
         HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarkers();
         VictoryPoint pointsToBeAdded = mapOfFaithMarker.get(player).updateLastVictoryPoint(victoryPoint);
         player.addVictoryPointsToPlayer(pointsToBeAdded);
         super.activateCell(faithTrack, player);
     }
-
 
     /**
      * Method that return if two objects are instances of this class and have the same number of victory points.

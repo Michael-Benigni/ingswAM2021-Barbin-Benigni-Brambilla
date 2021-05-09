@@ -3,8 +3,10 @@ package it.polimi.ingsw.server.model.cards.developmentcards;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import it.polimi.ingsw.server.exception.EmptyDeckException;
+import it.polimi.ingsw.server.exception.NoMoreCardsWithThisColourException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 
@@ -189,6 +191,30 @@ public class DevelopmentCardsGrid {
         this.cardsGrid = new ArrayList<>(0);
         for(int i = 0; i < rows; i++){
             cardsGrid.add(new ArrayList<>());
+        }
+    }
+
+    public void removeNCardsFromGrid(CardColour colour, int cardsToBeRemoved) throws NoMoreCardsWithThisColourException {
+        GeneralDevelopmentCard cardToBeCompared = new GeneralDevelopmentCard(colour, CardLevel.ONE);
+        for(int i = 0; i < rows && cardsToBeRemoved > 0; i++) {
+            for(int j = 0; j < columns && cardsToBeRemoved > 0; j++) {
+                try {
+                    if(getDeck(i, j).get(0).hasSameColour(cardToBeCompared)) {
+                        for(;cardsToBeRemoved > 0; cardsToBeRemoved --) {
+                            removeChoosenCardFromGrid(i, j);
+                        }
+                    }
+                } catch (EmptyDeckException e) {
+
+                }
+            }
+        }
+        for(int j = 0; j < columns; j++) {
+            try{
+                getDeck(rows-1, j);
+            }catch(EmptyDeckException e) {
+                throw new NoMoreCardsWithThisColourException();
+            }
         }
     }
 }

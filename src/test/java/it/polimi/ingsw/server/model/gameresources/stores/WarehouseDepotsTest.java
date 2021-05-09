@@ -23,9 +23,9 @@ public class WarehouseDepotsTest {
     }
 
     /**
-     * Test on "storeResourceInWarehouse" method.
+     * Test on "store" method.
      * Tests if the method correctly inserts, in the created strongbox, a resource.
-     * @throws Exception -> can be thrown by "storeResourceInWarehouse" method.
+     * @throws Exception can be thrown by "store" method.
      */
     @Test
     void checkStoreIfCorrect() throws Exception {
@@ -44,7 +44,7 @@ public class WarehouseDepotsTest {
      * Test on "store" method of this class.
      * It Tests if the method throws successfully the exception when the provided index is less than zero or exceeds the
      * number of depots.
-     * @throws Exception can be thrown by "storeResourceInWarehouse" method.
+     * @throws Exception can be thrown by "store" method.
      */
     @Test
     void checkStoreIfWrongIndex() throws Exception {
@@ -100,7 +100,7 @@ public class WarehouseDepotsTest {
 
     /**
      * Test on "swapDepots" method of this class.
-     * It tests if the method successfully switch the
+     * It tests if the method successfully switch the two depots.
      * @throws Exception
      */
     @Test

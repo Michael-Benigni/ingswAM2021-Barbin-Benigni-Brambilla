@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
+import it.polimi.ingsw.server.exception.CellNotFoundInFaithTrackException;
+import it.polimi.ingsw.server.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.exception.TileAlreadyActivatedException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
@@ -7,7 +9,7 @@ import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import java.util.HashMap;
 
 /**
- * Class that represents a Pope Space cell on the faith truck.
+ * Class that represents a Pope Space cell on the faith track.
  */
 public class PopeSpace extends Cell{
 
@@ -27,7 +29,7 @@ public class PopeSpace extends Cell{
      * @param faithTrack
      */
     @Override
-    protected void activateCell(FaithTrack faithTrack, Player player) throws Exception {
+    protected void activateCell(FaithTrack faithTrack, Player player) throws CellNotFoundInFaithTrackException, NegativeVPAmountException {
         try{
             VictoryPoint pointsFromTile = this.tile.activateTile();
             player.addVictoryPointsToPlayer(pointsFromTile);
@@ -47,8 +49,8 @@ public class PopeSpace extends Cell{
 
     /**
      * Method that return if two objects are both instances of this class.
-     * @param o -> object to be compared.
-     * @return -> boolean: true if both are instances of "PopeSpace" class.
+     * @param o object to be compared.
+     * @return boolean: true if both are instances of "PopeSpace" class.
      */
     @Override
     public boolean equals(Object o) {

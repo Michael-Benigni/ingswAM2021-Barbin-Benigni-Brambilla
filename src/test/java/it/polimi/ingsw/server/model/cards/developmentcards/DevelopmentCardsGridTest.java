@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.cards.developmentcards;
 import it.polimi.ingsw.server.exception.EmptyDeckException;
 import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.exception.NegativeVPAmountException;
+import it.polimi.ingsw.server.exception.NoMoreCardsWithThisColourException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
@@ -22,7 +23,7 @@ public class DevelopmentCardsGridTest {
      * @throws EmptyDeckException
      */
     @Test
-    void checkDecks() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
+    void checkDecks() throws NegativeResourceAmountException, EmptyDeckException {
         int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
@@ -49,7 +50,7 @@ public class DevelopmentCardsGridTest {
      * @throws EmptyDeckException
      */
     @Test
-    void checkRows() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
+    void checkRows() throws NegativeResourceAmountException, EmptyDeckException {
         int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
@@ -73,7 +74,7 @@ public class DevelopmentCardsGridTest {
      * @throws EmptyDeckException
      */
     @Test
-    void checkColumns() throws NegativeResourceAmountException, EmptyDeckException, NegativeVPAmountException {
+    void checkColumns() throws NegativeResourceAmountException, EmptyDeckException {
         int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
@@ -90,7 +91,7 @@ public class DevelopmentCardsGridTest {
     }
 
     @Test
-    void addPlayerWithDiscountTest() throws NegativeResourceAmountException, NegativeVPAmountException, EmptyDeckException {
+    void addPlayerWithDiscountTest() throws NegativeResourceAmountException, EmptyDeckException {
         int numberOfRows = 3, numberOfColumns = 4;
         Player player = new Player();
         ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
@@ -172,5 +173,49 @@ public class DevelopmentCardsGridTest {
         cardsList.add(card24);
         Collections.shuffle(cardsList);
         return cardsList;
+    }
+
+    @Test
+    void checkRemoveNFromGridIfCorrect() throws NegativeResourceAmountException {
+        ArrayList<DevelopmentCard> cards = buildCardsForGrid();
+        DevelopmentCardsGrid newGrid = new DevelopmentCardsGrid(cards, 3, 4);
+        Player player = new Player();
+        try {
+            newGrid.removeNCardsFromGrid(CardColour.BLUE, 1);
+        } catch (NoMoreCardsWithThisColourException e) {
+            fail();
+        }
+        try {
+            newGrid.removeNCardsFromGrid(CardColour.BLUE, 1);
+        } catch (NoMoreCardsWithThisColourException e) {
+            fail();
+        }
+        try {
+            for(int i = 0; i < 3; i++)
+                for(int j = 0; j < 4; j++){
+                    newGrid.getChoosenCard(i ,j, player);
+                }
+        } catch (EmptyDeckException e) {
+            assertTrue(true);
+        }
+        try{
+            newGrid.removeNCardsFromGrid(CardColour.BLUE, 4);
+            fail();
+        } catch (NoMoreCardsWithThisColourException e) {
+            try{
+                newGrid.removeNCardsFromGrid(CardColour.BLUE, 1);
+                fail();
+            } catch (NoMoreCardsWithThisColourException exception) {
+                int excCount = 0;
+                for(int i = 0; i < 3; i++)
+                    for(int j = 0; j < 4; j++)
+                        try {
+                            newGrid.getChoosenCard(i ,j, player);
+                        } catch (EmptyDeckException emptyDeckException) {
+                            excCount ++;
+                        }
+                assertTrue(excCount == 3);
+            }
+        }
     }
 }
