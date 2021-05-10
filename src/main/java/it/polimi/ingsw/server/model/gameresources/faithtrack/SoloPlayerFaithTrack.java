@@ -28,6 +28,10 @@ public class SoloPlayerFaithTrack extends FaithTrack {
         super.initMarkers(players);
     }
 
+    /**
+     * Method that move the black cross forward by a provided number of cells.
+     * @param numberOfSteps integer representing how many cells the black cross must move.
+     */
     public void moveBlackCross(int numberOfSteps) throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException {
         super.moveMarkerForward(comPlayer, numberOfSteps);
     }

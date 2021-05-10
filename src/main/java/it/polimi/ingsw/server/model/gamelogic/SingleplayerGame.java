@@ -19,8 +19,8 @@ public class SingleplayerGame extends Game {
     /**
      * Constructor. The number of players is 1 + 1 for the COM
      */
-    SingleplayerGame() throws IllegalNumberOfPlayersException {
-        super(2);
+    public SingleplayerGame() throws IllegalNumberOfPlayersException {
+        super(1);
     }
 
 

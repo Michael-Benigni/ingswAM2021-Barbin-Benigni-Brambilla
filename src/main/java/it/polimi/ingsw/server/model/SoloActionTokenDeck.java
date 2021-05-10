@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Class that represents the deck of action token used in the singleplayer game.
+ * Class that represents the deck of action tokens used in the singleplayer game.
  */
 public class SoloActionTokenDeck {
 
@@ -21,7 +21,7 @@ public class SoloActionTokenDeck {
     /**
      * Method that change the order of the action tokens.
      */
-    void shuffleSoloActionTokens() {
+    void shuffle() {
         Collections.shuffle(this.listOfTokens);
     }
 
