@@ -15,11 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MarketTrayTest {
-    HashMap<MarketMarble, Integer> marbles;
+public class MarketTrayTest {
+    public HashMap<MarketMarble, Integer> marbles;
 
     @BeforeEach
-    void initMarbles() throws NegativeResourceAmountException {
+    public void initMarbles() throws NegativeResourceAmountException {
         MarketMarble m1 = new MarketMarble(MarbleColour.BLUE, new StorableResource(ResourceType.SHIELD, 1));
         MarketMarble m2 = new MarketMarble(MarbleColour.YELLOW, new StorableResource(ResourceType.COIN, 1));
         MarketMarble m3 = new MarketMarble(MarbleColour.GREY, new StorableResource(ResourceType.STONE, 1));
