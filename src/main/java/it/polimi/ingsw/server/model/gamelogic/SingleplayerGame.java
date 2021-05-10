@@ -14,8 +14,6 @@ import java.util.ArrayList;
  */
 public class SingleplayerGame extends Game {
 
-    SoloPlayerGameBoard gameBoard;
-
     /**
      * Constructor. The number of players is 1 + 1 for the COM
      */
@@ -42,15 +40,12 @@ public class SingleplayerGame extends Game {
      * the game board
      * @throws NotEnoughPlayersException
      */
-    @Override
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) {
-        this.gameBoard = (SoloPlayerGameBoard) gameBoard;
-        this.gameBoard.prepare(getAllPlayers());
+    public void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) {
         super.setup(personalBoards, gameBoard, params);
     }
 
     @Override
     public SoloPlayerGameBoard getGameBoard() {
-        return this.gameBoard;
+        return (SoloPlayerGameBoard) super.getGameBoard();
     }
 }

@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class MultiplayerGame extends Game {
 
-    private GameBoard gameBoard;
 
     /**
      * Constructor.
@@ -32,13 +31,11 @@ public class MultiplayerGame extends Game {
      */
     @Override
     public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) {
-        this.gameBoard = gameBoard;
-        this.gameBoard.prepare(getAllPlayers());
         super.setup(personalBoards, gameBoard, params);
     }
 
     @Override
     public GameBoard getGameBoard() {
-        return this.gameBoard;
+        return super.getGameBoard();
     }
 }

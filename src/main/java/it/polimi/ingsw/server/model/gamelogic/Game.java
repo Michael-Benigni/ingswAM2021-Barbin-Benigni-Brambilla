@@ -29,6 +29,11 @@ public abstract class Game {
     private LinkedList<Player> playersOrder;
 
     /**
+     * board of the game, common to all the players
+     */
+    private GameBoard gameBoard;
+
+    /**
      * number of rounds already played
      */
     private int numberOfRounds;
@@ -80,6 +85,8 @@ public abstract class Game {
             player.buildBoard(personalBoards.get(index));
             player.setPosition(index);
         }
+        this.gameBoard = gameBoard;
+        this.gameBoard.prepare(getAllPlayers());
         this.currentPlayer = playersOrder.getFirst();
         this.numberOfRounds = 0;
         this.currentTurn = new FirstTurn();
@@ -195,7 +202,9 @@ public abstract class Game {
     /**
      * @return the game board
      */
-    public abstract GameBoard getGameBoard();
+    public GameBoard getGameBoard() {
+        return this.gameBoard;
+    }
 
 
     /**
