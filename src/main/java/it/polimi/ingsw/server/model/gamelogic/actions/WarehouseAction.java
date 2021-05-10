@@ -28,11 +28,13 @@ class WarehouseAction extends PayAction implements FirstTurnAction {
             NotEqualResourceTypeException, ResourceOverflowInDepotException {
         WarehouseDepots warehouse = player.getPersonalBoard().getWarehouseDepots();
         switch (storeOrRemove) {
-            //TODO: is needed the store-case?
             case "store": {
-                warehouse.store(getResource(), depotIdx);
-                //TODO: we have to catch the exception ResourceOverflowInDepot and here we have to put the exceeded
-                // resource in the temporary container
+                try {
+                    warehouse.store(getResource(), depotIdx);
+                } catch (ResourceOverflowInDepotException e) {
+                    player.getPersonalBoard().getTempContainer().store(e.getResource());
+                    throw new ResourceOverflowInDepotException(e.getResource());
+                }
                 break;
             }
             case "remove": {
