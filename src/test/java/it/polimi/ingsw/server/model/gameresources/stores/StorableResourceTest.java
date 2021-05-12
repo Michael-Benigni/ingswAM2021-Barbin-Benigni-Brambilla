@@ -198,7 +198,8 @@ public class StorableResourceTest {
      * It tests if the method returns the right answer.
      */
     @Test
-    void checkContainedInIfCorrect() throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException {
+    void checkContainedInIfCorrect() throws NegativeResourceAmountException, NotEqualResourceTypeException,
+            ResourceOverflowInDepotException, WrongDepotIndexException, SameResourceTypeInDifferentDepotsException {
         StorableResource resourceRequired = new StorableResource(ResourceType.STONE, 4);
         Player player = new Player();
         WarehouseDepots warehouse = new WarehouseDepots(3, new ArrayList<>(Arrays.asList(3, 4, 5)));

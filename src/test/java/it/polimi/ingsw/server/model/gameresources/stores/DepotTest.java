@@ -159,13 +159,6 @@ public class DepotTest {
         Depot newDepot = new Depot(60);
         StorableResource resourceToStore = new StorableResource(ResourceType.STONE, 23);
         StorableResource resourceToRemove = new StorableResource(ResourceType.SHIELD, 21);
-        newDepot.removeResourceFromDepot(resourceToRemove);
-        try {
-            newDepot.getStoredResource();
-            fail();
-        } catch(EmptyDepotException e) {
-
-        }
         newDepot.storeResourceInDepot(resourceToStore);
         try{
             newDepot.removeResourceFromDepot(resourceToRemove);

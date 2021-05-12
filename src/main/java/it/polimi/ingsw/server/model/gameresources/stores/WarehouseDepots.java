@@ -85,12 +85,13 @@ public class WarehouseDepots {
      * @param depotIndex integer useful to recognize the right depot.
      * @throws Exception thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
      */
-    public void store(StorableResource resourceToStore, int depotIndex) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException {
+    public void store(StorableResource resourceToStore, int depotIndex) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException, SameResourceTypeInDifferentDepotsException {
         if (ifDepotIndexIsCorrect(depotIndex)) {
             if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex) || depotIndex > this.numberOfDepots) {
                 listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
             }
-            return;
+            else
+                throw new SameResourceTypeInDifferentDepotsException();
         }
         else{
             throw new WrongDepotIndexException();
@@ -104,7 +105,7 @@ public class WarehouseDepots {
      * @param depotIndex integer useful to recognize the right depot.
      * @throws Exception can be thrown by "removeResourceFromDepot" method of "Depot" class.
      */
-    public void remove(StorableResource resourceToRemove, int depotIndex) throws Exception {
+    public void remove(StorableResource resourceToRemove, int depotIndex) throws WrongDepotIndexException, NegativeResourceAmountException, NotEqualResourceTypeException, EmptyDepotException {
         Depot currentDepot;
         if(ifDepotIndexIsCorrect(depotIndex)) {
             currentDepot = listDepot.get(depotIndex);

@@ -163,6 +163,14 @@ public class Turn {
         if(this.token != TurnToken.AVAILABLE_FOR_PRODUCTION)
             throw new NoValidActionException();
     }
+
+    public void endProductionPhase() throws NoValidActionException {
+        if(this.token == TurnToken.AVAILABLE_FOR_PRODUCTION) {
+            this.token = TurnToken.UNAVAILABLE;
+        }
+        else
+            throw new NoValidActionException();
+    }
 }
 
 class StartTurnAction implements Action {

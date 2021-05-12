@@ -8,6 +8,8 @@ import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 
+import java.util.Objects;
+
 class StrongboxAction extends PayAction implements FirstTurnAction{
     private final String storeOrRemove;
 
@@ -38,5 +40,13 @@ class StrongboxAction extends PayAction implements FirstTurnAction{
         if(storeOrRemove.equals("remove"))
             return new StrongboxAction("store", getResource());
         return new StrongboxAction("remove", getResource());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StrongboxAction)) return false;
+        StrongboxAction that = (StrongboxAction) o;
+        return Objects.equals(storeOrRemove, that.storeOrRemove);
     }
 }

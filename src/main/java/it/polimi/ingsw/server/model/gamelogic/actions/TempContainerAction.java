@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
+import it.polimi.ingsw.server.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -20,7 +21,9 @@ class TempContainerAction implements FirstTurnAction {
 
 
     @Override
-    public void perform(Game game, Player player) throws Exception {
+    public void perform(Game game, Player player) throws WrongDepotIndexException, NegativeResourceAmountException,
+            EmptyDepotException, SameResourceTypeInDifferentDepotsException, NotEqualResourceTypeException,
+            ResourceOverflowInDepotException, NotContainedResourceException {
         TemporaryContainer tempCont = player.getPersonalBoard().getTempContainer();
         WarehouseDepots warehouse = player.getPersonalBoard().getWarehouseDepots();
         switch (storeOrRemove) {

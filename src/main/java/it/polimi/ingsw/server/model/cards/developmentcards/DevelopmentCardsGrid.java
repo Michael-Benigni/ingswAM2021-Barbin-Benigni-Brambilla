@@ -141,7 +141,7 @@ public class DevelopmentCardsGrid {
         ArrayList <DevelopmentCard> cardsGroupedByColourSortedByLevel = sortByLevel(cardsGroupedByColour);
         int numberOfDecks = rows * columns;
         int numberOfCardsInEachDeck = cardsGroupedByColourSortedByLevel.size() / numberOfDecks;
-        for(int i = 0; i < rows; i++) {
+        for(int i = rows - 1; i >= 0; i--) {
             for(int j = 0; j < columns; j++) {
                 List<DevelopmentCard> deck = cardsGroupedByColourSortedByLevel.subList(0, numberOfCardsInEachDeck);
                 this.cardsGrid.get(i).add(new ArrayList<>(deck));

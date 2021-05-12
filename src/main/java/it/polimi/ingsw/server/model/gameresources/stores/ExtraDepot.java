@@ -25,7 +25,7 @@ public class ExtraDepot extends Depot{
     }
 
     @Override
-    void removeResourceFromDepot(StorableResource resourceToRemove) throws NegativeResourceAmountException, NotEqualResourceTypeException {
+    void removeResourceFromDepot(StorableResource resourceToRemove) throws NegativeResourceAmountException, NotEqualResourceTypeException, EmptyDepotException {
         super.removeResourceFromDepot(resourceToRemove);
         try {
             super.getStoredResource();

@@ -131,7 +131,9 @@ public class LeaderCardTest {
     }
 
     @Test
-    void checkExtraDepotEffect() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, ResourceOverflowInDepotException {
+    void checkExtraDepotEffect() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException,
+            NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException,
+            ResourceOverflowInDepotException, SameResourceTypeInDifferentDepotsException {
         LeaderCard leaderCard = buildExtraDepotCard();
         StorableResource resourceToStore = new StorableResource(ResourceType.COIN, 1);
         try{

@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.server.exception.ResourceOverflowInDepotException;
-import it.polimi.ingsw.server.exception.WrongDepotIndexException;
+import it.polimi.ingsw.server.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -25,7 +22,7 @@ class WarehouseAction extends PayAction implements FirstTurnAction {
 
     @Override
     public void perform(Game game, Player player) throws WrongDepotIndexException, NegativeResourceAmountException,
-            NotEqualResourceTypeException, ResourceOverflowInDepotException {
+            NotEqualResourceTypeException, ResourceOverflowInDepotException, EmptyDepotException, SameResourceTypeInDifferentDepotsException {
         WarehouseDepots warehouse = player.getPersonalBoard().getWarehouseDepots();
         switch (storeOrRemove) {
             case "store": {

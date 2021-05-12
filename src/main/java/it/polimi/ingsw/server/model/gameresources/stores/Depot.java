@@ -54,6 +54,9 @@ class Depot {
         if (resourceTot.amountLessEqualThan(capacity)) {
             storedResource = resourceTot;
         } else {
+            //TODO: this piece of code is correct for the resource picked from the market tray, but if we want to
+            // store a resource that exceed the limit of the depot, we will store all the resources that fill
+            // the depot... maybe can be a problem (???)
             storedResource = resourceToStore;
             storedResource.setAmount(capacity);
             try {
@@ -71,10 +74,12 @@ class Depot {
      * @throws NotEqualResourceTypeException can be thrown by "decreaseAmount" method of "StorableResource" class.
      * @throws NegativeResourceAmountException can be thrown by "decreaseAmount" method of "StorableResource" class.
      */
-    void removeResourceFromDepot(StorableResource resourceToRemove) throws NotEqualResourceTypeException, NegativeResourceAmountException {
+    void removeResourceFromDepot(StorableResource resourceToRemove) throws NotEqualResourceTypeException, NegativeResourceAmountException, EmptyDepotException {
         try {
+            if(this.getStoredResource() == null)
+                throw new EmptyDepotException();
             storedResource = this.getStoredResource().decreaseAmount(resourceToRemove);
-        } catch (NullResourceAmountException | EmptyDepotException e) {
+        } catch (NullResourceAmountException e) {
             storedResource = null;
         }
     }

@@ -40,5 +40,6 @@ class EndProductionAction implements Action {
         player.getPersonalBoard().getStrongbox().storeAll(resources);
         for (Producer producer : player.getPersonalBoard().getAllProducers())
             producer.setAvailableForProduction(true);
+        game.getCurrentTurn().endProductionPhase();
     }
 }

@@ -1,5 +1,9 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
+import it.polimi.ingsw.server.exception.CellNotFoundInFaithTrackException;
+import it.polimi.ingsw.server.exception.GameOverByFaithTrackException;
+import it.polimi.ingsw.server.exception.NegativeVPAmountException;
+import it.polimi.ingsw.server.exception.WrongCellIndexException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.Producible;
@@ -32,7 +36,8 @@ public class FaithPoint implements Producible {
      * This method find the faith track and move the marker of the provided player by a number of steps equal to this.point.
      */
     @Override
-    public void activate(Player player, Game game) throws Exception {
+    public void activate(Player player, Game game) throws WrongCellIndexException, CellNotFoundInFaithTrackException,
+            GameOverByFaithTrackException, NegativeVPAmountException {
         game.getGameBoard().getFaithTrack().moveMarkerForward(player, this.points);
     }
 
