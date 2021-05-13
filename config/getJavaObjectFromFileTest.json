@@ -19,12 +19,12 @@
     {
       "amount": 1,
       "resourceType": "SHIELD",
-      "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+      "className": "it.polimi.ingsw.server.model.personalboard.StorableResource"
     },
     {
       "amount": 1,
       "resourceType": "SERVANT",
-      "className": "it.polimi.ingsw.model.personalboard.StorableResource"
+      "className": "it.polimi.ingsw.server.model.personalboard.StorableResource"
     }
   ],
   "cardColour": "YELLOW",
