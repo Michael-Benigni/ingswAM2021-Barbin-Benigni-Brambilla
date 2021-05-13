@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NotContainedResourceException;
-import it.polimi.ingsw.server.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.server.exception.NullResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NotContainedResourceException;
+import it.polimi.ingsw.server.model.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.server.model.exception.NullResourceAmountException;
 import java.util.ArrayList;
 import java.util.Objects;
 

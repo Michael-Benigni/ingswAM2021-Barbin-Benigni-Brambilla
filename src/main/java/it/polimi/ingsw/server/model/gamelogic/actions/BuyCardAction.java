@@ -15,7 +15,7 @@ class BuyCardAction implements MutualExclusiveAction {
     private final int slotIdx;
     private final ArrayList<PayAction> payActions;
 
-    public BuyCardAction(int row, int column, ArrayList<PayAction> fromWhereAndWhatRemove, int slotIdx) {
+    BuyCardAction(int row, int column, ArrayList<PayAction> fromWhereAndWhatRemove, int slotIdx) {
         this.payActions = fromWhereAndWhatRemove;
         this.row = row;
         this.column = column;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.cards.leadercards;
 
-import it.polimi.ingsw.server.exception.*;
+
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
 /**

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.NoValidActionException;
+import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Turn;
 
-public interface MutualExclusiveAction extends Action {
+interface MutualExclusiveAction extends Action {
     @Override
     default boolean isValid(Turn turn) {
         try {

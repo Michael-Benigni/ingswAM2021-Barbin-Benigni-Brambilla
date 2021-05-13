@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.EmptySlotException;
-import it.polimi.ingsw.server.exception.NotContainedResourceException;
-import it.polimi.ingsw.server.exception.NotExistingExtraProductionPower;
-import it.polimi.ingsw.server.exception.WrongSlotDevelopmentIndexException;
+import it.polimi.ingsw.server.model.exception.EmptySlotException;
+import it.polimi.ingsw.server.model.exception.NotContainedResourceException;
+import it.polimi.ingsw.server.model.exception.NotExistingExtraProductionPower;
+import it.polimi.ingsw.server.model.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;

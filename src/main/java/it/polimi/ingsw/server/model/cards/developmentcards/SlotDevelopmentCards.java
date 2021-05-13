@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
-import it.polimi.ingsw.server.exception.DevelopmentCardNotAddableException;
-import it.polimi.ingsw.server.exception.EmptySlotException;
-import it.polimi.ingsw.server.exception.SlotDevelopmentCardsIsFullException;
+import it.polimi.ingsw.server.model.exception.DevelopmentCardNotAddableException;
+import it.polimi.ingsw.server.model.exception.EmptySlotException;
+import it.polimi.ingsw.server.model.exception.SlotDevelopmentCardsIsFullException;
 import it.polimi.ingsw.server.model.gamelogic.actions.Producer;
 
 import java.util.ArrayList;

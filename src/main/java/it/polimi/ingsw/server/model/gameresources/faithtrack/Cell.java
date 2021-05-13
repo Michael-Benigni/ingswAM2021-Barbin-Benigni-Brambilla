@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
-import it.polimi.ingsw.server.exception.CellNotFoundInFaithTrackException;
-import it.polimi.ingsw.server.exception.NegativeVPAmountException;
+import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
+import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
 /**

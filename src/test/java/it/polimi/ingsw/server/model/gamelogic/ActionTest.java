@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.TooManyPlayersException;
+import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGridTest;
@@ -27,6 +27,7 @@ public class ActionTest {
     FaithTrackTest faithTrackTest = new FaithTrackTest();
     public Player player1, player2;
     public ArrayList<Integer> capacities = new ArrayList<>();
+    private int cardID = 1;
 
     @BeforeEach
     void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException {
@@ -66,14 +67,14 @@ public class ActionTest {
         VictoryPoint victoryPoints = new VictoryPoint(3);
         ResourceType resourceType = ResourceType.STONE;
         int capacity = 2;
-        LeaderCard extraDepotCard1 = new LeaderCard(requirements, victoryPoints, null);
-        LeaderCard extraDepotCard2 = new LeaderCard(requirements, victoryPoints, null);
-        LeaderCard extraDepotCard3 = new LeaderCard(requirements, victoryPoints, null);
-        LeaderCard extraDepotCard4 = new LeaderCard(requirements, victoryPoints, null);
-        LeaderCard extraDepotCard5 = new LeaderCard(requirements, victoryPoints, null);
-        LeaderCard extraDepotCard6 = new LeaderCard(requirements, victoryPoints, null);
-        LeaderCard extraDepotCard7 = new LeaderCard(requirements, victoryPoints, null);
-        LeaderCard extraDepotCard8 = new LeaderCard(requirements, victoryPoints, null);
+        LeaderCard extraDepotCard1 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard2 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard3 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard4 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard5 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard6 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard7 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard8 = new LeaderCard(cardID, requirements, victoryPoints, null);
         extraDepotCard1.setExtraDepotEffect(resourceType, capacity);
         extraDepotCard2.setExtraDepotEffect(resourceType, capacity);
         extraDepotCard3.setExtraDepotEffect(resourceType, capacity);

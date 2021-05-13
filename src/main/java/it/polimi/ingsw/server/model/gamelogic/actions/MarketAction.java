@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.NoValidActionException;
+import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
@@ -12,7 +12,7 @@ class MarketAction implements MutualExclusiveAction {
     private final int numRowOrColumn;
     private final String rowOrColumn;
 
-    protected MarketAction(int numRowOrColumn, String rowOrColumn) {
+    MarketAction(int numRowOrColumn, String rowOrColumn) {
         super();
         this.numRowOrColumn = numRowOrColumn;
         this.rowOrColumn = rowOrColumn;

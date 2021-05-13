@@ -1,19 +1,18 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.*;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
-
 import java.util.Objects;
 
 class WarehouseAction extends PayAction implements FirstTurnAction {
     private final String storeOrRemove;
     private final int depotIdx;
 
-    public WarehouseAction(String storeOrRemove, StorableResource resourceToPay, int depotIdx) {
+    WarehouseAction(String storeOrRemove, StorableResource resourceToPay, int depotIdx) {
         super(resourceToPay);
         this.storeOrRemove = storeOrRemove;
         this.depotIdx = depotIdx;

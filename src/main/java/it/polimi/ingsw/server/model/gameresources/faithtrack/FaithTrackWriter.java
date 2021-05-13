@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
-import it.polimi.ingsw.config.JsonHandler;
-import it.polimi.ingsw.server.exception.WrongCellIndexException;
+import it.polimi.ingsw.server.utils.config.JsonHandler;
+import it.polimi.ingsw.server.model.exception.WrongCellIndexException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import it.polimi.ingsw.server.exception.*;
+
+import it.polimi.ingsw.server.model.exception.*;
+
 import java.util.ArrayList;
 import java.util.Objects;
 

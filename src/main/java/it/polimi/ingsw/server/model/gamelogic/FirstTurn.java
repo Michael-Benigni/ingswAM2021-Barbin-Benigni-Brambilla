@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.exception.WrongInitialConfiguration;
+import it.polimi.ingsw.server.model.exception.WrongInitialConfiguration;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 
 public class FirstTurn extends Turn {

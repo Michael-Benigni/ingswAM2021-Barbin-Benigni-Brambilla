@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.*;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -12,7 +12,7 @@ class TempContainerAction implements FirstTurnAction {
     private final StorableResource resource;
     private final int depotIdx;
 
-    public TempContainerAction(String storeOrRemove, StorableResource resource, int depotIdx) {
+    TempContainerAction(String storeOrRemove, StorableResource resource, int depotIdx) {
         super();
         this.storeOrRemove = storeOrRemove;
         this.resource = resource;

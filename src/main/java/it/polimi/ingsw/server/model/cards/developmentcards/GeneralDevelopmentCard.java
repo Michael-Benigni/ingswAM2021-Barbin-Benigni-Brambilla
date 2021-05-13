@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
-import it.polimi.ingsw.server.exception.EmptySlotException;
-import it.polimi.ingsw.server.exception.WrongSlotDevelopmentIndexException;
+import it.polimi.ingsw.server.model.exception.EmptySlotException;
+import it.polimi.ingsw.server.model.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.cards.leadercards.Requirement;
 

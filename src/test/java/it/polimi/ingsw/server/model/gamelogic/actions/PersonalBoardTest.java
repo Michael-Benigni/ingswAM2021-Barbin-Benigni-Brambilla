@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.model.cards.developmentcards.CardLevel;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.server.model.cards.leadercards.Requirement;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
@@ -21,6 +22,7 @@ import java.util.Arrays;
  */
 public class PersonalBoardTest {
     private static PersonalBoard p;
+    private int cardID = 1;
 
     @BeforeEach
     void init() {
@@ -136,14 +138,14 @@ public class PersonalBoardTest {
         coin1.add(new StorableResource(ResourceType.COIN, 1));
         ArrayList<Producible> faithPoint2 = new ArrayList<>(0);
         faithPoint2.add(new FaithPoint(2));
-        DevelopmentCard card1 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, stone3, coin1, faithPoint2, new VictoryPoint(3));
+        DevelopmentCard card1 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cardID, stone3, coin1, faithPoint2, new VictoryPoint(3));
 
         ArrayList<StorableResource> stone5 = new ArrayList<>(0);
         stone5.add(new StorableResource(ResourceType.STONE, 5));
         ArrayList<Producible> fp3shield1 = new ArrayList<>(0);
         fp3shield1.add(new FaithPoint(3));
         fp3shield1.add(new StorableResource(ResourceType.SHIELD, 1));
-        DevelopmentCard card2 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, stone5, coin1, fp3shield1, new VictoryPoint(6));
+        DevelopmentCard card2 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cardID, stone5, coin1, fp3shield1, new VictoryPoint(6));
 
         ArrayList<StorableResource> servant4 = new ArrayList<>(0);
         servant4.add(new StorableResource(ResourceType.SERVANT, 4));
@@ -151,7 +153,7 @@ public class PersonalBoardTest {
         stone1.add(new StorableResource(ResourceType.STONE, 1));
         ArrayList<Producible> coin3 = new ArrayList<>(0);
         coin3.add(new StorableResource(ResourceType.COIN, 3));
-        DevelopmentCard card3 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, servant4, stone1, coin3, new VictoryPoint(1));
+        DevelopmentCard card3 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cardID, servant4, stone1, coin3, new VictoryPoint(1));
 
         ArrayList<DevelopmentCard> listOfCards = new ArrayList<>(0);
         listOfCards.add(card1);

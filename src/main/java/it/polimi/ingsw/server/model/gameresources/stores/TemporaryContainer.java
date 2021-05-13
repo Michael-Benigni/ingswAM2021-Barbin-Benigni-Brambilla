@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import it.polimi.ingsw.server.exception.NoEmptyResourceException;
-import it.polimi.ingsw.server.exception.NotHaveThisEffectException;
+import it.polimi.ingsw.server.model.exception.NoEmptyResourceException;
+import it.polimi.ingsw.server.model.exception.NotHaveThisEffectException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import java.util.ArrayList;

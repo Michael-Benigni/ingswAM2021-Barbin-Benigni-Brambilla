@@ -1,9 +1,8 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
-import it.polimi.ingsw.server.exception.EmptyDeckException;
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NegativeVPAmountException;
-import it.polimi.ingsw.server.exception.NoMoreCardsWithThisColourException;
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NoMoreCardsWithThisColourException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
@@ -15,6 +14,8 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DevelopmentCardsGridTest {
+    private static int cardID = 1;
+
     /**
      * method that checks if each
      * deck contains cards
@@ -122,30 +123,30 @@ public class DevelopmentCardsGridTest {
         producedResources.add(servant);
         VictoryPoint victoryPoints = new VictoryPoint(4);
 
-        DevelopmentCard card1 = new DevelopmentCard(CardColour.YELLOW, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card2 = new DevelopmentCard(CardColour.YELLOW, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card3 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card4 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card5 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card6 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card7 = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card8 = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card9 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card10 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card11 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card12 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card13 = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card14 = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card15 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card16 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card17 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card18 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card19 = new DevelopmentCard(CardColour.PURPLE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card20 = new DevelopmentCard(CardColour.PURPLE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card21 = new DevelopmentCard(CardColour.PURPLE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card22 = new DevelopmentCard(CardColour.PURPLE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card23 = new DevelopmentCard(CardColour.PURPLE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard card24 = new DevelopmentCard(CardColour.PURPLE, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card1 = new DevelopmentCard(CardColour.YELLOW, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card2 = new DevelopmentCard(CardColour.YELLOW, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card3 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card4 = new DevelopmentCard(CardColour.YELLOW, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card5 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card6 = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card7 = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card8 = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card9 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card10 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card11 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card12 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card13 = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card14 = new DevelopmentCard(CardColour.GREEN, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card15 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card16 = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card17 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card18 = new DevelopmentCard(CardColour.GREEN, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card19 = new DevelopmentCard(CardColour.PURPLE, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card20 = new DevelopmentCard(CardColour.PURPLE, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card21 = new DevelopmentCard(CardColour.PURPLE, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card22 = new DevelopmentCard(CardColour.PURPLE, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card23 = new DevelopmentCard(CardColour.PURPLE, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard card24 = new DevelopmentCard(CardColour.PURPLE, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
 
         cardsList.add(card1);
         cardsList.add(card2);

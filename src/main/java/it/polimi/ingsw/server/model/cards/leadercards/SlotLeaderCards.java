@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.cards.leadercards;
 
-import it.polimi.ingsw.server.exception.FullLeaderCardSlotException;
-import it.polimi.ingsw.server.exception.LeaderCardNotFoundException;
+import it.polimi.ingsw.server.model.exception.FullLeaderCardSlotException;
+import it.polimi.ingsw.server.model.exception.LeaderCardNotFoundException;
 import java.util.ArrayList;
 
 /**

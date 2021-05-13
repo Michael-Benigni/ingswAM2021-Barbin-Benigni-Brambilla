@@ -1,13 +1,16 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-
-import it.polimi.ingsw.server.exception.NoValidActionException;
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.User;
+import it.polimi.ingsw.server.model.exception.InvalidUserException;
+import it.polimi.ingsw.server.model.exception.NoValidActionException;
+import it.polimi.ingsw.server.controller.commands.Command;
 
 /**
  * This class represents the Actions performed by a Player in a Game. It's the Java Object that represents the User input
  * from a Client, the interaction from the User with the model in the MVC-pattern-based project
  */
-public interface Action {
+public interface Action extends Command {
 
     /**
      * This is the method that performs this Action in the Game, and changes the actual state of the Game
@@ -35,5 +38,14 @@ public interface Action {
      */
     default boolean isValid(FirstTurn turn) throws NoValidActionException {
         return false;
+    }
+
+    @Override
+    default void handled(Controller controller, User user) throws InvalidUserException {
+        try {
+            this.perform (controller.getGameOf(user), controller.getWaitingRoomOf(user).getPlayerOf(user));
+        } catch (Exception e) {
+            e.printStackTrace ();
+        }
     }
 }

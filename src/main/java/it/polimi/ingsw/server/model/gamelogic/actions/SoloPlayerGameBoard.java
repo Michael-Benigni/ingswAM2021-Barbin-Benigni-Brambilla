@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.SoloActionTokenDeck;
+import it.polimi.ingsw.server.model.cards.actiontoken.SoloActionTokenDeck;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeck;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFaithTrack;

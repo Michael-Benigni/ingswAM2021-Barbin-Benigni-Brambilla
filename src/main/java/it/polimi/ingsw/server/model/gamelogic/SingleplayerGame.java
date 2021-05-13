@@ -1,8 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.exception.NotEnoughPlayersException;
-import it.polimi.ingsw.server.exception.TooManyPlayersException;
+import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
+import it.polimi.ingsw.server.model.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
@@ -23,15 +22,12 @@ public class SingleplayerGame extends Game {
 
 
     /**
-     * Creates a Player for a User, and since in this game the Player is one, and he'll play with the COM, it's created
-     * an alias for a fictitious User "Lorenzo_The_Magnificent" that will represent the COM in the game.
-     * @return
-     * @throws TooManyPlayersException
+     * This method prepare the game, setting the players' order, creating the first turn, setting the first Player, and
+     * the game board
+     * @throws NotEnoughPlayersException
      */
-    @Override
-    public Player createPlayer() throws TooManyPlayersException {
-        Player newPlayer = super.createPlayer();
-        return newPlayer;
+    private void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException {
+        super.setup(personalBoards, gameBoard, params);
     }
 
 
@@ -40,8 +36,12 @@ public class SingleplayerGame extends Game {
      * the game board
      * @throws NotEnoughPlayersException
      */
-    public void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) {
-        super.setup(personalBoards, gameBoard, params);
+    @Override
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException {
+        if (gameBoard instanceof SoloPlayerGameBoard)
+            setup(personalBoards, (SoloPlayerGameBoard) gameBoard, params);
+        /*else
+            throw WrongBoardException();*/
     }
 
     @Override

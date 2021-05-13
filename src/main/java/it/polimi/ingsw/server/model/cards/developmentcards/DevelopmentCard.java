@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.server.exception.NullResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.server.model.exception.NullResourceAmountException;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -15,6 +15,7 @@ import java.util.Objects;
  * all its attributes like the price, the production power, etc.
  */
 public class DevelopmentCard extends GeneralDevelopmentCard {
+    private final int cardID;
     private ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Producible> producedResources;
@@ -48,13 +49,15 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
      * constructor of the class DevelopmentCard
      * @param cardColour superclass' attribute
      * @param cardLevel superclass' attribute
+     * @param cardID
      * @param cost attribute that indicates che price of the card in terms of the resources that the player has to spend to earn the card
      * @param consumedResources attribute that indicates the resources that the player has to spend to star the production power
      * @param producedResources attribute that indicates the earned resources after the activation of the production power
      * @param victoryPoints
      */
-    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Producible> producedResources, VictoryPoint victoryPoints) {
+    public DevelopmentCard(CardColour cardColour, CardLevel cardLevel, int cardID, ArrayList<StorableResource> cost, ArrayList<StorableResource> consumedResources, ArrayList<Producible> producedResources, VictoryPoint victoryPoints) {
         super(cardColour, cardLevel);
+        this.cardID = cardID;
         this.cost = cost;
         this.consumedResources = consumedResources;
         this.producedResources = producedResources;
@@ -113,7 +116,7 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
 
     @Override
     protected Object clone() {
-        DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), this.getCost(), this.getConsumedResources(), this.getProducedResources(), victoryPoints);
+        DevelopmentCard copy = new DevelopmentCard(this.getCardColour(), this.getCardLevel(), cardID, this.getCost(), this.getConsumedResources(), this.getProducedResources(), victoryPoints);
         return copy;
     }
 

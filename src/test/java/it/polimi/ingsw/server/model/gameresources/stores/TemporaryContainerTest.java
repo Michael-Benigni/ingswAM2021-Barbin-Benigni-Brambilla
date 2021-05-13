@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.gameresources.stores;
 import it.polimi.ingsw.server.exception.*;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardTest;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TemporaryContainerTest {
     LeaderCardTest leaderCardTest = new LeaderCardTest();
     @Test
-    void checkTransformWhiteMarbleEffect1() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, IllegalNumberOfPlayersException, TooManyPlayersException, UserAlreadyPresentInThisGame, NotHaveThisEffectException {
+    void checkTransformWhiteMarbleEffect1() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException, NotHaveThisEffectException {
         LeaderCard leaderCard = LeaderCardTest.buildTransformWhiteMarbleCard();
         leaderCardTest.prepareTests();
         try{
@@ -48,7 +49,7 @@ class TemporaryContainerTest {
     }
 
     @Test
-    void checkTransformWhiteMarbleEffect2() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, UserAlreadyPresentInThisGame, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotHaveThisEffectException {
+    void checkTransformWhiteMarbleEffect2() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotHaveThisEffectException {
         LeaderCard leaderCard = LeaderCardTest.buildTransformWhiteMarbleCard();
         leaderCardTest.prepareTests();
         leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
@@ -63,7 +64,7 @@ class TemporaryContainerTest {
     }
 
     @Test
-    void clear() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, UserAlreadyPresentInThisGame, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException {
+    void clear() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException {
         LeaderCard leaderCard = LeaderCardTest.buildTransformWhiteMarbleCard();
         leaderCardTest.prepareTests();
         StorableResource coin = new StorableResource(ResourceType.COIN, 5);
@@ -120,7 +121,7 @@ class TemporaryContainerTest {
     }
 
     @Test
-    void transformEmptyResources() throws IllegalNumberOfPlayersException, TooManyPlayersException, UserAlreadyPresentInThisGame, NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotHaveThisEffectException {
+    void transformEmptyResources() throws IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException, NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotHaveThisEffectException {
         LeaderCard leaderCard = LeaderCardTest.buildTransformWhiteMarbleCard();
         leaderCardTest.prepareTests();
         leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);

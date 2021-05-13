@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.AlreadyUsedForProuctionException;
+import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -13,7 +13,7 @@ class BoardProductionAction implements Action {
     private final StorableResource produced;
     private final ArrayList<PayAction> payActions;
 
-    public BoardProductionAction(StorableResource produced, ArrayList<PayAction> payActions) {
+    BoardProductionAction(StorableResource produced, ArrayList<PayAction> payActions) {
         this.produced = produced;
         this.payActions = payActions;
     }

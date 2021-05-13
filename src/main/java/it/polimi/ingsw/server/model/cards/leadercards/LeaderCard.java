@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.cards.leadercards;
 
-import it.polimi.ingsw.server.exception.*;
+
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
@@ -16,6 +17,7 @@ import java.util.Objects;
  * or one or more effects if activated
  */
 public class LeaderCard {
+    private final int cardID;
     private boolean isAlreadyPlayed;
     private ArrayList <Requirement> requirements;
     private VictoryPoint victoryPoint;
@@ -23,11 +25,13 @@ public class LeaderCard {
 
     /**
      * this method is the constructor of this class
+     * @param cardID
      * @param requirements requirements of this leader card
      * @param victoryPoint amount of victory points of this card
      * @param effect effect that the leader card provides if activated
      */
-    public LeaderCard(ArrayList<Requirement> requirements, VictoryPoint victoryPoint, Effect effect) {
+    public LeaderCard(int cardID, ArrayList<Requirement> requirements, VictoryPoint victoryPoint, Effect effect) {
+        this.cardID = cardID;
         this.requirements = requirements;
         this.victoryPoint = victoryPoint;
         this.effect = effect;

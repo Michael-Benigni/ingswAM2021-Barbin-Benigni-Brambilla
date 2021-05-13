@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NegativeVPAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
@@ -53,9 +53,10 @@ class DevelopmentCardTest {
         ArrayList <Producible> list = new ArrayList<>(0);
         list.add(resource);
         VictoryPoint victoryPoint = new VictoryPoint(1);
-        DevelopmentCard card = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, listOfResource, listOfResource, list, victoryPoint);
+        int cardID = 1;
+        DevelopmentCard card = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cardID, listOfResource, listOfResource, list, victoryPoint);
         StorableResource discount = new StorableResource(ResourceType.COIN, 1);
-        DevelopmentCard card2 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, listOfResource2, listOfResource, list, victoryPoint);
+        DevelopmentCard card2 = new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cardID, listOfResource2, listOfResource, list, victoryPoint);
         card.reduceCost(discount);
         assertTrue(card.equals(card2));
     }
@@ -115,7 +116,7 @@ class DevelopmentCardTest {
         VictoryPoint victoryPoints = new VictoryPoint(3);
         producedResources.add(shield);
         producedResources.add(servant);
-        return new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
+        return new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, 1, cost, consumedResources, producedResources, victoryPoints);
     }
 
     /**
@@ -136,6 +137,6 @@ class DevelopmentCardTest {
         VictoryPoint victoryPoints = new VictoryPoint(3);
         producedResources.add(shield);
         producedResources.add(servant);
-        return new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
+        return new DevelopmentCard(CardColour.BLUE, CardLevel.TWO, 1, cost, consumedResources, producedResources, victoryPoints);
     }
 }

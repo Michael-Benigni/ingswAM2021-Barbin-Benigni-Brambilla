@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import it.polimi.ingsw.server.exception.WrongDepotIndexException;
+import it.polimi.ingsw.server.model.exception.WrongDepotIndexException;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;

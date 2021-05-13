@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
 import it.polimi.ingsw.server.exception.*;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
@@ -171,9 +172,10 @@ class SlotDevelopmentCardsTest {
         producedResources.add(shield);
         producedResources.add(servant);
         VictoryPoint victoryPoints = new VictoryPoint(4);
-        DevelopmentCard firstAddedCard = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard middleCard = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cost, consumedResources, producedResources, victoryPoints);
-        DevelopmentCard topCard = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cost, consumedResources, producedResources, victoryPoints);
+        int cardID = 1;
+        DevelopmentCard firstAddedCard = new DevelopmentCard(CardColour.YELLOW, CardLevel.ONE, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard middleCard = new DevelopmentCard(CardColour.GREEN, CardLevel.TWO, cardID, cost, consumedResources, producedResources, victoryPoints);
+        DevelopmentCard topCard = new DevelopmentCard(CardColour.BLUE, CardLevel.THREE, cardID, cost, consumedResources, producedResources, victoryPoints);
         listOfCards.add(firstAddedCard);
         listOfCards.add(middleCard);
         listOfCards.add(topCard);

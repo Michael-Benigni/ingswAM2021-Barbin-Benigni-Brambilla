@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import it.polimi.ingsw.server.exception.EmptyDepotException;
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.server.exception.ResourceOverflowInDepotException;
+import it.polimi.ingsw.server.model.exception.EmptyDepotException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.server.model.exception.ResourceOverflowInDepotException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

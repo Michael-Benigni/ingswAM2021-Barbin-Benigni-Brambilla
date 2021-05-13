@@ -1,16 +1,17 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.*;
+
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
-public class LeaderAction implements Action {
+class LeaderAction implements Action {
     private final String playOrDiscard;
     private final int numInSlot;
 
-    public LeaderAction(String playOrDiscard, int numInSlot) {
+    LeaderAction(String playOrDiscard, int numInSlot) {
         this.playOrDiscard = playOrDiscard;
         this.numInSlot = numInSlot;
     }

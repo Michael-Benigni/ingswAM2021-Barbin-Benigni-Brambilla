@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NotEqualResourceTypeException;
-import it.polimi.ingsw.server.exception.NullResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NotEqualResourceTypeException;
+import it.polimi.ingsw.server.model.exception.NullResourceAmountException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.cards.leadercards.Requirement;

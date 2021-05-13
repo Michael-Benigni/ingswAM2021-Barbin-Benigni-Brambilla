@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.exception.NotEnoughPlayersException;
+import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
+import it.polimi.ingsw.server.model.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 
@@ -30,7 +30,7 @@ public class MultiplayerGame extends Game {
      * @throws NotEnoughPlayersException
      */
     @Override
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) {
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException {
         super.setup(personalBoards, gameBoard, params);
     }
 

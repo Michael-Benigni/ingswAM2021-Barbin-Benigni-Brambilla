@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.NotContainedResourceException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NotContainedResourceException;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -13,7 +13,7 @@ import java.util.Objects;
 class StrongboxAction extends PayAction implements FirstTurnAction{
     private final String storeOrRemove;
 
-    public StrongboxAction(String storeOrRemove, StorableResource resource) {
+    StrongboxAction(String storeOrRemove, StorableResource resource) {
         super(resource);
         this.storeOrRemove = storeOrRemove;
     }

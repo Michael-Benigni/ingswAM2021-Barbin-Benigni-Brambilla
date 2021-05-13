@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.NegativeVPAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

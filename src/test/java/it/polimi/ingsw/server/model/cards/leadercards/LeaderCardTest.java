@@ -4,6 +4,7 @@ import it.polimi.ingsw.server.exception.*;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGridTest;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.GameFactory;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -25,11 +26,12 @@ public class LeaderCardTest {
     public static Player auxPlayer;
     public static Game game;
     public static StorableResource resourceForWhiteMarble;
+    private int cardID = 1;
 
     @BeforeEach
-    public void prepareTests() throws IllegalNumberOfPlayersException, TooManyPlayersException, UserAlreadyPresentInThisGame {
+    public void prepareTests() throws IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException {
         GameFactory gameFactory = new GameFactory();
-        game = gameFactory.MultiOrSingleplayerGame(4);
+        game = gameFactory.MultiOrSingleplayerGame(2);
         player = game.createPlayer();
         auxPlayer = game.createPlayer();
         ArrayList<Integer> capacities = new ArrayList<>();
@@ -107,7 +109,7 @@ public class LeaderCardTest {
     }
 
     @Test
-    void checkDiscountEffect() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, IllegalNumberOfPlayersException, NegativeVPAmountException, EmptyDeckException, TooManyPlayersException, UserAlreadyPresentInThisGame, ResourceOverflowInDepotException {
+    void checkDiscountEffect() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, IllegalNumberOfPlayersException, NegativeVPAmountException, EmptyDeckException, TooManyPlayersException, InvalidUserException, ResourceOverflowInDepotException {
         LeaderCard leaderCard = buildDiscountCard();
         ArrayList<DevelopmentCard> cardsList = DevelopmentCardsGridTest.buildCardsForGrid();
         DevelopmentCardsGrid developmentCardsGrid = new DevelopmentCardsGrid(cardsList, 3, 4);
@@ -193,7 +195,7 @@ public class LeaderCardTest {
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         resourceForWhiteMarble = new StorableResource(ResourceType.COIN, 1);
         VictoryPoint victoryPoints = new VictoryPoint(1);
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, null);
+        LeaderCard leaderCard = new LeaderCard(1, requirements, victoryPoints, null);
         leaderCard.setWhiteMarbleTransformationEffect(resourceForWhiteMarble);
         return leaderCard;
     }
@@ -202,7 +204,7 @@ public class LeaderCardTest {
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         VictoryPoint victoryPoints = new VictoryPoint(1);
         StorableResource resource = new StorableResource(ResourceType.COIN, 1);
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, null);
+        LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, null);
         leaderCard.setExtraProductionPowerEffect(resource);
         return leaderCard;
     }
@@ -211,7 +213,7 @@ public class LeaderCardTest {
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         VictoryPoint victoryPoints = new VictoryPoint(1);
         ResourceType resourceType = ResourceType.COIN;
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, null);
+        LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, null);
         leaderCard.setExtraDepotEffect(resourceType, 2);
         return leaderCard;
     }
@@ -220,7 +222,7 @@ public class LeaderCardTest {
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         VictoryPoint victoryPoints = new VictoryPoint(1);
         Effect effect = (player, game) -> activated = true;
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, effect);
+        LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, effect);
         return leaderCard;
     }
 
@@ -229,7 +231,7 @@ public class LeaderCardTest {
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         VictoryPoint victoryPoints = new VictoryPoint(1);
         Effect effect = (player2, game2) -> {};
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, effect);
+        LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, effect);
         leaderCard.play(player, null);
         return leaderCard;
     }
@@ -238,7 +240,7 @@ public class LeaderCardTest {
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         VictoryPoint victoryPoints = new VictoryPoint(1);
         Effect effect = (player, game) -> {};
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, effect);
+        LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, effect);
         return leaderCard;
     }
 
@@ -250,7 +252,7 @@ public class LeaderCardTest {
         requirements.add(stone);
         VictoryPoint victoryPoints = new VictoryPoint(3);
         Effect effect = (player, game) -> activated = true;
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, effect);
+        LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, effect);
         return leaderCard;
     }
 
@@ -258,7 +260,7 @@ public class LeaderCardTest {
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         VictoryPoint victoryPoints = new VictoryPoint(1);
         StorableResource discount = new StorableResource(ResourceType.SERVANT, 1);
-        LeaderCard leaderCard = new LeaderCard(requirements, victoryPoints, null);
+        LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, null);
         leaderCard.setDiscountEffect(discount);
         return leaderCard;
     }

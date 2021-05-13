@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.model.gameresources.markettray;
 
-import it.polimi.ingsw.server.exception.InvalidMarketColumnException;
-import it.polimi.ingsw.server.exception.InvalidMarketRowException;
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.InvalidMarketColumnException;
+import it.polimi.ingsw.server.model.exception.InvalidMarketRowException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.gameresources.Resource;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.EmptyResource;

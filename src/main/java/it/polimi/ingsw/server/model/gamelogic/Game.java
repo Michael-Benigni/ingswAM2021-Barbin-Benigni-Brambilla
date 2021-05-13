@@ -1,9 +1,11 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.exception.*;
+
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.server.view.ModelObserver;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import static java.util.Collections.shuffle;
@@ -59,6 +61,11 @@ public abstract class Game {
      */
     private boolean gameIsOver;
 
+    /**
+     * It's the Observer of the all Game
+     */
+    private ModelObserver modelObserver;
+
 
     /**
      * Constructor that will be reused in the subclasses
@@ -77,20 +84,23 @@ public abstract class Game {
      * This method prepare the game, setting the players' order, creating the first turn, setting the first Player, and
      * the game board
      */
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) {
-        this.params = params;
-        this.setPlayersOrder();
-        for (Player player : this.playersOrder) {
-            int index = getPlayerIndex(player);
-            player.buildBoard(personalBoards.get(index));
-            player.setPosition(index);
-        }
-        this.gameBoard = gameBoard;
-        this.gameBoard.prepare(getAllPlayers());
-        this.currentPlayer = playersOrder.getFirst();
-        this.numberOfRounds = 0;
-        this.currentTurn = new FirstTurn();
-        this.currentTurn.start();
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException {
+        if (isReadyToStart ()) {
+            this.params = params;
+            this.setPlayersOrder ();
+            for (Player player : this.playersOrder) {
+                int index = getPlayerIndex (player);
+                player.buildBoard (personalBoards.get (index));
+                player.setPosition (index);
+            }
+            this.gameBoard = gameBoard;
+            this.gameBoard.prepare (getAllPlayers ());
+            this.currentPlayer = playersOrder.getFirst ();
+            this.numberOfRounds = 0;
+            this.currentTurn = new FirstTurn ();
+            this.currentTurn.start ();
+        } else
+            throw new IllegalNumberOfPlayersException ();
     }
 
 
@@ -102,7 +112,7 @@ public abstract class Game {
      */
     public Player createPlayer() throws TooManyPlayersException {
         Player newPlayer = null;
-        if(playersOrder.size() <= numberOfPlayers) {
+        if(playersOrder.size() < numberOfPlayers) {
             newPlayer = new Player();
             playersOrder.add(newPlayer);
         }
@@ -111,6 +121,13 @@ public abstract class Game {
         return newPlayer;
     }
 
+
+    /**
+     * @return true if is reached the number of the players decided at the game creation
+     */
+    private boolean isReadyToStart() {
+        return numberOfPlayers == getAllPlayers ().size ();
+    }
 
     /**
      *

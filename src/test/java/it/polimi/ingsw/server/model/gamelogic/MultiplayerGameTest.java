@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.exception.TooManyPlayersException;
+import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeckTest;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
@@ -109,7 +109,7 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void setNextPlayer() {
+    void setNextPlayer() throws IllegalNumberOfPlayersException {
         game4Players.setup(personalBoards, gameBoard, new ArrayList<>());
         Player before = game4Players.getCurrentPlayer();
         game4Players.setNextPlayer();
@@ -118,7 +118,7 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void getCurrentTurn() {
+    void getCurrentTurn() throws IllegalNumberOfPlayersException {
         game4Players.setup(personalBoards, gameBoard, new ArrayList<>());
         Turn before = game4Players.getCurrentTurn();
         game4Players.setNextPlayer();
@@ -129,7 +129,7 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void getCurrentPlayer() {
+    void getCurrentPlayer() throws IllegalNumberOfPlayersException {
         game4Players.setup(personalBoards, gameBoard, new ArrayList<>());
         Player before = game4Players.getCurrentPlayer();
         game4Players.setNextPlayer();

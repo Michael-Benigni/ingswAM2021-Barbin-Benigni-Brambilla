@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.cards.leadercards;
 
-import it.polimi.ingsw.server.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -16,6 +16,7 @@ public class LeaderCardsDeckTest {
     private LeaderCard leaderCard1;
     private StorableResource resource;
     private ArrayList<LeaderCard> list;
+    private int cardID = 1;
 
     @Test
     void draw() throws NegativeResourceAmountException {
@@ -28,7 +29,7 @@ public class LeaderCardsDeckTest {
         resource = new StorableResource(ResourceType.COIN, 1);
         requirements.add(resource);
         Effect effect = null;
-        leaderCard1 = new LeaderCard(requirements, new VictoryPoint(1), effect);
+        leaderCard1 = new LeaderCard(cardID, requirements, new VictoryPoint(1), effect);
         list = new ArrayList<>(0);
         list.add(leaderCard1);
         leaderCardsDeck = new LeaderCardsDeck(list);

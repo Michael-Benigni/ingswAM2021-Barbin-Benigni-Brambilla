@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.markettray;
 
-import it.polimi.ingsw.server.exception.InvalidMarketColumnException;
-import it.polimi.ingsw.server.exception.InvalidMarketRowException;
+import it.polimi.ingsw.server.model.exception.InvalidMarketColumnException;
+import it.polimi.ingsw.server.model.exception.InvalidMarketRowException;
 import it.polimi.ingsw.server.model.gameresources.Resource;
 
 import java.util.*;

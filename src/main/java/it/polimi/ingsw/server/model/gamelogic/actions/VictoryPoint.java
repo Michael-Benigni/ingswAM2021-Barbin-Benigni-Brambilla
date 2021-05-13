@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.NegativeVPAmountException;
+import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 
 /**
  * Class that represents the victory points. It's composed by an integer that represents the amount of victory points.

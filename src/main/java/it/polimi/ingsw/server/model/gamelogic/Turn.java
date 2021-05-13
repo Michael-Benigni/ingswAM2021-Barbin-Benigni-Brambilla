@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.exception.IllegalTurnState;
-import it.polimi.ingsw.server.exception.NoValidActionException;
-import it.polimi.ingsw.server.exception.WrongInitialConfiguration;
+import it.polimi.ingsw.server.model.exception.IllegalTurnState;
+import it.polimi.ingsw.server.model.exception.NoValidActionException;
+import it.polimi.ingsw.server.model.exception.WrongInitialConfiguration;
 import it.polimi.ingsw.server.model.gamelogic.actions.PayAction;
 
 import java.util.ArrayList;

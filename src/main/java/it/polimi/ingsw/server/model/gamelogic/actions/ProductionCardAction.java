@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.exception.AlreadyUsedForProuctionException;
+import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.server.model.gamelogic.Game;
@@ -14,7 +14,7 @@ class ProductionCardAction implements ProductionAction {
     private final int numSlot;
     private final ArrayList<PayAction> payActions;
 
-    public ProductionCardAction(int numSlot, ArrayList<PayAction> payActions) {
+    ProductionCardAction(int numSlot, ArrayList<PayAction> payActions) {
         this.numSlot = numSlot;
         this.payActions = payActions;
     }
