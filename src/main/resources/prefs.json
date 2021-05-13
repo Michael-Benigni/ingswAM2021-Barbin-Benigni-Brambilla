@@ -1,0 +1,6 @@
+{
+  "serverPort": 1234,
+  "heartbeatPeriod": 3000,
+  "maxUsersInWaitingRoom": 4,
+  "pathMainServerDB": "src/main/resources/db.json"
+}
