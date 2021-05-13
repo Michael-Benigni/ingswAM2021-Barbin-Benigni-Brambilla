@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.utils.network;
 
-import it.polimi.ingsw.client.view.MessageHandler;
 import it.polimi.ingsw.server.utils.config.JsonHandler;
 
 import java.io.IOException;
