@@ -1,10 +1,14 @@
-package it.polimi.ingsw.server.model.gamelogic;
+package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
-import it.polimi.ingsw.server.model.exception.InvalidUserException;
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.controller.commands.Command;
+import it.polimi.ingsw.server.model.gamelogic.FirstTurn;
+import it.polimi.ingsw.server.model.gamelogic.Game;
+import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.server.model.gamelogic.Turn;
 
 /**
  * This class represents the Actions performed by a Player in a Game. It's the Java Object that represents the User input

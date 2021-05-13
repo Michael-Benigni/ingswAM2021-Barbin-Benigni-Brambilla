@@ -4,7 +4,6 @@ import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.server.model.exception.GameOverByFaithTrackException;
 import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.exception.WrongCellIndexException;
-import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;

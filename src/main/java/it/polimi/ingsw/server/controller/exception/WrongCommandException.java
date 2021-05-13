@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.model.exception;
+package it.polimi.ingsw.server.controller.exception;
 
 public class WrongCommandException extends Exception {
 }

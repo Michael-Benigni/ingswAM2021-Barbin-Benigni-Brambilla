@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.controller.commands;
 
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
-import it.polimi.ingsw.server.model.exception.InvalidUserException;
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 
 import java.io.FileNotFoundException;
 

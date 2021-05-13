@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.NotContainedResourceException;
-import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.ActionTest;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;

@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.controller.exception.FullWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
-import it.polimi.ingsw.server.model.exception.InvalidUserException;
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import java.util.ArrayList;
 import java.util.HashMap;

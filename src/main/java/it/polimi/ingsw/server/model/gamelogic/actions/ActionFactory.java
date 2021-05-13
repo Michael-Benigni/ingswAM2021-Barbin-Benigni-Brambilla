@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.utils.network.Header;
 import java.util.HashMap;
 

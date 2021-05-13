@@ -15,6 +15,7 @@ import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrackTest;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;

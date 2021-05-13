@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardTest;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;

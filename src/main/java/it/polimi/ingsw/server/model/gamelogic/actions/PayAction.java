@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
