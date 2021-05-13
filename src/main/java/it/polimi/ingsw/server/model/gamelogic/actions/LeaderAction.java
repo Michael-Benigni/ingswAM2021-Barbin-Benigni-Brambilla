@@ -1,11 +1,12 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
+import it.polimi.ingsw.server.exception.*;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
 import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
-class LeaderAction implements Action {
+public class LeaderAction implements Action {
     private final String playOrDiscard;
     private final int numInSlot;
 
@@ -16,7 +17,11 @@ class LeaderAction implements Action {
 
 
     @Override
-    public void perform(Game game, Player player) throws Exception {
+    public void perform(Game game, Player player) throws LeaderCardNotDiscardableException, EmptySlotException,
+            NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException,
+            ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException,
+            WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException,
+            LeaderCardNotFoundException {
         LeaderCard card = player.getPersonalBoard().getSlotLeaderCards().get(numInSlot);
         switch (playOrDiscard) {
             case "play" : {
