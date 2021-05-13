@@ -4,10 +4,10 @@ import it.polimi.ingsw.server.model.gamelogic.Action;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
-class TrasformWhiteMarbleAction implements Action {
+class TransformWhiteMarbleAction implements Action {
     private final int resourceIndex;
 
-    public TrasformWhiteMarbleAction(int resourceIndex) {
+    public TransformWhiteMarbleAction(int resourceIndex) {
         this.resourceIndex = resourceIndex;
     }
 
