@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
-import it.polimi.ingsw.server.exception.*;
+
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.ActionTest;
 import it.polimi.ingsw.server.model.gamelogic.actions.DiscardAllResources;
