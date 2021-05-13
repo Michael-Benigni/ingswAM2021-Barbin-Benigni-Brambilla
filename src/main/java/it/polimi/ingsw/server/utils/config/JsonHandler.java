@@ -7,6 +7,8 @@ import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.Resource;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.Cell;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.Section;
+import it.polimi.ingsw.server.utils.network.JsonTrasmittable;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -49,6 +51,10 @@ public class JsonHandler {
 
     public static Object fromJson(String jsonString, Type type) {
         return gson.fromJson(jsonString, type);
+    }
+
+    public static String asJson(Object object) {
+        return gson.toJson (object);
     }
 
 

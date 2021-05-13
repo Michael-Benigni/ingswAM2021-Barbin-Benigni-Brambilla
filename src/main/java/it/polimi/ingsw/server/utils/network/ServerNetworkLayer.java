@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.utils.network;
 
 import it.polimi.ingsw.server.view.ClientToken;
 import it.polimi.ingsw.server.view.VirtualView;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -38,8 +37,7 @@ public class ServerNetworkLayer {
         try {
             this.serverSocket = new ServerSocket(this.port);
         } catch (IOException e) {
-            // port not available
-            System.err.println(e.getMessage());
+            System.err.println (e.getMessage());
             return;
         }
         this.channels = new HashMap<> ();
@@ -61,7 +59,7 @@ public class ServerNetworkLayer {
                 System.out.printf("Client %d accepted!\n", this.channels.size () + 1);
                 executor.submit(()->handleConnectionRequest(socket, this.channels.size () + 1, virtualView));
             } catch(IOException e) {
-                // serverSocket di chiude
+                System.err.println (e.getMessage ());
                 break;
             }
         }
@@ -81,12 +79,12 @@ public class ServerNetworkLayer {
         this.channels.put (token, channel);
         view.newUser(token);
         channel.listeningLoop((msg) -> {
+            System.out.printf("Received from Client %s: %s\n", token, msg);
             try {
-                view.passToController (msg, token);
+                view.passToController ((Message) msg, token);
             } catch (Exception e) {
-               //TODO: channel.send ();
+                channel.send (new ErrorMessage (e.getMessage ()));
             }
-            System.out.printf("Received from %s: %s\n", token, msg);
         });
     }
 

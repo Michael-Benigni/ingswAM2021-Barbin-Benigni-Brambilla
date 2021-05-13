@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.utils.network;
 
-import it.polimi.ingsw.server.utils.config.JsonHandler;
+import it.polimi.ingsw.server.utils.network.exception.IllegalMessageException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,20 +55,22 @@ public class Channel {
         setStatus(ChannelStatus.OPENED);
     }
 
-    public void listeningLoop(MessageHandler messageHandler) {
+    public void listeningLoop(ReceivableHandler receivableHandler) {
         while (true && isActive()) {
             String msg = in.nextLine();
+            System.out.printf (msg + "\n");
             if (msg.equals("q"))
                 break;
             else {
-                messageHandler.onLoop(deserialize (msg));
+                try {
+                    Message message = new Message (msg);
+                    receivableHandler.onReceived (message);
+                } catch (IllegalMessageException e) {
+                    send (new ErrorMessage (e.getMessage ()));
+                }
             }
         }
         close();
-    }
-
-    private Message deserialize(String message) {
-        return (Message) JsonHandler.fromJson(message, Message.class);
     }
 
     private void setStatus(ChannelStatus newStatus) {
@@ -83,7 +85,7 @@ public class Channel {
     }
 
     void close() {
-        // chiudo gli stream e il socket
+        // closing streams and socket
         in.close();
         out.close();
         try {
@@ -97,9 +99,8 @@ public class Channel {
         setStatus(ChannelStatus.CLOSED);
     }
 
-    //TODO: Trasmittable ?
-    public void send(Message message) {
-        out.printf("%s\n", message/*.transmit ()*/);
-        out.flush();
+    public void send(JsonTrasmittable jsonTrasmittable) {
+        out.printf ("%s\n", jsonTrasmittable.transmit ());
+        out.flush ();
     }
 }
