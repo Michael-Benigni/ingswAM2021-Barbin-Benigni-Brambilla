@@ -69,9 +69,7 @@ public class SlotLeaderCards {
             this.listOfLeaderCards.remove(cardToRemove);
     }
 
-    public LeaderCard get(int cardIndex) throws LeaderCardNotFoundException {
-        if(!listOfLeaderCards.contains(cardIndex))
-            throw new LeaderCardNotFoundException();
+    public LeaderCard get(int cardIndex)  {
         return this.listOfLeaderCards.get(cardIndex);
     }
 

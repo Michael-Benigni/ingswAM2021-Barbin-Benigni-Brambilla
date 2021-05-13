@@ -170,7 +170,7 @@ public class PersonalBoard extends Producer {
      * Getter method for "slotLeaderCards" attribute of this class.
      * @return the real (not a copy) slot of leader cards.
      */
-    SlotLeaderCards getSlotLeaderCards() {
+    public SlotLeaderCards getSlotLeaderCards() {
         return slotLeaderCards;
     }
 
