@@ -6,11 +6,11 @@ import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
-class LeaderAction implements Action {
+public class LeaderAction implements Action {
     private final String playOrDiscard;
     private final int numInSlot;
 
-    LeaderAction(String playOrDiscard, int numInSlot) {
+    public LeaderAction(String playOrDiscard, int numInSlot) {
         this.playOrDiscard = playOrDiscard;
         this.numInSlot = numInSlot;
     }

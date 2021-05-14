@@ -26,7 +26,6 @@ public abstract class PayAction implements Action {
             cost.remove(getResource());
             game.getCurrentTurn().addUndoableAction(this);
         } catch (Exception e) {
-            getUndoAction().perform(game, player);
             game.getCurrentTurn().undo(game, player);
         }
     }
