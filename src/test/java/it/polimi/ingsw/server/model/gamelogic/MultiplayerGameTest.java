@@ -25,7 +25,7 @@ class MultiplayerGameTest {
 
     @BeforeEach
     void init() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException {
-        gameBoard = new GameBoard(new FaithTrackTest().getFaithTrack(), null, null, new LeaderCardsDeckTest().getLeaderCardsDeck());
+        gameBoard = new GameBoard(new FaithTrackTest().initFaithTrack(), null, null, new LeaderCardsDeckTest().getLeaderCardsDeck());
         personalBoards = new ArrayList<>();
         for (int i = 0; i < 4; i++)
             personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));

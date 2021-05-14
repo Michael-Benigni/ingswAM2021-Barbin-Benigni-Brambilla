@@ -21,13 +21,13 @@ import java.util.Arrays;
  * Tests on the "PersonalBoard" class.
  */
 public class PersonalBoardTest {
-    private static PersonalBoard p;
+
     private int cardID = 1;
 
-    @BeforeEach
-    void init() {
+    public static PersonalBoard init() {
         ArrayList<Integer> capacities = new ArrayList<>(Arrays.asList(1, 2, 3));
-        p = new PersonalBoard(new WarehouseDepots(3, capacities), 3, 3, 4, 2);
+        PersonalBoard p = new PersonalBoard(new WarehouseDepots(3, capacities), 3, 3, 4, 2);
+        return p;
     }
 
     /**
@@ -36,6 +36,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getStrongbox() {
+        PersonalBoard p = PersonalBoardTest.init();
         Strongbox toTest = p.getStrongbox();
         assertNotNull(toTest);
         assertEquals(toTest, new Strongbox());
@@ -47,6 +48,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getWarehouseDepots() {
+        PersonalBoard p = PersonalBoardTest.init();
         WarehouseDepots toTest = p.getWarehouseDepots();
         assertNotNull(toTest);
         ArrayList<Integer> capacities = new ArrayList<>(Arrays.asList(1, 2, 3));
@@ -59,6 +61,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getSlotDevelopmentCards() {
+        PersonalBoard p = PersonalBoardTest.init();
         SlotDevelopmentCards toTest = null;
         try {
             toTest = p.getSlotDevelopmentCards(1);
@@ -75,6 +78,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getSlotDevelopmentCardsThrowsExc() {
+        PersonalBoard p = PersonalBoardTest.init();
         SlotDevelopmentCards toTest = null;
         try {
             toTest = p.getSlotDevelopmentCards(-1);
@@ -91,6 +95,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getTempContainer() {
+        PersonalBoard p = PersonalBoardTest.init();
         TemporaryContainer temporaryContainer = p.getTempContainer();
         assertNotNull(temporaryContainer);
         assertEquals(temporaryContainer, new TemporaryContainer());
@@ -103,6 +108,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getAllResource() throws Exception {
+        PersonalBoard p = PersonalBoardTest.init();
         StorableResource coin = new StorableResource(ResourceType.COIN, 3);
         StorableResource stone = new StorableResource(ResourceType.STONE, 7);
         StorableResource servant = new StorableResource(ResourceType.SERVANT, 1);
@@ -122,6 +128,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getAllResourceWhenEmpty() {
+        PersonalBoard p = PersonalBoardTest.init();
         assertEquals(p.getAllResource(), new ArrayList<>(0));
     }
 
@@ -132,6 +139,7 @@ public class PersonalBoardTest {
      */
     @Test
     void getAllDevelopmentCards() throws Exception {
+        PersonalBoard p = PersonalBoardTest.init();
         ArrayList<StorableResource> stone3 = new ArrayList<>(0);
         stone3.add(new StorableResource(ResourceType.STONE, 3));
         ArrayList<StorableResource> coin1 = new ArrayList<>(0);
@@ -171,7 +179,8 @@ public class PersonalBoardTest {
      * It tests if the method successfully returns an empty arraylist when the slots are all empty.
      */
     @Test
-    void getAllDevelopmentCardsWhenEmpty() throws EmptySlotException, WrongSlotDevelopmentIndexException {
+    void getAllDevelopmentCardsWhenEmpty() {
+        PersonalBoard p = PersonalBoardTest.init();
         assertEquals(p.getAllDevelopmentCards(), new ArrayList<>(0));
     }
 
@@ -183,6 +192,7 @@ public class PersonalBoardTest {
      */
     @Test
     void addExtraProductionPower() throws NegativeResourceAmountException {
+        PersonalBoard p = PersonalBoardTest.init();
         Player player = new Player();
         player.buildBoard(p);
         try {
@@ -204,9 +214,7 @@ public class PersonalBoardTest {
         try {
             ArrayList<Producible> producibles = p.getExtraPower(0).produce(player, coin);
             assertTrue(producibles.size() == 2 && producibles.contains(coin) && producibles.contains(new FaithPoint(1)));
-        } catch (NotExistingExtraProductionPower notExistingExtraProductionPower) {
-            fail();
-        } catch (NotContainedResourceException e) {
+        } catch (NotExistingExtraProductionPower | NotContainedResourceException e) {
             fail();
         }
     }

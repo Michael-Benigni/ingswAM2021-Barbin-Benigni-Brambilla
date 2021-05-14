@@ -16,30 +16,46 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MarketTrayTest {
-    public HashMap<MarketMarble, Integer> marbles;
 
-    @BeforeEach
-    public void initMarbles() throws NegativeResourceAmountException {
+    private int row = 3;
+    private int col = 4;
+
+    /**
+     * Method used to create a new market tray.
+     * @return a new market tray.
+     * @throws NegativeResourceAmountException
+     */
+    public static MarketTray initMarketTray() throws NegativeResourceAmountException {
+        HashMap<MarketMarble, Integer> map = initMarbles();
+        MarketTray marketTray = new MarketTray(4, 3, map);
+        return marketTray;
+    }
+
+    /**
+     * Method used to create an hashmap useful to construct a market tray.
+     * @return an hashmap with a MarketMarble as key and an Integer as value.
+     * @throws NegativeResourceAmountException
+     */
+    private static HashMap<MarketMarble, Integer> initMarbles() throws NegativeResourceAmountException {
+        HashMap<MarketMarble, Integer> marbles = new HashMap<>(0);
         MarketMarble m1 = new MarketMarble(MarbleColour.BLUE, new StorableResource(ResourceType.SHIELD, 1));
         MarketMarble m2 = new MarketMarble(MarbleColour.YELLOW, new StorableResource(ResourceType.COIN, 1));
         MarketMarble m3 = new MarketMarble(MarbleColour.GREY, new StorableResource(ResourceType.STONE, 1));
         MarketMarble m4 = new MarketMarble(MarbleColour.PURPLE, new StorableResource(ResourceType.SERVANT, 1));
         MarketMarble m5 = new MarketMarble(MarbleColour.RED, new FaithPoint( 1));
         MarketMarble m6 = new MarketMarble(MarbleColour.WHITE, new EmptyResource());
-        marbles = new HashMap<>();
         marbles.put(m1, 2);
         marbles.put(m2, 2);
         marbles.put(m3, 2);
         marbles.put(m4, 2);
         marbles.put(m5, 1);
         marbles.put(m6, 4);
+        return marbles;
     }
 
     @Test
-    void pickResourcesOnRow() throws InvalidMarketRowException {
-        int col = 4;
-        int row = 3;
-        MarketTray marketTray = new MarketTray(col, row, marbles);
+    void pickResourcesOnRow() throws InvalidMarketRowException, NegativeResourceAmountException {
+        MarketTray marketTray = initMarketTray();
         List<Resource> resourceList = null;
         resourceList = marketTray.pickResourcesOnRow(1);
         assertInstanceOf(ArrayList.class, resourceList);
@@ -51,10 +67,8 @@ public class MarketTrayTest {
     }
 
     @Test
-    void pickResourcesOnColumn() throws InvalidMarketColumnException {
-        int col = 4;
-        int row = 3;
-        MarketTray marketTray = new MarketTray(col, row, marbles);
+    void pickResourcesOnColumn() throws InvalidMarketColumnException, NegativeResourceAmountException {
+        MarketTray marketTray = initMarketTray();
         List<Resource> resourceList = null;
         resourceList = marketTray.pickResourcesOnColumn(1);
         assertInstanceOf(ArrayList.class, resourceList);

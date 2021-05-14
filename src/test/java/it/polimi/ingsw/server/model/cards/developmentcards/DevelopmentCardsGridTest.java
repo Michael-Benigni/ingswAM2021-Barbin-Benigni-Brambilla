@@ -8,101 +8,27 @@ import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DevelopmentCardsGridTest {
+
     private static int cardID = 1;
+    private int numberOfColumns = 4;
+    private int numberOfRows = 3;
 
     /**
-     * method that checks if each
-     * deck contains cards
-     * with the same colour and level
+     * Method used to create a new grid of development cards.
+     * @return a new grid.
      * @throws NegativeResourceAmountException
-     * @throws EmptyDeckException
      */
-    @Test
-    void checkDecks() throws NegativeResourceAmountException, EmptyDeckException {
-        int numberOfRows = 3, numberOfColumns = 4;
-        Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
-        int numberOfCardsInEachDeck = cardsList.size() / (numberOfRows * numberOfColumns);
-        DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
-        for(int i = 0; i < numberOfRows; i++) {
-            for(int j = 0; j < numberOfColumns; j++) {
-                DevelopmentCard card = cardsGrid.getChoosenCard(i, j, player);
-                for(int k = 1; k < numberOfCardsInEachDeck; k++) {
-                    cardsGrid.removeChoosenCardFromGrid(i, j);
-                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) || card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
-                        fail();
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * method that check if
-     * each row contains decks
-     * with the same level
-     * @throws NegativeResourceAmountException
-     * @throws EmptyDeckException
-     */
-    @Test
-    void checkRows() throws NegativeResourceAmountException, EmptyDeckException {
-        int numberOfRows = 3, numberOfColumns = 4;
-        Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
-        DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
-        DevelopmentCard card;
-        for(int i = 0; i < numberOfRows; i++) {
-            card = cardsGrid.getChoosenCard(i, 0, player);
-            for (int j = 1; j < numberOfColumns; j++) {
-                if(card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
-                    fail();
-                }
-            }
-        }
-    }
-
-    /**
-     * method that check if
-     * each column contains decks
-     * with the same colour
-     * @throws NegativeResourceAmountException
-     * @throws EmptyDeckException
-     */
-    @Test
-    void checkColumns() throws NegativeResourceAmountException, EmptyDeckException {
-        int numberOfRows = 3, numberOfColumns = 4;
-        Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
-        DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
-        DevelopmentCard card;
-        for(int i = 0; i < numberOfColumns; i++) {
-            card = cardsGrid.getChoosenCard(0, i, player);
-            for (int j = 1; j < numberOfRows; j++) {
-                if(!card.hasSameColour(cardsGrid.getChoosenCard(j, i, player))) {
-                    fail();
-                }
-            }
-        }
-    }
-
-    @Test
-    void addPlayerWithDiscountTest() throws NegativeResourceAmountException, EmptyDeckException {
-        int numberOfRows = 3, numberOfColumns = 4;
-        Player player = new Player();
-        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
-        DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
-        StorableResource discount = new StorableResource(ResourceType.SERVANT, 1);
-        DevelopmentCard choosenCardWithoutDiscount = cardsGrid.getChoosenCard(0, 0, player);
-        choosenCardWithoutDiscount.reduceCost(discount);
-        cardsGrid.addPlayerWithDiscount(player, discount);
-        DevelopmentCard choosenCard = cardsGrid.getChoosenCard(0, 0, player);
-        assertEquals(choosenCardWithoutDiscount, choosenCard);
+    public static DevelopmentCardsGrid initDevelopmentCardsGrid() throws NegativeResourceAmountException {
+        ArrayList<DevelopmentCard> listOfCards = buildCardsForGrid();
+        DevelopmentCardsGrid grid = new DevelopmentCardsGrid(listOfCards, 3, 4);
+        return grid;
     }
 
     /**
@@ -176,10 +102,97 @@ public class DevelopmentCardsGridTest {
         return cardsList;
     }
 
+    /**
+     * method that checks if each
+     * deck contains cards
+     * with the same colour and level
+     * @throws NegativeResourceAmountException
+     * @throws EmptyDeckException
+     */
+    @Test
+    void checkDecks() throws NegativeResourceAmountException, EmptyDeckException {
+        int numberOfRows = 3, numberOfColumns = 4;
+        Player player = new Player();
+        ArrayList <DevelopmentCard> cardsList = buildCardsForGrid();
+        int numberOfCardsInEachDeck = cardsList.size() / (numberOfRows * numberOfColumns);
+        DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
+        for(int i = 0; i < numberOfRows; i++) {
+            for(int j = 0; j < numberOfColumns; j++) {
+                DevelopmentCard card = cardsGrid.getChoosenCard(i, j, player);
+                for(int k = 1; k < numberOfCardsInEachDeck; k++) {
+                    cardsGrid.removeChoosenCardFromGrid(i, j);
+                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) || card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
+                        fail();
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * method that check if
+     * each row contains decks
+     * with the same level
+     * @throws NegativeResourceAmountException
+     * @throws EmptyDeckException
+     */
+    @Test
+    void checkRows() throws NegativeResourceAmountException, EmptyDeckException {
+        Player player = new Player();
+        DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
+        DevelopmentCard card;
+        for(int i = 0; i < numberOfRows; i++) {
+            card = cardsGrid.getChoosenCard(i, 0, player);
+            for (int j = 1; j < numberOfColumns; j++) {
+                if(card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
+                    fail();
+                }
+            }
+        }
+    }
+
+    /**
+     * method that check if
+     * each column contains decks
+     * with the same colour
+     * @throws NegativeResourceAmountException
+     * @throws EmptyDeckException
+     */
+    @Test
+    void checkColumns() throws NegativeResourceAmountException, EmptyDeckException {
+        Player player = new Player();
+        DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
+        DevelopmentCard card;
+        for(int i = 0; i < numberOfColumns; i++) {
+            card = cardsGrid.getChoosenCard(0, i, player);
+            for (int j = 1; j < numberOfRows; j++) {
+                if(!card.hasSameColour(cardsGrid.getChoosenCard(j, i, player))) {
+                    fail();
+                }
+            }
+        }
+    }
+
+    @Test
+    void addPlayerWithDiscountTest() throws NegativeResourceAmountException, EmptyDeckException {
+        Player player = new Player();
+        DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
+        StorableResource discount = new StorableResource(ResourceType.SERVANT, 1);
+        DevelopmentCard choosenCardWithoutDiscount = cardsGrid.getChoosenCard(0, 0, player);
+        choosenCardWithoutDiscount.reduceCost(discount);
+        cardsGrid.addPlayerWithDiscount(player, discount);
+        DevelopmentCard choosenCard = cardsGrid.getChoosenCard(0, 0, player);
+        assertEquals(choosenCardWithoutDiscount, choosenCard);
+    }
+
+    /**
+     * Test on "removeNFromGrid" method of this class.
+     * It tests if the method successfully removes the cards of the provided colour from the grid, and if throws the correct exceptions.
+     * @throws NegativeResourceAmountException
+     */
     @Test
     void checkRemoveNFromGridIfCorrect() throws NegativeResourceAmountException {
-        ArrayList<DevelopmentCard> cards = buildCardsForGrid();
-        DevelopmentCardsGrid newGrid = new DevelopmentCardsGrid(cards, 3, 4);
+        DevelopmentCardsGrid newGrid = initDevelopmentCardsGrid();
         Player player = new Player();
         try {
             newGrid.removeNCardsFromGrid(CardColour.BLUE, 1);
@@ -192,8 +205,8 @@ public class DevelopmentCardsGridTest {
             fail();
         }
         try {
-            for(int i = 0; i < 3; i++)
-                for(int j = 0; j < 4; j++){
+            for(int i = 0; i < numberOfRows; i++)
+                for(int j = 0; j < numberOfColumns; j++){
                     newGrid.getChoosenCard(i ,j, player);
                 }
         } catch (EmptyDeckException e) {
@@ -208,14 +221,14 @@ public class DevelopmentCardsGridTest {
                 fail();
             } catch (NoMoreCardsWithThisColourException exception) {
                 int excCount = 0;
-                for(int i = 0; i < 3; i++)
-                    for(int j = 0; j < 4; j++)
+                for(int i = 0; i < numberOfRows; i++)
+                    for(int j = 0; j < numberOfColumns; j++)
                         try {
                             newGrid.getChoosenCard(i ,j, player);
                         } catch (EmptyDeckException emptyDeckException) {
                             excCount ++;
                         }
-                assertTrue(excCount == 3);
+                assertEquals(excCount, 3);
             }
         }
     }

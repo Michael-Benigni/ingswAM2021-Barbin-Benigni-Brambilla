@@ -114,7 +114,7 @@ public class LeaderCardTest {
         LeaderCard leaderCard = buildDiscountCard();
         ArrayList<DevelopmentCard> cardsList = DevelopmentCardsGridTest.buildCardsForGrid();
         DevelopmentCardsGrid developmentCardsGrid = new DevelopmentCardsGrid(cardsList, 3, 4);
-        GameBoard gameBoard = new GameBoard(new FaithTrackTest().getFaithTrack(), developmentCardsGrid, null, new LeaderCardsDeckTest().getLeaderCardsDeck());
+        GameBoard gameBoard = new GameBoard(new FaithTrackTest().initFaithTrack(), developmentCardsGrid, null, new LeaderCardsDeckTest().getLeaderCardsDeck());
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
         for (int i = 0; i < 2; i++)
             personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));

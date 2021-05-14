@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.cards.actiontoken;
 
 import it.polimi.ingsw.server.model.cards.developmentcards.CardColour;
+import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeckTest;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,6 +10,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Tests for "SoloActionTokenDeck" class.
  */
 public class SoloActionTokenDeckTest {
+
+    /**
+     * Method used to build a new deck of action tokens used in the singleplayer game.
+     * @return a new deck of action tokens.
+     */
+    public static SoloActionTokenDeck initSoloActionTokenDeck() {
+        ArrayList<SoloActionToken> tokens = new ArrayList<>(0);
+        SoloActionToken token1 = new SoloActionToken();
+        SoloActionToken token2 = new SoloActionToken();
+        token1.setDiscard2CardsEffect(CardColour.GREEN);
+        token2.setMoveBlackCrossAndReShuffle();
+        tokens.add(token1);
+        tokens.add(token2);
+        SoloActionTokenDeck deck = new SoloActionTokenDeck(tokens);
+        return deck;
+    }
 
     /**
      * Test for "drawFirst" method of this class.

@@ -1,10 +1,19 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for "SingleplayerGame" class
+ */
 class SingleplayerGameTest {
+
+    /*
+    public static SingleplayerGame initSingleplayerGame() {
+
+    }*/
 
     @Test
     void setup() {

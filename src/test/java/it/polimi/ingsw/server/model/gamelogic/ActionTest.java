@@ -41,9 +41,8 @@ public class ActionTest {
         WarehouseDepots depots = new WarehouseDepots(3, capacities);
         ArrayList<DevelopmentCard> cardsList = DevelopmentCardsGridTest.buildCardsForGrid();
         DevelopmentCardsGrid developmentCardsGrid = new DevelopmentCardsGrid(cardsList, 3, 4);
-        FaithTrack faithTrack = faithTrackTest.getFaithTrack();
-        marketTrayTest.initMarbles();
-        MarketTray marketTray = new MarketTray(4, 3, marketTrayTest.marbles);
+        FaithTrack faithTrack = faithTrackTest.initFaithTrack();
+        MarketTray marketTray = MarketTrayTest.initMarketTray();
         ArrayList<LeaderCard> leaderCardsList = buildLeaderCards();
         LeaderCardsDeck leaderCardsDeck = new LeaderCardsDeck(leaderCardsList);
         GameBoard gameBoard = new GameBoard(faithTrack, developmentCardsGrid, marketTray, leaderCardsDeck);

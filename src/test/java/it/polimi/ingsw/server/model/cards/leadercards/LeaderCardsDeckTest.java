@@ -19,7 +19,7 @@ public class LeaderCardsDeckTest {
     private int cardID = 1;
 
     @Test
-    void draw() throws NegativeResourceAmountException {
+    void draw() {
         assertEquals(leaderCardsDeck.draw(1).get(0), leaderCard1);
     }
 

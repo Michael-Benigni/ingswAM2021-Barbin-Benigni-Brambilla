@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.server.model.exception.GameOverByFaithTrackException;
-import it.polimi.ingsw.server.model.exception.WrongCellIndexException;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
@@ -33,14 +32,13 @@ public class FaithTrackTest {
 
     /**
      * Method that initializes the necessary elements to run the tests below.
-     * @throws WrongCellIndexException -> can be thrown by the constructor method of "FaithTrack" class.
      */
     @BeforeEach
     void createFaithTrack() {
-        getFaithTrack();
+        initFaithTrack();
     }
 
-    public FaithTrack getFaithTrack() {
+    public FaithTrack initFaithTrack() {
         ArrayList<Cell> listOfCells1 = new ArrayList<>(0);
         ArrayList<Cell> listOfCells2 = new ArrayList<>(0);
         cell1 = new ClassicCell();

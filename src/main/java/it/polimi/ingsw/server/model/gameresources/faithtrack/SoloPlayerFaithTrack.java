@@ -14,7 +14,6 @@ public class SoloPlayerFaithTrack extends FaithTrack {
 
     /**
      * Constructor method of this class. It builds the entire structure of the track.
-     *
      * @param arrayOfSections
      */
     public SoloPlayerFaithTrack(ArrayList<Section> arrayOfSections) {
@@ -34,5 +33,13 @@ public class SoloPlayerFaithTrack extends FaithTrack {
      */
     public void moveBlackCross(int numberOfSteps) throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException {
         super.moveMarkerForward(comPlayer, numberOfSteps);
+    }
+
+    /**
+     * Getter method for the current cell of the black cross indicator.
+     * @return the current position of the black cross.
+     */
+    public Cell getBlackCrossPosition() {
+        return this.getMapOfFaithMarkers().get(comPlayer).getCurrentCell();
     }
 }
