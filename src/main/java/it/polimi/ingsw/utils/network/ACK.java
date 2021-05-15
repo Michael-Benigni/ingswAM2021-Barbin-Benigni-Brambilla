@@ -12,13 +12,14 @@ public class ACK extends AbstractMessage {
         seqNumber = setSequentialNum ();
     }
 
-    public ACK(String fromNetwork) {
+    public boolean isTheSameACK(String fromNetwork) {
+        ACK ackFromNetwork = null;
         try {
-            ACK ackFromNetwork = (ACK) JsonHandler.fromJson (fromNetwork, ACK.class);
-            seqNumber = ackFromNetwork.seqNumber;
+            ackFromNetwork = (ACK) JsonHandler.fromJson (fromNetwork, ACK.class);
         } catch (Exception e) {
             seqNumber = -1;
         }
+        return this.equals (ackFromNetwork);
     }
 
     private static int setSequentialNum() {

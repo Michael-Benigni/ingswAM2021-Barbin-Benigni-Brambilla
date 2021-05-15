@@ -3,11 +3,8 @@ package it.polimi.ingsw.utils.network;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayDeque;
 import java.util.NoSuchElementException;
-import java.util.Queue;
 import java.util.Scanner;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class Channel {
     private enum ChannelStatus {
@@ -67,7 +64,7 @@ public class Channel {
                 if (QuitMessage.isQuitMessage (msg)) {
                     System.out.printf ("Client %d has closed the channel", token);
                     break;
-                } else if (this.expectedACK != null && this.expectedACK.equals (new ACK (msg)))
+                } else if (this.expectedACK != null && this.expectedACK.isTheSameACK (msg))
                     this.setStatus (ChannelStatus.OPENED);
                 else {
                     try {
