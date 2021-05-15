@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
-class EndTurnAction implements Action {
+public class EndTurnAction implements Action {
 
     @Override
     public void perform(Game game, Player player) throws WrongInitialConfiguration, WrongCellIndexException,
