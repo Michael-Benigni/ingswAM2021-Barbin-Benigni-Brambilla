@@ -1,12 +1,15 @@
 package it.polimi.ingsw.server.model.cards.actiontoken;
 
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * Class that represents the deck of action tokens used in the singleplayer game.
  */
-public class SoloActionTokenDeck {
+public class SoloActionTokenDeck implements Publisher {
 
     private ArrayList<SoloActionToken> listOfTokens;
 
@@ -49,5 +52,23 @@ public class SoloActionTokenDeck {
                 listOfTokens.add(i, listOfTokens.get(i));
             }
         }
+    }
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+
     }
 }

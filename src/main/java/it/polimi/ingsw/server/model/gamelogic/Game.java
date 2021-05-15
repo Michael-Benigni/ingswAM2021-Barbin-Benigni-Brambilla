@@ -7,7 +7,10 @@ import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
-import it.polimi.ingsw.server.view.ModelObserver;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
+import it.polimi.ingsw.server.view.Update;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import static java.util.Collections.shuffle;
@@ -15,7 +18,7 @@ import static java.util.Collections.shuffle;
 /**
  * This class represent the abstract class of the game
  */
-public abstract class Game {
+public abstract class Game implements Publisher {
 
     /**
      * It's the Max Number of Players in a game
@@ -30,7 +33,7 @@ public abstract class Game {
     /**
      * All the players, linked according to the set order of the round
      */
-    private LinkedList<Player> playersOrder;
+    private final LinkedList<Player> playersOrder;
 
     /**
      * board of the game, common to all the players
@@ -64,9 +67,10 @@ public abstract class Game {
     private boolean gameIsOver;
 
     /**
-     * It's the Observer of the all Game
+     * the observers of the game
      */
-    private ModelObserver modelObserver;
+    private final ArrayList<Observer> observers;
+
 
 
     /**
@@ -79,6 +83,7 @@ public abstract class Game {
         this.numberOfPlayers = numberOfPlayers;
         this.playersOrder = new LinkedList<>();
         this.gameIsOver = false;
+        this.observers = new ArrayList<> ();
     }
 
 
@@ -94,9 +99,11 @@ public abstract class Game {
                 int index = getPlayerIndex (player);
                 player.buildBoard (personalBoards.get (index));
                 player.setPosition (index);
+                player.attachAll(this.observers);
             }
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());
+            this.gameBoard.attachAll(this.observers);
             this.currentPlayer = playersOrder.getFirst ();
             this.numberOfRounds = 0;
             this.currentTurn = new FirstTurn ();
@@ -113,7 +120,7 @@ public abstract class Game {
      * instance of the game
      */
     public Player createPlayer() throws TooManyPlayersException {
-        Player newPlayer = null;
+        Player newPlayer;
         if(playersOrder.size() < numberOfPlayers) {
             newPlayer = new Player();
             playersOrder.add(newPlayer);
@@ -167,8 +174,8 @@ public abstract class Game {
         } catch (IndexOutOfBoundsException e) {
             this.currentPlayer = this.playersOrder.getFirst();
             if(numberOfRounds == -1) {
-                //this.gameIsOver = true;
-                // TODO:
+                this.gameIsOver = true;
+                publish ();
                 return;
             }
             numberOfRounds++;
@@ -198,7 +205,7 @@ public abstract class Game {
      * @throws NotEnoughPlayersException if has not been reached the numberOfPlayers registered when this method is called.
      */
     public ArrayList<Player> getAllPlayers() {
-        return new ArrayList (this.playersOrder);
+        return new ArrayList<> (this.playersOrder);
     }
 
 
@@ -267,6 +274,18 @@ public abstract class Game {
      */
     void setLastRound() {
         this.numberOfRounds = -1;
+    }
+
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
+        this.playersOrder.getLast().attach (observer);
+    }
+
+    @Override
+    public void publish() {
+        Update update = new Update ();
+        this.observers.forEach(observer -> observer.update (update));
     }
 }
 

@@ -5,8 +5,11 @@ import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeck;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFaithTrack;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
+import it.polimi.ingsw.utils.Observer;
 
-public class SoloPlayerGameBoard extends GameBoard{
+import java.util.List;
+
+public class SoloPlayerGameBoard extends GameBoard {
 
     private SoloActionTokenDeck actionTokenDeck;
 
@@ -34,5 +37,11 @@ public class SoloPlayerGameBoard extends GameBoard{
     @Override
     public SoloPlayerFaithTrack getFaithTrack() {
         return (SoloPlayerFaithTrack) super.getFaithTrack();
+    }
+
+    @Override
+    public void attachAll(List<Observer> observers) {
+        super.attachAll (observers);
+        this.actionTokenDeck.attachAll (observers);
     }
 }

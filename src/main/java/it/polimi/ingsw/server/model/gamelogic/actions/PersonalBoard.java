@@ -15,6 +15,8 @@ import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.server.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -22,14 +24,14 @@ import java.util.Objects;
  * Class that represents the board that belongs to a player.
  * It's a collection of game elements, like Strongbox, Depots...
  */
-public class PersonalBoard extends Producer {
+public class PersonalBoard extends Producer implements Publisher {
 
     /**
      * this class models the extra
      * production power provided
      * by a leader card
      */
-    class ExtraProductionPower extends Producer{
+    class ExtraProductionPower extends Producer {
 
         private final StorableResource consumedResource;
 
@@ -79,14 +81,18 @@ public class PersonalBoard extends Producer {
             return this.consumedResource.containedIn(player);
         }
 
-    }
-    private Strongbox strongbox;
 
+    }
+
+
+    private ArrayList<Observer> observers;
+    private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
     private TemporaryContainer tempContainer;
     private SlotLeaderCards slotLeaderCards;
     private ArrayList <ExtraProductionPower> extraProductionPowers;
+
 
     /**
      * Constructor method of this class. It creates an empty personal board.
@@ -99,6 +105,7 @@ public class PersonalBoard extends Producer {
         this.slotLeaderCards = new SlotLeaderCards(maxLeaderCardsInSlot, maxNumOfCardsDuringGame);
         this.tempContainer = new TemporaryContainer();
         this.extraProductionPowers = new ArrayList<>(0);
+        this.observers = new ArrayList<> ();
     }
 
 
@@ -107,38 +114,23 @@ public class PersonalBoard extends Producer {
      * this method is called by the leader card
      * that adds an extra production power to
      * the personal board of a player.
-     * @param consumedResource -> the resource that the extra production power uses to activate the production
+     * @param consumedResource the resource that the extra production power uses to activate the production
      */
     public void addExtraProductionPower(StorableResource consumedResource) {
         ExtraProductionPower extraProductionPower = new ExtraProductionPower(consumedResource);
         this.extraProductionPowers.add(extraProductionPower);
     }
 
+
+    /**
+     * @param index index of the power
+     * @return the ExtraProductionPower in this PersonalBoard at the specified index
+     * @throws NotExistingExtraProductionPower
+     */
     public ExtraProductionPower getExtraPower (int index) throws NotExistingExtraProductionPower {
         if(this.extraProductionPowers.size() == 0 || index > this.extraProductionPowers.size() - 1)
             throw new NotExistingExtraProductionPower();
         return this.extraProductionPowers.get(index);
-    }
-
-
-    /**
-     * this method invokes the method "containedIn"
-     * on the "consumedResources"
-     * to check if the player has all the resources
-     * he wants to spend to generate another resource
-     * @param consumedResources -> resources that the player wants to spend
-     * @param producedResource -> resource that the player wants to gain
-     * @param player -> the player that wants to start the basic power production
-     * @return -> the "producedResource" if the player has the consumed resources in his personal board
-     */
-    //TODO: forse va direttamente nella action
-    StorableResource basicProductionPower(ArrayList <StorableResource> consumedResources, StorableResource producedResource, Player player) throws NotContainedResourceException {
-        for(int i = 0; i < consumedResources.size(); i++) {
-            if(!consumedResources.get(i).containedIn(player)) {
-                throw new NotContainedResourceException();
-            }
-        }
-        return producedResource;
     }
 
 
@@ -265,6 +257,10 @@ public class PersonalBoard extends Producer {
         return Objects.hash(getStrongbox(), getWarehouseDepots(), listOfSlotDevelopmentCards, getTempContainer(), getSlotLeaderCards(), extraProductionPowers);
     }
 
+
+    /**
+     * @return the number of all the resources stored in this PersonalBoard
+     */
     private int getAllResourcesAmount() {
         ArrayList<StorableResource> resources = getAllResource();
         int totalAmount = 0;
@@ -273,12 +269,15 @@ public class PersonalBoard extends Producer {
         return totalAmount;
     }
 
+
+    /**
+     * @return the total VictoryPoint that the PersonalBoard has in the current instant in which this method is called
+     */
     public VictoryPoint computeTotalVP() {
         VictoryPoint points = new VictoryPoint(0);
         ArrayList<DevelopmentCard> cards = getAllDevelopmentCards();
-        for (DevelopmentCard card : cards) {
+        for (DevelopmentCard card : cards)
             points.increaseVictoryPoints(card.getVictoryPoints());
-        }
         ArrayList<LeaderCard> leaderCards = this.slotLeaderCards.getAllActiveCards();
         for (LeaderCard card : leaderCards)
             points.increaseVictoryPoints(card.getVictoryPoints());
@@ -286,16 +285,51 @@ public class PersonalBoard extends Producer {
         return points;
     }
 
+
+    /**
+     * @param initialResources It's the total amount of all the resources that a PersonalBoard has to contain at the end
+     *                        of the first turn
+     * @return true of the conditions of the first Turn are satisfied
+     */
     public boolean checkFirstTurnConditions(int initialResources) {
         return getAllResourcesAmount() == initialResources
                 && this.getSlotLeaderCards().isReadyToStart();
     }
 
+
+    /**
+     * @return all the Producers belonging to the PersonalBoard
+     */
     ArrayList<Producer> getAllProducers() {
         ArrayList<Producer> producers = new ArrayList<>();
         producers.add(this);
         producers.addAll(this.listOfSlotDevelopmentCards);
         producers.addAll(this.extraProductionPowers);
         return producers;
+    }
+
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
+        if (!observers.contains (observer)) {
+            if (observers.size () == 1) {
+                //TODO: attach only to the things that only the player will know. es: tempContainer?
+            }
+        }
     }
 }

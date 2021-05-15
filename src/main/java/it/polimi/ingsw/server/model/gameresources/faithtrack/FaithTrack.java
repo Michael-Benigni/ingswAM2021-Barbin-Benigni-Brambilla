@@ -1,8 +1,10 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
-
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -11,10 +13,11 @@ import java.util.Set;
 /**
  * Class that represents the common faith track on the game board. Every player has a marker that indicates its position on the track.
  */
-public class FaithTrack {
+public class FaithTrack implements Publisher {
 
     private ArrayList<Section> listOfSections;
     private HashMap<Player, FaithMarker> mapOfFaithMarkers;
+    private ArrayList<Observer> observers;
 
     /**
      * Constructor method of this class. It builds the entire structure of the track.
@@ -23,6 +26,7 @@ public class FaithTrack {
     public FaithTrack(ArrayList<Section> arrayOfSections) {
         this.listOfSections = new ArrayList<>(0);
         this.listOfSections = arrayOfSections;
+        this.observers = new ArrayList ();
     }
 
     /**
@@ -140,5 +144,23 @@ public class FaithTrack {
 
     public Set<Player> getPlayersFromFaithTrack() {
         return this.mapOfFaithMarkers.keySet();
+    }
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add(observer);
     }
 }

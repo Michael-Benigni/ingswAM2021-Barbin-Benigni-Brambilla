@@ -1,6 +1,6 @@
-package it.polimi.ingsw.server.utils.network;
+package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.server.utils.config.JsonHandler;
+import it.polimi.ingsw.utils.config.JsonHandler;
 
 public interface JsonTrasmittable {
     default String transmit() {

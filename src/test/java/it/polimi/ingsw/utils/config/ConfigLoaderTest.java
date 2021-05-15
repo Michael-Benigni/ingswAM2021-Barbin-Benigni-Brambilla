@@ -1,8 +1,10 @@
-package it.polimi.ingsw.server.utils.config;
+package it.polimi.ingsw.utils.config;
 
 import it.polimi.ingsw.server.model.gamelogic.InitialParams;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
+import it.polimi.ingsw.utils.config.ConfigLoader;
+import it.polimi.ingsw.utils.config.Prefs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

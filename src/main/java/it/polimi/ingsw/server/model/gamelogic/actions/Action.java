@@ -45,11 +45,7 @@ public interface Action extends Command {
     }
 
     @Override
-    default void handled(Controller controller, User user) throws InvalidUserException {
-        try {
-            this.perform (controller.getGameOf(user), controller.getWaitingRoomOf(user).getPlayerOf(user));
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
+    default void handled(Controller controller, User user) throws Exception {
+        controller.handleMatchMoveOf (user, this);
     }
 }

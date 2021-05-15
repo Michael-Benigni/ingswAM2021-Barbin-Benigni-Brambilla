@@ -12,6 +12,8 @@ import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrackTest;
+import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
+import it.polimi.ingsw.server.model.gameresources.markettray.MarketTrayTest;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
@@ -19,6 +21,8 @@ import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LeaderCardTest {
@@ -47,7 +51,7 @@ public class LeaderCardTest {
     }
 
     @Test
-    void onDiscardedTest1() throws EmptySlotException, NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException {
+    void onDiscardedTest1() {
         LeaderCard leaderCard = buildDiscardableCard();
         try{
             leaderCard.onDiscarded();
@@ -114,7 +118,7 @@ public class LeaderCardTest {
         LeaderCard leaderCard = buildDiscountCard();
         ArrayList<DevelopmentCard> cardsList = DevelopmentCardsGridTest.buildCardsForGrid();
         DevelopmentCardsGrid developmentCardsGrid = new DevelopmentCardsGrid(cardsList, 3, 4);
-        GameBoard gameBoard = new GameBoard(new FaithTrackTest().initFaithTrack(), developmentCardsGrid, null, new LeaderCardsDeckTest().getLeaderCardsDeck());
+        GameBoard gameBoard = new GameBoard(new FaithTrackTest().initFaithTrack(), developmentCardsGrid, MarketTrayTest.initMarketTray (), new LeaderCardsDeckTest().getLeaderCardsDeck());
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
         for (int i = 0; i < 2; i++)
             personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));

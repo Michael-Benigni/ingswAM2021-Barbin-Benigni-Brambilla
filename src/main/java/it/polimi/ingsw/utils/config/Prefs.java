@@ -1,6 +1,4 @@
-package it.polimi.ingsw.server.utils.config;
-
-import it.polimi.ingsw.server.utils.config.JsonHandler;
+package it.polimi.ingsw.utils.config;
 
 import java.io.FileNotFoundException;
 
@@ -10,6 +8,7 @@ public class Prefs {
     private static int timerPeriod;
     private static String pathServerDB;
     private static int maxUsersInWaitingRoom;
+    private static long maxTimeForACKResponseMSec;
 
 
     public static void load() throws FileNotFoundException {
@@ -17,6 +16,7 @@ public class Prefs {
         timerPeriod = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, "heartbeatPeriod/", PATH_TO_PREFS);
         pathServerDB = (String) JsonHandler.getAsJavaObjectFromJSON(String.class, "pathMainServerDB/", PATH_TO_PREFS);
         maxUsersInWaitingRoom = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, "maxUsersInWaitingRoom/", PATH_TO_PREFS);
+        maxTimeForACKResponseMSec = (long) JsonHandler.getAsJavaObjectFromJSON(long.class, "maxTimeForACKResponseMSec/", PATH_TO_PREFS);
     }
 
     public static int getServerPort() {
@@ -33,5 +33,9 @@ public class Prefs {
 
     public static int getMaxUsersInWaitingRoom() {
         return maxUsersInWaitingRoom;
+    }
+
+    public static long getMaxTimeForACKResponseMSec() {
+        return maxTimeForACKResponseMSec;
     }
 }

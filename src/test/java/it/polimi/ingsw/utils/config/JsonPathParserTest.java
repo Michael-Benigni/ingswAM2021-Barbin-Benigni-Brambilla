@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.utils.config;
+package it.polimi.ingsw.utils.config;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

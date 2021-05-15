@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.utils.config;
+package it.polimi.ingsw.utils.config;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -7,7 +7,6 @@ import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.Resource;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.Cell;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.Section;
-import it.polimi.ingsw.server.utils.network.JsonTrasmittable;
 
 import java.io.*;
 import java.lang.reflect.Type;

@@ -2,6 +2,8 @@ package it.polimi.ingsw.server.model.gameresources.stores;
 
 
 import it.polimi.ingsw.server.model.exception.*;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -9,17 +11,19 @@ import java.util.Objects;
 /**
  * Class that represents a collection of depots.
  */
-public class WarehouseDepots {
+public class WarehouseDepots implements Publisher {
     private Integer numberOfDepots;
     private ArrayList<Integer> capacities;
     private ArrayList<Depot> listDepot;
+    private ArrayList<Observer> observers;
 
     /**
      * Constructor method of this class. It reads from the database how many depots are contained and the capacity of each one.
      */
     public WarehouseDepots(int numberOfDepots, ArrayList<Integer> capacities) {
         this.numberOfDepots = numberOfDepots;
-        this.capacities = (ArrayList<Integer>) capacities.clone();
+        this.capacities = capacities;
+        this.observers = new ArrayList<> ();
         setListDepot();
     }
 
@@ -196,5 +200,25 @@ public class WarehouseDepots {
     @Override
     public int hashCode() {
         return Objects.hash(numberOfDepots, capacities, listDepot);
+    }
+
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
     }
 }

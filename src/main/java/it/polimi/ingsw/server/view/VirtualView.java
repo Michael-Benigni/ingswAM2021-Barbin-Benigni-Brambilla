@@ -2,35 +2,48 @@ package it.polimi.ingsw.server.view;
 
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
-import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
-import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.controller.exception.InvalidUserException;
-import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
-import it.polimi.ingsw.server.utils.network.Message;
-import it.polimi.ingsw.server.utils.network.ServerNetworkLayer;
+import it.polimi.ingsw.server.controller.commands.Command;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.network.Channel;
+import it.polimi.ingsw.utils.network.Receivable;
 
-import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.util.Objects;
 
-public class VirtualView {
-    private ServerNetworkLayer network;
-    private HashMap<ClientToken, User> tokenUserHashMap;
-    private Controller controller;
+public class VirtualView implements Observer {
+    private final Channel channel;
+    private final User user;
+    private final Controller controller;
 
-    public VirtualView(ServerNetworkLayer network) {
-        this.network = network;
-        this.tokenUserHashMap = new HashMap<> ();
-    }
-
-    public synchronized void passToController(Message message, ClientToken token) throws FileNotFoundException, InvalidUserException, IllegalNumberOfPlayersException, TooManyPlayersException, ImpossibleChangingSizeException {
-        this.controller.handleCommandOf(this.tokenUserHashMap.get (token), message);
-    }
-
-    public void attachController(Controller controller) {
+    public VirtualView(Channel channel, Controller controller) {
         this.controller = controller;
+        this.channel = channel;
+        this.user = new User (this);
     }
 
-    public void newUser(ClientToken token) {
-        this.tokenUserHashMap.put (token, new User ());
+    public void passToController(Receivable<Command> message) throws Exception {
+        this.controller.handleCommandOf(this.user, message.getInfo ());
+    }
+
+
+    private void propagate(Update update) {
+        this.channel.send(update);
+    }
+
+    @Override
+    public void update(Update update) {
+        propagate (update);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VirtualView)) return false;
+        VirtualView that = (VirtualView) o;
+        return channel.equals (that.channel) && user.equals (that.user) && controller.equals (that.controller);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash (channel, user, controller);
     }
 }

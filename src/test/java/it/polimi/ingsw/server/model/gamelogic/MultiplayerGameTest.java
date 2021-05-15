@@ -3,29 +3,24 @@ package it.polimi.ingsw.server.model.gamelogic;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
-import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeckTest;
-import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
-import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrackTest;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MultiplayerGameTest {
+class MultiplayerGameTest extends ActionTest {
     private static MultiplayerGame gameNoPlayers;
     private static MultiplayerGame game3Players;
     private static MultiplayerGame game4Players;
     private static MultiplayerGame gameNegativeNumOfPlayers;
-    private static Action testAction;
     private GameBoard gameBoard;
     private ArrayList<PersonalBoard> personalBoards;
 
     @BeforeEach
-    void init() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException {
-        gameBoard = new GameBoard(new FaithTrackTest().initFaithTrack(), null, null, new LeaderCardsDeckTest().getLeaderCardsDeck());
+    void initGames() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException {
         personalBoards = new ArrayList<>();
         for (int i = 0; i < 4; i++)
             personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
@@ -110,8 +105,8 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void setNextPlayer() throws IllegalNumberOfPlayersException {
-        game4Players.setup(personalBoards, gameBoard, new ArrayList<>());
+    void setNextPlayer() {
+        game4Players = getMultiPlayerGame ();
         Player before = game4Players.getCurrentPlayer();
         game4Players.setNextPlayer();
         Player after = game4Players.getCurrentPlayer();
@@ -119,8 +114,8 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void getCurrentTurn() throws IllegalNumberOfPlayersException {
-        game4Players.setup(personalBoards, gameBoard, new ArrayList<>());
+    void getCurrentTurn() {
+        game4Players = getMultiPlayerGame ();
         Turn before = game4Players.getCurrentTurn();
         game4Players.setNextPlayer();
         Turn after = game4Players.getCurrentTurn();
@@ -130,8 +125,8 @@ class MultiplayerGameTest {
     }
 
     @Test
-    void getCurrentPlayer() throws IllegalNumberOfPlayersException {
-        game4Players.setup(personalBoards, gameBoard, new ArrayList<>());
+    void getCurrentPlayer() {
+        game4Players = getMultiPlayerGame ();
         Player before = game4Players.getCurrentPlayer();
         game4Players.setNextPlayer();
         Player after = game4Players.getCurrentPlayer();
@@ -139,22 +134,4 @@ class MultiplayerGameTest {
         assertInstanceOf(Player.class, before);
         assertInstanceOf(Player.class, after);
     }
-
-    /* Actions not visible here: TODO: move this test in each ActionTest
-    @Test
-    void performCommand() throws Exception {
-        game4Players.setup(null, null);
-        try {
-            Player previousPlayer = game4Players.getCurrentPlayer();
-            game4Players.setNextPlayer();
-            game4Players.performCommandOf(previousPlayer, testAction);
-        } catch (IsNotCurrentPlayerException e) {
-            assertTrue(true);
-        }
-        try {
-            game4Players.performCommandOf(game4Players.getCurrentPlayer(), testAction);
-        } catch (IsNotCurrentPlayerException e) {
-            fail();
-        }
-    }*/
 }

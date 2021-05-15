@@ -1,6 +1,7 @@
 {
   "serverPort": 1234,
-  "heartbeatPeriod": 3000,
+  "heartbeatPeriod": 4000,
   "maxUsersInWaitingRoom": 4,
-  "pathMainServerDB": "src/main/resources/db.json"
+  "pathMainServerDB": "src/main/resources/db.json",
+  "maxTimeForACKResponseMSec": 1000
 }

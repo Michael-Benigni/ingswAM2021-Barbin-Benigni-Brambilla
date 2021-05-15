@@ -52,10 +52,18 @@ public class ActionTest {
         player2 = game.createPlayer();
         PersonalBoard personalBoard1 = new PersonalBoard(depots,3,3,4, 2);
         PersonalBoard personalBoard2 = new PersonalBoard(depots,3,3,4, 2);
+        PersonalBoard personalBoard3 = new PersonalBoard(depots,3,3,4, 2);
+        PersonalBoard personalBoard4 = new PersonalBoard(depots,3,3,4, 2);
         ArrayList<PersonalBoard> listOfPersonalBoard = new ArrayList<>(0);
         listOfPersonalBoard.add(personalBoard1);
         listOfPersonalBoard.add(personalBoard2);
+        listOfPersonalBoard.add (personalBoard3);
+        listOfPersonalBoard.add (personalBoard4);
         game.setup(listOfPersonalBoard, gameBoard, new ArrayList<>());
+    }
+
+    MultiplayerGame getMultiPlayerGame() {
+        return (MultiplayerGame) game;
     }
 
     private ArrayList<LeaderCard> buildLeaderCards() throws NegativeResourceAmountException {
@@ -74,6 +82,14 @@ public class ActionTest {
         LeaderCard extraDepotCard6 = new LeaderCard(cardID, requirements, victoryPoints, null);
         LeaderCard extraDepotCard7 = new LeaderCard(cardID, requirements, victoryPoints, null);
         LeaderCard extraDepotCard8 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard9 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard10 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard11 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard12 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard13 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard14 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard15 = new LeaderCard(cardID, requirements, victoryPoints, null);
+        LeaderCard extraDepotCard16 = new LeaderCard(cardID, requirements, victoryPoints, null);
         extraDepotCard1.setExtraDepotEffect(resourceType, capacity);
         extraDepotCard2.setExtraDepotEffect(resourceType, capacity);
         extraDepotCard3.setExtraDepotEffect(resourceType, capacity);
@@ -82,6 +98,14 @@ public class ActionTest {
         extraDepotCard6.setExtraDepotEffect(resourceType, capacity);
         extraDepotCard7.setExtraDepotEffect(resourceType, capacity);
         extraDepotCard8.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard9.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard10.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard11.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard12.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard13.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard14.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard15.setExtraDepotEffect(resourceType, capacity);
+        extraDepotCard16.setExtraDepotEffect(resourceType, capacity);
         leaderCardsList.add(extraDepotCard1);
         leaderCardsList.add(extraDepotCard2);
         leaderCardsList.add(extraDepotCard3);
@@ -90,6 +114,14 @@ public class ActionTest {
         leaderCardsList.add(extraDepotCard6);
         leaderCardsList.add(extraDepotCard7);
         leaderCardsList.add(extraDepotCard8);
+        leaderCardsList.add(extraDepotCard9);
+        leaderCardsList.add(extraDepotCard10);
+        leaderCardsList.add(extraDepotCard11);
+        leaderCardsList.add(extraDepotCard12);
+        leaderCardsList.add(extraDepotCard13);
+        leaderCardsList.add(extraDepotCard14);
+        leaderCardsList.add(extraDepotCard15);
+        leaderCardsList.add(extraDepotCard16);
 
         return leaderCardsList;
     }

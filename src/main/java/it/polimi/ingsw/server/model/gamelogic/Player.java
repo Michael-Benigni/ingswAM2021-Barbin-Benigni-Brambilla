@@ -7,6 +7,8 @@ import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -16,11 +18,20 @@ import java.util.Objects;
  * and a number of victory points.
  * They start to zero and can be increased during the match.
  */
-public class Player {
+public class Player implements Publisher {
 
     private VictoryPoint victoryPoints;
     private PersonalBoard personalBoard;
     private int position;
+    private ArrayList<Observer> observers;
+
+
+    /**
+     * Constructor method of this class.
+     */
+    public Player() {
+        this.victoryPoints = new VictoryPoint(0);
+    }
 
 
     /**
@@ -32,13 +43,8 @@ public class Player {
 
 
     /**
-     * Constructor method of this class.
+     * @param personalBoard the PersonalBoard that is set into this Player
      */
-    public Player() {
-        this.victoryPoints = new VictoryPoint(0);
-    }
-
-
     public void buildBoard(PersonalBoard personalBoard) {
         this.personalBoard = personalBoard;
     }
@@ -96,7 +102,8 @@ public class Player {
 
 
     /**
-     *
+     * @param card the card to buy
+     * @return true if the Player has the resources required, else it returns false
      */
     public boolean canBuy (DevelopmentCard card) {
         boolean result = false;
@@ -133,5 +140,26 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(victoryPoints, personalBoard);
+    }
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        if (!observers.contains (observer)) {
+            this.observers.add (observer);
+            this.personalBoard.attach (observer);
+        }
     }
 }

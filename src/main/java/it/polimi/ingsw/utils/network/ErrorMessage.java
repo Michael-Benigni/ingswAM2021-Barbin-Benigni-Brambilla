@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.utils.network;
+package it.polimi.ingsw.utils.network;
 
 public class ErrorMessage extends AbstractMessage {
     private final String errorInfo;

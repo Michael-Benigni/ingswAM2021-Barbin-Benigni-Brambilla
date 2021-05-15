@@ -1,9 +1,9 @@
-package it.polimi.ingsw.server.utils.network;
+package it.polimi.ingsw.utils.network;
 
 import it.polimi.ingsw.server.controller.commands.Command;
 import it.polimi.ingsw.server.controller.commands.CommandFactory;
-import it.polimi.ingsw.server.utils.config.JsonHandler;
-import it.polimi.ingsw.server.utils.network.exception.IllegalMessageException;
+import it.polimi.ingsw.utils.config.JsonHandler;
+import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 
 public class Message extends AbstractMessage {
     private Header header;
@@ -24,8 +24,8 @@ public class Message extends AbstractMessage {
         this.command = command;
     }
 
-    public Command getCommand() {
-        return command;
+    public Command getInfo() {
+        return this.command;
     }
 }
 

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.utils.config;
+package it.polimi.ingsw.utils.config;
 
 import it.polimi.ingsw.server.model.cards.actiontoken.SoloActionTokenDeck;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;

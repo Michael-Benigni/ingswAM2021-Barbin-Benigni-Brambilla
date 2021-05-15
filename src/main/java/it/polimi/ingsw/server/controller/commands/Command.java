@@ -10,5 +10,5 @@ import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
 import java.io.FileNotFoundException;
 
 public interface Command {
-    void handled(Controller controller, User user) throws FileNotFoundException, InvalidUserException, IllegalNumberOfPlayersException, TooManyPlayersException, ImpossibleChangingSizeException;
+    void handled(Controller controller, User user) throws FileNotFoundException, InvalidUserException, IllegalNumberOfPlayersException, TooManyPlayersException, ImpossibleChangingSizeException, Exception;
 }

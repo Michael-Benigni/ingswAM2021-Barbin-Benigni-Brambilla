@@ -3,16 +3,18 @@ package it.polimi.ingsw.server.model.gameresources.markettray;
 import it.polimi.ingsw.server.model.exception.InvalidMarketColumnException;
 import it.polimi.ingsw.server.model.exception.InvalidMarketRowException;
 import it.polimi.ingsw.server.model.gameresources.Resource;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
 
 import java.util.*;
 
 /**
  * It's the class that represents the market present in the game board
  */
-public class MarketTray {
+public class MarketTray implements Publisher {
 
     /**
-     * it's the matricial representation of the Market: the marbles are placed in a matrix
+     * it's the matrix representation of the Market: the marbles are placed in a matrix
      */
     private ArrayList<ArrayList<MarketMarble>> marblesMatrix;
 
@@ -37,6 +39,11 @@ public class MarketTray {
      */
     private HashMap<MarketMarble, Integer> howManyMarbles;
 
+    /**
+     * List of all the observers of the MarketTray
+     */
+    private ArrayList<Observer> observers;
+
 
     /**
      * Constructor. Pre-condition: columns * rows + 1 == {sum of all the integers in the values of the HashMap}
@@ -48,6 +55,7 @@ public class MarketTray {
         this.columns = columns;
         this.rows = rows;
         this.howManyMarbles = howManyMarbles;
+        this.observers = new ArrayList<> ();
         setInitialShuffleDisposition();
     }
 
@@ -169,10 +177,10 @@ public class MarketTray {
 
 
     /**
-     *
+     * This method returns the marble at the position (row, column) of the market
      * @param row
      * @param column
-     * @return
+     * @return the target MarketMarble
      */
     private MarketMarble getMarbleAt(int row, int column) {
         return marblesMatrix.get(row).get(column);
@@ -227,5 +235,23 @@ public class MarketTray {
     @Override
     public int hashCode() {
         return Objects.hash(marblesMatrix, marbleOnSlide, rows, columns, howManyMarbles);
+    }
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
     }
 }

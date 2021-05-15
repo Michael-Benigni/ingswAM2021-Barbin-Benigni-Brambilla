@@ -4,10 +4,13 @@ import it.polimi.ingsw.server.model.exception.NoEmptyResourceException;
 import it.polimi.ingsw.server.model.exception.NotHaveThisEffectException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TemporaryContainer extends UnboundedResourcesContainer {
+public class TemporaryContainer extends UnboundedResourcesContainer implements Publisher {
     private ArrayList <EmptyResource> emptyResources;
     private HashMap<Player, ArrayList<StorableResource>> modifiers;
 
@@ -69,5 +72,23 @@ public class TemporaryContainer extends UnboundedResourcesContainer {
             resources.add(resource);
             this.modifiers.put(player, resources);
         }
+    }
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+
     }
 }

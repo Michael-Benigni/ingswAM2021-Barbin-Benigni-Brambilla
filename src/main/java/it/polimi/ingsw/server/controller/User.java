@@ -1,9 +1,15 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.view.VirtualView;
 import java.util.Objects;
 
 public class User {
+    private final VirtualView view;
     private String username;
+
+    public User(VirtualView view) {
+        this.view = view;
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -28,5 +34,9 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash (getUsername ());
+    }
+
+    VirtualView getView() {
+        return view;
     }
 }

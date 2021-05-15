@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller.commands;
 
 import it.polimi.ingsw.server.model.gamelogic.actions.ActionFactory;
-import it.polimi.ingsw.server.utils.network.Header;
+import it.polimi.ingsw.utils.network.Header;
 
 import java.util.HashMap;
 

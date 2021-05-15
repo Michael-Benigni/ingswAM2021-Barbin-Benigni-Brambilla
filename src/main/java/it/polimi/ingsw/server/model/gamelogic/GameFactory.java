@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.utils.config.ConfigLoader;
+import it.polimi.ingsw.utils.config.ConfigLoader;
 
 import java.io.FileNotFoundException;
 

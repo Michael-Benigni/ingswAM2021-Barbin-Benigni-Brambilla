@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.utils.config.exceptions;
+package it.polimi.ingsw.utils.config.exceptions;
 
 public class EndOfJsonArrayException extends Throwable {
 }

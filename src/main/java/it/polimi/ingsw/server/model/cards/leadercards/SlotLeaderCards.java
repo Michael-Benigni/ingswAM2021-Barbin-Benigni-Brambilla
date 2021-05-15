@@ -2,22 +2,31 @@ package it.polimi.ingsw.server.model.cards.leadercards;
 
 import it.polimi.ingsw.server.model.exception.FullLeaderCardSlotException;
 import it.polimi.ingsw.server.model.exception.LeaderCardNotFoundException;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Publisher;
 import java.util.ArrayList;
+
 
 /**
  * class that represents the place
  * where we can put and handle the
  * leader cards of the players
  */
-public class SlotLeaderCards {
-    private ArrayList <LeaderCard> listOfLeaderCards;
+public class SlotLeaderCards implements Publisher {
+    private final ArrayList <LeaderCard> listOfLeaderCards;
     private final int maxNumberOfCards;
     private final int maxNumOfCardsDuringGame;
+    private final ArrayList<Observer> observers;
+    private Observer owner;
 
 
+    /**
+     * @return the max capacity of the SlotLeaderCard
+     */
     public int getMaxNumberOfCards() {
         return maxNumberOfCards;
     }
+
 
     /**
      * constructor method of this class
@@ -27,7 +36,9 @@ public class SlotLeaderCards {
         this.listOfLeaderCards = new ArrayList<>(0);
         this.maxNumberOfCards = maxNumberOfCards;
         this.maxNumOfCardsDuringGame = maxNumOfCardsDuringGame;
+        this.observers = new ArrayList<>();
     }
+
 
     /**
      * This method initializes the slot with the cards input. If the cards are more than the max capacity, then from the
@@ -44,6 +55,7 @@ public class SlotLeaderCards {
         }
     }
 
+
     /**
      * this method adds the specified
      * leader card to the slot leader card
@@ -55,6 +67,7 @@ public class SlotLeaderCards {
         else
             throw new FullLeaderCardSlotException();
     }
+
 
     /**
      * this method removes the specified
@@ -69,10 +82,19 @@ public class SlotLeaderCards {
             this.listOfLeaderCards.remove(cardToRemove);
     }
 
+
+    /**
+     * @param cardIndex index of the LeaderCard in this LeaderCardsSlot
+     * @return the LeaderCard at the index specified
+     */
     public LeaderCard get(int cardIndex)  {
         return this.listOfLeaderCards.get(cardIndex);
     }
 
+
+    /**
+     * @return all the active LeaderCards of the LeaderCardsSlot
+     */
     public ArrayList<LeaderCard> getAllActiveCards() {
         ArrayList<LeaderCard> allCards = new ArrayList<>();
         for (LeaderCard card : this.listOfLeaderCards) {
@@ -82,7 +104,34 @@ public class SlotLeaderCards {
         return allCards;
     }
 
+
+    /**
+     * @return true if the initial conditions to start the game are satisfied, otherwise returns false
+     */
     public boolean isReadyToStart() {
         return this.listOfLeaderCards.size() == maxNumOfCardsDuringGame;
+    }
+
+
+    /**
+     * This method notifies a change in the status of the publisher to the Observers registered, usually
+     */
+    @Override
+    public void publish() {
+
+    }
+
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        if (observers.isEmpty ())
+            owner = observer;
+        if (!observers.contains (observer))
+            observers.add (observer);
     }
 }
