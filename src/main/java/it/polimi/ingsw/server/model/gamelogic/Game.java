@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 
+import it.polimi.ingsw.client.view.ClientMessage;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
@@ -9,7 +10,7 @@ import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Publisher;
-import it.polimi.ingsw.server.view.Update;
+import it.polimi.ingsw.client.view.Update;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -284,8 +285,9 @@ public abstract class Game implements Publisher {
 
     @Override
     public void publish() {
-        Update update = new Update ();
-        this.observers.forEach(observer -> observer.update (update));
+        //TODO
+        ClientMessage message = new ClientMessage (null, null);
+        this.observers.forEach(observer -> observer.update (message));
     }
 }
 

@@ -9,6 +9,8 @@ public class Prefs {
     private static String pathServerDB;
     private static int maxUsersInWaitingRoom;
     private static long maxTimeForACKResponseMSec;
+    private static String defaultServerIP;
+    private static String defaultUICmd;
 
 
     public static void load() throws FileNotFoundException {
@@ -17,6 +19,8 @@ public class Prefs {
         pathServerDB = (String) JsonHandler.getAsJavaObjectFromJSON(String.class, "pathMainServerDB/", PATH_TO_PREFS);
         maxUsersInWaitingRoom = (int) JsonHandler.getAsJavaObjectFromJSON(int.class, "maxUsersInWaitingRoom/", PATH_TO_PREFS);
         maxTimeForACKResponseMSec = (long) JsonHandler.getAsJavaObjectFromJSON(long.class, "maxTimeForACKResponseMSec/", PATH_TO_PREFS);
+        defaultServerIP = (String) JsonHandler.getAsJavaObjectFromJSON(String.class, "defaultServerIP/", PATH_TO_PREFS);
+        defaultUICmd = (String) JsonHandler.getAsJavaObjectFromJSON(String.class, "defaultUICmd", PATH_TO_PREFS);
     }
 
     public static int getServerPort() {
@@ -37,5 +41,13 @@ public class Prefs {
 
     public static long getMaxTimeForACKResponseMSec() {
         return maxTimeForACKResponseMSec;
+    }
+
+    public static String getServerIP() {
+        return defaultServerIP;
+    }
+
+    public static String getDefaultUICmd() {
+        return defaultUICmd;
     }
 }

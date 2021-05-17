@@ -18,7 +18,10 @@ public enum Header {
     SWAP_DEPOTS("swap_depots"),
     TEMP_CONTAINER("Temporary_container"),
     TRANSFORM_WHITE_MARBLE("transform_white_marble"),
-    WAREHOUSE("warehouse");
+    WAREHOUSE("warehouse"),
+    QUIT ("quit"),
+    ACK ("ack"),
+    ERROR ("error");
 
     private String headerStr;
 

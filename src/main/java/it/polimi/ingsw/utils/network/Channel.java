@@ -18,20 +18,20 @@ public class Channel {
     private Scanner inSocket;
     private PrintWriter outSocket;
     private final Socket socket;
-    private final int token;
+    private final String id;
     private ChannelStatus status;
 
-    public Channel(Socket socket, int token) {
+    public Channel(Socket socket, String id) {
         this.status = ChannelStatus.UNKNOWN;
         this.socket = socket;
-        this.token = token;
+        this.id = id;
         open();
     }
 
     private void open() {
         openInputScanner();
         openOutputWriter ();
-        System.out.printf("Channel %d opened\n", token);
+        System.out.printf("Channel %s opened\n", this.id);
     }
 
     private void openInputScanner() {
@@ -57,29 +57,28 @@ public class Channel {
         setStatus(ChannelStatus.UNKNOWN);
     }
 
-    public void listeningLoop(ReceivableHandler receivableHandler) {
+    public void listeningLoop(Receiver receiver) {
         while (true) {
             try {
                 String msg = inSocket.nextLine ();
                 if (QuitMessage.isQuitMessage (msg)) {
-                    System.out.printf ("Client %d has closed the channel", token);
+                    System.out.printf ("Client %s has closed the channel", this.id);
                     break;
                 } else if (this.expectedACK != null && this.expectedACK.isTheSameACK (msg))
                     this.setStatus (ChannelStatus.OPENED);
                 else {
                     try {
-                        Message message = new Message (msg);
-                        receivableHandler.onReceived (message);
+                        receiver.onReceived (msg);
                     } catch (Exception e) {
                         send (new ErrorMessage (e.getMessage ()));
                     }
                 }
             } catch (NoSuchElementException e) {
-                //e.printStackTrace ();
+                if (this.status != ChannelStatus.CLOSED)
+                    close ();
                 break;
             }
         }
-        close();
     }
 
     private synchronized void setStatus(ChannelStatus newStatus) {
@@ -97,17 +96,17 @@ public class Channel {
 
     void close() {
         // closing streams and socket
-        inSocket.close();
-        outSocket.close();
-        setStatus(ChannelStatus.CLOSED);
         try {
             socket.close();
-            System.out.printf("Channel %d closed\n", this.token);
+            System.out.printf("Channel %s closed\n", this.id);
         } catch (IOException e) {
             System.err.println(e.getMessage());
             setStatus(ChannelStatus.ERROR);
             return;
         }
+        inSocket.close();
+        outSocket.close();
+        setStatus(ChannelStatus.CLOSED);
     }
 
     public synchronized void send(JsonTrasmittable jsonTrasmittable) {

@@ -4,11 +4,12 @@ import it.polimi.ingsw.utils.config.JsonHandler;
 
 import java.util.Objects;
 
-public class ACK extends AbstractMessage {
+public class ACK extends AbstractMessage<Integer> {
     private int seqNumber;
     private transient static int numOfACKs = 0;
 
     public ACK() {
+        super (Header.ACK);
         seqNumber = setSequentialNum ();
     }
 
@@ -39,5 +40,10 @@ public class ACK extends AbstractMessage {
     @Override
     public int hashCode() {
         return Objects.hash (seqNumber);
+    }
+
+    @Override
+    public Integer getInfo() {
+        return this.seqNumber;
     }
 }

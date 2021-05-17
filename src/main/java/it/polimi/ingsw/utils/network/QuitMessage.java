@@ -4,8 +4,12 @@ import it.polimi.ingsw.utils.config.JsonHandler;
 
 import java.util.Objects;
 
-public class QuitMessage extends AbstractMessage {
-    private final String message = "quit";
+public class QuitMessage extends AbstractMessage<String> {
+    private final String info = "quit";
+
+    QuitMessage() {
+        super (Header.QUIT);
+    }
 
     public static boolean isQuitMessage(String message) {
         QuitMessage msgFromNetwork;
@@ -20,7 +24,7 @@ public class QuitMessage extends AbstractMessage {
     }
 
     private String getMessage() {
-        return this.message;
+        return this.info;
     }
 
     @Override
@@ -28,11 +32,16 @@ public class QuitMessage extends AbstractMessage {
         if (this == o) return true;
         if (!(o instanceof QuitMessage)) return false;
         QuitMessage that = (QuitMessage) o;
-        return Objects.equals (message, that.message);
+        return Objects.equals (info, that.info);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash (message);
+        return Objects.hash (info);
+    }
+
+    @Override
+    public String getInfo() {
+        return this.info;
     }
 }

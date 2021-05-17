@@ -1,7 +1,9 @@
 {
-  "serverPort": 1234,
-  "heartbeatPeriod": 4000,
+  "serverPort": 8888,
+  "heartbeatPeriod": 30000,
   "maxUsersInWaitingRoom": 4,
   "pathMainServerDB": "src/main/resources/db.json",
-  "maxTimeForACKResponseMSec": 1000
+  "maxTimeForACKResponseMSec": 7500,
+  "defaultServerIP": "127.0.0.1",
+  "defaultUICmd": "--cli"
 }

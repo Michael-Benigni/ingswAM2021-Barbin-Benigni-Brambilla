@@ -1,5 +1,6 @@
 package it.polimi.ingsw.utils.network;
 
+import it.polimi.ingsw.server.view.ServerMessage;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.view.ClientToken;
 import it.polimi.ingsw.server.view.VirtualView;
@@ -9,7 +10,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
@@ -84,13 +84,14 @@ public class ServerNetworkLayer {
      * @param clientToken number of the client connected to the Channel built in this method
      */
     private void handleConnectionRequest(Socket socket, int clientToken) {
-        Channel channel = new Channel(socket, clientToken);
+        Channel channel = new Channel(socket, String.valueOf (clientToken));
         ClientToken token = new ClientToken ();
         this.channels.add (new Entry<> (token, channel));
         VirtualView view = new VirtualView (channel, this.controller);
         channel.listeningLoop((msg) -> {
+            ServerMessage serverMessage = new ServerMessage (msg);
             System.out.printf("Received from Client %s: %s\n", token, msg);
-            view.passToController (msg);
+            view.passToController (serverMessage);
         });
     }
 
@@ -114,7 +115,8 @@ public class ServerNetworkLayer {
      * @return the number of Channels opened
      */
     private int detectDisconnections() {
-        for (int indexCh = 0; indexCh < channels.size (); indexCh++) {
+        int numOfChannels = channels.size ();
+        for (int it = 0, indexCh = 0; it < numOfChannels; it++) {
             Entry<ClientToken, Channel> entry = channels.get (indexCh);
             Channel channel = entry.getValue ();
             ACK ack = new ACK ();
@@ -129,10 +131,12 @@ public class ServerNetworkLayer {
                     }
                 }
                 if (!channel.isActive ()) {
-                    System.out.printf ("Client %d disconnected!\n", this.channels.indexOf (entry) + 1);
-                    this.channels.remove (entry);
                     channel.close ();
+                    System.out.printf ("Client %s disconnected!\n", this.channels.get (indexCh).getKey ());
+                    this.channels.remove (entry);
                 }
+                else
+                    indexCh++;
             }
         } return this.channels.size();
     }
