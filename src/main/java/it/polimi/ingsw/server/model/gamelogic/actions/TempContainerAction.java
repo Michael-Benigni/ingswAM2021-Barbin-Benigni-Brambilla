@@ -37,9 +37,6 @@ class TempContainerAction implements FirstTurnAction {
                 new WarehouseAction("remove", resource, depotIdx).perform(game, player);
                 break;
             }
-            case "clear": {
-                tempCont.clear();
-            }
             default:
         }
     }

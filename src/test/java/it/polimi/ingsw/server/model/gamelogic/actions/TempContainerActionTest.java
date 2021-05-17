@@ -36,14 +36,4 @@ class TempContainerActionTest extends ActionTest {
         assertTrue(player1.getPersonalBoard().getWarehouseDepots().getAllResources().get(0).equals(resource));
         assertTrue(player1.getPersonalBoard().getTempContainer().getAllResources().isEmpty());
     }
-
-    @Test
-    void performClearTest() throws WrongDepotIndexException, NegativeResourceAmountException, EmptyDepotException,
-            SameResourceTypeInDifferentDepotsException, NotEqualResourceTypeException, ResourceOverflowInDepotException,
-            NotContainedResourceException {
-        player1.getPersonalBoard().getTempContainer().store(resource);
-        TempContainerAction tempContainerAction = new TempContainerAction("clear", resource, 0);
-        tempContainerAction.perform(game, player1);
-        assertTrue(player1.getPersonalBoard().getTempContainer().getAllResources().isEmpty());
-    }
 }

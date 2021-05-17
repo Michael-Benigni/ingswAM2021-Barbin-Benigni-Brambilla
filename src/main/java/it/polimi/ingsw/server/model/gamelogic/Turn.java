@@ -112,6 +112,7 @@ public class Turn {
     void start() {
         if (this.state == TurnState.START) {
             this.state = TurnState.PLAY;
+            this.token = TurnToken.AVAILABLE;
             this.performedActions.add(new StartTurnAction());
         }
     }
