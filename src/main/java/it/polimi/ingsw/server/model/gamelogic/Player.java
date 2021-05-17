@@ -129,19 +129,6 @@ public class Player implements Publisher {
         return copyVictoryPoints;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Player)) return false;
-        Player player = (Player) o;
-        return Objects.equals(getVictoryPoints(), player.getVictoryPoints()) && Objects.equals(getPersonalBoard(), player.getPersonalBoard()) && position == player.position;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(victoryPoints, personalBoard);
-    }
-
     /**
      * This method notifies a change in the status of the publisher to the Observers registered, usually
      */
@@ -162,4 +149,5 @@ public class Player implements Publisher {
             this.personalBoard.attach (observer);
         }
     }
+
 }

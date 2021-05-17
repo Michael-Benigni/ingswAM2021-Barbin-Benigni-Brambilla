@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.model.gamelogic.FirstTurn;
 
 interface FirstTurnAction extends Action {
@@ -11,7 +10,7 @@ interface FirstTurnAction extends Action {
      * is valid
      */
     @Override
-    default boolean isValid(FirstTurn turn) throws NoValidActionException {
+    default boolean isValid(FirstTurn turn) {
         return true;
     }
 }

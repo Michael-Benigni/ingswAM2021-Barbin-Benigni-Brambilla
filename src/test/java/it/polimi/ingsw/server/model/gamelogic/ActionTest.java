@@ -27,7 +27,6 @@ public class ActionTest {
     public FaithTrackTest faithTrackTest = new FaithTrackTest();
     public Player player1, player2;
     public ArrayList<Integer> capacities = new ArrayList<>();
-    private int cardID = 1;
 
     @BeforeEach
     void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException {
@@ -74,6 +73,7 @@ public class ActionTest {
         VictoryPoint victoryPoints = new VictoryPoint(3);
         ResourceType resourceType = ResourceType.STONE;
         int capacity = 2;
+        int cardID = 1;
         LeaderCard extraDepotCard1 = new LeaderCard(cardID, requirements, victoryPoints, null);
         LeaderCard extraDepotCard2 = new LeaderCard(cardID, requirements, victoryPoints, null);
         LeaderCard extraDepotCard3 = new LeaderCard(cardID, requirements, victoryPoints, null);
