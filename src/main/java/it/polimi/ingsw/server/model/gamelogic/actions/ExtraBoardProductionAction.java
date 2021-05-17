@@ -30,16 +30,17 @@ public class ExtraBoardProductionAction implements ProductionAction {
     @Override
     public void perform(Game game, Player player) throws Exception {
         PersonalBoard.ExtraProductionPower power = player.getPersonalBoard().getExtraPower(numExtraPower);
+        ArrayList<Producible> allProduced = power.produce(player, resourceProduced);
         if (power.isAvailableForProduction()) {
             fromWhere.setResource(power.getConsumedResource());
             UnboundedResourcesContainer cost = new UnboundedResourcesContainer();
             cost.store(power.getConsumedResource());
             fromWhere.payOrUndo(game, player, cost);
-            if (!cost.getAllResources().isEmpty())
+            if (!cost.getAllResources().isEmpty()) {
                 game.getCurrentTurn().undo(game, player);
+            }
             else {
                 game.getCurrentTurn().clearCache();
-                ArrayList<Producible> allProduced = player.getPersonalBoard().getExtraPower(numExtraPower).produce(player, resourceProduced);
                 for (Producible producible : allProduced)
                     producible.onProduced(player, game);
                 power.setAvailableForProduction(false);
