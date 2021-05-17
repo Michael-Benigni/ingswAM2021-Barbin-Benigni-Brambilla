@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class ActionTest {
     public Game game;
     MarketTrayTest marketTrayTest = new MarketTrayTest();
-    FaithTrackTest faithTrackTest = new FaithTrackTest();
+    public FaithTrackTest faithTrackTest = new FaithTrackTest();
     public Player player1, player2;
     public ArrayList<Integer> capacities = new ArrayList<>();
     private int cardID = 1;

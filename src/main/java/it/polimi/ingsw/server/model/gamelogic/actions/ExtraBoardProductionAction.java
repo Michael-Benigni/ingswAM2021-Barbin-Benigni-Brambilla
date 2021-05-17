@@ -9,12 +9,12 @@ import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesConta
 
 import java.util.ArrayList;
 
-class ExtraBoardProductionAction implements ProductionAction {
+public class ExtraBoardProductionAction implements ProductionAction {
     private final PayAction fromWhere;
     private final StorableResource resourceProduced;
     private final int numExtraPower;
 
-    ExtraBoardProductionAction(PayAction fromWhere, StorableResource resourceProduced, int numExtraPower) {
+    public ExtraBoardProductionAction(PayAction fromWhere, StorableResource resourceProduced, int numExtraPower) {
         this.fromWhere = fromWhere;
         this.resourceProduced = resourceProduced;
         this.numExtraPower = numExtraPower;

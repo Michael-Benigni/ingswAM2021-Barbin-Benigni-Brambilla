@@ -9,10 +9,10 @@ import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 
 import java.util.Objects;
 
-class StrongboxAction extends PayAction implements FirstTurnAction{
+public class StrongboxAction extends PayAction implements FirstTurnAction{
     private final String storeOrRemove;
 
-    StrongboxAction(String storeOrRemove, StorableResource resource) {
+    public StrongboxAction(String storeOrRemove, StorableResource resource) {
         super(resource);
         this.storeOrRemove = storeOrRemove;
     }
