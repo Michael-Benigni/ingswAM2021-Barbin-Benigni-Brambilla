@@ -18,6 +18,8 @@ class SwapDepots implements FirstTurnAction {
     @Override
     public void perform(Game game, Player player) throws Exception {
         StorableResource overflow = player.getPersonalBoard().getWarehouseDepots().swapDepots(depot1, depot2);
-        player.getPersonalBoard().getTempContainer().store(overflow);
+        if(overflow != null){
+            player.getPersonalBoard().getTempContainer().store(overflow);
+        }
     }
 }
