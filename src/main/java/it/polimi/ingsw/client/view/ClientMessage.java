@@ -29,7 +29,6 @@ public class ClientMessage extends AbstractMessage<Update> {
 
     @Override
     public Update getInfo() {
-        //TODO: do something
-        return null;
+        return this.update;
     }
 }
