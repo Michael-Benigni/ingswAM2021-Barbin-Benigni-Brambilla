@@ -7,7 +7,7 @@ import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 public class AbstractMessage<T> implements JsonTrasmittable, Receivable<T>{
     private Header header;
 
-    protected AbstractMessage(Header header) {
+    protected AbstractMessage(ToServer header) {
         this.header = header;
     }
 
@@ -15,9 +15,9 @@ public class AbstractMessage<T> implements JsonTrasmittable, Receivable<T>{
         this.header = parseForHeader (messageStr);
     }
 
-    private static Header parseForHeader(String messageStr) throws IllegalMessageException {
+    private static ToServer parseForHeader(String messageStr) throws IllegalMessageException {
         try {
-            return (Header) JsonHandler.getAsJavaObjectFromJSONStr (Header.class, "header", messageStr);
+            return (ToServer) JsonHandler.getAsJavaObjectFromJSONStr (ToServer.class, "fromClient", messageStr);
         } catch (Exception e) {
             throw new IllegalMessageException ();
         }

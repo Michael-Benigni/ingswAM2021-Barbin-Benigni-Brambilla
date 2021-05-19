@@ -1,6 +1,6 @@
 package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.server.view.ServerMessage;
+import it.polimi.ingsw.server.view.ToServerMessage;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.view.ClientToken;
 import it.polimi.ingsw.server.view.VirtualView;
@@ -89,9 +89,9 @@ public class ServerNetworkLayer {
         this.channels.add (new Entry<> (token, channel));
         VirtualView view = new VirtualView (channel, this.controller);
         channel.listeningLoop((msg) -> {
-            ServerMessage serverMessage = new ServerMessage (msg);
+            ToServerMessage toServerMessage = new ToServerMessage (msg);
             System.out.printf("Received from Client %s: %s\n", token, msg);
-            view.passToController (serverMessage);
+            view.passToController (toServerMessage);
         });
     }
 

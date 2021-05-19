@@ -4,7 +4,7 @@ public class ErrorMessage extends AbstractMessage<String> {
     private final String errorInfo;
 
     public ErrorMessage(String errorInfo) {
-        super(Header.ERROR);
+        super(ToServer.ERROR);
         this.errorInfo = errorInfo;
     }
 

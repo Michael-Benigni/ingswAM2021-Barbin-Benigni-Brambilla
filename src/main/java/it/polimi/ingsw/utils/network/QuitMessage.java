@@ -8,7 +8,7 @@ public class QuitMessage extends AbstractMessage<String> {
     private final String info = "quit";
 
     QuitMessage() {
-        super (Header.QUIT);
+        super (ToServer.QUIT);
     }
 
     public static boolean isQuitMessage(String message) {

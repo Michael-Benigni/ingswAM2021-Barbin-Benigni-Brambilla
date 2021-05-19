@@ -9,7 +9,7 @@ public class ACK extends AbstractMessage<Integer> {
     private transient static int numOfACKs = 0;
 
     public ACK() {
-        super (Header.ACK);
+        super (ToServer.ACK);
         seqNumber = setSequentialNum ();
     }
 
