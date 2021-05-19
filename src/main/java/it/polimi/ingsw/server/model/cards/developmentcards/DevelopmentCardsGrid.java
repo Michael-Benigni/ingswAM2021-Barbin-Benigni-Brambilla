@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.model.exception.NoMoreCardsWithThisColourException
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Publisher;
+import it.polimi.ingsw.utils.Subject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,12 +19,11 @@ import java.util.stream.Collectors;
  * this class has been implemented by a three-dimensional ArrayList of DevelopmentCard
  * the cards shown on the top of the decks are placed in the arrays in the last position
  */
-public class DevelopmentCardsGrid implements Publisher {
-    private Integer rows;
+public class DevelopmentCardsGrid {
+    private final Integer rows;
     private ArrayList <ArrayList <ArrayList <DevelopmentCard>>> cardsGrid;
-    private ArrayList <PlayerWithDiscount> playerWithDiscounts = new ArrayList<>(0);
-    private ArrayList<Observer> observers;
-    private Integer columns;
+    private final ArrayList <PlayerWithDiscount> playerWithDiscounts = new ArrayList<>(0);
+    private final Integer columns;
 
     /**
      * this class represents the players
@@ -32,8 +31,8 @@ public class DevelopmentCardsGrid implements Publisher {
      * buying development cards from the cards grid
      */
     private class PlayerWithDiscount {
-        private Player playerWithDiscount;
-        private StorableResource discount;
+        private final Player playerWithDiscount;
+        private final StorableResource discount;
 
         /**
          * this is the constructor method of this class
@@ -55,7 +54,6 @@ public class DevelopmentCardsGrid implements Publisher {
     public DevelopmentCardsGrid(ArrayList<DevelopmentCard> cardsList, int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        this.observers = new ArrayList<> ();
         initGrid();
         setCardsGrid(cardsList);
     }
@@ -221,23 +219,5 @@ public class DevelopmentCardsGrid implements Publisher {
                 throw new NoMoreCardsWithThisColourException();
             }
         }
-    }
-
-    /**
-     * This method notifies a change in the status of the publisher to the Observers registered, usually
-     */
-    @Override
-    public void publish() {
-
-    }
-
-    /**
-     * This method is used to attach the observer to the object that implements this interface
-     *
-     * @param observer
-     */
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add(observer);
     }
 }

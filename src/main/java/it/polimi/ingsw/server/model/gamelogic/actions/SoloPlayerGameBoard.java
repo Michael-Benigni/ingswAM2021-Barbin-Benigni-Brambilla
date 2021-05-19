@@ -38,10 +38,4 @@ public class SoloPlayerGameBoard extends GameBoard {
     public SoloPlayerFaithTrack getFaithTrack() {
         return (SoloPlayerFaithTrack) super.getFaithTrack();
     }
-
-    @Override
-    public void attachAll(List<Observer> observers) {
-        super.attachAll (observers);
-        this.actionTokenDeck.attachAll (observers);
-    }
 }

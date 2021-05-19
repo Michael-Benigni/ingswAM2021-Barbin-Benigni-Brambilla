@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.model.exception.EmptySlotException;
 import it.polimi.ingsw.server.model.exception.SlotDevelopmentCardsIsFullException;
 import it.polimi.ingsw.server.model.gamelogic.actions.Producer;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Publisher;
+import it.polimi.ingsw.utils.Subject;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -13,11 +13,10 @@ import java.util.Objects;
 /**
  * this class models a single slot where the player can place his development cards
  */
-public class SlotDevelopmentCards extends Producer implements Publisher {
-    private Integer maxNumberOfCardsInSlot;
-    private ArrayList <DevelopmentCard> listOfDevelopmentCards = new ArrayList<>(0);
+public class SlotDevelopmentCards extends Producer  {
+    private final Integer maxNumberOfCardsInSlot;
+    private final ArrayList <DevelopmentCard> listOfDevelopmentCards = new ArrayList<>(0);
     private final ArrayList <Observer> observers;
-    private Observer owner;
 
 
     /**
@@ -102,23 +101,5 @@ public class SlotDevelopmentCards extends Producer implements Publisher {
     @Override
     public int hashCode() {
         return Objects.hash(maxNumberOfCardsInSlot, listOfDevelopmentCards);
-    }
-
-    /**
-     * This method notifies a change in the status of the publisher to the Observers registered, usually
-     */
-    @Override
-    public void publish() {
-
-    }
-
-    /**
-     * This method is used to attach the observer to the object that implements this interface
-     *
-     * @param observer
-     */
-    @Override
-    public void attach(Observer observer) {
-
     }
 }

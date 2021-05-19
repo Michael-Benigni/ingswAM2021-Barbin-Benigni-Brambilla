@@ -8,22 +8,20 @@ import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Publisher;
+import it.polimi.ingsw.utils.Subject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Class that represents the player in the model.
  * and a number of victory points.
  * They start to zero and can be increased during the match.
  */
-public class Player implements Publisher {
+public class Player  {
 
     private VictoryPoint victoryPoints;
     private PersonalBoard personalBoard;
     private int position;
-    private ArrayList<Observer> observers;
 
 
     /**
@@ -128,26 +126,4 @@ public class Player implements Publisher {
         copyVictoryPoints.increaseVictoryPoints(this.personalBoard.computeTotalVP());
         return copyVictoryPoints;
     }
-
-    /**
-     * This method notifies a change in the status of the publisher to the Observers registered, usually
-     */
-    @Override
-    public void publish() {
-
-    }
-
-    /**
-     * This method is used to attach the observer to the object that implements this interface
-     *
-     * @param observer
-     */
-    @Override
-    public void attach(Observer observer) {
-        if (!observers.contains (observer)) {
-            this.observers.add (observer);
-            this.personalBoard.attach (observer);
-        }
-    }
-
 }

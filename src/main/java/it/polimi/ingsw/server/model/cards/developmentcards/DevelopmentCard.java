@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class DevelopmentCard extends GeneralDevelopmentCard {
     private final int cardID;
-    private ArrayList <StorableResource> cost;
+    private final ArrayList <StorableResource> cost;
     private final ArrayList <StorableResource> consumedResources;
     private final ArrayList <Producible> producedResources;
     private final VictoryPoint victoryPoints;

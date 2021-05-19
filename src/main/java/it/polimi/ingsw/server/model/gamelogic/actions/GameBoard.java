@@ -6,7 +6,7 @@ import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrack;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Publisher;
+import it.polimi.ingsw.utils.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,19 +76,5 @@ public class GameBoard {
      */
     public DevelopmentCardsGrid getDevelopmentCardGrid() {
         return this.developmentCardGrid;
-    }
-
-
-    /**
-     * This method uses the method attach for all the observers in the List.
-     *
-     * @param observers
-     * @see Publisher
-     */
-    public void attachAll(List<Observer> observers) {
-        this.developmentCardGrid.attachAll (observers);
-        this.marketTray.attachAll (observers);
-        this.faithTrack.attachAll (observers);
-        this.leaderCardsDeck.attachAll (observers);
     }
 }

@@ -11,11 +11,6 @@ import java.util.function.Predicate;
 
 public class Launcher {
     public static void main(String[] args) {
-        try {
-            Prefs.load();
-        } catch (FileNotFoundException e) {
-            System.err.printf("Unable to load preferences");
-        }
         switch (args[0]) {
             case "--gui":
             case "--cli":

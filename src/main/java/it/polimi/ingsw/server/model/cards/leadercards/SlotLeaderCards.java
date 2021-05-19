@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.model.cards.leadercards;
 import it.polimi.ingsw.server.model.exception.FullLeaderCardSlotException;
 import it.polimi.ingsw.server.model.exception.LeaderCardNotFoundException;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Publisher;
+import it.polimi.ingsw.utils.Subject;
 import java.util.ArrayList;
 
 
@@ -12,12 +12,10 @@ import java.util.ArrayList;
  * where we can put and handle the
  * leader cards of the players
  */
-public class SlotLeaderCards implements Publisher {
+public class SlotLeaderCards  {
     private final ArrayList <LeaderCard> listOfLeaderCards;
     private final int maxNumberOfCards;
     private final int maxNumOfCardsDuringGame;
-    private final ArrayList<Observer> observers;
-    private Observer owner;
 
 
     /**
@@ -36,7 +34,6 @@ public class SlotLeaderCards implements Publisher {
         this.listOfLeaderCards = new ArrayList<>(0);
         this.maxNumberOfCards = maxNumberOfCards;
         this.maxNumOfCardsDuringGame = maxNumOfCardsDuringGame;
-        this.observers = new ArrayList<>();
     }
 
 
@@ -110,28 +107,5 @@ public class SlotLeaderCards implements Publisher {
      */
     public boolean isReadyToStart() {
         return this.listOfLeaderCards.size() == maxNumOfCardsDuringGame;
-    }
-
-
-    /**
-     * This method notifies a change in the status of the publisher to the Observers registered, usually
-     */
-    @Override
-    public void publish() {
-
-    }
-
-
-    /**
-     * This method is used to attach the observer to the object that implements this interface
-     *
-     * @param observer
-     */
-    @Override
-    public void attach(Observer observer) {
-        if (observers.isEmpty ())
-            owner = observer;
-        if (!observers.contains (observer))
-            observers.add (observer);
     }
 }

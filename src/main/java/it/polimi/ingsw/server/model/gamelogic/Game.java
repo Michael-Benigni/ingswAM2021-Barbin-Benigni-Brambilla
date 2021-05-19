@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 
-import it.polimi.ingsw.client.view.ClientMessage;
+import it.polimi.ingsw.client.view.ToClientMessage;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
@@ -9,8 +9,8 @@ import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Publisher;
-import it.polimi.ingsw.client.view.Update;
+import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.config.Prefs;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,12 +19,12 @@ import static java.util.Collections.shuffle;
 /**
  * This class represent the abstract class of the game
  */
-public abstract class Game implements Publisher {
+public abstract class Game  {
 
     /**
      * It's the Max Number of Players in a game
      */
-    private static final int MAX_NUM_PLAYER = 4;
+    private static final int MAX_NUM_PLAYER = Prefs.getMaxNumOfPlayers();
 
     /**
      * the number of Players in this Game
@@ -67,12 +67,6 @@ public abstract class Game implements Publisher {
      */
     private boolean gameIsOver;
 
-    /**
-     * the observers of the game
-     */
-    private final ArrayList<Observer> observers;
-
-
 
     /**
      * Constructor that will be reused in the subclasses
@@ -84,7 +78,6 @@ public abstract class Game implements Publisher {
         this.numberOfPlayers = numberOfPlayers;
         this.playersOrder = new LinkedList<>();
         this.gameIsOver = false;
-        this.observers = new ArrayList<> ();
     }
 
 
@@ -100,11 +93,9 @@ public abstract class Game implements Publisher {
                 int index = getPlayerIndex (player);
                 player.buildBoard (personalBoards.get (index));
                 player.setPosition (index);
-                player.attachAll(this.observers);
             }
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());
-            this.gameBoard.attachAll(this.observers);
             this.currentPlayer = playersOrder.getFirst ();
             this.numberOfRounds = 0;
             this.currentTurn = new FirstTurn ();
@@ -176,7 +167,6 @@ public abstract class Game implements Publisher {
             this.currentPlayer = this.playersOrder.getFirst();
             if(numberOfRounds == -1) {
                 this.gameIsOver = true;
-                publish ();
                 return;
             }
             numberOfRounds++;
@@ -275,19 +265,6 @@ public abstract class Game implements Publisher {
      */
     void setLastRound() {
         this.numberOfRounds = -1;
-    }
-
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add (observer);
-        this.playersOrder.getLast().attach (observer);
-    }
-
-    @Override
-    public void publish() {
-        //TODO
-        ClientMessage message = new ClientMessage (null, null);
-        this.observers.forEach(observer -> observer.update (message));
     }
 }
 

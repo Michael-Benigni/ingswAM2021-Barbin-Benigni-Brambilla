@@ -19,8 +19,8 @@ import java.util.Objects;
 public class LeaderCard {
     private final int cardID;
     private boolean isAlreadyPlayed;
-    private ArrayList <Requirement> requirements;
-    private VictoryPoint victoryPoint;
+    private final ArrayList <Requirement> requirements;
+    private final VictoryPoint victoryPoint;
     private transient Effect effect;
 
     /**

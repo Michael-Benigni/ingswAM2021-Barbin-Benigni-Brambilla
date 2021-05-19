@@ -5,11 +5,11 @@ import it.polimi.ingsw.server.controller.commands.CommandFactory;
 import it.polimi.ingsw.utils.config.JsonHandler;
 import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 
-public class Message extends AbstractMessage {
+public class ToServerMessage extends AbstractMessage {
     private Header header;
     private Command command;
 
-    public Message(String messageStr) throws IllegalMessageException {
+    public ToServerMessage(String messageStr) throws IllegalMessageException {
         super (messageStr);
         try {
             this.header = (Header) JsonHandler.getAsJavaObjectFromJSONStr (Header.class, "header", messageStr);
@@ -20,7 +20,7 @@ public class Message extends AbstractMessage {
         }
     }
 
-    public Message(Header header, Command command) {
+    public ToServerMessage(Header header, Command command) {
         super (header);
         this.command = command;
     }

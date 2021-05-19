@@ -25,7 +25,8 @@ public class ClientNetworkLayer {
         Channel channel = new Channel(socket, "");
         view.setChannel(channel);
         channel.listeningLoop ((msg)-> {
-            ClientMessage message = new ClientMessage (msg);
+            ToClientMessage message = new ToClientMessage (msg);
+            view.handle (message);
             System.out.printf("Received from Server %s: %s\n", msg);
         });
     }

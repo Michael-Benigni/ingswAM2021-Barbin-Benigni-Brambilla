@@ -16,7 +16,7 @@ import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.server.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Publisher;
+import it.polimi.ingsw.utils.Subject;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ import java.util.Objects;
  * Class that represents the board that belongs to a player.
  * It's a collection of game elements, like Strongbox, Depots...
  */
-public class PersonalBoard extends Producer implements Publisher {
+public class PersonalBoard extends Producer  {
 
     /**
      * this class models the extra
@@ -85,7 +85,6 @@ public class PersonalBoard extends Producer implements Publisher {
     }
 
 
-    private ArrayList<Observer> observers;
     private Strongbox strongbox;
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
@@ -105,7 +104,6 @@ public class PersonalBoard extends Producer implements Publisher {
         this.slotLeaderCards = new SlotLeaderCards(maxLeaderCardsInSlot, maxNumOfCardsDuringGame);
         this.tempContainer = new TemporaryContainer();
         this.extraProductionPowers = new ArrayList<>(0);
-        this.observers = new ArrayList<> ();
     }
 
 
@@ -306,30 +304,5 @@ public class PersonalBoard extends Producer implements Publisher {
         producers.addAll(this.listOfSlotDevelopmentCards);
         producers.addAll(this.extraProductionPowers);
         return producers;
-    }
-
-
-    /**
-     * This method notifies a change in the status of the publisher to the Observers registered, usually
-     */
-    @Override
-    public void publish() {
-
-    }
-
-
-    /**
-     * This method is used to attach the observer to the object that implements this interface
-     *
-     * @param observer
-     */
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add (observer);
-        if (!observers.contains (observer)) {
-            if (observers.size () == 1) {
-                //TODO: attach only to the things that only the player will know. es: tempContainer?
-            }
-        }
     }
 }

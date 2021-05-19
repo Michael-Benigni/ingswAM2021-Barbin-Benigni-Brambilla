@@ -1,10 +1,7 @@
 package it.polimi.ingsw.utils;
 
-
-import it.polimi.ingsw.client.view.ClientMessage;
-import it.polimi.ingsw.client.view.Update;
+import it.polimi.ingsw.client.view.ToClientMessage;
 
 public interface Observer {
-    void update(ClientMessage message);
-
+    void update(ToClientMessage message);
 }

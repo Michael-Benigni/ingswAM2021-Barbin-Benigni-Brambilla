@@ -5,11 +5,11 @@ import it.polimi.ingsw.utils.network.AbstractMessage;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 
-public class ClientMessage extends AbstractMessage<Update> {
+public class ToClientMessage extends AbstractMessage<Update> {
 
     private Update update;
 
-    public ClientMessage(String messageStr) throws IllegalMessageException {
+    public ToClientMessage(String messageStr) throws IllegalMessageException {
         super (messageStr);
         this.update = parseForUpdate(getHeader (), messageStr);
     }
@@ -22,7 +22,7 @@ public class ClientMessage extends AbstractMessage<Update> {
         }
     }
 
-    public ClientMessage (Header header, Update update) {
+    public ToClientMessage(Header header, Update update) {
         super(header);
         this.update = update;
     }

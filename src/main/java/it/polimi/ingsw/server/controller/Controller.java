@@ -51,7 +51,7 @@ public class Controller {
             for (User userInRoom : users) {
                 Player player = game.createPlayer ();
                 room.setPlayerOf (userInRoom, player);
-                game.attach (userInRoom.getView());
+                // TODO : game.attach (userInRoom.getView());
             }
             factory.setup (game);
         }
