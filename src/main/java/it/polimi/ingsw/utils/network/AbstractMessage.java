@@ -10,7 +10,7 @@ public class AbstractMessage<T> implements JsonTrasmittable, Receivable<T>{
     private Header header;
     private T info;
 
-    protected AbstractMessage(Header header, T info) {
+    public AbstractMessage(Header header, T info) {
         this.header = header;
         this.info = info;
     }

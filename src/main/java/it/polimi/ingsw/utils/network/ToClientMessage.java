@@ -9,4 +9,8 @@ public class ToClientMessage extends AbstractMessage<Update>{
         //TODO: factory update
         super (msg, Update.class, Header.ToClient.class);
     }
+
+    public ToClientMessage(Header.ToClient header, Update update) {
+        super(header, update);
+    }
 }

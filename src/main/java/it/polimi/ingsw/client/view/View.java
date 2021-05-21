@@ -37,7 +37,7 @@ public class View {
     }
 
     public void handle(ToClientMessage message) {
-        message.getInfo ().update(model);
+        message.getInfo ();
     }
 
 

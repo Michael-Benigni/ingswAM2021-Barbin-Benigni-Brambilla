@@ -117,8 +117,6 @@ public class WarehouseDepots extends GameComponent {
         if(ifDepotIndexIsCorrect(depotIndex)) {
             currentDepot = listDepot.get(depotIndex);
             currentDepot.removeResourceFromDepot(resourceToRemove);
-
-
             notifyUpdate(generateUpdate(), Header.ToClient.WAREHOUSE_UPDATE);
         }
     }
@@ -126,7 +124,7 @@ public class WarehouseDepots extends GameComponent {
     private Update generateUpdate(){
         return new Update() {
             private final ArrayList<Depot> listOfDepots = listDepot;
-            private final StorableResource resourceToRemove1 = resourceToRemove; //TODO: finish
+            private final StorableResource resourceToRemove1 = null; //TODO: finish
         };
     }
 
@@ -211,10 +209,5 @@ public class WarehouseDepots extends GameComponent {
     @Override
     public int hashCode() {
         return Objects.hash(numberOfDepots, capacities, listDepot);
-    }
-
-    @Override
-    public void notifyUpdate(Update update, Header.ToClient header) {
-
     }
 }

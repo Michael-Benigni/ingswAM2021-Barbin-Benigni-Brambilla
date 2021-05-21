@@ -29,6 +29,6 @@ public abstract class GameComponent  implements Subject{
 
     @Override
     public void notifyUpdate(Update update, Header.ToClient header){
-        this.observers.forEach((observer -> observer.onChanged(new ToClientMessage(header, update))));
+        this.observers.forEach(observer -> observer.onChanged(new ToClientMessage(header, update)));
     }
 }
