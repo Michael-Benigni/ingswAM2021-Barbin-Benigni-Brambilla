@@ -1,13 +1,17 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
+import it.polimi.ingsw.server.view.Update;
+import it.polimi.ingsw.utils.network.Header;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * Class that represents a collection of depots.
  */
-public class WarehouseDepots  {
+public class WarehouseDepots extends GameComponent {
     private Integer numberOfDepots;
     private ArrayList<Integer> capacities;
     private ArrayList<Depot> listDepot;
@@ -107,12 +111,23 @@ public class WarehouseDepots  {
      * @param depotIndex integer useful to recognize the right depot.
      * @throws Exception can be thrown by "removeResourceFromDepot" method of "Depot" class.
      */
-    public void remove(StorableResource resourceToRemove, int depotIndex) throws WrongDepotIndexException, NegativeResourceAmountException, NotEqualResourceTypeException, EmptyDepotException {
+    public void remove(StorableResource resourceToRemove, int depotIndex) throws WrongDepotIndexException, NegativeResourceAmountException,
+            NotEqualResourceTypeException, EmptyDepotException {
         Depot currentDepot;
         if(ifDepotIndexIsCorrect(depotIndex)) {
             currentDepot = listDepot.get(depotIndex);
             currentDepot.removeResourceFromDepot(resourceToRemove);
+
+
+            notifyUpdate(generateUpdate(), Header.ToClient.WAREHOUSE_UPDATE);
         }
+    }
+
+    private Update generateUpdate(){
+        return new Update() {
+            private final ArrayList<Depot> listOfDepots = listDepot;
+            private final StorableResource resourceToRemove1 = resourceToRemove; //TODO: finish
+        };
     }
 
     /**
@@ -196,5 +211,10 @@ public class WarehouseDepots  {
     @Override
     public int hashCode() {
         return Objects.hash(numberOfDepots, capacities, listDepot);
+    }
+
+    @Override
+    public void notifyUpdate(Update update, Header.ToClient header) {
+
     }
 }

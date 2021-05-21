@@ -3,6 +3,9 @@ package it.polimi.ingsw.server.model;
 import it.polimi.ingsw.server.view.Update;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.ToClientMessage;
+
 import java.util.ArrayList;
 
 public abstract class GameComponent  implements Subject{
@@ -24,5 +27,8 @@ public abstract class GameComponent  implements Subject{
         this.observers.forEach (this::attach);
     }
 
-    protected abstract Update generateUpdate();
+    @Override
+    public void notifyUpdate(Update update, Header.ToClient header){
+        this.observers.forEach((observer -> observer.onChanged(new ToClientMessage(header, update))));
+    }
 }

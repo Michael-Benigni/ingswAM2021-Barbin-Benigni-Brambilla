@@ -26,7 +26,7 @@ public class VirtualView implements Observer {
     }
 
     @Override
-    public void update(ToClientMessage message) {
+    public void onChanged(ToClientMessage message) {
         this.channel.send(message);
     }
 
