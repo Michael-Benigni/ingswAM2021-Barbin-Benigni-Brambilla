@@ -1,26 +1,40 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.view.lightweightmodel.LightweightModel;
+import it.polimi.ingsw.client.view.states.ClientState;
+import it.polimi.ingsw.client.view.states.WaitingRoomState;
+import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Channel;
-import it.polimi.ingsw.utils.network.JsonTrasmittable;
+import it.polimi.ingsw.utils.network.JsonTransmittable;
 import it.polimi.ingsw.utils.network.ToClientMessage;
 
 public class View {
     private Channel channel;
     private UI ui;
     private LightweightModel model;
+    private ClientState currentState;
+    private boolean response;
 
     public View(UI ui) {
         this.ui = ui;
         this.ui.start ();
+        this.currentState = new WaitingRoomState ();
     }
 
     public void loop() {
-        while (true) {
-            JsonTrasmittable trasmittable = getNextMove ();
-            this.channel.send (trasmittable);
+        new Thread (()->
+        {
+            while (true) {
+                JsonTransmittable transmittable = getNextMove ();
+                this.channel.send (transmittable);
+                waitForResponse();
+            }
+        }).start ();
+    }
+
+    private synchronized void waitForResponse() {
+        while (!this.response) {
             try {
-                ui.wait ();
                 wait ();
             } catch (InterruptedException e) {
                 e.printStackTrace ();
@@ -28,7 +42,12 @@ public class View {
         }
     }
 
-    public JsonTrasmittable getNextMove() {
+    private synchronized void setNextState(ClientState nextState) {
+        this.currentState = nextState;
+        this.ui.notifyStateChange(nextState);
+    }
+
+    public synchronized JsonTransmittable getNextMove() {
         return ui.getUserInput();
     }
 
@@ -36,12 +55,14 @@ public class View {
         this.channel = channel;
     }
 
-    public void handle(ToClientMessage message) {
+
+    public synchronized void handle(ToClientMessage message) {
         message.getInfo ();
     }
 
-
-    public void readyForNextMove() {
-        notify ();
+    public synchronized void readyForNextMove() {
+        this.response = true;
+        this.ui.notifyStateChange (currentState.getNextState());
+        this.notifyAll ();
     }
 }

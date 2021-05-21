@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.utils.network.ClientNetworkLayer;
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.client.view.UIFactory;
+import it.polimi.ingsw.client.view.ui.UIFactory;
 import it.polimi.ingsw.utils.config.Prefs;
 import java.util.ArrayList;
 import java.util.Arrays;

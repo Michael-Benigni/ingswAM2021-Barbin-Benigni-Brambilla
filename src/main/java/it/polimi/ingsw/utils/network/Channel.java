@@ -3,9 +3,7 @@ package it.polimi.ingsw.utils.network;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Channel {
     private enum ChannelStatus {
@@ -108,8 +106,8 @@ public class Channel {
         setStatus(ChannelStatus.CLOSED);
     }
 
-    public synchronized void send(JsonTrasmittable jsonTrasmittable) {
-        outSocket.printf ("%s\n", jsonTrasmittable.transmit ());
+    public synchronized void send(JsonTransmittable jsonTransmittable) {
+        outSocket.printf ("%s\n", jsonTransmittable.transmit ());
         outSocket.flush ();
     }
 

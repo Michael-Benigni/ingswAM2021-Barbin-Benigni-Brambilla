@@ -23,14 +23,15 @@ public class ClientNetworkLayer {
         }
         Channel channel = new Channel(socket, "");
         view.setChannel(channel);
+        view.loop ();
         channel.listeningLoop ((msg)-> {
-            System.out.print (msg);
+            System.out.print (msg + "\n");
             if(ACK.isACKMessage (msg))
                 channel.send (new ACK (msg));
             else if(ValidMoveMessage.isValidMoveMessage(msg))
                 view.readyForNextMove ();
             else {
-                System.out.printf ("Received from Server %s: %s\n", msg);
+                System.out.printf ("Received from Server: %s\n", msg);
                 ToClientMessage message = new ToClientMessage (msg);
                 view.handle (message);
             }

@@ -7,12 +7,17 @@ import java.util.ArrayList;
  * It's a parser that decompose a String that represents a path of Json nodes: passing through these json properties, the
  * ConfigLoader can create the Java objects from a Json file
  */
-class JsonPathParser {
+public class StringParser {
 
     /**
      * Separator that will be present in the Strings to parse and divide
      */
     private static String SEPARATOR = "/";
+
+
+    public StringParser(String SEPARATOR) {
+        setSeparator (SEPARATOR);
+    }
 
 
     /**
@@ -21,7 +26,7 @@ class JsonPathParser {
      *             a separator
      * @return the list of all the nodes as an ArrayList of Strings
      */
-    static ArrayList<String> decompose(String path) {
+    public static ArrayList<String> decompose(String path) {
         String[] nodes;
         try {
             nodes = path.split(SEPARATOR);

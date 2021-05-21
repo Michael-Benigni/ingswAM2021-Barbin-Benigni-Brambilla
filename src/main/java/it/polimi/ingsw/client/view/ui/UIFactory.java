@@ -1,7 +1,7 @@
-package it.polimi.ingsw.client.view;
+package it.polimi.ingsw.client.view.ui;
 
-import it.polimi.ingsw.client.view.cli.CLI;
-import it.polimi.ingsw.client.view.gui.GUI;
+import it.polimi.ingsw.client.view.ui.cli.CLI;
+import it.polimi.ingsw.client.view.ui.gui.GUI;
 
 public class UIFactory {
     public static UI getView(String cliOrGui) {

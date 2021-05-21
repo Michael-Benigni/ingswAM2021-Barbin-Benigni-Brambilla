@@ -3,7 +3,7 @@ package it.polimi.ingsw.utils.config;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class JsonPathParserTest {
+class StringParserTest {
 
     @BeforeEach
     void setUp() {
