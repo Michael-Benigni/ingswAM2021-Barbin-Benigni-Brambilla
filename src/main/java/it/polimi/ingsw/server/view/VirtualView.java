@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.view;
 
-import it.polimi.ingsw.client.view.ToClientMessage;
+import it.polimi.ingsw.utils.network.ToClientMessage;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.server.controller.commands.Command;

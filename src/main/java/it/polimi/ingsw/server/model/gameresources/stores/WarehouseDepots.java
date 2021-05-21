@@ -1,10 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-
 import it.polimi.ingsw.server.model.exception.*;
-import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -23,6 +19,8 @@ public class WarehouseDepots  {
         this.numberOfDepots = numberOfDepots;
         this.capacities = capacities;
         setListDepot();
+
+
     }
 
 

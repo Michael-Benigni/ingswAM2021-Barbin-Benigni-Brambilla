@@ -1,7 +1,6 @@
-package it.polimi.ingsw.client.view;
+package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.utils.network.Channel;
-
+import it.polimi.ingsw.client.view.View;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -25,9 +24,16 @@ public class ClientNetworkLayer {
         Channel channel = new Channel(socket, "");
         view.setChannel(channel);
         channel.listeningLoop ((msg)-> {
-            ToClientMessage message = new ToClientMessage (msg);
-            view.handle (message);
-            System.out.printf("Received from Server %s: %s\n", msg);
+            System.out.print (msg);
+            if(ACK.isACKMessage (msg))
+                channel.send (new ACK (msg));
+            else if(ValidMoveMessage.isValidMoveMessage(msg))
+                view.readyForNextMove ();
+            else {
+                System.out.printf ("Received from Server %s: %s\n", msg);
+                ToClientMessage message = new ToClientMessage (msg);
+                view.handle (message);
+            }
         });
     }
 }

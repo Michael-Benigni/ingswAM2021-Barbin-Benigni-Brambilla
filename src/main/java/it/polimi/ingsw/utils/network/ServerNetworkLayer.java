@@ -1,6 +1,5 @@
 package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.server.view.ToServerMessage;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.view.ClientToken;
 import it.polimi.ingsw.server.view.VirtualView;
@@ -92,6 +91,7 @@ public class ServerNetworkLayer {
             ToServerMessage toServerMessage = new ToServerMessage (msg);
             System.out.printf("Received from Client %s: %s\n", token, msg);
             view.passToController (toServerMessage);
+            channel.send (new ValidMoveMessage());
         });
     }
 

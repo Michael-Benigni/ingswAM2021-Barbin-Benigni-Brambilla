@@ -1,26 +1,18 @@
 package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.utils.config.JsonHandler;
-
+import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 import java.util.Objects;
 
 public class ACK extends AbstractMessage<Integer> {
-    private int seqNumber;
+
     private transient static int numOfACKs = 0;
 
     public ACK() {
-        super (ToServer.ACK);
-        seqNumber = setSequentialNum ();
+        super (Header.Common.ACK, setSequentialNum ());
     }
 
-    public boolean isTheSameACK(String fromNetwork) {
-        ACK ackFromNetwork = null;
-        try {
-            ackFromNetwork = (ACK) JsonHandler.fromJson (fromNetwork, ACK.class);
-        } catch (Exception e) {
-            seqNumber = -1;
-        }
-        return this.equals (ackFromNetwork);
+    public ACK(String jsonString) throws IllegalMessageException {
+        super(jsonString, Integer.class, Header.Common.class);
     }
 
     private static int setSequentialNum() {
@@ -28,22 +20,33 @@ public class ACK extends AbstractMessage<Integer> {
         return numOfACKs;
     }
 
+    public static boolean isACKMessage(String jsonString) {
+        ACK ack;
+        try {
+            ack = new ACK(jsonString);
+        } catch (IllegalMessageException e) {
+            return false;
+        }
+        return Objects.equals (ack.getHeader (), Header.Common.ACK);
+    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ACK)) return false;
-        ACK ack = (ACK) o;
-        return seqNumber == ack.seqNumber;
+    public boolean isTheSameACK(String fromNetwork) {
+        ACK ackFromNetwork;
+        try {
+            ackFromNetwork = new ACK (fromNetwork);
+        } catch (Exception e) {
+            return false;
+        }
+        return this.equals (ackFromNetwork);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash (seqNumber);
+        return super.hashCode ();
     }
 
     @Override
-    public Integer getInfo() {
-        return this.seqNumber;
+    public boolean equals(Object obj) {
+        return super.equals (obj);
     }
 }

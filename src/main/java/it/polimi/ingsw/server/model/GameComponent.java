@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.client.view.Update;
+import it.polimi.ingsw.server.view.Update;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Subject;
 import java.util.ArrayList;

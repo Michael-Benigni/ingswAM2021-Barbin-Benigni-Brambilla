@@ -239,7 +239,7 @@ public class JsonHandler {
      */
     private static Gson initGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setPrettyPrinting();
+        //gsonBuilder.setPrettyPrinting();
         registerAllTypeAdapters(gsonBuilder);
         return gsonBuilder.create();
     }

@@ -1,15 +1,12 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 
-import it.polimi.ingsw.client.view.ToClientMessage;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
-import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
 import it.polimi.ingsw.utils.config.Prefs;
 
 import java.util.ArrayList;

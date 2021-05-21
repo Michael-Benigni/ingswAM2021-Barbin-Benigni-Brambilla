@@ -1,7 +1,13 @@
 package it.polimi.ingsw.client.view;
 
-public class UI {
-    public void show() {
+import it.polimi.ingsw.utils.network.JsonTrasmittable;
 
+public class UI {
+    public void start() {
+
+    }
+
+    public JsonTrasmittable getUserInput() {
+        return null;
     }
 }

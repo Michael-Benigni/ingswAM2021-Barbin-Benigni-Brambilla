@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Channel {
     private enum ChannelStatus {
@@ -41,6 +42,8 @@ public class Channel {
             System.err.println(e.getMessage());
             setStatus(ChannelStatus.ERROR);
             return;
+        } catch (NullPointerException e) {
+            System.err.println ("Socket not open on port %d");
         }
         setStatus(ChannelStatus.UNKNOWN);
     }
@@ -59,24 +62,20 @@ public class Channel {
 
     public void listeningLoop(Receiver receiver) {
         while (true) {
-            try {
-                String msg = inSocket.nextLine ();
-                if (QuitMessage.isQuitMessage (msg)) {
-                    System.out.printf ("Client %s has closed the channel", this.id);
-                    break;
-                } else if (this.expectedACK != null && this.expectedACK.isTheSameACK (msg))
-                    this.setStatus (ChannelStatus.OPENED);
-                else {
-                    try {
-                        receiver.onReceived (msg);
-                    } catch (Exception e) {
-                        send (new ErrorMessage (e.getMessage ()));
-                    }
-                }
-            } catch (NoSuchElementException e) {
+            String msg = inSocket.nextLine ();
+            if (QuitMessage.isQuitMessage (msg)) {
+                System.out.printf ("Client %s has closed the channel", this.id);
                 if (this.status != ChannelStatus.CLOSED)
                     close ();
                 break;
+            } else if (this.expectedACK != null && this.expectedACK.isTheSameACK (msg))
+                this.setStatus (ChannelStatus.OPENED);
+            else {
+                try {
+                    receiver.onReceived (msg);
+                } catch (Exception e) {
+                    send (new ErrorMessage (e.getMessage ()));
+                }
             }
         }
     }

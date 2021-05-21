@@ -16,7 +16,6 @@ class ConfigLoaderTest {
 
     @BeforeEach
     void setUp() throws FileNotFoundException {
-        Prefs.load ();
         loader = new ConfigLoader();
     }
 
