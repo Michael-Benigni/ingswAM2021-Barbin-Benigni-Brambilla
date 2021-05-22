@@ -1,14 +1,11 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.view.Update;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Subject;
-import it.polimi.ingsw.utils.network.Header;
-import it.polimi.ingsw.utils.network.ToClientMessage;
-
+import it.polimi.ingsw.utils.network.Sendable;
 import java.util.ArrayList;
 
-public abstract class GameComponent  implements Subject{
+public abstract class GameComponent  implements Subject {
     private ArrayList<Observer> observers;
     
     protected GameComponent () {
@@ -28,7 +25,7 @@ public abstract class GameComponent  implements Subject{
     }
 
     @Override
-    public void notifyUpdate(Update update, Header.ToClient header){
-        this.observers.forEach(observer -> observer.onChanged(new ToClientMessage(header, update)));
+    public void notifyUpdate(Sendable sendable){
+        this.observers.forEach(observer -> observer.onChanged(sendable));
     }
 }

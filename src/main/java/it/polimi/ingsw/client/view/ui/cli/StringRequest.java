@@ -1,15 +1,15 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.UserInput;
+import it.polimi.ingsw.client.view.MessageWriter;
 
 public class StringRequest extends Request{
-    protected StringRequest(String requestDesc, String namePropertyRequested) {
+    public StringRequest(String requestDesc, String namePropertyRequested) {
         super (requestDesc, namePropertyRequested);
     }
 
     @Override
-    protected UserInput handleInput(String string) {
-        UserInput input = new UserInput ();
+    protected MessageWriter handleInput(String string) {
+        MessageWriter input = new MessageWriter ();
         input.addProperty (getNamePropertyRequested (), string);
         return input;
     }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.UserInput;
+import it.polimi.ingsw.client.view.MessageWriter;
 import it.polimi.ingsw.utils.config.StringParser;
 import java.util.ArrayList;
 
@@ -12,11 +12,11 @@ public class PaymentRequest extends Request {
     }
 
     @Override
-    protected UserInput handleInput(String string) {
+    protected MessageWriter handleInput(String string) {
         StringParser parser = new StringParser (separator);
         ArrayList<String> payment = parser.decompose(string);
-        UserInput paymentAsInput = new UserInput ();
-        UserInput resource = new UserInput ();
+        MessageWriter paymentAsInput = new MessageWriter ();
+        MessageWriter resource = new MessageWriter ();
         resource.addProperty ("type", payment.get (0));
         resource.addProperty ("amount", payment.get (1));
         paymentAsInput.addProperty ("resource", resource);

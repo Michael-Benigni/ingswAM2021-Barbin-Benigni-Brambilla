@@ -40,7 +40,7 @@ public interface Action extends Command {
      * is done looking at the type of the performedActions, and if it is contained in the requires of this Action, this Action
      * is valid
      */
-    default boolean isValid(FirstTurn turn) throws NoValidActionException {
+    default boolean isValid(FirstTurn turn) {
         return false;
     }
 

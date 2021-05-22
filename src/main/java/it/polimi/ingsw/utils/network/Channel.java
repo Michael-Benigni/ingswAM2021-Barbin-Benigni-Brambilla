@@ -106,8 +106,8 @@ public class Channel {
         setStatus(ChannelStatus.CLOSED);
     }
 
-    public synchronized void send(JsonTransmittable jsonTransmittable) {
-        outSocket.printf ("%s\n", jsonTransmittable.transmit ());
+    public synchronized void send(Sendable sendable) {
+        outSocket.printf ("%s\n", sendable.transmit ());
         outSocket.flush ();
     }
 

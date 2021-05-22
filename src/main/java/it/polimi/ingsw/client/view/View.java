@@ -4,9 +4,7 @@ import it.polimi.ingsw.client.view.lightweightmodel.LightweightModel;
 import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
-import it.polimi.ingsw.utils.network.Channel;
-import it.polimi.ingsw.utils.network.JsonTransmittable;
-import it.polimi.ingsw.utils.network.ToClientMessage;
+import it.polimi.ingsw.utils.network.*;
 
 public class View {
     private Channel channel;
@@ -17,16 +15,16 @@ public class View {
 
     public View(UI ui) {
         this.ui = ui;
-        this.ui.start ();
         this.currentState = new WaitingRoomState ();
     }
 
     public void loop() {
         new Thread (()->
         {
+            this.ui.start ();
             while (true) {
-                JsonTransmittable transmittable = getNextMove ();
-                this.channel.send (transmittable);
+                Sendable sendable = getNextMove ();
+                this.channel.send (sendable);
                 waitForResponse();
             }
         }).start ();
@@ -47,7 +45,7 @@ public class View {
         this.ui.notifyStateChange(nextState);
     }
 
-    public synchronized JsonTransmittable getNextMove() {
+    public synchronized Sendable getNextMove() {
         return ui.getUserInput();
     }
 
@@ -62,7 +60,9 @@ public class View {
 
     public synchronized void readyForNextMove() {
         this.response = true;
-        this.ui.notifyStateChange (currentState.getNextState());
+        //TODO: only if the state is ended!
+        //this.ui.notifyStateChange (currentState.getNextState());
         this.notifyAll ();
+        this.response = false;
     }
 }

@@ -9,7 +9,6 @@ public class CLI extends UI {
     public CLI() {
         interpreter = new Interpreter ();
         interlocutor = new Interlocutor();
-
     }
 
     @Override
@@ -17,9 +16,9 @@ public class CLI extends UI {
         new Thread (() -> {
             String inputAsString = "";
             while (!getState ().isEnded()) {
-                /*Request nextRequest = getState ().nextRequest(inputAsString);
+                Request nextRequest = getState ().nextRequest(inputAsString);
                 interlocutor.write (nextRequest.getRequestDesc ());
-                inputAsString = interpreter.listen (nextRequest);*/
+                inputAsString = interpreter.listen (nextRequest);
             }
             addUserInput (this.interpreter.getTempUserInput ());
         }).start ();

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.view;
 
-import it.polimi.ingsw.utils.network.ToClientMessage;
+import it.polimi.ingsw.utils.network.Sendable;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.server.controller.commands.Command;
@@ -26,7 +26,7 @@ public class VirtualView implements Observer {
     }
 
     @Override
-    public void onChanged(ToClientMessage message) {
+    public void onChanged(Sendable message) {
         this.channel.send(message);
     }
 

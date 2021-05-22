@@ -7,7 +7,7 @@ import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 import java.util.Objects;
 
-class WarehouseAction extends PayAction implements FirstTurnAction {
+public class WarehouseAction extends PayAction implements FirstTurnAction {
     private final String storeOrRemove;
     private final int depotIdx;
 

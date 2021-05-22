@@ -1,28 +1,26 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.UserInput;
+import it.polimi.ingsw.client.view.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.Scanner;
 
 public class Interpreter {
     private Scanner in;
-    private UserInput userInput;
-
-    private UserInput tempUserInput;
+    private MessageWriter messageWriter;
 
     public Interpreter() {
         this.in = new Scanner (System.in);
-        this.userInput = new UserInput ();
-        this.tempUserInput = new UserInput ();
+        this.messageWriter = new MessageWriter ();
     }
 
-    public UserInput getTempUserInput() {
-        return tempUserInput;
+    public Sendable getTempUserInput() {
+        return messageWriter.write ();
     }
 
     public String listen(Request request) {
         String input = in.nextLine ();
-        tempUserInput.addProperty (request.getNamePropertyRequested (), request.handleInput (input));
+        messageWriter.addProperty (request.getNamePropertyRequested (), request.handleInput (input));
         return input;
     }
 }

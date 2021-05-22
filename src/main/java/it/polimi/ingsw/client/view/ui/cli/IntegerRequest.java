@@ -1,16 +1,16 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.UserInput;
+import it.polimi.ingsw.client.view.MessageWriter;
 
 public class IntegerRequest extends Request{
 
-    protected IntegerRequest(String requestDesc, String namePropertyRequested) {
+    public IntegerRequest(String requestDesc, String namePropertyRequested) {
         super (requestDesc, namePropertyRequested);
     }
 
     @Override
-    protected UserInput handleInput(String string) {
-        UserInput input = new UserInput ();
+    protected MessageWriter handleInput(String string) {
+        MessageWriter input = new MessageWriter ();
         input.addProperty (getNamePropertyRequested(), Integer.parseInt (string));
         return input;
     }

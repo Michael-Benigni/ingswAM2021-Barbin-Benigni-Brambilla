@@ -9,16 +9,20 @@ import java.util.HashMap;
 
 public class WaitingRoom {
     private int size;
-    private HashMap<User, Player> usersPlayers;
+    private final HashMap<User, Player> usersPlayers;
     private User leader;
+    private static int numOfWaitingRooms = 0;
+    private final int ID;
 
     public WaitingRoom(int size) {
         this.size = size;
         this.usersPlayers = new HashMap<> ();
+        this.ID = numOfWaitingRooms;
+        numOfWaitingRooms++;
     }
 
     public void put(User key) throws InvalidUserException, FullWaitingRoomException {
-        if (this.getSize() < usersPlayers.size()) {
+        if (this.usersPlayers.size () < this.size) {
             if (key.getUsername() != null && isUnique (key)) {
                 if (this.usersPlayers.isEmpty ())
                     leader = key;
@@ -72,5 +76,9 @@ public class WaitingRoom {
 
     public Player getPlayerOf(User user) {
         return this.usersPlayers.get (user);
+    }
+
+    public int getID() {
+        return this.ID;
     }
 }

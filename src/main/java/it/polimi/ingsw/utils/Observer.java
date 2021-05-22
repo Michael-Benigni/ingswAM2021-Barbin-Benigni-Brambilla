@@ -1,7 +1,7 @@
 package it.polimi.ingsw.utils;
 
-import it.polimi.ingsw.utils.network.ToClientMessage;
+import it.polimi.ingsw.utils.network.Sendable;
 
 public interface Observer {
-    void onChanged(ToClientMessage message);
+    void onChanged(Sendable sendable);
 }

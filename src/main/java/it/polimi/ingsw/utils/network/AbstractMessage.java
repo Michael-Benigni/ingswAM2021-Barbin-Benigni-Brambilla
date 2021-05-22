@@ -6,7 +6,7 @@ import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 import java.util.Objects;
 
 
-public class AbstractMessage<T> implements JsonTransmittable, Receivable<T>{
+public class AbstractMessage<T> implements Sendable, Receivable<T>{
     private Header header;
     private T info;
 

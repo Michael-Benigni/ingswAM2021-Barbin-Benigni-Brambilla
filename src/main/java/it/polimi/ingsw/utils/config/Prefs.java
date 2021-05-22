@@ -46,7 +46,8 @@ public class Prefs {
             maxUsersInWaitingRoom = (int) getAsJavaObjectFromJSON(int.class, "maxUsersInWaitingRoom/", PATH_TO_PREFS);
         } catch (FileNotFoundException e) {
             e.printStackTrace ();
-        }return maxUsersInWaitingRoom;
+        }
+        return maxUsersInWaitingRoom;
     }
 
     public static long getMaxTimeForACKResponseMSec() {

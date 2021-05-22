@@ -1,9 +1,10 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
+import it.polimi.ingsw.client.view.MessageWriter;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
-import it.polimi.ingsw.server.view.Update;
 import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -117,15 +118,15 @@ public class WarehouseDepots extends GameComponent {
         if(ifDepotIndexIsCorrect(depotIndex)) {
             currentDepot = listDepot.get(depotIndex);
             currentDepot.removeResourceFromDepot(resourceToRemove);
-            notifyUpdate(generateUpdate(), Header.ToClient.WAREHOUSE_UPDATE);
+            notifyUpdate(generateUpdate ());
         }
     }
 
-    private Update generateUpdate(){
-        return new Update() {
-            private final ArrayList<Depot> listOfDepots = listDepot;
-            private final StorableResource resourceToRemove1 = null; //TODO: finish
-        };
+    private Sendable generateUpdate(){
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.WAREHOUSE_UPDATE);
+        writer.addProperty ("numDepots", this.listDepot.size ());
+        return writer.write ();
     }
 
     /**

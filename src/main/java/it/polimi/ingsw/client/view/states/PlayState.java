@@ -1,4 +1,20 @@
 package it.polimi.ingsw.client.view.states;
 
-public abstract class PlayState {
+import it.polimi.ingsw.client.view.ui.cli.Request;
+
+public class PlayState extends ClientState {
+    @Override
+    public String getOptions() {
+        return null;
+    }
+
+    @Override
+    public Request nextRequest(String input) {
+        return null;
+    }
+
+    @Override
+    public ClientState getNextState() {
+        return null;
+    }
 }

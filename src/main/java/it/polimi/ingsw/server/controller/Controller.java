@@ -11,8 +11,11 @@ import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.GameFactory;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
+import it.polimi.ingsw.server.view.Update;
 import it.polimi.ingsw.utils.Entry;
 import it.polimi.ingsw.utils.config.Prefs;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.ToClientMessage;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -86,12 +89,18 @@ public class Controller {
             newWaitingRoom ();
             register (user);
         }
+        user.getView ().onChanged (new ToClientMessage (
+                Header.ToClient.USER_REGISTERED,
+                // TODO: maybe better something different from the update
+                new Update () {
+                    private final int numUser = getWaitingRoomOf (user).getSize ();
+                    private final int numWaitingRoom = getWaitingRoomOf (user).getID();
+            }
+        ));
     }
 
     public void handleCommandOf(User user, Command command) throws Exception {
-        synchronized (getGameOf (user)) {
-            command.handled (this, user);
-        }
+        command.handled (this, user);
     }
 
     public void handleMatchMoveOf (User user, Action action) throws Exception {

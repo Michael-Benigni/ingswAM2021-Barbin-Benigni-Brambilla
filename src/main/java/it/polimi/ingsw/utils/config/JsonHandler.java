@@ -3,6 +3,7 @@ package it.polimi.ingsw.utils.config;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.server.model.cards.leadercards.Requirement;
+import it.polimi.ingsw.server.model.gamelogic.actions.PayAction;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.Resource;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.Cell;
@@ -256,5 +257,6 @@ public class JsonHandler {
         gsonBuilder.registerTypeAdapter(Section.class, new JsonAdapter<Section>());
         gsonBuilder.registerTypeAdapter(Requirement.class, new JsonAdapter<Requirement>());
         gsonBuilder.registerTypeAdapter(Producible.class, new JsonAdapter<Producible>());
+        gsonBuilder.registerTypeAdapter (PayAction.class, new PayActionAdapter());
     }
 }
