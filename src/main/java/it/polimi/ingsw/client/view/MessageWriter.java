@@ -7,25 +7,25 @@ import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.Sendable;
 
 public class MessageWriter {
-    private JsonObject object;
+    private JsonObject message;
     private final Gson gson;
 
     public MessageWriter() {
-        this.object = new JsonObject ();
-        this.object.add ("info", new JsonObject ());
+        this.message = new JsonObject ();
+        this.message.add ("info", new JsonObject ());
         this.gson = new Gson ();
     }
 
     public void setHeader(Header header) {
-        object.addProperty ("header", String.valueOf (header));
+        message.addProperty ("header", String.valueOf (header));
     }
 
     public void reset() {
-        this.object = new JsonObject ();
+        this.message = new JsonObject ();
     }
 
     public void addProperty(String nameProperty, Object input) {
-        JsonObject info = object.get("info").getAsJsonObject ();
+        JsonObject info = message.get("info").getAsJsonObject ();
         if (info.has (nameProperty)) {
             JsonElement property = info.get (nameProperty);
             if (property.isJsonArray ())
@@ -40,9 +40,9 @@ public class MessageWriter {
     }
 
     public Sendable write() {
-        if (!this.object.has ("header"))
+        if (!this.message.has ("header"))
             setHeader (Header.Common.ERROR);
-        return gson.fromJson (this.object, Message.class);
+        return gson.fromJson (this.message, Message.class);
     }
 
     private class Message implements Sendable {
