@@ -5,7 +5,6 @@ import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.Sendable;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -21,11 +20,11 @@ public class WarehouseDepots extends GameComponent {
      * Constructor method of this class. It reads from the database how many depots are contained and the capacity of each one.
      */
     public WarehouseDepots(int numberOfDepots, ArrayList<Integer> capacities) {
+        super();
         this.numberOfDepots = numberOfDepots;
         this.capacities = capacities;
         setListDepot();
-
-
+        notifyUpdate(generateUpdate ());
     }
 
 
@@ -57,6 +56,7 @@ public class WarehouseDepots extends GameComponent {
     public void addExtraDepot(int depotCapacity, ResourceType resourceType) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
         ExtraDepot extraDepot = new ExtraDepot(depotCapacity, resourceType);
         this.listDepot.add(extraDepot);
+        notifyUpdate(generateUpdate ());
     }
 
     /**
@@ -96,6 +96,7 @@ public class WarehouseDepots extends GameComponent {
         if (ifDepotIndexIsCorrect(depotIndex)) {
             if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex) || depotIndex > this.numberOfDepots) {
                 listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
+                notifyUpdate(generateUpdate ());
             }
             else
                 throw new SameResourceTypeInDifferentDepotsException();
@@ -125,7 +126,7 @@ public class WarehouseDepots extends GameComponent {
     private Sendable generateUpdate(){
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.WAREHOUSE_UPDATE);
-        writer.addProperty ("numDepots", this.listDepot.size ());
+        writer.addProperty ("depots", this.listDepot);
         return writer.write ();
     }
 
@@ -153,6 +154,7 @@ public class WarehouseDepots extends GameComponent {
             } catch (ResourceOverflowInDepotException e) {
                 depotOverflow = e.getResource();
             }
+            notifyUpdate(generateUpdate ());
         }
         return depotOverflow;
     }

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests on StorableResource class
  */
-public class StorableResourceTest {
+public class StorableLWResourceTest {
 
     /**
      * Test on the constructor method of this class.

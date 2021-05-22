@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
-import it.polimi.ingsw.server.model.gameresources.markettray.MarbleColour;
 import java.util.ArrayList;
 
 public class LWeightPersonalBoard {
@@ -8,11 +7,11 @@ public class LWeightPersonalBoard {
     /**
      *
      */
-    private class Resource {
+    private class LWResource {
 
         private Type type;
         private int amount;
-        private Resource(Type type, int amount) {
+        private LWResource(Type type, int amount) {
             this.type = type;
             this.amount = amount;
         }
@@ -23,7 +22,7 @@ public class LWeightPersonalBoard {
      *
      */
     private enum Type {
-        SERVANT ("SERVANT"), STONE ("STONE"), SHIELD ("SHIELD"), COIN ("COIN");
+        SERVANT ("SERVANT"), STONE ("STONE"), SHIELD ("SHIELD"), COIN ("COIN"), EMPTY ("empty");
 
 
         private final String type;
@@ -33,11 +32,17 @@ public class LWeightPersonalBoard {
 
     }
 
+    private class LWDepot {
+        private LWResource resource;
+        private int capacity;
+        private Type type;
+    }
 
-    private ArrayList<Resource> warehouse;
-    private ArrayList<Resource> strongbox;
-    private ArrayList<MarbleColour> temporary;
-    private ArrayList<LWDevCard> devCards; // max 3
+
+    private ArrayList<LWDepot> warehouse;
+    private ArrayList<LWResource> strongbox;
+    private ArrayList<LWResource> temporary;
+    private ArrayList<ArrayList<LWDevCard>> devCards; // max 3
     private ArrayList<LWLeaderCard> leaderCardsPlayed; // 4 at the beginning, then 2
     private ArrayList<LWLeaderCard> leaderCardsNotPlayed;
 
@@ -49,19 +54,19 @@ public class LWeightPersonalBoard {
         this.leaderCardsPlayed = new ArrayList<> ();
     }
 
-    void updateWarehouse(ArrayList<Resource> warehouse) {
+    void updateWarehouse(ArrayList<LWDepot> warehouse) {
         this.warehouse = warehouse;
     }
 
-    void updateStrongbox(ArrayList<Resource> strongbox) {
+    void updateStrongbox(ArrayList<LWResource> strongbox) {
         this.strongbox = strongbox;
     }
 
-    void updateTemporaryContainer(ArrayList<MarbleColour> temporary) {
+    void updateTemporaryContainer(ArrayList<LWResource> temporary) {
         this.temporary = temporary;
     }
 
-    public void updateDevCards(ArrayList<LWDevCard> devCards) {
+    public void updateDevCards(ArrayList<ArrayList<LWDevCard>> devCards) {
         this.devCards = devCards;
     }
 
