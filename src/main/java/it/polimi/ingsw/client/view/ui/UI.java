@@ -8,33 +8,37 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public abstract class UI {
-    private Queue<Sendable> userInputs;
+    private Queue<Sendable> messages;
     private ClientState state;
 
     public UI () {
-        this.userInputs = new ArrayDeque<> ();
+        this.messages = new ArrayDeque<> ();
         this.state = new WaitingRoomState ();
     }
 
     public abstract void start();
 
     public synchronized Sendable getUserInput() {
-        while (this.userInputs.isEmpty ()) {
+        while (this.messages.isEmpty ()) {
             try {
                 wait ();
             } catch (InterruptedException e) {
                 e.printStackTrace ();
             }
         }
-        return this.userInputs.remove ();
+        return this.messages.remove ();
     }
 
     public synchronized ClientState getState() {
         return state;
     }
 
-    protected synchronized void addUserInput(Sendable sendable) {
-        this.userInputs.add (sendable);
+    public synchronized void setNextState() {
+        this.state = getState ().getNextState ();
+    }
+
+    protected synchronized void addMessage(Sendable sendable) {
+        this.messages.add (sendable);
         try {
             wait ();
         } catch (InterruptedException e) {

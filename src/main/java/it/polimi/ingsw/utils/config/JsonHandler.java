@@ -12,6 +12,7 @@ import it.polimi.ingsw.server.model.gameresources.faithtrack.Section;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 /**
@@ -149,7 +150,8 @@ public class JsonHandler {
      * @throws FileNotFoundException if the file does not exist
      */
     private static JsonElement getFileAsJsonElement(String filePath) throws FileNotFoundException {
-        return JsonParser.parseReader(new JsonReader(new FileReader(filePath)));
+        InputStream in = JsonHandler.class.getClassLoader ().getResourceAsStream(filePath);
+        return JsonParser.parseReader (new JsonReader (new BufferedReader (new InputStreamReader (in))));
     }
 
 

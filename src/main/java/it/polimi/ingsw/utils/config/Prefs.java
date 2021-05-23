@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import static it.polimi.ingsw.utils.config.JsonHandler.getAsJavaObjectFromJSON;
 
 public class Prefs {
-    private static final String PATH_TO_PREFS = "src/main/resources/prefs.json";
+    private static final String PATH_TO_PREFS = "prefs.json";
     private static int serverPort;
     private static int timerPeriod;
     private static String pathServerDB;

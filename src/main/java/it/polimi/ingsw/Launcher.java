@@ -11,13 +11,17 @@ import java.util.function.Predicate;
 
 public class Launcher {
     public static void main(String[] args) {
-        switch (args[0]) {
-            case "--gui":
-            case "--cli":
-                Client.launch(getPort (args), args);
-                break;
-            default: Server.launch (getPort (args));
+        if (args.length > 0) {
+            switch (args[0]) {
+                case "--gui":
+                case "--cli":
+                    Client.launch (getPort (args), args);
+                    break;
+                default:
+                    Server.launch (getPort (args));
+            }
         }
+        Server.launch (8888);
     }
 
 
