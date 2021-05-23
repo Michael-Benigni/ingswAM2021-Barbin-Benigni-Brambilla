@@ -9,8 +9,9 @@
 
 #intelliJ
 /.idea
-/*.iml
 /target
+/shade
+**/.iml
 
 #MacOS
 **/.DS_Store
