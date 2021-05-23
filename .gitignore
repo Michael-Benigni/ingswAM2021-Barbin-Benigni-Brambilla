@@ -11,7 +11,7 @@
 /.idea
 /target
 /shade
-**/.iml
+**/*.iml
 
 #MacOS
-**/.DS_Store
+**/*.DS_Store
