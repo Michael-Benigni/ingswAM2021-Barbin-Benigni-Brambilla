@@ -38,15 +38,16 @@ public class View {
                 e.printStackTrace ();
             }
         }
+        this.response = false;
     }
 
     private synchronized void setNextState(ClientState nextState) {
         this.currentState = nextState;
-        this.ui.notifyStateChange(nextState);
+        this.ui.setNextState ();
     }
 
     public synchronized Sendable getNextMove() {
-        return ui.getUserInput();
+        return ui.getNextMessage ();
     }
 
     public void setChannel(Channel channel) {
@@ -60,9 +61,10 @@ public class View {
 
     public synchronized void readyForNextMove() {
         this.response = true;
-        //TODO: only if the state is ended!
-        //this.ui.notifyStateChange (currentState.getNextState());
         this.notifyAll ();
-        this.response = false;
+    }
+
+    public void handleError(ErrorMessage errorMessage) {
+        ui.notifyError(errorMessage.getInfo ());
     }
 }

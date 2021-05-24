@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
+import it.polimi.ingsw.utils.network.MessageWriter;
+
 public abstract class Request {
     private final String requestDesc;
 
@@ -9,7 +11,10 @@ public abstract class Request {
         this.namePropertyRequested = namePropertyRequested;
     }
 
-    protected abstract Object handleInput(String string/*, ClientState currentState*/);
+    protected MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) {
+        interlocutor.write (this.getRequestDesc ());
+        return writer;
+    }
 
     protected String getNamePropertyRequested() {
         return this.namePropertyRequested;

@@ -14,14 +14,16 @@ public class Launcher {
         if (args.length > 0) {
             switch (args[0]) {
                 case "--gui":
-                case "--cli":
+                case "--cli": {
                     Client.launch (getPort (args), args);
                     break;
+                }
                 default:
                     Server.launch (getPort (args));
             }
         }
-        Server.launch (8888);
+        else
+            Server.launch (8888);
     }
 
 

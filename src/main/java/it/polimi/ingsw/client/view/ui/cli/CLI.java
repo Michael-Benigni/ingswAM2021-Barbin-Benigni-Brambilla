@@ -1,6 +1,9 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
+import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
+import it.polimi.ingsw.client.view.states.Move;
 import it.polimi.ingsw.client.view.ui.UI;
+import it.polimi.ingsw.utils.network.Sendable;
 
 public class CLI extends UI {
     private final Interpreter interpreter;
@@ -15,15 +18,25 @@ public class CLI extends UI {
     @Override
     public void start() {
         new Thread (() -> {
-            String inputAsString = "";
-            while (!getState ().isEnded()) {
-                /*Request nextRequest = getState ().nextRequest();
-                interlocutor.write (nextRequest.getRequestDesc ());
-                inputAsString = interpreter.listen (nextRequest);
-                addMessage (this.interpreter.getTempUserInput ());
-                if (getState ().isEnded ())*/
-
+            while (true) {
+                interlocutor.write (getState ().menu ());
+                String moveAsString = interpreter.listen ();
+                Move move = null;
+                while (move == null) {
+                    try {
+                        move = getState ().getMove (moveAsString);
+                    } catch (UnavailableMoveName unavailableMoveName) {
+                        interlocutor.write (unavailableMoveName.getMessage ());
+                    }
+                }
+                Sendable message = move.ask (interpreter, interlocutor);
+                addMessage (message);
             }
         }).start ();
+    }
+
+    @Override
+    public void notifyError(String info) {
+        this.interlocutor.write (info);
     }
 }

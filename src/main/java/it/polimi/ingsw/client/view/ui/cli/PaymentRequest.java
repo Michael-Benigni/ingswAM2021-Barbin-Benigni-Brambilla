@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.MessageWriter;
+import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.config.StringParser;
 import java.util.ArrayList;
 
@@ -12,17 +12,17 @@ public class PaymentRequest extends Request {
     }
 
     @Override
-    protected MessageWriter handleInput(String string) {
+    protected MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) {
+        super.handleInput (interlocutor, interpreter, writer);
         StringParser parser = new StringParser (separator);
-        ArrayList<String> payment = parser.decompose(string);
-        MessageWriter paymentAsInput = new MessageWriter ();
+        ArrayList<String> payment = parser.decompose(interpreter.listen ());
         MessageWriter resource = new MessageWriter ();
         resource.addProperty ("type", payment.get (0));
         resource.addProperty ("amount", payment.get (1));
-        paymentAsInput.addProperty ("resource", resource);
-        paymentAsInput.addProperty ("fromWhere", payment.get (2));
+        writer.addProperty ("resource", resource);
+        writer.addProperty ("fromWhere", payment.get (2));
         if (payment.size () > 3)
-            paymentAsInput.addProperty ("depotIdx", payment.get (3));
-        return paymentAsInput;
+            writer.addProperty ("depotIdx", payment.get (3));
+        return writer;
     }
 }

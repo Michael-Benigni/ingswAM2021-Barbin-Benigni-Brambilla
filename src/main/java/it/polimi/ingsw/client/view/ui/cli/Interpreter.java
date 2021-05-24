@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.MessageWriter;
+import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.Scanner;
@@ -14,13 +14,13 @@ public class Interpreter {
         this.messageWriter = new MessageWriter ();
     }
 
-    public Sendable getTempUserInput() {
-        return messageWriter.write ();
-    }
-
-    public String listen(Request request) {
-        String input = in.nextLine ();
-        messageWriter.addProperty (request.getNamePropertyRequested (), request.handleInput (input));
-        return input;
+    public synchronized String listen() {
+        String input = null;
+        while (true) {
+            if (in.hasNextLine ()) {
+                input = in.nextLine ();
+                    return input;
+            }
+        }
     }
 }

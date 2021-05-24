@@ -18,7 +18,7 @@ public abstract class UI {
 
     public abstract void start();
 
-    public synchronized Sendable getUserInput() {
+    public synchronized Sendable getNextMessage() {
         while (this.messages.isEmpty ()) {
             try {
                 wait ();
@@ -26,6 +26,7 @@ public abstract class UI {
                 e.printStackTrace ();
             }
         }
+        notifyAll ();
         return this.messages.remove ();
     }
 
@@ -33,12 +34,9 @@ public abstract class UI {
         return state;
     }
 
-    public synchronized void setNextState() {
-        this.state = getState ().getNextState ();
-    }
-
     protected synchronized void addMessage(Sendable sendable) {
         this.messages.add (sendable);
+        this.notifyAll ();
         try {
             wait ();
         } catch (InterruptedException e) {
@@ -46,7 +44,9 @@ public abstract class UI {
         }
     }
 
-    public void notifyStateChange(ClientState state) {
-        state.getOptions ();
+    public void setNextState() {
+        this.state = this.state.getNextState ();
     }
+
+    public abstract void notifyError(String info);
 }

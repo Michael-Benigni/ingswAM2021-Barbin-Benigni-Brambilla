@@ -88,10 +88,19 @@ public class ServerNetworkLayer {
         this.channels.add (new Entry<> (token, channel));
         VirtualView view = new VirtualView (channel, this.controller);
         channel.listeningLoop((msg) -> {
-            ToServerMessage toServerMessage = new ToServerMessage (msg);
-            System.out.printf("Received from Client %s: %s\n", token, msg);
-            view.passToController (toServerMessage);
-            channel.send (new ValidMoveMessage());
+            if (QuitMessage.isQuitMessage (msg)) {
+                System.out.printf ("Client %s has closed the channel", token);
+                if (channel.getStatus() != Channel.ChannelStatus.CLOSED)
+                    channel.close ();
+                return;
+            } else if (channel.getExpectedACK () != null && channel.getExpectedACK ().isTheSameACK (msg))
+                    channel.setStatus (Channel.ChannelStatus.OPENED);
+            else {
+                ToServerMessage toServerMessage = new ToServerMessage (msg);
+                System.out.printf ("Received from Client %s: %s\n", token, msg);
+                view.passToController (toServerMessage);
+                channel.send (new ValidMoveMessage ());
+            }
         });
     }
 
@@ -100,13 +109,13 @@ public class ServerNetworkLayer {
      * This method schedules a Timer: at each period is don a check on the connection of the Channels
      */
     private void heartbeat() {
-        this.timer.schedule(new TimerTask() {
+        new Thread (()-> this.timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 int numConnections = ServerNetworkLayer.this.detectDisconnections();
                 System.out.printf("heartbeat - %d connections\n", numConnections);
             }
-        }, TIMER_PERIOD_HEARTBEAT, TIMER_PERIOD_HEARTBEAT);
+        }, TIMER_PERIOD_HEARTBEAT, TIMER_PERIOD_HEARTBEAT)).start ();
     }
 
 

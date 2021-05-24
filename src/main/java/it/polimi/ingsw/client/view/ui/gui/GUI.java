@@ -9,4 +9,9 @@ public class GUI extends UI {
     public void start() {
 
     }
+
+    @Override
+    public void notifyError(String info) {
+
+    }
 }

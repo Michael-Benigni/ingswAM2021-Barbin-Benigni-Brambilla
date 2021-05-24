@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import it.polimi.ingsw.client.view.MessageWriter;
+import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.utils.network.Header;

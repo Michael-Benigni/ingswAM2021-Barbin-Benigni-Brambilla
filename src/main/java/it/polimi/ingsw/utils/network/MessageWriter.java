@@ -1,10 +1,8 @@
-package it.polimi.ingsw.client.view;
+package it.polimi.ingsw.utils.network;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import it.polimi.ingsw.utils.network.Header;
-import it.polimi.ingsw.utils.network.Sendable;
 
 public class MessageWriter {
     private JsonObject message;

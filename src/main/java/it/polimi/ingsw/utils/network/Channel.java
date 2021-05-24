@@ -1,20 +1,24 @@
 package it.polimi.ingsw.utils.network;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Channel {
-    private enum ChannelStatus {
+    enum ChannelStatus {
         ERROR(),
         CLOSED(),
         OPENED(),
         UNKNOWN();
-    }
 
+
+    }
     private ACK expectedACK;
     private Scanner inSocket;
+
     private PrintWriter outSocket;
     private final Socket socket;
     private final String id;
@@ -24,20 +28,21 @@ public class Channel {
         this.status = ChannelStatus.UNKNOWN;
         this.socket = socket;
         this.id = id;
-        open();
+        this.open();
     }
 
     private void open() {
-        openInputScanner();
+        openInputReader ();
         openOutputWriter ();
         System.out.printf("Channel %s opened\n", this.id);
     }
 
-    private void openInputScanner() {
+    private void openInputReader() {
         try {
-            this.inSocket = new Scanner(this.socket.getInputStream());
+            this.inSocket = new Scanner (new InputStreamReader (this.socket.getInputStream()));
         } catch (IOException e) {
             System.err.println(e.getMessage());
+            inSocket.close ();
             setStatus(ChannelStatus.ERROR);
             return;
         } catch (NullPointerException e) {
@@ -52,33 +57,28 @@ public class Channel {
         } catch (IOException e) {
             System.err.println(e.getMessage());
             setStatus(ChannelStatus.ERROR);
-            this.inSocket.close();
+            this.inSocket.close ();
             return;
         }
         setStatus(ChannelStatus.UNKNOWN);
     }
 
     public void listeningLoop(Receiver receiver) {
-        while (true) {
-            String msg = inSocket.nextLine ();
-            if (QuitMessage.isQuitMessage (msg)) {
-                System.out.printf ("Client %s has closed the channel", this.id);
-                if (this.status != ChannelStatus.CLOSED)
-                    close ();
-                break;
-            } else if (this.expectedACK != null && this.expectedACK.isTheSameACK (msg))
-                this.setStatus (ChannelStatus.OPENED);
-            else {
+        String msg;
+        while (inSocket.hasNextLine ()) {
+            msg = inSocket.nextLine ();
+            if (msg != null) {
                 try {
                     receiver.onReceived (msg);
                 } catch (Exception e) {
-                    send (new ErrorMessage (e.getMessage ()));
+                    e.printStackTrace ();
+                    send (new ErrorMessage (e));
                 }
             }
         }
     }
 
-    private synchronized void setStatus(ChannelStatus newStatus) {
+    synchronized void setStatus(ChannelStatus newStatus) {
         this.status = newStatus;
         notifyAll ();
     }
@@ -113,5 +113,13 @@ public class Channel {
 
     synchronized void setExpectedACK(ACK ack) {
         this.expectedACK = ack;
+    }
+
+    ACK getExpectedACK() {
+        return this.expectedACK;
+    }
+
+    ChannelStatus getStatus() {
+        return this.status;
     }
 }

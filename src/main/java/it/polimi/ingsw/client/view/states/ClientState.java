@@ -1,32 +1,37 @@
 package it.polimi.ingsw.client.view.states;
 
-import it.polimi.ingsw.client.view.ui.cli.Request;
-import java.util.ArrayList;
+import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
+
+import java.util.HashMap;
 
 public abstract class ClientState {
-    private boolean isEnded;
-    private ArrayList<Request> requests;
+    private HashMap<String, Move> availableMoves;
+    private HashMap<String, String> nameAndDesc;
 
     protected ClientState() {
-        this.isEnded = false;
-        this.requests = new ArrayList<> ();
+        this.availableMoves = new HashMap<> ();
+        this.nameAndDesc = new HashMap<> ();
     }
 
-    protected void addRequests(Request request) {
-        this.requests.add (request);
+    public String menu() {
+        String menu = "You can perform these actions: \n";
+        for (String key : nameAndDesc.keySet ())
+            menu = menu + key + " -> " + nameAndDesc.get (key) + ",\n";
+        return menu;
     }
-
-    public abstract String getOptions();
-
-    public abstract Request nextRequest(String input);
 
     public abstract ClientState getNextState();
 
-    public boolean isEnded() {
-        return this.isEnded;
+    protected void addAvailableMove(String name, Move move, String desc) {
+        this.availableMoves.put (name, move);
+        this.nameAndDesc.put (name, desc);
     }
 
-    public void setEnded(boolean ended) {
-        isEnded = false;
+    public Move getMove(String moveAsString) throws UnavailableMoveName {
+        for (String moveName : availableMoves.keySet ()) {
+            if (moveAsString.equals (moveName))
+                return availableMoves.get (moveAsString);
+        }
+        throw new UnavailableMoveName ();
     }
 }

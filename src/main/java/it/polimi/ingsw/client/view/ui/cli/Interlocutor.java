@@ -9,7 +9,7 @@ public class Interlocutor {
         writer = new PrintWriter (System.out);
     }
 
-    public void write(String string) {
+    public synchronized void write(String string) {
         System.out.printf ("%s\n", string);
     }
 }

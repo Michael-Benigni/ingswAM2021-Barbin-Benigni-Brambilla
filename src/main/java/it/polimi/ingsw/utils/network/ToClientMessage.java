@@ -1,16 +1,16 @@
 package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.server.view.Update;
+import it.polimi.ingsw.server.view.ViewUpdate;
 import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 
-public class ToClientMessage extends AbstractMessage<Update>{
+public class ToClientMessage extends AbstractMessage<ViewUpdate>{
 
     public ToClientMessage(String msg) throws IllegalMessageException {
         //TODO: factory update
-        super (msg, Update.class, Header.ToClient.class);
+        super (msg, ViewUpdate.class, Header.ToClient.class);
     }
 
-    public ToClientMessage(Header.ToClient header, Update update) {
-        super(header, update);
+    public ToClientMessage(Header.ToClient header, ViewUpdate viewUpdate) {
+        super(header, viewUpdate);
     }
 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.MessageWriter;
+import it.polimi.ingsw.utils.network.MessageWriter;
 
 public class StringRequest extends Request{
     public StringRequest(String requestDesc, String namePropertyRequested) {
@@ -8,9 +8,9 @@ public class StringRequest extends Request{
     }
 
     @Override
-    protected MessageWriter handleInput(String string) {
-        MessageWriter input = new MessageWriter ();
-        input.addProperty (getNamePropertyRequested (), string);
-        return input;
+    public MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) {
+        super.handleInput (interlocutor, interpreter, writer);
+        writer.addProperty (getNamePropertyRequested (), interpreter.listen ());
+        return writer;
     }
 }
