@@ -1,11 +1,14 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
+
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.NoMoreCardsWithThisColourException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
-import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
  * this class has been implemented by a three-dimensional ArrayList of DevelopmentCard
  * the cards shown on the top of the decks are placed in the arrays in the last position
  */
-public class DevelopmentCardsGrid {
+public class DevelopmentCardsGrid extends GameComponent {
     private final Integer rows;
     private ArrayList <ArrayList <ArrayList <DevelopmentCard>>> cardsGrid;
     private final ArrayList <PlayerWithDiscount> playerWithDiscounts = new ArrayList<>(0);
@@ -51,11 +54,33 @@ public class DevelopmentCardsGrid {
      * this constructor invokes the method setCardsGrid to build
      * the cards grid with the cards divided by colour and level
      */
-    public DevelopmentCardsGrid(ArrayList<DevelopmentCard> cardsList, int rows, int columns) {
+    public DevelopmentCardsGrid(ArrayList<DevelopmentCard> cardsList, int rows, int columns) throws EmptyDeckException {
+        super();
         this.rows = rows;
         this.columns = columns;
         initGrid();
         setCardsGrid(cardsList);
+        notifyUpdate(generateUpdate(buildFrontalIDsGrid()));
+    }
+
+    private Sendable generateUpdate(int[][] frontalIDsGrid){
+        MessageWriter writer = new MessageWriter();
+        writer.setHeader (Header.ToClient.SHOW_INITIAL_GRID);
+        writer.addProperty ("initialGrid", frontalIDsGrid);
+        return writer.write ();
+    }
+
+    int[][] buildFrontalIDsGrid() throws EmptyDeckException {
+        int[][] frontalGrid = new int[this.rows][this.columns];
+        if(this.cardsGrid != null){
+            for (int i = 0; i < this.rows; i++){
+                for (int j = 0; j < this.columns; j++){
+                    int choosenDeckLastIndex = getDeck(i, j).size() - 1;
+                    frontalGrid[i][j] = this.cardsGrid.get(i).get(j).get(choosenDeckLastIndex).getCardID();
+                }
+            }
+        }
+        return frontalGrid;
     }
 
     /**
@@ -111,7 +136,27 @@ public class DevelopmentCardsGrid {
     public void removeChoosenCardFromGrid (int iPos, int jPos) throws EmptyDeckException {
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
         int choosenDeckLastIndex = choosenDeck.size() - 1;
+        int removeCardID = choosenDeck.get(choosenDeckLastIndex).getCardID();
         choosenDeck.remove(choosenDeckLastIndex);
+        if(choosenDeck.isEmpty())
+            notifyUpdate(generateUpdate(removeCardID, -1));
+        else
+            notifyUpdate(generateUpdate(removeCardID, choosenDeck.get(choosenDeckLastIndex - 1).getCardID()));
+    }
+
+    /**
+     * this method generates the update
+     * message to send it to the clients
+     * @param removeCardID is the integer number that identifies the card that the clients must remove from the grid
+     * @param showCardID is the integer number that identifies the card that the clients must show from the grid
+     * @return the message we want to send
+     */
+    private Sendable generateUpdate(int removeCardID, int showCardID){
+        MessageWriter messageWriter = new MessageWriter();
+        messageWriter.setHeader(Header.ToClient.REMOVE_SHOW_GRID);
+        messageWriter.addProperty("cardToRemove", removeCardID);
+        messageWriter.addProperty("cardToShow", showCardID);
+        return messageWriter.write();
     }
 
     /**

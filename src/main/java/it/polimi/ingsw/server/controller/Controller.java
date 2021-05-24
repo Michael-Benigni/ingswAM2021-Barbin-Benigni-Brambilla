@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.controller.exception.FirstWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.FullWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
 import it.polimi.ingsw.server.controller.exception.InvalidUserException;
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
@@ -45,7 +46,7 @@ public class Controller {
         throw new InvalidUserException ();
     }
 
-    private void startMatch(User user) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException {
+    private void startMatch(User user) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
         WaitingRoom room = getWaitingRoomOf (user);
         if (room.isFull ()) {
             GameFactory factory = new GameFactory ();
@@ -60,7 +61,7 @@ public class Controller {
         }
     }
 
-    public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException, IllegalNumberOfPlayersException, TooManyPlayersException, FileNotFoundException {
+    public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException, IllegalNumberOfPlayersException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
         WaitingRoom room = getWaitingRoomOf (user);
         room.setSize (newDim, user);
         if (room.isFull ())
@@ -80,7 +81,7 @@ public class Controller {
         throw new FirstWaitingRoomException ();
     }
 
-    public synchronized void register(User user) throws FileNotFoundException, InvalidUserException {
+    public synchronized void register(User user) throws FileNotFoundException, InvalidUserException, EmptyDeckException {
         try {
             WaitingRoom room = addToLastWaitingRoom (user);
             if (room.isFull ())

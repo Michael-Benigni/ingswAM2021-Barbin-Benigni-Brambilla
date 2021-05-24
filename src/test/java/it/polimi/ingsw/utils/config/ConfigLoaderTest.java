@@ -1,5 +1,6 @@
 package it.polimi.ingsw.utils.config;
 
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.gamelogic.InitialParams;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
@@ -20,7 +21,7 @@ class ConfigLoaderTest {
     }
 
     @Test
-    void loadGameBoard() throws FileNotFoundException {
+    void loadGameBoard() throws FileNotFoundException, EmptyDeckException {
         GameBoard board = loader.loadGameBoard();
     }
 

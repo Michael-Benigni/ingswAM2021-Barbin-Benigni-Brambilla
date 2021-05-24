@@ -1,6 +1,7 @@
 package it.polimi.ingsw.utils.config;
 
 import it.polimi.ingsw.server.model.cards.actiontoken.SoloActionTokenDeck;
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFaithTrack;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
@@ -30,7 +31,7 @@ public class ConfigLoader {
         this.jsonHandler = new JsonHandler(Prefs.getDBPath());
     }
 
-    public GameBoard loadGameBoard() throws FileNotFoundException {
+    public GameBoard loadGameBoard() throws FileNotFoundException, EmptyDeckException {
         return new GameBoard(
                 initFaithTrackFromJSON(),
                 initCardsGridFromJSON(),
@@ -39,7 +40,7 @@ public class ConfigLoader {
         );
     }
 
-    public SoloPlayerGameBoard loadGameBoard1P() throws FileNotFoundException {
+    public SoloPlayerGameBoard loadGameBoard1P() throws FileNotFoundException, EmptyDeckException {
         return new SoloPlayerGameBoard(
                 initFaithTrack1PFromJSON(),
                 initCardsGridFromJSON(),
@@ -107,7 +108,7 @@ public class ConfigLoader {
         return new MarketTray(columns, rows, howManyMarbles);
     }
 
-    private DevelopmentCardsGrid initCardsGridFromJSON() throws FileNotFoundException {
+    private DevelopmentCardsGrid initCardsGridFromJSON() throws FileNotFoundException, EmptyDeckException {
         String jsonPath = "gameBoard/developmentCardsGrid/";
         int rows = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "rows");
         int columns = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "columns");

@@ -22,7 +22,7 @@ public interface Header {
      * Headers of messages that can be received from Client and sent by Server
      */
     enum ToClient implements Header {
-        WAREHOUSE_UPDATE("warehouse_update"), USER_REGISTERED ("user_registered");
+        WAREHOUSE_UPDATE("warehouse_update"), USER_REGISTERED ("user_registered"), SHOW_INITIAL_GRID("show_initial_grid"), REMOVE_SHOW_GRID("remove_show_grid");
 
         private final String headerStr;
 

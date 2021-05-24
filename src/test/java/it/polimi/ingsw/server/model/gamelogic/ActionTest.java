@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
@@ -29,11 +30,11 @@ public class ActionTest {
     public ArrayList<Integer> capacities = new ArrayList<>();
 
     @BeforeEach
-    void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException {
+    void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException, EmptyDeckException {
         init();
     }
 
-    public void init() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException {
+    public void init() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, EmptyDeckException {
         capacities.add(1);
         capacities.add(2);
         capacities.add(3);

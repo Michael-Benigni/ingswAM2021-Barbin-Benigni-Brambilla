@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGridTest;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeck;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeckTest;
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFaithTrack;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
@@ -18,7 +19,7 @@ import static it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFa
  */
 public class SoloPlayerGameBoardTest {
 
-    public static SoloPlayerGameBoard initSoloPlayerGameBoard() throws NegativeResourceAmountException {
+    public static SoloPlayerGameBoard initSoloPlayerGameBoard() throws NegativeResourceAmountException, EmptyDeckException {
         SoloPlayerFaithTrack faithTrack = initSoloPlayerFaithTrack();
         DevelopmentCardsGrid grid = DevelopmentCardsGridTest.initDevelopmentCardsGrid();
         MarketTray marketTray = MarketTrayTest.initMarketTray();

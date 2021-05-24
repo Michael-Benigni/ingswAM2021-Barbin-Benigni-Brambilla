@@ -6,7 +6,6 @@ import it.polimi.ingsw.server.model.exception.NullResourceAmountException;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -21,6 +20,9 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
     private final ArrayList <Producible> producedResources;
     private final VictoryPoint victoryPoints;
 
+    public int getCardID() {
+        return this.cardID;
+    }
 
     /**
      * this method reduces the cost of this development card

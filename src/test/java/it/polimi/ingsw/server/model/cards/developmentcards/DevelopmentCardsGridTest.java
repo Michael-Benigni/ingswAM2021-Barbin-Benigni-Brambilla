@@ -25,7 +25,7 @@ public class DevelopmentCardsGridTest {
      * @return a new grid.
      * @throws NegativeResourceAmountException
      */
-    public static DevelopmentCardsGrid initDevelopmentCardsGrid() throws NegativeResourceAmountException {
+    public static DevelopmentCardsGrid initDevelopmentCardsGrid() throws NegativeResourceAmountException, EmptyDeckException {
         ArrayList<DevelopmentCard> listOfCards = buildCardsForGrid();
         DevelopmentCardsGrid grid = new DevelopmentCardsGrid(listOfCards, 3, 4);
         return grid;
@@ -191,7 +191,7 @@ public class DevelopmentCardsGridTest {
      * @throws NegativeResourceAmountException
      */
     @Test
-    void checkRemoveNFromGridIfCorrect() throws NegativeResourceAmountException {
+    void checkRemoveNFromGridIfCorrect() throws NegativeResourceAmountException, EmptyDeckException {
         DevelopmentCardsGrid newGrid = initDevelopmentCardsGrid();
         Player player = new Player();
         try {
@@ -231,5 +231,11 @@ public class DevelopmentCardsGridTest {
                 assertEquals(excCount, 3);
             }
         }
+    }
+
+    @Test
+    void buildFrontalIDsGrid() throws NegativeResourceAmountException, EmptyDeckException {
+        DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
+        int[][] idCardsGrid = cardsGrid.buildFrontalIDsGrid();
     }
 }

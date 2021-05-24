@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.commands;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
@@ -16,7 +17,7 @@ public class SetNumPlayersCommand implements Command{
     }
 
     @Override
-    public void handled(Controller controller, User user) throws FileNotFoundException, InvalidUserException, IllegalNumberOfPlayersException, TooManyPlayersException, ImpossibleChangingSizeException {
+    public void handled(Controller controller, User user) throws FileNotFoundException, InvalidUserException, IllegalNumberOfPlayersException, TooManyPlayersException, ImpossibleChangingSizeException, EmptyDeckException {
         controller.setWaitingRoomDimension(user, dimension);
     }
 }

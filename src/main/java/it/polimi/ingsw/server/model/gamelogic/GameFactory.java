@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
+import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.utils.config.ConfigLoader;
 
@@ -19,7 +20,7 @@ public class GameFactory {
         return game;
     }
 
-    public void setup(Game game) throws FileNotFoundException, IllegalNumberOfPlayersException {
+    public void setup(Game game) throws FileNotFoundException, IllegalNumberOfPlayersException, EmptyDeckException {
         loader = new ConfigLoader();
             if (game.getAllPlayers().size() != 1)
                 game.setup(
