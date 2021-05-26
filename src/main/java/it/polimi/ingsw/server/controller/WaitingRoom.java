@@ -60,7 +60,7 @@ public class WaitingRoom {
     }
 
     public void setSize(int size, User leader) throws ImpossibleChangingSizeException {
-        if (this.size <= size && this.leader == leader)
+        if (this.usersPlayers.size () < size && this.leader == leader)
             this.size = size;
         else
             throw new ImpossibleChangingSizeException ();
@@ -80,5 +80,13 @@ public class WaitingRoom {
 
     public int getID() {
         return this.ID;
+    }
+
+    User getLeader() {
+        return this.leader;
+    }
+
+    public void remove(User user) {
+
     }
 }

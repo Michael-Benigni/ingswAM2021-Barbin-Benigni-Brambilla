@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
@@ -8,6 +9,9 @@ import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
 import it.polimi.ingsw.utils.config.Prefs;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,7 +20,7 @@ import static java.util.Collections.shuffle;
 /**
  * This class represent the abstract class of the game
  */
-public abstract class Game  {
+public abstract class Game extends GameComponent {
 
     /**
      * It's the Max Number of Players in a game
@@ -70,6 +74,7 @@ public abstract class Game  {
      * @param numberOfPlayers
      */
     protected Game(int numberOfPlayers) throws IllegalNumberOfPlayersException {
+        super();
         if (numberOfPlayers <= 0 || numberOfPlayers > MAX_NUM_PLAYER)
             throw new IllegalNumberOfPlayersException();
         this.numberOfPlayers = numberOfPlayers;
@@ -174,9 +179,18 @@ public abstract class Game  {
             this.currentTurn = new Turn();
         }
         currentTurn.start();
-
+        this.currentPlayer.notifyUpdate (getNextPlayerMessage ());
     }
 
+
+    /**
+     * @return the Sendable object that will be sent throw the network to notify the Client that is its turn
+     */
+    private Sendable getNextPlayerMessage() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.YOUR_TURN);
+        return writer.write ();
+    }
 
     /**
      * @return the current ongoing Turn

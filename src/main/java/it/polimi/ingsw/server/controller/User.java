@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.view.VirtualView;
+import it.polimi.ingsw.utils.network.ValidMoveMessage;
+
 import java.util.Objects;
 
 public class User {
@@ -13,6 +15,7 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+        view.onChanged (new ValidMoveMessage ());
     }
 
     public String getUsername() {

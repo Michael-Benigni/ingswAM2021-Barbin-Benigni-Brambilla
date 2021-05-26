@@ -12,10 +12,7 @@ public class CommandFactory {
         map.put (Header.ToServer.NEW_USER, NewUserCommand.class);
         map.put (Header.ToServer.SET_NUM_PLAYERS, SetNumPlayersCommand.class);
         map.put (Header.ToServer.SET_USERNAME, UsernameCommand.class);
-        /*map.put (ToServer, );
-        map.put (ToServer, );
-        map.put (ToServer, );
-        map.put (ToServer, );*/
+        map.put (Header.ToServer.START_MATCH, StartMatchCommand.class);
         return map;
     }
 

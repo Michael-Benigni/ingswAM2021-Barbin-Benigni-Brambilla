@@ -46,8 +46,9 @@ public class Controller {
         throw new InvalidUserException ();
     }
 
-    private void startMatch(User user) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
-        WaitingRoom room = getWaitingRoomOf (user);
+
+    public void startMatch(User lastUserAddedInRoom) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
+        WaitingRoom room = getWaitingRoomOf (lastUserAddedInRoom);
         if (room.isFull ()) {
             GameFactory factory = new GameFactory ();
             Game game = factory.MultiOrSingleplayerGame (room.getSize ());
@@ -55,7 +56,9 @@ public class Controller {
             for (User userInRoom : users) {
                 Player player = game.createPlayer ();
                 room.setPlayerOf (userInRoom, player);
-                // TODO : game.attach (userInRoom.getView());
+                player.attach (userInRoom.getView ());
+                game.attach (userInRoom.getView ());
+                // TODO: evaluate if the game has to begin when the room is full, or uf the start game must be triggered by the client
             }
             factory.setup (game);
         }
@@ -64,8 +67,6 @@ public class Controller {
     public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException, IllegalNumberOfPlayersException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
         WaitingRoom room = getWaitingRoomOf (user);
         room.setSize (newDim, user);
-        if (room.isFull ())
-            startMatch (user);
     }
 
     private void newWaitingRoom() {
@@ -81,22 +82,32 @@ public class Controller {
         throw new FirstWaitingRoomException ();
     }
 
-    public synchronized void register(User user) throws FileNotFoundException, InvalidUserException, EmptyDeckException {
+
+    public synchronized void register(User user) throws InvalidUserException {
         try {
             WaitingRoom room = addToLastWaitingRoom (user);
-            if (room.isFull ())
-                startMatch (user);
-        } catch (FullWaitingRoomException | TooManyPlayersException | IllegalNumberOfPlayersException | FirstWaitingRoomException e) {
+            notifyRegistration(room, user);
+        } catch (FullWaitingRoomException | FirstWaitingRoomException e) {
             newWaitingRoom ();
             register (user);
         }
-        user.getView ().onChanged (getUserInfo (user));
+    }
+
+    private void notifyRegistration(WaitingRoom room, User user) throws InvalidUserException {
+        for (User u : getWaitingRoomOf (user).getAllUsers ())
+            u.getView ().onChanged (getUserInfo (user));
+        if (room.isFull ()) {
+            MessageWriter writer = new MessageWriter ();
+            writer.setHeader (Header.ToClient.FULL_ROOM);
+            room.getLeader ().getView ().onChanged (writer.write ());
+        }
     }
 
     private Sendable getUserInfo(User user) throws InvalidUserException {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.USER_REGISTERED);
         writer.addProperty ("numUser", getWaitingRoomOf (user).getSize ());
+        writer.addProperty ("username", user.getUsername ());
         writer.addProperty ("numWaitingRoom", getWaitingRoomOf (user).getID());
         return writer.write ();
     }
@@ -107,5 +118,9 @@ public class Controller {
 
     public void handleMatchMoveOf (User user, Action action) throws Exception {
         getGameOf(user).performCommandOf(this.getWaitingRoomOf (user).getPlayerOf (user), action);
+    }
+
+    public void remove(User user) {
+
     }
 }

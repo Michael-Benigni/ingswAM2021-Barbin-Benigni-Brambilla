@@ -11,12 +11,20 @@ public abstract class ClientState {
     protected ClientState() {
         this.availableMoves = new HashMap<> ();
         this.nameAndDesc = new HashMap<> ();
+        addAvailableMove ("MENU", menuMove(), "SHOW THE MENU");
+    }
+
+    private Move menuMove() {
+        return (interpreter, interlocutor) -> {
+            interlocutor.write (menu ());
+            return null;
+        };
     }
 
     public String menu() {
-        String menu = "You can perform these actions: \n";
+        String menu = "\nYou can perform these actions: \n";
         for (String key : nameAndDesc.keySet ())
-            menu = menu + key + " -> " + nameAndDesc.get (key) + ",\n";
+            menu = menu + key + " -> " + nameAndDesc.get (key) + "\n";
         return menu;
     }
 

@@ -14,4 +14,9 @@ public class GUI extends UI {
     public void notifyError(String info) {
 
     }
+
+    @Override
+    public void notifyMessage(String info) {
+
+    }
 }

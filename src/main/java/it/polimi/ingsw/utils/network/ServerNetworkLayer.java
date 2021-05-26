@@ -4,6 +4,7 @@ import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.view.ClientToken;
 import it.polimi.ingsw.server.view.VirtualView;
 import it.polimi.ingsw.utils.Entry;
+import it.polimi.ingsw.utils.network.exception.NoChannelException;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -89,19 +90,32 @@ public class ServerNetworkLayer {
         VirtualView view = new VirtualView (channel, this.controller);
         channel.listeningLoop((msg) -> {
             if (QuitMessage.isQuitMessage (msg)) {
-                System.out.printf ("Client %s has closed the channel", token);
-                if (channel.getStatus() != Channel.ChannelStatus.CLOSED)
-                    channel.close ();
+                closeChannel(channel);
                 return;
             } else if (channel.getExpectedACK () != null && channel.getExpectedACK ().isTheSameACK (msg))
-                    channel.setStatus (Channel.ChannelStatus.OPENED);
+                channel.setStatus (Channel.ChannelStatus.OPENED);
             else {
                 ToServerMessage toServerMessage = new ToServerMessage (msg);
                 System.out.printf ("Received from Client %s: %s\n", token, msg);
                 view.passToController (toServerMessage);
-                channel.send (new ValidMoveMessage ());
+                //channel.send (new ValidMoveMessage ());
             }
         });
+    }
+
+    private void closeChannel(Channel channel) throws NoChannelException {
+        System.out.printf ("Client %s has closed the channel", getTokenOf (channel));
+        if (channel.getStatus() != Channel.ChannelStatus.CLOSED)
+            channel.close ();
+    }
+
+    private synchronized ClientToken getTokenOf(Channel channel) throws NoChannelException {
+        for (Entry<ClientToken, Channel> ch : channels) {
+            if (ch.equals (channel))
+                return ch.getKey ();
+        }
+        throw new NoChannelException ();
+
     }
 
 

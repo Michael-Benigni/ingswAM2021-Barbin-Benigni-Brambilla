@@ -15,7 +15,7 @@ public class Interpreter {
     }
 
     public synchronized String listen() {
-        String input = null;
+        String input;
         while (true) {
             if (in.hasNextLine ()) {
                 input = in.nextLine ();

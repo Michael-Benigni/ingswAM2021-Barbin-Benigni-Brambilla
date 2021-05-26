@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.EmptySlotException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.WrongSlotDevelopmentIndexException;
@@ -9,6 +10,9 @@ import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 
@@ -17,7 +21,7 @@ import java.util.ArrayList;
  * and a number of victory points.
  * They start to zero and can be increased during the match.
  */
-public class Player  {
+public class Player extends GameComponent {
 
     private VictoryPoint victoryPoints;
     private PersonalBoard personalBoard;
@@ -28,6 +32,7 @@ public class Player  {
      * Constructor method of this class.
      */
     public Player() {
+        super();
         this.victoryPoints = new VictoryPoint(0);
     }
 
@@ -37,6 +42,18 @@ public class Player  {
      */
     public void setPosition(int position) {
         this.position = position;
+        notifyUpdate (positionInTurnUpdate());
+    }
+
+
+    /**
+     * @return a Sendable object that contains the information of the Player position in game turn
+     */
+    private Sendable positionInTurnUpdate() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.TURN_POSITION_UPDATE);
+        writer.addProperty ("turnPosition", this.position + 1);
+        return writer.write ();
     }
 
 

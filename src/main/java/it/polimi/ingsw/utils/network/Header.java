@@ -22,7 +22,13 @@ public interface Header {
      * Headers of messages that can be received from Client and sent by Server
      */
     enum ToClient implements Header {
-        WAREHOUSE_UPDATE("warehouse_update"), USER_REGISTERED ("user_registered"), SHOW_INITIAL_GRID("show_initial_grid"), REMOVE_SHOW_GRID("remove_show_grid");
+        WAREHOUSE_UPDATE("warehouse_update"),
+        USER_REGISTERED ("user_registered"),
+        SHOW_INITIAL_GRID("show_initial_grid"),
+        REMOVE_SHOW_GRID("remove_show_grid"),
+        TURN_POSITION_UPDATE ("turn_position_update"),
+        YOUR_TURN ("your_turn"),
+        FULL_ROOM ("full_room");
 
         private final String headerStr;
 
@@ -54,7 +60,8 @@ public interface Header {
         SWAP_DEPOTS("swap_depots"),
         TEMP_CONTAINER("Temporary_container"),
         TRANSFORM_WHITE_MARBLE("transform_white_marble"),
-        WAREHOUSE("warehouse");
+        WAREHOUSE("warehouse"),
+        START_MATCH ("start_match");
 
         private String headerStr;
 

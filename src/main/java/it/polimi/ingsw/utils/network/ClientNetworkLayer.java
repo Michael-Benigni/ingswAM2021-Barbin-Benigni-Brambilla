@@ -35,7 +35,7 @@ public class ClientNetworkLayer {
             else if(ErrorMessage.isErrorMessage(msg))
                 view.handleError(new ErrorMessage (msg));
             else {
-                System.out.printf ("Received from Server: %s\n", msg);
+                // DEBUG: System.out.printf ("Received from Server: %s\n", msg);
                 ToClientMessage message = new ToClientMessage (msg);
                 view.handle (message);
             }

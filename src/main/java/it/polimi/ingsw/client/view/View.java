@@ -10,12 +10,11 @@ public class View {
     private Channel channel;
     private UI ui;
     private LightweightModel model;
-    private ClientState currentState;
     private boolean response;
 
     public View(UI ui) {
         this.ui = ui;
-        this.currentState = new WaitingRoomState ();
+        this.model = new LightweightModel ();
     }
 
     public void loop() {
@@ -41,8 +40,7 @@ public class View {
         this.response = false;
     }
 
-    private synchronized void setNextState(ClientState nextState) {
-        this.currentState = nextState;
+    private synchronized void setNextState() {
         this.ui.setNextState ();
     }
 
@@ -54,17 +52,26 @@ public class View {
         this.channel = channel;
     }
 
-
     public synchronized void handle(ToClientMessage message) {
-        message.getInfo ();
+        message.getInfo ().update (this);
+        readyForNextMove ();
     }
 
     public synchronized void readyForNextMove() {
         this.response = true;
         this.notifyAll ();
+        this.ui.ready(true);
     }
 
     public void handleError(ErrorMessage errorMessage) {
         ui.notifyError(errorMessage.getInfo ());
+    }
+
+    public UI getUI() {
+        return this.ui;
+    }
+
+    public LightweightModel getModel() {
+        return model;
     }
 }

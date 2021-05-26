@@ -1,6 +1,7 @@
 package it.polimi.ingsw.utils.network;
 
-import java.io.BufferedReader;
+import it.polimi.ingsw.server.view.AbstractView;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -14,16 +15,15 @@ public class Channel {
         OPENED(),
         UNKNOWN();
 
-
     }
+    private AbstractView view;
+
     private ACK expectedACK;
     private Scanner inSocket;
-
     private PrintWriter outSocket;
     private final Socket socket;
     private final String id;
     private ChannelStatus status;
-
     public Channel(Socket socket, String id) {
         this.status = ChannelStatus.UNKNOWN;
         this.socket = socket;
@@ -104,6 +104,7 @@ public class Channel {
         inSocket.close();
         outSocket.close();
         setStatus(ChannelStatus.CLOSED);
+        view.disconnect();
     }
 
     public synchronized void send(Sendable sendable) {
@@ -113,6 +114,10 @@ public class Channel {
 
     synchronized void setExpectedACK(ACK ack) {
         this.expectedACK = ack;
+    }
+
+    public void setView(AbstractView view) {
+        this.view = view;
     }
 
     ACK getExpectedACK() {

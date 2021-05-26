@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class ValidMoveMessage extends AbstractMessage<String> {
 
-    protected ValidMoveMessage() {
+    public ValidMoveMessage() {
         super (Header.Common.VALID, "Valid move");
     }
 

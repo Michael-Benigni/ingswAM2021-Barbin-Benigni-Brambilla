@@ -10,6 +10,6 @@ public class Interlocutor {
     }
 
     public synchronized void write(String string) {
-        System.out.printf ("%s\n", string);
+        System.out.printf ("\n%s\n", string);
     }
 }
