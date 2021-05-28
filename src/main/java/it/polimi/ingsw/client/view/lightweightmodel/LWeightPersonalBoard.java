@@ -54,7 +54,7 @@ public class LWeightPersonalBoard {
         this.leaderCardsPlayed = new ArrayList<> ();
     }
 
-    void updateWarehouse(ArrayList<LWDepot> warehouse) {
+    public void updateWarehouse(ArrayList<LWDepot> warehouse) {
         this.warehouse = warehouse;
     }
 

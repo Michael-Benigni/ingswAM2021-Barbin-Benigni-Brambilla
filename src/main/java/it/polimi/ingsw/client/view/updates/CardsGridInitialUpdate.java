@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.view.updates;
 
 import it.polimi.ingsw.client.view.View;
 
-public class CardsGridInitialUpdate {
+public class CardsGridInitialUpdate implements ViewUpdate{
 
     private  int[][] initialGrid;
     private int rows, columns;
@@ -13,7 +13,8 @@ public class CardsGridInitialUpdate {
         this.columns = columns;
     }
 
-    void update(View clientView){
+    @Override
+    public void update(View clientView){
         clientView.getModel().getBoard().updateInitialCardsGrid(initialGrid, rows, columns);
     }
 }
