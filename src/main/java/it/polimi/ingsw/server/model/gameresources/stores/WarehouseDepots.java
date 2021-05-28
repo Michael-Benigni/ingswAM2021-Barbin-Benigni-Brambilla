@@ -17,7 +17,8 @@ public class WarehouseDepots extends GameComponent {
     private ArrayList<Depot> listDepot;
 
     /**
-     * Constructor method of this class. It reads from the database how many depots are contained and the capacity of each one.
+     * Constructor method of this class. It reads from
+     * the database how many depots are contained and the capacity of each one.
      */
     public WarehouseDepots(int numberOfDepots, ArrayList<Integer> capacities) {
         super();
@@ -53,7 +54,8 @@ public class WarehouseDepots extends GameComponent {
      * @param depotCapacity is the capacity of the extra depot
      * @param resourceType is the unique resourceType storable in this depot
      */
-    public void addExtraDepot(int depotCapacity, ResourceType resourceType) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
+    public void addExtraDepot(int depotCapacity, ResourceType resourceType) throws NegativeResourceAmountException,
+            NotEqualResourceTypeException, ResourceOverflowInDepotException {
         ExtraDepot extraDepot = new ExtraDepot(depotCapacity, resourceType);
         this.listDepot.add(extraDepot);
         notifyUpdate(generateUpdate ());
@@ -92,7 +94,8 @@ public class WarehouseDepots extends GameComponent {
      * @param depotIndex integer useful to recognize the right depot.
      * @throws Exception thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
      */
-    public void store(StorableResource resourceToStore, int depotIndex) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException, SameResourceTypeInDifferentDepotsException {
+    public void store(StorableResource resourceToStore, int depotIndex) throws NegativeResourceAmountException,
+            NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException, SameResourceTypeInDifferentDepotsException {
         if (ifDepotIndexIsCorrect(depotIndex)) {
             if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex) || depotIndex > this.numberOfDepots) {
                 listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
@@ -123,6 +126,11 @@ public class WarehouseDepots extends GameComponent {
         }
     }
 
+    /**
+     * this method generates the update
+     * message to send it to the clients
+     * @return the created message
+     */
     private Sendable generateUpdate(){
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.WAREHOUSE_UPDATE);
@@ -135,7 +143,8 @@ public class WarehouseDepots extends GameComponent {
      * @param depotIndex1 index of the first depot
      * @param depotIndex2 index of the second depot.
      */
-    public StorableResource swapDepots(int depotIndex1, int depotIndex2) throws WrongDepotIndexException, EmptyDepotException, NegativeResourceAmountException, NotEqualResourceTypeException {
+    public StorableResource swapDepots(int depotIndex1, int depotIndex2) throws WrongDepotIndexException, EmptyDepotException,
+            NegativeResourceAmountException, NotEqualResourceTypeException {
         StorableResource depotOverflow = null;
         if (ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2)) {
             Depot depot1 = listDepot.get(depotIndex1);

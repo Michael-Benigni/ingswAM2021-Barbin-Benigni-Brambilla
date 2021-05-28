@@ -22,7 +22,7 @@ class SlotDevelopmentCardsTest {
      */
     @Test
     void getTopCardTestException() {
-        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards(3);
+        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards(3, 1);
         DevelopmentCard card;
         try {
             card = slotDevelopmentCards.getTopCard();
@@ -39,7 +39,7 @@ class SlotDevelopmentCardsTest {
      */
     @Test
     void getAllCardsTestException() {
-        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards(3);
+        SlotDevelopmentCards slotDevelopmentCards = new SlotDevelopmentCards(3, 1);
         try {
             slotDevelopmentCards.getAllCards();
         }
@@ -60,7 +60,7 @@ class SlotDevelopmentCardsTest {
     @Test
     void placeOnTopTestCardNotAddableException() throws Exception {
         DevelopmentCard cardToAdd = buildCardsForTests().get(1);
-        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3, 1);
         try {
             slot.placeOnTop(cardToAdd);
         }
@@ -81,7 +81,7 @@ class SlotDevelopmentCardsTest {
     @Test
     void placeOnTopTestFullSlotException() throws Exception {
         ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
-        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3, 1);
         for(int i = 0; i < cardsList.size(); i++) {
             slot.placeOnTop(cardsList.get(i));
         }
@@ -103,7 +103,7 @@ class SlotDevelopmentCardsTest {
     @Test
     void getTopCardTest() throws Exception {
         ArrayList <DevelopmentCard> cardsList = buildCardsForTests();
-        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3, 1);
         for(int i = 0; i < cardsList.size(); i++) {
             slot.placeOnTop(cardsList.get(i));
         }
@@ -120,7 +120,7 @@ class SlotDevelopmentCardsTest {
     @Test
     void getAllCardsTest() throws Exception {
         ArrayList <DevelopmentCard> listOfAllAddedCards = buildCardsForTests();
-        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3, 1);
         for(int i = 0; i < listOfAllAddedCards.size(); i++) {
             slot.placeOnTop(listOfAllAddedCards.get(i));
         }
@@ -146,7 +146,7 @@ class SlotDevelopmentCardsTest {
     @Test
     void placeOnTopTest() throws Exception {
         DevelopmentCard cardToAdd = buildCardsForTests().get(0);
-        SlotDevelopmentCards slot = new SlotDevelopmentCards(3);
+        SlotDevelopmentCards slot = new SlotDevelopmentCards(3, 1);
         slot.placeOnTop(cardToAdd);
         assertTrue(cardToAdd.equals(slot.getTopCard()));
     }

@@ -12,7 +12,6 @@ import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,7 +68,7 @@ public class PersonalBoardTest {
             fail();
         }
         assertNotNull(toTest);
-        assertEquals(toTest, new SlotDevelopmentCards(3));
+        assertEquals(toTest, new SlotDevelopmentCards(3, 1));
     }
 
     /**

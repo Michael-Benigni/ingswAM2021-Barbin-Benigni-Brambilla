@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-public abstract class Producer {
+import it.polimi.ingsw.server.model.GameComponent;
+
+public abstract class Producer extends GameComponent {
     private boolean availableForProduction;
 
     public boolean isAvailableForProduction() {

@@ -15,8 +15,7 @@ import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.server.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
-import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -141,7 +140,7 @@ public class PersonalBoard extends Producer  {
     private ArrayList<SlotDevelopmentCards> initSlotsDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
         ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = new ArrayList<>(numberOfSlotDevCards);
         for (int i = 0; i < numberOfSlotDevCards; i++) {
-            slotsOfDevCardsArray.add(new SlotDevelopmentCards(maxNumberOfDevCards));
+            slotsOfDevCardsArray.add(new SlotDevelopmentCards(maxNumberOfDevCards, numberOfSlotDevCards));
         }
         return slotsOfDevCardsArray;
     }

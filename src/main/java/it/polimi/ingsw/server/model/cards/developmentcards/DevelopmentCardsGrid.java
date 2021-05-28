@@ -9,7 +9,6 @@ import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,13 +62,28 @@ public class DevelopmentCardsGrid extends GameComponent {
         notifyUpdate(generateUpdate(buildFrontalIDsGrid()));
     }
 
+    /**
+     * this method creates a sendable message to inform
+     * the client about the initial grid of development cards
+     * @param frontalIDsGrid it is the grid that contains only the IDs of the
+     *                       first layer of development cards in the grid
+     * @return the created sendable message
+     */
     private Sendable generateUpdate(int[][] frontalIDsGrid){
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.SHOW_INITIAL_GRID);
         writer.addProperty ("initialGrid", frontalIDsGrid);
+        writer.addProperty ("rows", this.rows);
+        writer.addProperty ("columns", this.columns);
         return writer.write ();
     }
 
+    /**
+     * this methode creates the grid of IDs of the
+     * first layer of development cards in the grid
+     * @return the created grid of IDs
+     * @throws EmptyDeckException
+     */
     int[][] buildFrontalIDsGrid() throws EmptyDeckException {
         int[][] frontalGrid = new int[this.rows][this.columns];
         if(this.cardsGrid != null){

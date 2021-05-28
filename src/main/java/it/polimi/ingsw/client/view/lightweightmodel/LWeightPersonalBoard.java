@@ -32,7 +32,7 @@ public class LWeightPersonalBoard {
 
     }
 
-    private class LWDepot {
+    public class LWDepot {
         private LWResource resource;
         private int capacity;
         private Type type;

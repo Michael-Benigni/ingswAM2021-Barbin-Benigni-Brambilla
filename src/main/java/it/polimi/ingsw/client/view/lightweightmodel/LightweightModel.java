@@ -9,4 +9,12 @@ public class LightweightModel {
         this.personalBoard = new LWeightPersonalBoard ();
         this.board = new LWeightBoard ();
     }
+
+    public LWeightBoard getBoard() {
+        return board;
+    }
+
+    public LWeightPersonalBoard getPersonalBoard() {
+        return personalBoard;
+    }
 }

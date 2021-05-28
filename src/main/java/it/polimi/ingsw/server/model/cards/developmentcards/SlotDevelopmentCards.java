@@ -5,7 +5,9 @@ import it.polimi.ingsw.server.model.exception.EmptySlotException;
 import it.polimi.ingsw.server.model.exception.SlotDevelopmentCardsIsFullException;
 import it.polimi.ingsw.server.model.gamelogic.actions.Producer;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -13,17 +15,19 @@ import java.util.Objects;
 /**
  * this class models a single slot where the player can place his development cards
  */
-public class SlotDevelopmentCards extends Producer  {
+public class SlotDevelopmentCards extends Producer {
     private final Integer maxNumberOfCardsInSlot;
     private final ArrayList <DevelopmentCard> listOfDevelopmentCards = new ArrayList<>(0);
     private final ArrayList <Observer> observers;
+    private final int slotIndex;
 
 
     /**
      * constructor of the class SlotDevelopmentCards
      */
-    public SlotDevelopmentCards(int maxNumberOfCardsInSlot) {
+    public SlotDevelopmentCards(int maxNumberOfCardsInSlot, int slotIndex) {
         this.maxNumberOfCardsInSlot = maxNumberOfCardsInSlot;
+        this.slotIndex = slotIndex;
         this.observers = new ArrayList<>();
     }
 
@@ -74,11 +78,27 @@ public class SlotDevelopmentCards extends Producer  {
             }
             if (cardToAdd.isOfNextLevel(card)) {
                 this.listOfDevelopmentCards.add(cardToAdd);
+                notifyUpdate(generateUpdate(cardToAdd));
                 return;
             }
             throw new DevelopmentCardNotAddableException();
         }
         throw new SlotDevelopmentCardsIsFullException();
+    }
+
+    /**
+     * this method generates the update
+     * message to send it to the clients
+     * @param addedCard is the card that we want to add in the slot
+     * @return the created message
+     */
+    private Sendable generateUpdate(DevelopmentCard addedCard){
+        MessageWriter messageWriter = new MessageWriter();
+        messageWriter.setHeader (Header.ToClient.SLOT_DEVCARD_UPDATE);
+        messageWriter.addProperty ("addedDevCard", addedCard.getCardID());
+        messageWriter.addProperty ("numberOfSlot", this.slotIndex);
+        //TODO: there is a problem: the SlotDevCardUpdate needs also the index of the slot. this index is in the personal board
+        return messageWriter.write ();
     }
 
     /**

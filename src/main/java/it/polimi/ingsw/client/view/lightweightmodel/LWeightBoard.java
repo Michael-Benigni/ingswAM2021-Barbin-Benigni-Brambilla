@@ -13,12 +13,31 @@ public class LWeightBoard {
         private MarbleColour marbleOnSlide;
     }
 
-    private ArrayList<ArrayList<LWDevCard>> cardsGrid;
+    private LWCardsGrid grid;
     private ArrayList<LWCell> faithTrack;
     private LWMarket market;
 
-    public void updateCardsGrid(ArrayList<ArrayList<LWDevCard>> cardsGrid) {
-        this.cardsGrid = cardsGrid;
+    public void updateInitialCardsGrid(int[][] initialCardsGrid, int rows, int columns) {
+        grid.rows = rows;
+        grid.columns = columns;
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < columns; j++){
+                LWDevCard newLWDevCard = new LWDevCard(initialCardsGrid[i][j]);
+                grid.cardsGrid[i][j] = newLWDevCard;
+            }
+        }
+    }
+
+    public void updateCardsGrid(int cardToRemove, int cardToShow) {
+        if(cardToShow > 0){
+            LWDevCard showCard = new LWDevCard(cardToShow);
+            for(int i = 0; i < grid.rows; i++){
+                for(int j = 0; j < grid.columns; j++){
+                    if(cardToRemove == grid.cardsGrid[i][j].id)
+                        grid.cardsGrid[i][j] = showCard;
+                }
+            }
+        }
     }
 
     public void updateFaithTrack(ArrayList<LWCell> faithTrack) {

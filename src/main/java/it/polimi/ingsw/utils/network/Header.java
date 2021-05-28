@@ -28,7 +28,9 @@ public interface Header {
         REMOVE_SHOW_GRID("remove_show_grid"),
         TURN_POSITION_UPDATE ("turn_position_update"),
         YOUR_TURN ("your_turn"),
-        FULL_ROOM ("full_room");
+        FULL_ROOM ("full_room"),
+        SLOT_DEVCARD_UPDATE("slot_devcard_update");
+
 
         private final String headerStr;
 
