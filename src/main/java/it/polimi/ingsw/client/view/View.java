@@ -54,7 +54,6 @@ public class View {
 
     public synchronized void handle(ToClientMessage message) {
         message.getInfo ().update (this);
-        readyForNextMove ();
     }
 
     public synchronized void readyForNextMove() {

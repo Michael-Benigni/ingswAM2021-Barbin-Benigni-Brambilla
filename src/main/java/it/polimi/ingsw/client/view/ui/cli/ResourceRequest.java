@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class ResourceRequest extends Request{
     private final String separator = " ";
 
-    protected ResourceRequest(String requestDesc, String namePropertyRequested) {
+    public ResourceRequest(String requestDesc, String namePropertyRequested) {
         super (requestDesc, namePropertyRequested);
     }
 
     @Override
-    protected MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) {
+    public MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) {
         super.handleInput (interlocutor, interpreter, writer);
         StringParser parser = new StringParser (separator);
         ArrayList<String> info = parser.decompose(interpreter.listen ());

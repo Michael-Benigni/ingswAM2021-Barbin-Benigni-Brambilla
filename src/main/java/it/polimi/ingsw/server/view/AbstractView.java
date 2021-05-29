@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.view;
 
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.utils.network.Channel;
 
 public abstract class AbstractView {
@@ -15,5 +16,5 @@ public abstract class AbstractView {
         return channel;
     }
 
-    public abstract void disconnect();
+    public abstract void disconnect() throws InvalidUserException;
 }

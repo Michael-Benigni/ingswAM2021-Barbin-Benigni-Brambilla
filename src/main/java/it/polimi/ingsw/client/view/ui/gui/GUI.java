@@ -11,6 +11,21 @@ public class GUI extends UI {
     }
 
     @Override
+    public void showPersonalBoard() {
+
+    }
+
+    @Override
+    public void showGameBoard() {
+
+    }
+
+    @Override
+    public void showInfoGame() {
+
+    }
+
+    @Override
     public void notifyError(String info) {
 
     }

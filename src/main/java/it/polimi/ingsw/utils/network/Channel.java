@@ -1,5 +1,6 @@
 package it.polimi.ingsw.utils.network;
 
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.view.AbstractView;
 
 import java.io.IOException;
@@ -91,7 +92,7 @@ public class Channel {
         return false;
     }
 
-    void close() {
+    void close() throws InvalidUserException {
         // closing streams and socket
         try {
             socket.close();

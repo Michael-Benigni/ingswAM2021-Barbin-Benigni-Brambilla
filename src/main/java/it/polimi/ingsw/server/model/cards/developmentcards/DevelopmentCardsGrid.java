@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.NoMoreCardsWithThisColourException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
+import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
@@ -21,11 +22,12 @@ import java.util.stream.Collectors;
  * this class has been implemented by a three-dimensional ArrayList of DevelopmentCard
  * the cards shown on the top of the decks are placed in the arrays in the last position
  */
-public class DevelopmentCardsGrid extends GameComponent {
+public class DevelopmentCardsGrid implements GameComponent {
     private final Integer rows;
     private ArrayList <ArrayList <ArrayList <DevelopmentCard>>> cardsGrid;
     private final ArrayList <PlayerWithDiscount> playerWithDiscounts = new ArrayList<>(0);
     private final Integer columns;
+    private ArrayList<Observer> observers;
 
     /**
      * this class represents the players
@@ -33,6 +35,7 @@ public class DevelopmentCardsGrid extends GameComponent {
      * buying development cards from the cards grid
      */
     private class PlayerWithDiscount {
+
         private final Player playerWithDiscount;
         private final StorableResource discount;
 
@@ -45,8 +48,8 @@ public class DevelopmentCardsGrid extends GameComponent {
             this.playerWithDiscount = playerWithDiscount;
             this.discount = discount;
         }
-    }
 
+    }
 
     /**
      * this is the constructor method for the class DevelopmentCardsGrid
@@ -54,7 +57,7 @@ public class DevelopmentCardsGrid extends GameComponent {
      * the cards grid with the cards divided by colour and level
      */
     public DevelopmentCardsGrid(ArrayList<DevelopmentCard> cardsList, int rows, int columns) throws EmptyDeckException {
-        super();
+        this.observers = new ArrayList<> ();
         this.rows = rows;
         this.columns = columns;
         initGrid();
@@ -128,16 +131,16 @@ public class DevelopmentCardsGrid extends GameComponent {
      * @throws EmptyDeckException -> thrown if the choosen deck is empty
      */
     public DevelopmentCard getChoosenCard(int iPos, int jPos, Player player) throws EmptyDeckException {
-        DevelopmentCard choosenCard;
+        DevelopmentCard chosenCard;
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
         int choosenDeckLastIndex = choosenDeck.size() - 1;
-        choosenCard = (DevelopmentCard) choosenDeck.get(choosenDeckLastIndex).clone();
+        chosenCard = (DevelopmentCard) choosenDeck.get(choosenDeckLastIndex).clone();
         for(int i = 0; i < this.playerWithDiscounts.size(); i++){
             if(this.playerWithDiscounts.get(i).playerWithDiscount == player) {
-                choosenCard.reduceCost(this.playerWithDiscounts.get(i).discount);
+                chosenCard.reduceCost(this.playerWithDiscounts.get(i).discount);
             }
         }
-        return choosenCard;
+        return chosenCard;
     }
 
     /**
@@ -149,13 +152,13 @@ public class DevelopmentCardsGrid extends GameComponent {
      */
     public void removeChoosenCardFromGrid (int iPos, int jPos) throws EmptyDeckException {
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
-        int choosenDeckLastIndex = choosenDeck.size() - 1;
-        int removeCardID = choosenDeck.get(choosenDeckLastIndex).getCardID();
-        choosenDeck.remove(choosenDeckLastIndex);
+        int chosenDeckLastIndex = choosenDeck.size() - 1;
+        int removeCardID = choosenDeck.get(chosenDeckLastIndex).getCardID();
+        choosenDeck.remove(chosenDeckLastIndex);
         if(choosenDeck.isEmpty())
             notifyUpdate(generateUpdate(removeCardID, -1));
         else
-            notifyUpdate(generateUpdate(removeCardID, choosenDeck.get(choosenDeckLastIndex - 1).getCardID()));
+            notifyUpdate(generateUpdate(removeCardID, choosenDeck.get(chosenDeckLastIndex - 1).getCardID()));
     }
 
     /**
@@ -278,5 +281,20 @@ public class DevelopmentCardsGrid extends GameComponent {
                 throw new NoMoreCardsWithThisColourException();
             }
         }
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return this.observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
     }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.utils.network;
 
 import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.view.ClientToken;
 import it.polimi.ingsw.server.view.VirtualView;
 import it.polimi.ingsw.utils.Entry;
@@ -103,7 +104,7 @@ public class ServerNetworkLayer {
         });
     }
 
-    private void closeChannel(Channel channel) throws NoChannelException {
+    private void closeChannel(Channel channel) throws NoChannelException, InvalidUserException {
         System.out.printf ("Client %s has closed the channel", getTokenOf (channel));
         if (channel.getStatus() != Channel.ChannelStatus.CLOSED)
             channel.close ();
@@ -154,7 +155,11 @@ public class ServerNetworkLayer {
                     }
                 }
                 if (!channel.isActive ()) {
-                    channel.close ();
+                    try {
+                        channel.close ();
+                    } catch (InvalidUserException e) {
+                        e.printStackTrace ();
+                    }
                     System.out.printf ("Client %s disconnected!\n", this.channels.get (indexCh).getKey ());
                     this.channels.remove (entry);
                 }

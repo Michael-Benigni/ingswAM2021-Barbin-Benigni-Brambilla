@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.cards.developmentcards;
 
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.DevelopmentCardNotAddableException;
 import it.polimi.ingsw.server.model.exception.EmptySlotException;
 import it.polimi.ingsw.server.model.exception.SlotDevelopmentCardsIsFullException;
@@ -15,11 +16,12 @@ import java.util.Objects;
 /**
  * this class models a single slot where the player can place his development cards
  */
-public class SlotDevelopmentCards extends Producer {
+public class SlotDevelopmentCards implements GameComponent, Producer {
     private final Integer maxNumberOfCardsInSlot;
     private final ArrayList <DevelopmentCard> listOfDevelopmentCards = new ArrayList<>(0);
     private final ArrayList <Observer> observers;
     private final int slotIndex;
+    private boolean availableForProduction;
 
 
     /**
@@ -121,5 +123,30 @@ public class SlotDevelopmentCards extends Producer {
     @Override
     public int hashCode() {
         return Objects.hash(maxNumberOfCardsInSlot, listOfDevelopmentCards);
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return this.observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
+    }
+
+    @Override
+    public boolean isAvailableForProduction() {
+        return availableForProduction;
+    }
+
+    @Override
+    public void setAvailableForProduction(boolean availableForProduction) {
+        this.availableForProduction = availableForProduction;
     }
 }

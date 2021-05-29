@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
+import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
@@ -11,17 +12,17 @@ import java.util.Objects;
 /**
  * Class that represents a collection of depots.
  */
-public class WarehouseDepots extends GameComponent {
+public class WarehouseDepots implements GameComponent {
     private Integer numberOfDepots;
     private ArrayList<Integer> capacities;
     private ArrayList<Depot> listDepot;
+    private Observer observer;
 
     /**
      * Constructor method of this class. It reads from
      * the database how many depots are contained and the capacity of each one.
      */
     public WarehouseDepots(int numberOfDepots, ArrayList<Integer> capacities) {
-        super();
         this.numberOfDepots = numberOfDepots;
         this.capacities = capacities;
         setListDepot();
@@ -221,5 +222,23 @@ public class WarehouseDepots extends GameComponent {
     @Override
     public int hashCode() {
         return Objects.hash(numberOfDepots, capacities, listDepot);
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        ArrayList<Observer> observers = new ArrayList<> ();
+        if (observer != null)
+            observers.add (observer);
+        return observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observer = observer;
     }
 }

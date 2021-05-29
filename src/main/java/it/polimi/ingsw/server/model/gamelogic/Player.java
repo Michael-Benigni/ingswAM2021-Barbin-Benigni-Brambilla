@@ -21,11 +21,13 @@ import java.util.ArrayList;
  * and a number of victory points.
  * They start to zero and can be increased during the match.
  */
-public class Player extends GameComponent {
+public class Player implements GameComponent {
 
     private VictoryPoint victoryPoints;
     private PersonalBoard personalBoard;
     private int position;
+    private boolean isConnected;
+    private Observer observer;
 
 
     /**
@@ -34,6 +36,7 @@ public class Player extends GameComponent {
     public Player() {
         super();
         this.victoryPoints = new VictoryPoint(0);
+        isConnected = true;
     }
 
 
@@ -142,5 +145,31 @@ public class Player extends GameComponent {
         VictoryPoint copyVictoryPoints = (VictoryPoint) this.victoryPoints.clone();
         copyVictoryPoints.increaseVictoryPoints(this.personalBoard.computeTotalVP());
         return copyVictoryPoints;
+    }
+
+    public boolean isConnected() {
+        return this.isConnected;
+    }
+
+    public void setIsConnected(boolean connected) {
+        isConnected = connected;
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        ArrayList<Observer> observers = new ArrayList<> ();
+        if (observer != null)
+            observers.add (observer);
+        return observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observer = observer;
     }
 }

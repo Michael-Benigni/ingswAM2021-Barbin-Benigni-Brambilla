@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
@@ -8,11 +7,12 @@ import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
+import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.Subject;
 import it.polimi.ingsw.utils.config.Prefs;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import static java.util.Collections.shuffle;
@@ -20,7 +20,7 @@ import static java.util.Collections.shuffle;
 /**
  * This class represent the abstract class of the game
  */
-public abstract class Game extends GameComponent {
+public abstract class Game implements GameComponent {
 
     /**
      * It's the Max Number of Players in a game
@@ -68,18 +68,45 @@ public abstract class Game extends GameComponent {
      */
     private boolean gameIsOver;
 
+    /**
+     * true if the game is started, false ifit is not
+     */
+    private boolean gameIsStarted;
+
+    /**
+     * the observers of the game: this is to implement the pattern Observer-Observable
+     */
+    private ArrayList<Observer> observers;
+
 
     /**
      * Constructor that will be reused in the subclasses
      * @param numberOfPlayers
      */
     protected Game(int numberOfPlayers) throws IllegalNumberOfPlayersException {
-        super();
+        this.observers = new ArrayList<> ();
         if (numberOfPlayers <= 0 || numberOfPlayers > MAX_NUM_PLAYER)
             throw new IllegalNumberOfPlayersException();
         this.numberOfPlayers = numberOfPlayers;
         this.playersOrder = new LinkedList<>();
         this.gameIsOver = false;
+        this.gameIsStarted = false;
+    }
+
+
+    /**
+     * @return true if the game is over, otherwise returns false
+     */
+    public boolean isGameIsOver() {
+        return gameIsOver;
+    }
+
+
+    /**
+     * @return true if the game is started, otherwise returns false
+     */
+    public boolean isGameIsStarted() {
+        return gameIsStarted;
     }
 
 
@@ -102,6 +129,7 @@ public abstract class Game extends GameComponent {
             this.numberOfRounds = 0;
             this.currentTurn = new FirstTurn ();
             this.currentTurn.start ();
+            this.gameIsStarted = true;
         } else
             throw new IllegalNumberOfPlayersException ();
     }
@@ -276,6 +304,21 @@ public abstract class Game extends GameComponent {
      */
     void setLastRound() {
         this.numberOfRounds = -1;
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return this.observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
     }
 }
 

@@ -23,16 +23,29 @@ import java.util.Objects;
  * Class that represents the board that belongs to a player.
  * It's a collection of game elements, like Strongbox, Depots...
  */
-public class PersonalBoard extends Producer  {
+public class PersonalBoard implements Producer {
+
+    private boolean availableForProduction;
+
+    @Override
+    public boolean isAvailableForProduction() {
+        return availableForProduction;
+    }
+
+    @Override
+    public void setAvailableForProduction(boolean availableForProduction) {
+        this.availableForProduction = availableForProduction;
+    }
 
     /**
      * this class models the extra
      * production power provided
      * by a leader card
      */
-    class ExtraProductionPower extends Producer {
+    class ExtraProductionPower implements Producer {
 
         private final StorableResource consumedResource;
+        private boolean availableForProduction;
 
         /**
          * constructor method of this class
@@ -81,6 +94,15 @@ public class PersonalBoard extends Producer  {
         }
 
 
+        @Override
+        public boolean isAvailableForProduction() {
+            return availableForProduction;
+        }
+
+        @Override
+        public void setAvailableForProduction(boolean availableForProduction) {
+            this.availableForProduction = availableForProduction;
+        }
     }
 
 

@@ -1,15 +1,9 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.GameComponent;
 
-public abstract class Producer extends GameComponent {
-    private boolean availableForProduction;
+public interface Producer {
 
-    public boolean isAvailableForProduction() {
-        return availableForProduction;
-    }
+    boolean isAvailableForProduction();
 
-    protected void setAvailableForProduction(boolean availableForProduction) {
-        this.availableForProduction = availableForProduction;
-    }
+    void setAvailableForProduction(boolean availableForProduction);
 }

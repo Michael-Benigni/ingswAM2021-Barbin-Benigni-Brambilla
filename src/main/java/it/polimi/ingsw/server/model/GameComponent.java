@@ -5,27 +5,19 @@ import it.polimi.ingsw.utils.Subject;
 import it.polimi.ingsw.utils.network.Sendable;
 import java.util.ArrayList;
 
-public abstract class GameComponent  implements Subject {
-    private ArrayList<Observer> observers;
-    
-    protected GameComponent () {
-        this.observers = new ArrayList<> ();
-    }
-    
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add (observer);        
-    }
+public interface GameComponent extends Subject {
 
     /**
      * This method calls the method attach for all the observers in the List.
      */
-    protected void attachAll() {
-        this.observers.forEach (this::attach);
+    default void attachAll(ArrayList<Observer> observers) {
+        observers.forEach (this::attach);
     }
 
     @Override
-    public void notifyUpdate(Sendable sendable){
-        this.observers.forEach(observer -> observer.onChanged(sendable));
+    default void notifyUpdate(Sendable sendable){
+        this.getObservers().forEach(observer -> observer.onChanged(sendable));
     }
+
+    Iterable<Observer> getObservers();
 }

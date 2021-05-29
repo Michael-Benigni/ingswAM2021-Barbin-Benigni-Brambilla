@@ -44,7 +44,7 @@ public class VirtualView extends AbstractView implements Observer {
     }
 
     @Override
-    public void disconnect() {
-        controller.remove(user);
+    public void disconnect() throws InvalidUserException {
+        controller.disconnect (user);
     }
 }

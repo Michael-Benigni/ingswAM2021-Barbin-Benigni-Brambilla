@@ -17,7 +17,6 @@ import it.polimi.ingsw.utils.config.Prefs;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -28,7 +27,7 @@ public class Controller {
         this.waitingRooms = new ArrayList<>();
     }
 
-    public Game getGameOf(User user) throws InvalidUserException {
+    private Game getGameOf(User user) throws InvalidUserException {
         WaitingRoom room = getWaitingRoomOf (user);
         for (Entry<WaitingRoom, Game> entry : waitingRooms) {
             if (entry.getKey () == room) {
@@ -38,7 +37,7 @@ public class Controller {
         throw new InvalidUserException ();
     }
 
-    public WaitingRoom getWaitingRoomOf(User user) throws InvalidUserException {
+    private WaitingRoom getWaitingRoomOf(User user) throws InvalidUserException {
         for (Entry<WaitingRoom, Game> entry : this.waitingRooms) {
             if (entry.getKey ().contains(user))
                 return entry.getKey ();
@@ -47,7 +46,7 @@ public class Controller {
     }
 
 
-    public void startMatch(User lastUserAddedInRoom) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
+    public synchronized void startMatch(User lastUserAddedInRoom) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
         WaitingRoom room = getWaitingRoomOf (lastUserAddedInRoom);
         if (room.isFull ()) {
             GameFactory factory = new GameFactory ();
@@ -75,11 +74,20 @@ public class Controller {
 
     private WaitingRoom addToLastWaitingRoom(User user) throws FullWaitingRoomException, InvalidUserException, FirstWaitingRoomException {
         if (!waitingRooms.isEmpty ()) {
-            WaitingRoom room = this.waitingRooms.get (waitingRooms.size () - 1).getKey ();
+            WaitingRoom room = getFirstNotFullWaitingRoom();
             room.put (user);
             return room;
         }
         throw new FirstWaitingRoomException ();
+    }
+
+    private WaitingRoom getFirstNotFullWaitingRoom() {
+        for (Entry<WaitingRoom, Game> waitingRoom : this.waitingRooms) {
+            WaitingRoom room = waitingRoom.getKey ();
+            if (!room.isFull ())
+                return room;
+        }
+        return this.waitingRooms.get (waitingRooms.size () - 1).getKey ();
     }
 
 
@@ -94,8 +102,11 @@ public class Controller {
     }
 
     private void notifyRegistration(WaitingRoom room, User user) throws InvalidUserException {
-        for (User u : getWaitingRoomOf (user).getAllUsers ())
-            u.getView ().onChanged (getUserInfo (user));
+        user.getView ().onChanged (getUserInfo (user, true));
+        for (User u : getWaitingRoomOf (user).getAllUsers ()) {
+            if (u != user)
+                u.getView ().onChanged (getUserInfo (user, false));
+        }
         if (room.isFull ()) {
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToClient.FULL_ROOM);
@@ -103,16 +114,17 @@ public class Controller {
         }
     }
 
-    private Sendable getUserInfo(User user) throws InvalidUserException {
+    private Sendable getUserInfo(User user, boolean areYou) throws InvalidUserException {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.USER_REGISTERED);
-        writer.addProperty ("numUser", getWaitingRoomOf (user).getSize ());
+        writer.addProperty ("numUsers", getWaitingRoomOf (user).getAllUsers ().size ());
         writer.addProperty ("username", user.getUsername ());
+        writer.addProperty ("areYou", areYou);
         writer.addProperty ("numWaitingRoom", getWaitingRoomOf (user).getID());
         return writer.write ();
     }
 
-    public void handleCommandOf(User user, Command command) throws Exception {
+    public synchronized void handleCommandOf(User user, Command command) throws Exception {
         command.handled (this, user);
     }
 
@@ -120,7 +132,27 @@ public class Controller {
         getGameOf(user).performCommandOf(this.getWaitingRoomOf (user).getPlayerOf (user), action);
     }
 
-    public void remove(User user) {
+    public synchronized void disconnect(User user) throws InvalidUserException {
+        Game game = getGameOf (user);
+        if (game!= null && !game.isGameIsStarted ())
+            getWaitingRoomOf (user).disconnect (user);
+        else {
+            Player player = getWaitingRoomOf (user).getPlayerOf (user);
+            if (player != null && player.isConnected ())
+                player.setIsConnected (false);
+        }
+    }
 
+    public void registerToWaitingRoomWith(int ID, User user) throws FullWaitingRoomException, InvalidUserException {
+        for (WaitingRoom room : allRooms ())
+            if (room.getID () == ID)
+                room.reconnection (user);
+    }
+
+    private ArrayList<WaitingRoom> allRooms() {
+        ArrayList<WaitingRoom> rooms = new ArrayList<> ();
+        for (Entry<WaitingRoom, Game> entry : this.waitingRooms)
+            rooms.add (entry.getKey ());
+        return rooms;
     }
 }

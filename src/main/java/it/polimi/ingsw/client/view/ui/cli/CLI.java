@@ -34,6 +34,21 @@ public class CLI extends UI {
         }).start ();
     }
 
+    @Override
+    public void showPersonalBoard() {
+
+    }
+
+    @Override
+    public void showGameBoard() {
+
+    }
+
+    @Override
+    public void showInfoGame() {
+
+    }
+
     private void actuateMove(String moveAsString) {
         Move move = null;
         try {

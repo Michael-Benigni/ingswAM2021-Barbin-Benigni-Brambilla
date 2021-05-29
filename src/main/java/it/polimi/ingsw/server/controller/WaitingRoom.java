@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class WaitingRoom {
     private int size;
@@ -86,7 +87,28 @@ public class WaitingRoom {
         return this.leader;
     }
 
-    public void remove(User user) {
+    public void disconnect(User user) {
+        if (contains (user)) {
+            Player player = this.usersPlayers.get (user);
+            if (player.isConnected ())
+                player.setIsConnected (false);
+            else {
+                this.usersPlayers.remove (user);
+                if (leader == user) {
+                    ArrayList<User> users = new ArrayList<> (this.usersPlayers.keySet ());
+                    if (!this.usersPlayers.isEmpty ())
+                        leader = users.get (0);
+                    else
+                        leader = null;
+                }
+            }
+        }
+    }
 
+    public void reconnection(User user) throws FullWaitingRoomException, InvalidUserException {
+        if (contains (user))
+            usersPlayers.get (user).setIsConnected(true);
+        else
+            put (user);
     }
 }

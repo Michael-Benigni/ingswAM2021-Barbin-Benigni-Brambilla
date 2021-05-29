@@ -20,6 +20,13 @@ public abstract class UI {
 
     public abstract void start();
 
+    public abstract void showPersonalBoard();
+
+    public abstract void showGameBoard();
+
+    public abstract void showInfoGame();
+
+
     protected boolean isReadyForNextMove() {
         return readyForNextMove;
     }
