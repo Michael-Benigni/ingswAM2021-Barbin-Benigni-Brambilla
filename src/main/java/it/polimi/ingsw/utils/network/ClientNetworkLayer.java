@@ -27,11 +27,11 @@ public class ClientNetworkLayer {
         view.setChannel(channel);
         view.loop ();
         channel.listeningLoop ((msg)-> {
-            //DEBUG: System.out.print (msg + "\n");
+            // DEBUG: System.out.print (msg + "\n");
             if (ACK.isACKMessage (msg))
                 responseACK(channel, msg);
-            else if(ValidMoveMessage.isValidMoveMessage(msg))
-                view.readyForNextMove ();
+            else if(ValidMoveMessage.isValidMoveMessage(msg))/**/;
+                //view.readyForNextMove ();
             else if(ErrorMessage.isErrorMessage(msg))
                 view.handleError(new ErrorMessage (msg));
             else {

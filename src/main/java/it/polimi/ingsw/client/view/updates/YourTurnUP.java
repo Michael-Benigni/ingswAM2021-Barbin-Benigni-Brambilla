@@ -6,6 +6,6 @@ public class YourTurnUP implements ViewUpdate {
     @Override
     public void update(View view) {
         view.getUI ().notifyMessage ("It's your Turn!");
-        view.readyForNextMove ();
+        view.getUI ().nextInputRequest ();
     }
 }

@@ -34,4 +34,9 @@ public class GUI extends UI {
     public void notifyMessage(String info) {
 
     }
+
+    @Override
+    public void nextInputRequest() {
+
+    }
 }

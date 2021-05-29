@@ -6,6 +6,6 @@ public class WaitingRoomFullUP implements ViewUpdate {
     @Override
     public void update(View view) {
         view.getUI ().notifyMessage ("The room is full, you can start the match!");
-        view.readyForNextMove ();
+        view.getUI ().nextInputRequest();
     }
 }

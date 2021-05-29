@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
 import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
-import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.states.Move;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Header;
@@ -22,14 +21,11 @@ public class CLI extends UI {
     public void start() {
         new Thread (() -> {
             registration();
-            ClientState triggeredState = getState ();
-            interlocutor.write (getState ().menu ());
             while (true) {
-                //TODO check if the triggeredState changes (without left assignment)
-                printMenuIfNewState(triggeredState);
+                printMenu ();
                 String moveAsString = interpreter.listen ();
                 actuateMove (moveAsString);
-                waitUntilReady ();
+                clear ();
             }
         }).start ();
     }
@@ -67,31 +63,13 @@ public class CLI extends UI {
         }
     }
 
-    private ClientState printMenuIfNewState(ClientState state) {
-        if (!state.equals (getState ())) {
-            interlocutor.write (getState ().menu ());
-            state = getState ();
-        }
-        else
-            interlocutor.write ("Digit a new command: ");
-        return state;
+    private void printMenu() {
+        interlocutor.write (getState ().menu ());
     }
 
     private void registration() {
         addMessage (usernameMove ().ask (interpreter, interlocutor));
         addMessage (newUserMove ().ask (interpreter, interlocutor));
-        ready (false);
-        waitUntilReady();
-    }
-
-    private synchronized void waitUntilReady() {
-        while (!isReadyForNextMove ()) {
-            try {
-                wait ();
-            } catch (InterruptedException e) {
-                e.printStackTrace ();
-            }
-        }
     }
 
     private Move newUserMove() {
@@ -111,6 +89,12 @@ public class CLI extends UI {
         };
     }
 
+    private void clear() {
+        for (int i = 0; i < 40; i++) {
+            interlocutor.write ("\n");
+        }
+    }
+
 
     @Override
     public void notifyError(String info) {
@@ -120,5 +104,18 @@ public class CLI extends UI {
     @Override
     public void notifyMessage(String info) {
         this.interlocutor.write ("From Server: " + info);
+        this.printMenu ();
+    }
+
+    @Override
+    public void nextInputRequest() {
+        notifyMessage ("Digit a new command: ");
+    }
+
+    @Override
+    public void setNextState() {
+        super.setNextState ();
+        clear ();
+        printMenu ();
     }
 }

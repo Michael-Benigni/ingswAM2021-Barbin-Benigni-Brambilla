@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Channel {
+    private final boolean isClientSideChannel;
+
     enum ChannelStatus {
         ERROR(),
         CLOSED(),
@@ -18,7 +20,6 @@ public class Channel {
 
     }
     private AbstractView view;
-
     private ACK expectedACK;
     private Scanner inSocket;
     private PrintWriter outSocket;
@@ -29,6 +30,7 @@ public class Channel {
         this.status = ChannelStatus.UNKNOWN;
         this.socket = socket;
         this.id = id;
+        this.isClientSideChannel = this.id.equals ("");
         this.open();
     }
 
@@ -72,7 +74,8 @@ public class Channel {
                 try {
                     receiver.onReceived (msg);
                 } catch (Exception e) {
-                    e.printStackTrace ();
+                    if (isClientSideChannel)
+                        System.out.printf ("Invalid message from Client n°%s!\n", this.id);
                     send (new ErrorMessage (e));
                 }
             }
@@ -111,6 +114,9 @@ public class Channel {
     public synchronized void send(Sendable sendable) {
         outSocket.printf ("%s\n", sendable.transmit ());
         outSocket.flush ();
+        if (!isClientSideChannel) {
+            System.out.printf ("Sent to Client n°%s: %s\n", id, sendable.transmit ());
+        }
     }
 
     synchronized void setExpectedACK(ACK ack) {

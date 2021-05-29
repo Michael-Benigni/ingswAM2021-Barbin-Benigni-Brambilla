@@ -97,7 +97,7 @@ public class ServerNetworkLayer {
                 channel.setStatus (Channel.ChannelStatus.OPENED);
             else {
                 ToServerMessage toServerMessage = new ToServerMessage (msg);
-                System.out.printf ("Received from Client %s: %s\n", token, msg);
+                System.out.printf ("Received from Client n°%s: %s\n", token, msg);
                 view.passToController (toServerMessage);
                 //channel.send (new ValidMoveMessage ());
             }

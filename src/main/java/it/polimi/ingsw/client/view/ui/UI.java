@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayDeque;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 public abstract class UI {
@@ -32,15 +33,14 @@ public abstract class UI {
     }
 
     public synchronized Sendable getNextMessage() {
-        while (this.messages.isEmpty ()) {
+        while (this.messages.size () == 0) {
             try {
                 wait ();
             } catch (InterruptedException e) {
                 e.printStackTrace ();
             }
         }
-        notifyAll ();
-        return this.messages.remove ();
+        return messages.remove ();
     }
 
     protected synchronized ClientState getState() {
@@ -50,13 +50,6 @@ public abstract class UI {
     protected synchronized void addMessage(Sendable sendable) {
         this.messages.add (sendable);
         this.notifyAll ();
-        while (this.messages.size () > 0) {
-            try {
-                wait ();
-            } catch (InterruptedException e) {
-                e.printStackTrace ();
-            }
-        }
     }
 
     public void setNextState() {
@@ -67,9 +60,5 @@ public abstract class UI {
 
     public abstract void notifyMessage(String info);
 
-    public synchronized void ready(boolean YesOrNot) {
-        this.readyForNextMove = YesOrNot;
-        if (isReadyForNextMove ())
-            this.notifyAll ();
-    }
+    public abstract void nextInputRequest();
 }

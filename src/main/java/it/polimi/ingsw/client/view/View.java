@@ -6,11 +6,12 @@ import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.*;
 
+import java.util.NoSuchElementException;
+
 public class View {
     private Channel channel;
     private UI ui;
     private LightweightModel model;
-    private boolean response;
 
     public View(UI ui) {
         this.ui = ui;
@@ -24,28 +25,16 @@ public class View {
             while (true) {
                 Sendable sendable = getNextMove ();
                 this.channel.send (sendable);
-                waitForResponse();
             }
         }).start ();
-    }
-
-    private synchronized void waitForResponse() {
-        while (!this.response) {
-            try {
-                wait ();
-            } catch (InterruptedException e) {
-                e.printStackTrace ();
-            }
-        }
-        this.response = false;
     }
 
     private synchronized void setNextState() {
         this.ui.setNextState ();
     }
 
-    public synchronized Sendable getNextMove() {
-        return ui.getNextMessage ();
+    private Sendable getNextMove() {
+        return this.getUI ().getNextMessage ();
     }
 
     public void setChannel(Channel channel) {
@@ -54,12 +43,6 @@ public class View {
 
     public synchronized void handle(ToClientMessage message) {
         message.getInfo ().update (this);
-    }
-
-    public synchronized void readyForNextMove() {
-        this.response = true;
-        this.notifyAll ();
-        this.ui.ready(true);
     }
 
     public void handleError(ErrorMessage errorMessage) {
