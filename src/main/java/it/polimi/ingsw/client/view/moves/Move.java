@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.states;
+package it.polimi.ingsw.client.view.moves;
 
 import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.Interpreter;

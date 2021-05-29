@@ -11,12 +11,10 @@ import java.util.Queue;
 public abstract class UI {
     private Queue<Sendable> messages;
     private ClientState state;
-    private boolean readyForNextMove;
 
     public UI () {
         this.messages = new ArrayDeque<> ();
         this.state = new WaitingRoomState ();
-        this.readyForNextMove = false;
     }
 
     public abstract void start();
@@ -27,10 +25,6 @@ public abstract class UI {
 
     public abstract void showInfoGame();
 
-
-    protected boolean isReadyForNextMove() {
-        return readyForNextMove;
-    }
 
     public synchronized Sendable getNextMessage() {
         while (this.messages.size () == 0) {

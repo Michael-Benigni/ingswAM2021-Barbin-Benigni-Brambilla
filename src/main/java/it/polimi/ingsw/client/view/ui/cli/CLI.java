@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
-import it.polimi.ingsw.client.view.states.Move;
+import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
@@ -22,9 +21,8 @@ public class CLI extends UI {
         new Thread (() -> {
             registration();
             while (true) {
-                printMenu ();
-                String moveAsString = interpreter.listen ();
-                actuateMove (moveAsString);
+                Move move = interpreter.listenForMove ();
+                actuateMove (move);
                 clear ();
             }
         }).start ();
@@ -45,18 +43,7 @@ public class CLI extends UI {
 
     }
 
-    private void actuateMove(String moveAsString) {
-        Move move = null;
-        try {
-            move = getState ().getMove (moveAsString);
-            if (move == null) {
-                actuateMove (this.interpreter.listen ());
-                return;
-            }
-        } catch (UnavailableMoveName unavailableMoveName) {
-            interlocutor.write (unavailableMoveName.getMessage ());
-            actuateMove (this.interpreter.listen ());
-        }
+    private void actuateMove(Move move) {
         Sendable message = move.ask (interpreter, interlocutor);
         if (message != null) {
             addMessage (message);
@@ -99,17 +86,18 @@ public class CLI extends UI {
     @Override
     public void notifyError(String info) {
         this.interlocutor.write ("Error: " + info);
+        this.nextInputRequest ();
     }
 
     @Override
     public void notifyMessage(String info) {
         this.interlocutor.write ("From Server: " + info);
-        this.printMenu ();
     }
 
     @Override
     public void nextInputRequest() {
-        notifyMessage ("Digit a new command: ");
+        printMenu ();
+        this.interlocutor.write ("Digit a new command: ");
     }
 
     @Override
