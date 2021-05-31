@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -22,6 +23,7 @@ public class LeaderCard {
     private final ArrayList <Requirement> requirements;
     private final VictoryPoint victoryPoint;
     private transient Effect effect;
+    private String effectDesc;
 
     /**
      * this method is the constructor of this class
@@ -35,6 +37,7 @@ public class LeaderCard {
         this.requirements = requirements;
         this.victoryPoint = victoryPoint;
         this.effect = effect;
+        this.effectDesc = null;
         this.isAlreadyPlayed = false;
     }
 
@@ -45,19 +48,23 @@ public class LeaderCard {
      */
     public void setDiscountEffect(StorableResource resource) {
         this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid().addPlayerWithDiscount(player, resource);
+        this.effectDesc = "";
     }
 
     public void setExtraDepotEffect (ResourceType resourceType, int depotCapacity){
         this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resourceType);
+        this.effectDesc = "extraDepot";
     }
 
     public void setExtraProductionPowerEffect(StorableResource resource) {
         this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
+        this.effectDesc = "extraProductionPower";
     }
 
     public void setWhiteMarbleTransformationEffect(StorableResource resource) {
         this.effect = (player, game) ->
                 player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
+        this.effectDesc = "transformWhiteMarble";
     }
 
 
@@ -138,5 +145,42 @@ public class LeaderCard {
 
     public VictoryPoint getVictoryPoints() {
         return (VictoryPoint) this.victoryPoint.clone();
+    }
+
+    public String toString() {
+        String toString = "";
+        String paddingChar = "_";
+        int length = 40;
+        String[] namesSections = {"REQUIREMENTS", "VICTORY POINTS", "EFFECT"};
+        int numPadding;
+        for (String name : namesSections) {
+            numPadding = Math.round ((length - name.length ()) / 2);
+            boolean isEvenLength = name.length () % 2 == 0;
+            String padding = "";
+            for (int i = 0; i < numPadding; i++) {
+                padding = padding + paddingChar;
+            }
+            String section = padding + name + padding + (!isEvenLength ? paddingChar : "") + "\n";
+            switch (name) {
+                case "REQUIREMENTS": {
+                    for (Requirement requirement : requirements)
+                        section = section + "\u20DD" + "  " + requirement + "\n";
+                    break;
+                }
+                case "VICTORY POINTS": {
+                    section = section + "\u20DD" + "  " + victoryPoint + "\n";
+                    break;
+                }
+                case "EFFECT": {
+                    section = section + "\u20DD" + "  " + effectDesc + "\n";
+                    break;
+                }
+            }
+            for (int i = 0; i < length; i++) {
+                toString = toString + paddingChar;
+            }
+            toString = toString + "\n" + section + "\n\n";
+        }
+        return "This is the Leader Card with ID: " + cardID + "\n\n" + toString;
     }
 }

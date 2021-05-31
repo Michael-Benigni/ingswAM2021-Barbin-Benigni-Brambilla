@@ -130,6 +130,13 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
 
     @Override
     public String toString() {
+        return "Development Card with:\n" +
+                "  ID: " + cardID + "\n" +
+                "  COLOUR: " + getCardColour () + "\n" +
+                "  LEVEL: " + (getCardLevel ().ordinal () + 1) + "\n";
+    }
+
+    public String getDescription() {
         String toString = "";
         String paddingChar = "_";
         int length = 20;
@@ -146,25 +153,31 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
             switch (name) {
                 case "COSTS":  {
                     for (StorableResource resource : cost)
-                        section = section + resource + "\n";
+                        section = section + "\u20DD" + "  " + resource + "\n";
                     break;
                 }
                 case "TO PRODUCE":  {
                     for (Producible resource : producedResources)
-                        section = section + resource + "\n";
+                        section = section + "\u20DD" + "  " + resource + "\n";
                     break;
                 }
                 case "TO CONSUME":  {
                     for (StorableResource resource : consumedResources)
-                        section = section + resource + "\n";
+                        section = section + "\u20DD" + "  " + resource + "\n";
                     break;
                 }
                 case "VICTORY POINTS": {
-                    section = section + victoryPoints + "\n";
+                    section = section + "\u20DD" + "  " + victoryPoints + "\n";
                 }
             }
-            toString = toString + section;
+            for (int i = 0; i < length; i++) {
+                toString = toString + paddingChar;
+            }
+            toString = toString + "\n" + section + "\n";
         }
-        return "This is the card with ID: " + cardID + "\n" + toString;
+        return "This is the Development Card with\n" +
+                "ID: " + cardID + "\n" +
+                "COLOUR: " + getCardColour () + "\n" +
+                "LEVEL: " + (getCardLevel ().ordinal () + 1) + "\n" + toString;
     }
 }
