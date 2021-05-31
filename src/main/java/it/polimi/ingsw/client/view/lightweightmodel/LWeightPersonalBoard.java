@@ -42,7 +42,7 @@ public class LWeightPersonalBoard {
     private ArrayList<LWDepot> warehouse;
     private ArrayList<LWResource> strongbox;
     private ArrayList<LWResource> temporary;
-    private ArrayList<ArrayList<LWDevCard>> devCards; // max 3
+    private ArrayList<ArrayList<LWDevCard>> slots; // max 3
     private ArrayList<LWLeaderCard> leaderCardsPlayed; // 4 at the beginning, then 2
     private ArrayList<LWLeaderCard> leaderCardsNotPlayed;
 
@@ -50,8 +50,15 @@ public class LWeightPersonalBoard {
         this.warehouse = new ArrayList<> ();
         this.strongbox = new ArrayList<> ();
         this.temporary = new ArrayList<> ();
-        this.devCards = new ArrayList<> ();
+        initSlots();
         this.leaderCardsPlayed = new ArrayList<> ();
+    }
+
+    private void initSlots(){
+        this.slots = new ArrayList<> ();
+        for(int i = 0; i < 3; i++){
+            slots.add(new ArrayList<>());
+        }
     }
 
     public void updateWarehouse(ArrayList<LWDepot> warehouse) {
@@ -66,8 +73,8 @@ public class LWeightPersonalBoard {
         this.temporary = temporary;
     }
 
-    public void updateDevCards(ArrayList<ArrayList<LWDevCard>> devCards) {
-        this.devCards = devCards;
+    public void updateSlots(LWDevCard addedDevCard, int numberOfSlot) {
+        slots.get(numberOfSlot).add(addedDevCard);
     }
 
     public void updateLeaderCardsPlayed(ArrayList<LWLeaderCard> leaderCardsPlayed) {
