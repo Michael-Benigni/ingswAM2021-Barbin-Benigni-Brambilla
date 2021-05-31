@@ -130,13 +130,6 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
 
     @Override
     public String toString() {
-        return "Development Card with:\n" +
-                "  ID: " + cardID + "\n" +
-                "  COLOUR: " + getCardColour () + "\n" +
-                "  LEVEL: " + (getCardLevel ().ordinal () + 1) + "\n";
-    }
-
-    public String getDescription() {
         String toString = "";
         String paddingChar = "_";
         int length = 20;

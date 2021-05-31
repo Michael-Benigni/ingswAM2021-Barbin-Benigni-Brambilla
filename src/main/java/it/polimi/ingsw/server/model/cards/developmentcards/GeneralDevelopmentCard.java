@@ -125,4 +125,11 @@ public class GeneralDevelopmentCard implements Requirement {
             return 0;
         return getCardLevel().compareTo(card.getCardLevel());
     }
+
+    @Override
+    public String toString() {
+        return "Development Card with\n" +
+                "  COLOUR: " + getCardColour () + "\n" +
+                "  LEVEL: " + (getCardLevel ().ordinal () + 1) + "\n";
+    }
 }
