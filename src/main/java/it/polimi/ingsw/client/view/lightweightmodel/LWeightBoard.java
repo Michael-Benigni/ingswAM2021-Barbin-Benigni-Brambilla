@@ -17,25 +17,15 @@ public class LWeightBoard {
     private ArrayList<LWCell> faithTrack;
     private LWMarket market;
 
-    public void updateInitialCardsGrid(int[][] initialCardsGrid, int rows, int columns) {
-        grid.rows = rows;
-        grid.columns = columns;
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < columns; j++){
-                LWDevCard newLWDevCard = new LWDevCard(initialCardsGrid[i][j]);
-                grid.cardsGrid[i][j] = newLWDevCard;
-            }
-        }
+    public void updateInitialCardsGrid(LWDevCard[][] initialCardsGrid, int rows, int columns) {
+        this.grid = new LWCardsGrid(initialCardsGrid, rows, columns);
     }
 
-    public void updateCardsGrid(int cardToRemove, int cardToShow) {
-        if(cardToShow > 0){
-            LWDevCard showCard = new LWDevCard(cardToShow);
-            for(int i = 0; i < grid.rows; i++){
-                for(int j = 0; j < grid.columns; j++){
-                    if(cardToRemove == grid.cardsGrid[i][j].id)
-                        grid.cardsGrid[i][j] = showCard;
-                }
+    public void updateCardsGrid(LWDevCard cardToRemove, LWDevCard cardToShow) {
+        for(int i = 0; i < grid.rows; i++){
+            for(int j = 0; j < grid.columns; j++){
+                if(cardToRemove.equals(grid.cardsGrid[i][j]))
+                    grid.cardsGrid[i][j] = cardToShow;
             }
         }
     }

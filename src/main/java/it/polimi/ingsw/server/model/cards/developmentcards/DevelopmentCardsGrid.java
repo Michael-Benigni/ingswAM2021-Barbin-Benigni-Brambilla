@@ -72,13 +72,32 @@ public class DevelopmentCardsGrid implements GameComponent {
      *                       first layer of development cards in the grid
      * @return the created sendable message
      */
-    private Sendable generateUpdate(int[][] frontalIDsGrid){
+    private Sendable generateUpdate(int[][] frontalIDsGrid) throws EmptyDeckException {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.SHOW_INITIAL_GRID);
         writer.addProperty ("initialGrid", frontalIDsGrid);
+        writer.addProperty("descriptions", buildDescriptions());
         writer.addProperty ("rows", this.rows);
         writer.addProperty ("columns", this.columns);
         return writer.write ();
+    }
+
+    /**
+     * this method builds the grid of descriptions of the frontal grid
+     * @return the grid of descriptions of the cards that compose the cards grid
+     * @throws EmptyDeckException
+     */
+    String[][] buildDescriptions() throws EmptyDeckException {
+        String[][] descriptions = new String[this.rows][this.columns];
+        if(this.cardsGrid != null){
+            for (int i = 0; i < this.rows; i++){
+                for (int j = 0; j < this.columns; j++){
+                    int choosenDeckLastIndex = getDeck(i, j).size() - 1;
+                    descriptions[i][j] = this.cardsGrid.get(i).get(j).get(choosenDeckLastIndex).toString();
+                }
+            }
+        }
+        return descriptions;
     }
 
     /**
@@ -153,26 +172,35 @@ public class DevelopmentCardsGrid implements GameComponent {
     public void removeChoosenCardFromGrid (int iPos, int jPos) throws EmptyDeckException {
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
         int chosenDeckLastIndex = choosenDeck.size() - 1;
-        int removeCardID = choosenDeck.get(chosenDeckLastIndex).getCardID();
+        DevelopmentCard removeCard = choosenDeck.get(chosenDeckLastIndex);
+        DevelopmentCard showCard = choosenDeck.get(chosenDeckLastIndex - 1);
         choosenDeck.remove(chosenDeckLastIndex);
         if(choosenDeck.isEmpty())
-            notifyUpdate(generateUpdate(removeCardID, -1));
+            notifyUpdate(generateUpdate(removeCard, null));
         else
-            notifyUpdate(generateUpdate(removeCardID, choosenDeck.get(chosenDeckLastIndex - 1).getCardID()));
+            notifyUpdate(generateUpdate(removeCard, showCard));
     }
 
     /**
      * this method generates the update
      * message to send it to the clients
-     * @param removeCardID is the integer number that identifies the card that the clients must remove from the grid
-     * @param showCardID is the integer number that identifies the card that the clients must show from the grid
+     * @param removeCard is the card that the clients must remove from the grid
+     * @param showCard is card that the clients must show instead the removeCard
      * @return the message we want to send
      */
-    private Sendable generateUpdate(int removeCardID, int showCardID){
+    private Sendable generateUpdate(DevelopmentCard removeCard, DevelopmentCard showCard){
         MessageWriter messageWriter = new MessageWriter();
         messageWriter.setHeader(Header.ToClient.REMOVE_SHOW_GRID);
-        messageWriter.addProperty("cardToRemove", removeCardID);
-        messageWriter.addProperty("cardToShow", showCardID);
+        messageWriter.addProperty("cardToRemove", removeCard.getCardID());
+        messageWriter.addProperty("removeDescription", removeCard.toString());
+        if(showCard != null){
+            messageWriter.addProperty("cardToShow", showCard.getCardID());
+            messageWriter.addProperty("showDescription", showCard.toString());
+        }
+        else {
+            messageWriter.addProperty("cardToShow", null);
+            messageWriter.addProperty("showDescription", null);
+        }
         return messageWriter.write();
     }
 
