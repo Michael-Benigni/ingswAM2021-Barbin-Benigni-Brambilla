@@ -173,11 +173,12 @@ public class DevelopmentCardsGrid implements GameComponent {
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
         int chosenDeckLastIndex = choosenDeck.size() - 1;
         DevelopmentCard removeCard = choosenDeck.get(chosenDeckLastIndex);
-        DevelopmentCard showCard = choosenDeck.get(chosenDeckLastIndex - 1);
+        DevelopmentCard showCard = null;
         choosenDeck.remove(chosenDeckLastIndex);
         if(choosenDeck.isEmpty())
-            notifyUpdate(generateUpdate(removeCard, null));
+            notifyUpdate(generateUpdate(removeCard, showCard));
         else
+            showCard = choosenDeck.get(chosenDeckLastIndex - 1);
             notifyUpdate(generateUpdate(removeCard, showCard));
     }
 
