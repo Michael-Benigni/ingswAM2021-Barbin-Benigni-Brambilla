@@ -68,4 +68,9 @@ public class FaithPoint implements Producible {
     public void onProduced(Player player, Game game) throws Exception {
         this.activate(player, game);
     }
+
+    @Override
+    public String toString() {
+        return "resourceType = Faith Point, " + "amount = " + points;
+    }
 }

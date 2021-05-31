@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.Storable;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -211,6 +212,11 @@ public class StorableResource implements Storable, Requirement, Producible {
     @Override
     public void store(Player player) {
         player.getPersonalBoard().getTempContainer().store(this);
+    }
+
+    @Override
+    public String toString() {
+        return amount + " " + resourceType.toString ().toUpperCase()  ;
     }
 }
 

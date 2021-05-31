@@ -65,4 +65,9 @@ public class VictoryPoint implements Cloneable{
     public boolean moreThan(VictoryPoint winnerPoints) {
         return this.amount > winnerPoints.amount;
     }
+
+    @Override
+    public String toString() {
+        return amount + " VICTORY POINTS";
+    }
 }

@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -124,5 +125,46 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
 
     public VictoryPoint getVictoryPoints() {
         return this.victoryPoints;
+    }
+
+
+    @Override
+    public String toString() {
+        String toString = "";
+        String paddingChar = "_";
+        int length = 20;
+        String[] namesSections = {"COSTS", "TO PRODUCE", "TO CONSUME", "VICTORY POINTS"};
+        int numPadding;
+        for (String name : namesSections) {
+            numPadding = Math.round ((length - name.length ()) / 2);
+            boolean isEvenLength = name.length () % 2 == 0;
+            String padding = "";
+            for (int i = 0; i < numPadding; i++) {
+                padding = padding + paddingChar;
+            }
+            String section = padding + name + padding + (!isEvenLength ? paddingChar : "") + "\n";
+            switch (name) {
+                case "COSTS":  {
+                    for (StorableResource resource : cost)
+                        section = section + resource + "\n";
+                    break;
+                }
+                case "TO PRODUCE":  {
+                    for (Producible resource : producedResources)
+                        section = section + resource + "\n";
+                    break;
+                }
+                case "TO CONSUME":  {
+                    for (StorableResource resource : consumedResources)
+                        section = section + resource + "\n";
+                    break;
+                }
+                case "VICTORY POINTS": {
+                    section = section + victoryPoints + "\n";
+                }
+            }
+            toString = toString + section;
+        }
+        return "This is the card with ID: " + cardID + "\n" + toString;
     }
 }
