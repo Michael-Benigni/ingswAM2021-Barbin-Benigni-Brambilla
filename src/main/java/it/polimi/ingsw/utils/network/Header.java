@@ -29,7 +29,8 @@ public interface Header {
         TURN_POSITION_UPDATE ("turn_position_update"),
         YOUR_TURN ("your_turn"),
         FULL_ROOM ("full_room"),
-        SLOT_DEVCARD_UPDATE("slot_devcard_update");
+        SLOT_DEVCARD_UPDATE("slot_devcard_update"),
+        INIT_LEADER_CARDS("init_leader_cards");
 
 
         private final String headerStr;

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
-import java.util.Objects;
-
 public class LWDevCard {
     private final int id;
     private final String description;
@@ -24,6 +22,6 @@ public class LWDevCard {
     }
 
     public String getDescription() {
-        return "description";
+        return this.description;
     }
 }

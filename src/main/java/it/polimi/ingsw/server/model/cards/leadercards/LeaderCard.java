@@ -25,6 +25,10 @@ public class LeaderCard {
     private transient Effect effect;
     private String effectDesc;
 
+    public int getCardID() {
+        return cardID;
+    }
+
     /**
      * this method is the constructor of this class
      * @param cardID

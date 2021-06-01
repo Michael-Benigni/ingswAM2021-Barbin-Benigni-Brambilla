@@ -1,9 +1,14 @@
 package it.polimi.ingsw.server.model.cards.leadercards;
 
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.FullLeaderCardSlotException;
 import it.polimi.ingsw.server.model.exception.LeaderCardNotFoundException;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
+
 import java.util.ArrayList;
 
 
@@ -12,7 +17,7 @@ import java.util.ArrayList;
  * where we can put and handle the
  * leader cards of the players
  */
-public class SlotLeaderCards  {
+public class SlotLeaderCards implements GameComponent {
     private final ArrayList <LeaderCard> listOfLeaderCards;
     private final int maxNumberOfCards;
     private final int maxNumOfCardsDuringGame;
@@ -50,6 +55,42 @@ public class SlotLeaderCards  {
                 e.printStackTrace();
             }
         }
+        notifyUpdate(generateUpdate(cards));
+    }
+
+    private Sendable generateUpdate(ArrayList<LeaderCard> initialCards){
+        MessageWriter writer = new MessageWriter();
+        writer.setHeader (Header.ToClient.INIT_LEADER_CARDS);
+        writer.addProperty ("initialCardsList", buildIDsList(initialCards));
+        writer.addProperty("descriptions", buildDescriptions(initialCards));
+        writer.addProperty("maxNumberOfCardsDuringGame", this.maxNumOfCardsDuringGame);
+        return writer.write ();
+    }
+
+    /**
+     * this method creates an array list of descriptions that represent the cards passed like parameters
+     * @param cards we want to build an array of the descriptions of this list of cards
+     * @return the array of descriptions of the cards passed like parameters
+     */
+    private ArrayList<String> buildDescriptions(ArrayList<LeaderCard> cards){
+        ArrayList<String> listOfDescriptions = new ArrayList<>();
+        for(int i = 0; i < cards.size(); i++){
+            listOfDescriptions.add(cards.get(i).toString());
+        }
+        return listOfDescriptions;
+    }
+
+    /**
+     * this method creates an array list of IDs of the cards passed like parameters
+     * @param cards we want to build an array of the IDs of this list of cards
+     * @return the array of IDs of the cards passed like parameters
+     */
+    private ArrayList<Integer> buildIDsList(ArrayList<LeaderCard> cards){
+        ArrayList<Integer> listOfIDs = new ArrayList<>();
+        for(int i = 0; i < cards.size(); i++){
+            listOfIDs.add(cards.get(i).getCardID());
+        }
+        return listOfIDs;
     }
 
 
@@ -107,5 +148,15 @@ public class SlotLeaderCards  {
      */
     public boolean isReadyToStart() {
         return this.listOfLeaderCards.size() == maxNumOfCardsDuringGame;
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return null;
+    }
+
+    @Override
+    public void attach(Observer observer) {
+
     }
 }
