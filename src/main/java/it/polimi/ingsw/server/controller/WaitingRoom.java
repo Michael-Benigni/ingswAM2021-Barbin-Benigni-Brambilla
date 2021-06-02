@@ -4,6 +4,10 @@ import it.polimi.ingsw.server.controller.exception.FullWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
 import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -28,6 +32,7 @@ public class WaitingRoom {
                 if (this.usersPlayers.isEmpty ())
                     leader = key;
                 this.usersPlayers.put (key, null);
+                notifyRegistration (key);
             } else
                 throw new InvalidUserException ();
         } else
@@ -61,7 +66,7 @@ public class WaitingRoom {
     }
 
     public void setSize(int size, User leader) throws ImpossibleChangingSizeException {
-        if (this.usersPlayers.size () < size && this.leader == leader)
+        if (this.usersPlayers.size () <= size && this.leader == leader)
             this.size = size;
         else
             throw new ImpossibleChangingSizeException ();
@@ -90,7 +95,7 @@ public class WaitingRoom {
     public void disconnect(User user) {
         if (contains (user)) {
             Player player = this.usersPlayers.get (user);
-            if (player.isConnected ())
+            if (player != null && !player.isConnected ())
                 player.setIsConnected (false);
             else {
                 this.usersPlayers.remove (user);
@@ -110,5 +115,28 @@ public class WaitingRoom {
             usersPlayers.get (user).setIsConnected(true);
         else
             put (user);
+    }
+
+    private void notifyRegistration(User user) {
+        user.getView ().onChanged (getUserInfo (user, true));
+        for (User u : getAllUsers ()) {
+            if (u != user)
+                u.getView ().onChanged (getUserInfo (user, false));
+        }
+        if (isFull ()) {
+            MessageWriter writer = new MessageWriter ();
+            writer.setHeader (Header.ToClient.FULL_ROOM);
+            getLeader ().getView ().onChanged (writer.write ());
+        }
+    }
+
+    private Sendable getUserInfo(User user, boolean areYou) {
+        MessageWriter writer = new MessageWriter();
+        writer.setHeader (Header.ToClient.USER_REGISTERED);
+        writer.addProperty ("numUsers", getAllUsers ().size ());
+        writer.addProperty ("username", user.getUsername ());
+        writer.addProperty ("areYou", areYou);
+        writer.addProperty ("numWaitingRoom", getID());
+        return writer.write ();
     }
 }
