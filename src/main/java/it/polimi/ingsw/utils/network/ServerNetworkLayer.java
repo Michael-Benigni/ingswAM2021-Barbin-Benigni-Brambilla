@@ -90,14 +90,15 @@ public class ServerNetworkLayer {
         this.channels.add (new Entry<> (token, channel));
         VirtualView view = new VirtualView (channel, this.controller);
         channel.listeningLoop((msg) -> {
+            System.out.printf ("Received from Client n°%s: %s\n", token, msg);
             if (QuitMessage.isQuitMessage (msg)) {
                 closeChannel(channel);
                 return;
-            } else if (channel.getExpectedACK () != null && channel.getExpectedACK ().isTheSameACK (msg))
+            } else if (channel.getExpectedACK () != null && channel.getExpectedACK ().isTheSameACK (msg)) {
                 channel.setStatus (Channel.ChannelStatus.OPENED);
+            }
             else {
                 ToServerMessage toServerMessage = new ToServerMessage (msg);
-                System.out.printf ("Received from Client n°%s: %s\n", token, msg);
                 view.passToController (toServerMessage);
                 //channel.send (new ValidMoveMessage ());
             }

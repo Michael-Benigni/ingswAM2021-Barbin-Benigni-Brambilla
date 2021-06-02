@@ -20,6 +20,7 @@ public class SlotLeaderCards implements GameComponent {
     private final ArrayList <LeaderCard> listOfLeaderCards;
     private final int maxNumberOfCards;
     private final int maxNumOfCardsDuringGame;
+    private final ArrayList<Observer> observers;
 
 
     /**
@@ -38,6 +39,7 @@ public class SlotLeaderCards implements GameComponent {
         this.listOfLeaderCards = new ArrayList<>(0);
         this.maxNumberOfCards = maxNumberOfCards;
         this.maxNumOfCardsDuringGame = maxNumOfCardsDuringGame;
+        observers = new ArrayList<> ();
     }
 
 
@@ -167,11 +169,16 @@ public class SlotLeaderCards implements GameComponent {
 
     @Override
     public Iterable<Observer> getObservers() {
-        return null;
+        return this.observers;
     }
 
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
     @Override
     public void attach(Observer observer) {
-
+        this.observers.add (observer);
     }
 }

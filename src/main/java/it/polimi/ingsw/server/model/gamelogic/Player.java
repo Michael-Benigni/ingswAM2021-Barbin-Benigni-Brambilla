@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 import it.polimi.ingsw.server.model.GameComponent;
+import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.server.model.exception.EmptySlotException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.WrongSlotDevelopmentIndexException;
@@ -65,6 +66,12 @@ public class Player implements GameComponent {
      */
     public void buildBoard(PersonalBoard personalBoard) {
         this.personalBoard = personalBoard;
+        this.personalBoard.getStrongbox ().attach(observer);
+        for (SlotDevelopmentCards slot : this.personalBoard.getListOfSlotDevelopmentCards ())
+            slot.attach (observer);
+        //this.personalBoard.getSlotLeaderCards ().attach(observer);
+        this.personalBoard.getTempContainer ().attach(observer);
+        this.personalBoard.getWarehouseDepots ().attach (observer);
     }
 
 
@@ -100,11 +107,8 @@ public class Player implements GameComponent {
      * ArrayList of the player's requirements
      * represented by colour and level of development cards
      * @return an ArrayList of Requirements (DevelopmentCard)
-     * @throws NegativeResourceAmountException
-     * @throws EmptySlotException
-     * @throws WrongSlotDevelopmentIndexException
      */
-    public ArrayList <DevelopmentCard> getDevCardRequirements() throws EmptySlotException, WrongSlotDevelopmentIndexException {
+    public ArrayList <DevelopmentCard> getDevCardRequirements() {
         ArrayList <DevelopmentCard> devCardRequirements;
         devCardRequirements = this.personalBoard.getAllDevelopmentCards();
         return devCardRequirements;

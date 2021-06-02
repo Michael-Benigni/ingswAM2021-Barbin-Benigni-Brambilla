@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.model.gamelogic.GameFactory;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
+import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoardTest;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrackTest;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
@@ -233,11 +234,12 @@ public class LeaderCardTest {
 
     LeaderCard buildNotDiscardableCard() throws EmptySlotException, NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException, ResourceOverflowInDepotException {
         Player player = new Player();
+        player.buildBoard (PersonalBoardTest.init ());
         ArrayList<Requirement> requirements = new ArrayList<>(0);
         VictoryPoint victoryPoints = new VictoryPoint(1);
         Effect effect = (player2, game2) -> {};
         LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, effect);
-        leaderCard.play(player, null);
+        leaderCard.play(player, game);
         return leaderCard;
     }
 

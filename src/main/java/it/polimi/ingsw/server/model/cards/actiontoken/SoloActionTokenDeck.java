@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.cards.actiontoken;
 
+import com.google.gson.JsonArray;
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Subject;
 
@@ -9,15 +11,17 @@ import java.util.Collections;
 /**
  * Class that represents the deck of action tokens used in the singleplayer game.
  */
-public class SoloActionTokenDeck  {
+public class SoloActionTokenDeck implements GameComponent {
 
     private final ArrayList<SoloActionToken> listOfTokens;
+    private ArrayList<Observer> observers;
 
     /**
      * Constructor method of this class.
      * @param listOfTokens
      */
     public SoloActionTokenDeck(ArrayList<SoloActionToken> listOfTokens) {
+        this.observers = new ArrayList<> ();
         this.listOfTokens = listOfTokens;
     }
 
@@ -52,5 +56,20 @@ public class SoloActionTokenDeck  {
                 listOfTokens.add(i, listOfTokens.get(i));
             }
         }
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return this.observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
     }
 }

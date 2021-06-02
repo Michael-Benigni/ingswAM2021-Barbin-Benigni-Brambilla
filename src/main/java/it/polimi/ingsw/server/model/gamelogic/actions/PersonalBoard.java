@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
+import com.google.gson.JsonArray;
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.EmptySlotException;
 import it.polimi.ingsw.server.model.exception.NotContainedResourceException;
 import it.polimi.ingsw.server.model.exception.NotExistingExtraProductionPower;
@@ -15,6 +17,7 @@ import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.server.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
+import it.polimi.ingsw.utils.Observer;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,19 +26,7 @@ import java.util.Objects;
  * Class that represents the board that belongs to a player.
  * It's a collection of game elements, like Strongbox, Depots...
  */
-public class PersonalBoard implements Producer {
-
-    private boolean availableForProduction;
-
-    @Override
-    public boolean isAvailableForProduction() {
-        return availableForProduction;
-    }
-
-    @Override
-    public void setAvailableForProduction(boolean availableForProduction) {
-        this.availableForProduction = availableForProduction;
-    }
+public class PersonalBoard implements Producer, GameComponent {
 
     /**
      * this class models the extra
@@ -45,8 +36,8 @@ public class PersonalBoard implements Producer {
     class ExtraProductionPower implements Producer {
 
         private final StorableResource consumedResource;
-        private boolean availableForProduction;
 
+        private boolean availableForProduction;
         /**
          * constructor method of this class
          * @param consumedResource is the resource consumed to start the production
@@ -103,15 +94,47 @@ public class PersonalBoard implements Producer {
         public void setAvailableForProduction(boolean availableForProduction) {
             this.availableForProduction = availableForProduction;
         }
+
     }
 
-
     private Strongbox strongbox;
+
     private WarehouseDepots warehouseDepots;
     private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
     private TemporaryContainer tempContainer;
     private SlotLeaderCards slotLeaderCards;
     private ArrayList <ExtraProductionPower> extraProductionPowers;
+    private boolean availableForProduction;
+    private final ArrayList<Observer> observers;
+
+    @Override
+    public boolean isAvailableForProduction() {
+        return availableForProduction;
+    }
+
+    @Override
+    public void setAvailableForProduction(boolean availableForProduction) {
+        this.availableForProduction = availableForProduction;
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return this.observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
+    }
+
+    public ArrayList<SlotDevelopmentCards> getListOfSlotDevelopmentCards() {
+        return listOfSlotDevelopmentCards;
+    }
 
 
     /**
@@ -125,6 +148,7 @@ public class PersonalBoard implements Producer {
         this.slotLeaderCards = new SlotLeaderCards(maxLeaderCardsInSlot, maxNumOfCardsDuringGame);
         this.tempContainer = new TemporaryContainer();
         this.extraProductionPowers = new ArrayList<>(0);
+        observers = new ArrayList<> ();
     }
 
 

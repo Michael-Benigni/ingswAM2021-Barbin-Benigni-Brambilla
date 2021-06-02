@@ -16,7 +16,10 @@ public interface GameComponent extends Subject {
 
     @Override
     default void notifyUpdate(Sendable sendable){
-        this.getObservers().forEach(observer -> observer.onChanged(sendable));
+        this.getObservers().forEach(observer -> {
+            if (observer != null)
+                observer.onChanged (sendable);
+        });
     }
 
     Iterable<Observer> getObservers();

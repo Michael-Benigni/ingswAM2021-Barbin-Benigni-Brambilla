@@ -69,11 +69,6 @@ public abstract class Game implements GameComponent {
     private boolean gameIsOver;
 
     /**
-     * true if the game is started, false ifit is not
-     */
-    private boolean gameIsStarted;
-
-    /**
      * the observers of the game: this is to implement the pattern Observer-Observable
      */
     private ArrayList<Observer> observers;
@@ -90,7 +85,6 @@ public abstract class Game implements GameComponent {
         this.numberOfPlayers = numberOfPlayers;
         this.playersOrder = new LinkedList<>();
         this.gameIsOver = false;
-        this.gameIsStarted = false;
     }
 
 
@@ -99,14 +93,6 @@ public abstract class Game implements GameComponent {
      */
     public boolean isGameIsOver() {
         return gameIsOver;
-    }
-
-
-    /**
-     * @return true if the game is started, otherwise returns false
-     */
-    public boolean isGameIsStarted() {
-        return gameIsStarted;
     }
 
 
@@ -125,13 +111,20 @@ public abstract class Game implements GameComponent {
             }
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());
+            attachToGameBoard ();
             this.currentPlayer = playersOrder.getFirst ();
+            this.currentPlayer.notifyUpdate (getNextPlayerMessage ());
             this.numberOfRounds = 0;
             this.currentTurn = new FirstTurn ();
             this.currentTurn.start ();
-            this.gameIsStarted = true;
         } else
             throw new IllegalNumberOfPlayersException ();
+    }
+
+    protected void attachToGameBoard() {
+        this.gameBoard.getDevelopmentCardGrid ().attachAll (observers);
+        this.gameBoard.getFaithTrack ().attachAll (observers);
+        this.gameBoard.getMarketTray ().attachAll (observers);
     }
 
 

@@ -65,7 +65,9 @@ public interface Header {
         TRANSFORM_WHITE_MARBLE("transform_white_marble"),
         WAREHOUSE("warehouse"),
         START_MATCH ("start_match"),
-        START_PRODUCTION ("start_production");
+        START_PRODUCTION ("start_production"),
+        NEW_ROOM ("new_room"),
+        EXISTING_ROOM ("existing_room");
 
         private String headerStr;
 

@@ -5,8 +5,10 @@ import it.polimi.ingsw.server.model.exception.NotEnoughPlayersException;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
+import it.polimi.ingsw.utils.Observer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Class that represents one match with 1 player, that will play with a COM
@@ -47,5 +49,11 @@ public class SingleplayerGame extends Game {
     @Override
     public SoloPlayerGameBoard getGameBoard() {
         return (SoloPlayerGameBoard) super.getGameBoard();
+    }
+
+    @Override
+    protected void attachToGameBoard() {
+        super.attachToGameBoard ();
+        getGameBoard ().getActionTokenDeck ().attachAll(new ArrayList<> ((Collection<? extends Observer>) getObservers ()));
     }
 }

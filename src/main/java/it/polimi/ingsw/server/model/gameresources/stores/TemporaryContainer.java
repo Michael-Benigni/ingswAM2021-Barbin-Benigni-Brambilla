@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
+import com.google.gson.JsonArray;
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.NoEmptyResourceException;
 import it.polimi.ingsw.server.model.exception.NotHaveThisEffectException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -10,9 +12,10 @@ import it.polimi.ingsw.utils.Subject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TemporaryContainer extends UnboundedResourcesContainer  {
+public class TemporaryContainer extends UnboundedResourcesContainer implements GameComponent {
     private ArrayList <EmptyResource> emptyResources;
     private HashMap<Player, ArrayList<StorableResource>> modifiers;
+    private ArrayList<Observer> observers;
 
     @Override
     public void clear() {
@@ -24,6 +27,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer  {
         super();
         this.emptyResources = new ArrayList<>();
         this.modifiers = new HashMap<>();
+        this.observers = new ArrayList<> ();
     }
 
     public FaithPoint getPenalty() {
@@ -72,5 +76,20 @@ public class TemporaryContainer extends UnboundedResourcesContainer  {
             resources.add(resource);
             this.modifiers.put(player, resources);
         }
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return this.observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
     }
 }

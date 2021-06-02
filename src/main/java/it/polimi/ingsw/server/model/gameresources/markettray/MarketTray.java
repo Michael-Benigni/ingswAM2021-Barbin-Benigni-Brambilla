@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.gameresources.markettray;
 
+import com.google.gson.JsonArray;
+import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.InvalidMarketColumnException;
 import it.polimi.ingsw.server.model.exception.InvalidMarketRowException;
 import it.polimi.ingsw.server.model.gameresources.Resource;
@@ -11,7 +13,7 @@ import java.util.*;
 /**
  * It's the class that represents the market present in the game board
  */
-public class MarketTray {
+public class MarketTray implements GameComponent {
 
     /**
      * it's the matrix representation of the Market: the marbles are placed in a matrix
@@ -38,6 +40,7 @@ public class MarketTray {
      * will be in the market
      */
     private HashMap<MarketMarble, Integer> howManyMarbles;
+    private ArrayList<Observer> observers;
 
 
     /**
@@ -51,6 +54,7 @@ public class MarketTray {
         this.columns = columns;
         this.rows = rows;
         this.howManyMarbles = howManyMarbles;
+        this.observers = new ArrayList<> ();
         setInitialShuffleDisposition ();
     }
 
@@ -237,5 +241,20 @@ public class MarketTray {
     @Override
     public int hashCode() {
         return Objects.hash (marblesMatrix, marbleOnSlide, rows, columns, howManyMarbles);
+    }
+
+    @Override
+    public Iterable<Observer> getObservers() {
+        return this.observers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add (observer);
     }
 }
