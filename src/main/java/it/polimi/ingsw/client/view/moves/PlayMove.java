@@ -6,22 +6,46 @@ import it.polimi.ingsw.client.view.ui.cli.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 
-public enum PlayMove implements MoveType{
-    END_TURN ("E", endTurnMove ()),
-    LEADER ("L", leaderCardMove ()),
-    WAREHOUSE ("W", warehouseMove ()),
-    SWAP_DEPOTS ("S", swapDepotMove ()),
-    WHITE_MARBLE ("W", transformWhiteMarbleMove ()),
-    START_PRODUCTION ("S", startProductionMove ()),
-    MOVE_RESOURCES ("M", moveResourcesMove ()),
-    MARKET ("M", marketMove ()),
-    END_PRODUCTION ("E", endProductionMove ()),
-    BUY_CARD ("B", buyCardMove ()),
-    CARD_PRODUCTION ("C", cardProductionMove ()),
-    BOARD_PRODUCTION ("B", boardProductionMove ()),
+public enum PlayMove implements MoveType {
+    BOARD_PRODUCTION ("BOARD", boardProductionMove ()),
+    BUY_CARD ("BUY", buyCardMove ()),
+    CARD_PRODUCTION ("CARD", cardProductionMove ()),
+    CHOOSE_TURN_TYPE ("T", chooseTurnTypeMove ()),
+    END_PRODUCTION ("ENDP", endProductionMove ()),
+    END_TURN ("END", endTurnMove ()),
     EXTRA_BOARD_PRODUCTION ("X", extraBoardProductionMove ()),
-    CHOOSE_TURN_TYPE("T", chooseTurnTypeMove ())
-    ;
+    LEADER ("L", leaderCardMove ()),
+    MARKET ("M", marketMove ()),
+    MOVE_RESOURCES ("R", moveResourcesMove ()),
+    START_PRODUCTION ("SP", startProductionMove ()),
+    SWAP_DEPOTS ("SW", swapDepotMove ()),
+    WAREHOUSE ("W", warehouseMove ()),
+    WHITE_MARBLE ("WM", transformWhiteMarbleMove ()),
+    SHOW_PERSONAL_BOARD("SPB", showPersonalBoard()),
+    SHOW_GAME_BOARD("SGB", showGameBoard()),
+    QUIT("QUIT", quitMove()) ;
+
+    private static Move quitMove() {
+        return (ui) -> {
+            MessageWriter writer = new MessageWriter ();
+            writer.setHeader (Header.ToServer.QUIT);
+            return writer.write ();
+        };
+    }
+
+    private static Move showGameBoard() {
+        return (ui) -> {
+            ui.showGameBoard();
+            return null;
+        };
+    }
+
+    private static Move showPersonalBoard() {
+        return (ui) -> {
+            ui.showPersonalBoard ();
+            return null;
+        };
+    }
 
     private final Move move;
     private final String cmd;
@@ -43,7 +67,7 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move endTurnMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.END_TURN);
             return writer.write ();
@@ -51,7 +75,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move leaderCardMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.LEADER);
             StringRequest playOrRemove = new StringRequest ("Digit \"play\" or \"discard\" according to the action that you want to perform", "playOrDiscard");
@@ -63,7 +89,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move warehouseMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.WAREHOUSE);
             StringRequest playOrStore = new StringRequest ("Digit \"store\" or \"remove\" according to the action that you want to perform", "playOrRemove");
@@ -75,7 +103,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move swapDepotMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.SWAP_DEPOTS);
             IntegerRequest depot1 = new IntegerRequest ("Indicate the number of depot 1 to swap", "depot1");
@@ -87,7 +117,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move transformWhiteMarbleMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.TRANSFORM_WHITE_MARBLE);
             IntegerRequest numInSlot = new IntegerRequest ("Indicate the position of the resource to obtain", "resourceIdx");
@@ -97,7 +129,7 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move startProductionMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.START_PRODUCTION);
             return writer.write ();
@@ -105,7 +137,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move moveResourcesMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.TEMP_CONTAINER);
             StringRequest playOrStore = new StringRequest ("Digit \"store\" or \"remove\" according to the action that you want to perform", "storeOrRemove");
@@ -119,7 +153,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move marketMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.MARKET);
             StringRequest rowOrColumn = new StringRequest ("Digit \"row\" or \"column\" according to from you want to get resources", "rowOrColumn");
@@ -131,7 +167,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move endProductionMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.END_PRODUCTION);
             return writer.write ();
@@ -139,7 +177,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move buyCardMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.BUY_CARD);
             IntegerRequest row = new IntegerRequest ("Choose the number of row", "row");
@@ -153,7 +193,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move extraBoardProductionMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.EXTRA_PRODUCTION);
             IntegerRequest numExtraPower = new IntegerRequest ("Choose the number of the extra production power from those that you have active", "numExtraPower");
@@ -165,7 +207,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move boardProductionMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.BOARD_PRODUCTION);
             ResourceRequest resource = new ResourceRequest ("Choose the resource: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount to move", "produced");
@@ -175,7 +219,9 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move cardProductionMove() {
-        return (interpreter, interlocutor) -> {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.PRODUCTION_CARD);
             IntegerRequest numSlot = new IntegerRequest ("Choose the number of slot with the card that you want to use for production", "numSlot");
@@ -185,14 +231,15 @@ public enum PlayMove implements MoveType{
     }
 
     private static Move chooseTurnTypeMove() {
-        return (interpreter, interlocutor) -> {
-            interlocutor.write ("You can choose from " + PlayState.TurnType.getPossibilities());
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
+            interlocutor.write ("You can choose from\n" + PlayState.TurnType.getPossibilities ());
             String turnType = interpreter.listen ();
             try {
-                PlayState.addAvailableMoves (PlayState.TurnType.get(turnType));
-                interlocutor.write (PlayState.menu ());
+                PlayState.addAvailableMoves (PlayState.TurnType.get (turnType));
             } catch (UnavailableMoveName unavailableMoveName) {
-                chooseTurnTypeMove ().ask (interpreter, interlocutor);
+                chooseTurnTypeMove ().ask (ui);
             }
             return null;
         };

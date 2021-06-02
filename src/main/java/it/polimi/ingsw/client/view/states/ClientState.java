@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.states;
 
 import it.polimi.ingsw.client.view.moves.Move;
+import it.polimi.ingsw.client.view.moves.PlayMove;
 
 import java.util.HashMap;
 
@@ -9,19 +10,20 @@ public abstract class ClientState {
 
     protected ClientState() {
         nameAndDesc = new HashMap<> ();
+        addAvailableMove (PlayMove.QUIT.getCmd (), "QUIT THE GAME");
     }
 
     private Move menuMove() {
-        return (interpreter, interlocutor) -> {
-            interlocutor.write (menu ());
+        return (ui) -> {
+            ui.getInterlocutor ().write (menu ());
             return null;
         };
     }
 
     public static String menu() {
-        String menu = "You can perform these actions: \n";
+        String menu = "You can perform these actions: ";
         for (String key : nameAndDesc.keySet ())
-            menu = menu + key + " -> " + nameAndDesc.get (key) + "\n";
+            menu = menu + "\n" + key + (!key.equals ("") ? " -> " : "") + nameAndDesc.get (key) ;
         return menu;
     }
 

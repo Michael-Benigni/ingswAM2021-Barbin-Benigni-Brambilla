@@ -47,6 +47,8 @@ public class PlayState extends ClientState {
         addAvailableMove (PlayMove.LEADER.getCmd (), "PLAY OR DISCARD A LEADER CARD");
         addAvailableMove (PlayMove.END_TURN.getCmd (), "TERMINATE YOUR TURN");
         addAvailableMove (PlayMove.SWAP_DEPOTS.getCmd (), "SWAP 2 DEPOTS");
+        addAvailableMove (PlayMove.SHOW_GAME_BOARD.getCmd (), "SHOW THE GAME BOARD");
+        addAvailableMove (PlayMove.SHOW_PERSONAL_BOARD.getCmd (), "SHOW THE PERSONAL BOARD");
     }
 
 

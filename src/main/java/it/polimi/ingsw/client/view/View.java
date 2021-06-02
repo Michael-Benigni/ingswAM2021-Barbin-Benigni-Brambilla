@@ -21,7 +21,11 @@ public class View {
     public void loop() {
         new Thread (()->
         {
-            this.ui.start ();
+            try {
+                this.ui.start ();
+            } catch (Exception e) {
+                e.printStackTrace ();
+            }
             while (true) {
                 Sendable sendable = getNextMove ();
                 this.channel.send (sendable);
