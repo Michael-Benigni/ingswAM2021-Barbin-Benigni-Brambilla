@@ -297,7 +297,7 @@ public class PersonalBoard implements Producer {
         ArrayList<DevelopmentCard> cards = getAllDevelopmentCards();
         for (DevelopmentCard card : cards)
             points.increaseVictoryPoints(card.getVictoryPoints());
-        ArrayList<LeaderCard> leaderCards = this.slotLeaderCards.getAllActiveCards();
+        ArrayList<LeaderCard> leaderCards = this.slotLeaderCards.getAllPlayedCards();
         for (LeaderCard card : leaderCards)
             points.increaseVictoryPoints(card.getVictoryPoints());
         points.increaseVictoryPoints(new VictoryPoint((int) Math.ceil(getAllResourcesAmount() / 5)));

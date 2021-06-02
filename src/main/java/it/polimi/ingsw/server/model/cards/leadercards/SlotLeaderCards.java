@@ -4,7 +4,6 @@ import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.FullLeaderCardSlotException;
 import it.polimi.ingsw.server.model.exception.LeaderCardNotFoundException;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
@@ -55,15 +54,16 @@ public class SlotLeaderCards implements GameComponent {
                 e.printStackTrace();
             }
         }
-        notifyUpdate(generateUpdate(cards));
+        notifyUpdate(generateUpdate(cards, new ArrayList<>(0)));
     }
 
-    private Sendable generateUpdate(ArrayList<LeaderCard> initialCards){
+    Sendable generateUpdate(ArrayList<LeaderCard> cardsNotPlayed, ArrayList<LeaderCard> cardsPlayed){
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.INIT_LEADER_CARDS);
-        writer.addProperty ("initialCardsList", buildIDsList(initialCards));
-        writer.addProperty("descriptions", buildDescriptions(initialCards));
-        writer.addProperty("maxNumberOfCardsDuringGame", this.maxNumOfCardsDuringGame);
+        writer.addProperty ("cardsNotPlayed", buildIDsList(cardsNotPlayed));
+        writer.addProperty("descriptionsNotPlayed", buildDescriptions(cardsNotPlayed));
+        writer.addProperty ("cardsPlayed", buildIDsList(cardsPlayed));
+        writer.addProperty("descriptionsPlayed", buildDescriptions(cardsPlayed));
         return writer.write ();
     }
 
@@ -73,9 +73,11 @@ public class SlotLeaderCards implements GameComponent {
      * @return the array of descriptions of the cards passed like parameters
      */
     private ArrayList<String> buildDescriptions(ArrayList<LeaderCard> cards){
-        ArrayList<String> listOfDescriptions = new ArrayList<>();
-        for(int i = 0; i < cards.size(); i++){
-            listOfDescriptions.add(cards.get(i).toString());
+        ArrayList<String> listOfDescriptions = new ArrayList<>(0);
+        if(!cards.isEmpty()){
+            for(int i = 0; i < cards.size(); i++){
+                listOfDescriptions.add(cards.get(i).toString());
+            }
         }
         return listOfDescriptions;
     }
@@ -86,13 +88,14 @@ public class SlotLeaderCards implements GameComponent {
      * @return the array of IDs of the cards passed like parameters
      */
     private ArrayList<Integer> buildIDsList(ArrayList<LeaderCard> cards){
-        ArrayList<Integer> listOfIDs = new ArrayList<>();
-        for(int i = 0; i < cards.size(); i++){
-            listOfIDs.add(cards.get(i).getCardID());
+        ArrayList<Integer> listOfIDs = new ArrayList<>(0);
+        if(!cards.isEmpty()){
+            for(int i = 0; i < cards.size(); i++){
+                listOfIDs.add(cards.get(i).getCardID());
+            }
         }
         return listOfIDs;
     }
-
 
     /**
      * this method adds the specified
@@ -118,6 +121,7 @@ public class SlotLeaderCards implements GameComponent {
             throw new LeaderCardNotFoundException();
         else
             this.listOfLeaderCards.remove(cardToRemove);
+        notifyUpdate(generateUpdate(getAllNotPlayedCards(), getAllPlayedCards()));
     }
 
 
@@ -129,11 +133,22 @@ public class SlotLeaderCards implements GameComponent {
         return this.listOfLeaderCards.get(cardIndex);
     }
 
+    /**
+     * @return all the inactive LeaderCards of the LeaderCardsSlot
+     */
+    public ArrayList<LeaderCard> getAllNotPlayedCards() {
+        ArrayList<LeaderCard> allCards = new ArrayList<>();
+        for (LeaderCard card : this.listOfLeaderCards) {
+            if(!card.isAlreadyPlayed())
+                allCards.add(card);
+        }
+        return allCards;
+    }
 
     /**
      * @return all the active LeaderCards of the LeaderCardsSlot
      */
-    public ArrayList<LeaderCard> getAllActiveCards() {
+    public ArrayList<LeaderCard> getAllPlayedCards() {
         ArrayList<LeaderCard> allCards = new ArrayList<>();
         for (LeaderCard card : this.listOfLeaderCards) {
             if(card.isAlreadyPlayed())

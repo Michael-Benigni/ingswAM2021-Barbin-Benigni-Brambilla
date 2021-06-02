@@ -77,11 +77,9 @@ public class LWeightPersonalBoard {
         slots.get(numberOfSlot).add(addedDevCard);
     }
 
-    public void updateLeaderCardsPlayed(ArrayList<LWLeaderCard> leaderCardsPlayed) {
-        this.leaderCardsPlayed = leaderCardsPlayed;
-    }
-
-    public void updateLeaderCardsNotPlayed(ArrayList<LWLeaderCard> leaderCardsNotPlayed) {
+    public void updateLeaderCards(ArrayList<LWLeaderCard> leaderCardsNotPlayed,
+                                  ArrayList<LWLeaderCard> leaderCardsPlayed) {
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;
+        this.leaderCardsPlayed = leaderCardsPlayed;
     }
 }

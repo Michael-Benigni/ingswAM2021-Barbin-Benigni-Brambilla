@@ -101,10 +101,15 @@ public class LeaderCard {
      * @throws NullResourceAmountException
      * @throws WrongSlotDevelopmentIndexException
      */
-    public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NoEmptyResourceException, ResourceOverflowInDepotException {
+    public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException,
+            NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException,
+            NoEmptyResourceException, ResourceOverflowInDepotException {
         this.isAlreadyPlayed = true;
         if(checkRequirementsOf(player))
             effect.applyOn(player, game);
+        SlotLeaderCards auxiliarySlot = player.getPersonalBoard().getSlotLeaderCards();
+        auxiliarySlot.notifyUpdate(auxiliarySlot.generateUpdate(auxiliarySlot.getAllNotPlayedCards(),
+                auxiliarySlot.getAllPlayedCards()));
     }
 
     /**

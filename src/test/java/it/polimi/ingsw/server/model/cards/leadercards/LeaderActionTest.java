@@ -56,7 +56,7 @@ class LeaderActionTest extends ActionTest {
         play1.perform(game, player1);
         play2.perform(game, player1);
         play3.perform(game, player1);
-        ArrayList<LeaderCard> activatedCards = player1.getPersonalBoard().getSlotLeaderCards().getAllActiveCards();
+        ArrayList<LeaderCard> activatedCards = player1.getPersonalBoard().getSlotLeaderCards().getAllPlayedCards();
         assertTrue(activatedCards.size() == 4);
     }
 }
