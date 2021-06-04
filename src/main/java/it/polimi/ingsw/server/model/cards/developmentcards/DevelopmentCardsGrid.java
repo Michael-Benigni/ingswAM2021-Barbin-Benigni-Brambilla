@@ -26,7 +26,7 @@ public class DevelopmentCardsGrid implements GameComponent {
     private ArrayList <ArrayList <ArrayList <DevelopmentCard>>> cardsGrid;
     private final ArrayList <PlayerWithDiscount> playerWithDiscounts = new ArrayList<>(0);
     private final Integer columns;
-    private ArrayList<Observer> observers;
+    private final ArrayList<Observer> observers;
 
     /**
      * this class represents the players
@@ -36,8 +36,8 @@ public class DevelopmentCardsGrid implements GameComponent {
     private class PlayerWithDiscount {
 
         private final Player playerWithDiscount;
-        private final StorableResource discount;
 
+        private final StorableResource discount;
         /**
          * this is the constructor method of this class
          * @param playerWithDiscount it refers to the player that has obtained the discount
@@ -48,8 +48,8 @@ public class DevelopmentCardsGrid implements GameComponent {
             this.discount = discount;
         }
 
-    }
 
+    }
     /**
      * this is the constructor method for the class DevelopmentCardsGrid
      * this constructor invokes the method setCardsGrid to build
@@ -61,7 +61,6 @@ public class DevelopmentCardsGrid implements GameComponent {
         this.columns = columns;
         initGrid();
         setCardsGrid(cardsList);
-        notifyUpdate(generateUpdate(buildFrontalIDsGrid()));
     }
 
     /**
@@ -91,8 +90,8 @@ public class DevelopmentCardsGrid implements GameComponent {
         if(this.cardsGrid != null){
             for (int i = 0; i < this.rows; i++){
                 for (int j = 0; j < this.columns; j++){
-                    int choosenDeckLastIndex = getDeck(i, j).size() - 1;
-                    descriptions[i][j] = this.cardsGrid.get(i).get(j).get(choosenDeckLastIndex).toString();
+                    int chosenDeckLastIndex = getDeck(i, j).size() - 1;
+                    descriptions[i][j] = this.cardsGrid.get(i).get(j).get(chosenDeckLastIndex).toString();
                 }
             }
         }
@@ -110,8 +109,8 @@ public class DevelopmentCardsGrid implements GameComponent {
         if(this.cardsGrid != null){
             for (int i = 0; i < this.rows; i++){
                 for (int j = 0; j < this.columns; j++){
-                    int choosenDeckLastIndex = getDeck(i, j).size() - 1;
-                    frontalGrid[i][j] = this.cardsGrid.get(i).get(j).get(choosenDeckLastIndex).getCardID();
+                    int chosenDeckLastIndex = getDeck(i, j).size() - 1;
+                    frontalGrid[i][j] = this.cardsGrid.get(i).get(j).get(chosenDeckLastIndex).getCardID();
                 }
             }
         }
@@ -148,14 +147,14 @@ public class DevelopmentCardsGrid implements GameComponent {
      * @return the card that the player has choosen
      * @throws EmptyDeckException thrown if the choosen deck is empty
      */
-    public DevelopmentCard getChoosenCard(int iPos, int jPos, Player player) throws EmptyDeckException {
+    public DevelopmentCard getChosenCard(int iPos, int jPos, Player player) throws EmptyDeckException {
         DevelopmentCard chosenCard;
-        ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
-        int choosenDeckLastIndex = choosenDeck.size() - 1;
-        chosenCard = (DevelopmentCard) choosenDeck.get(choosenDeckLastIndex).clone();
-        for(int i = 0; i < this.playerWithDiscounts.size(); i++){
-            if(this.playerWithDiscounts.get(i).playerWithDiscount == player) {
-                chosenCard.reduceCost(this.playerWithDiscounts.get(i).discount);
+        ArrayList <DevelopmentCard> chosenDeck = getDeck(iPos, jPos);
+        int chosenDeckLastIndex = chosenDeck.size() - 1;
+        chosenCard = (DevelopmentCard) chosenDeck.get(chosenDeckLastIndex).clone();
+        for (PlayerWithDiscount playerWithDiscount : this.playerWithDiscounts) {
+            if (playerWithDiscount.playerWithDiscount == player) {
+                chosenCard.reduceCost (playerWithDiscount.discount);
             }
         }
         return chosenCard;
@@ -168,17 +167,17 @@ public class DevelopmentCardsGrid implements GameComponent {
      * @param jPos index of the column
      * @throws EmptyDeckException thrown by getDeck if the deck is empty
      */
-    public void removeChoosenCardFromGrid (int iPos, int jPos) throws EmptyDeckException {
-        ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
-        int chosenDeckLastIndex = choosenDeck.size() - 1;
-        DevelopmentCard removeCard = choosenDeck.get(chosenDeckLastIndex);
+    public void removeChosenCard(int iPos, int jPos) throws EmptyDeckException {
+        ArrayList <DevelopmentCard> chosenDeck = getDeck(iPos, jPos);
+        int chosenDeckLastIndex = chosenDeck.size() - 1;
+        DevelopmentCard removeCard = chosenDeck.get(chosenDeckLastIndex);
         DevelopmentCard showCard = null;
-        choosenDeck.remove(chosenDeckLastIndex);
-        if(choosenDeck.isEmpty())
-            notifyUpdate(generateUpdate(removeCard, showCard));
+        chosenDeck.remove(chosenDeckLastIndex);
+        if(chosenDeck.isEmpty())
+            notifyUpdate(generateUpdate(removeCard, null));
         else
-            showCard = choosenDeck.get(chosenDeckLastIndex - 1);
-            notifyUpdate(generateUpdate(removeCard, showCard));
+            showCard = chosenDeck.get(chosenDeckLastIndex - 1);
+        notifyUpdate(generateUpdate(removeCard, showCard));
     }
 
     /**
@@ -238,8 +237,8 @@ public class DevelopmentCardsGrid implements GameComponent {
             for(int j = 0; j < columns; j++) {
                 List<DevelopmentCard> deck = cardsGroupedByColourSortedByLevel.subList(0, numberOfCardsInEachDeck);
                 this.cardsGrid.get(i).add(new ArrayList<>(deck));
-                for(int k = 0; k < numberOfCardsInEachDeck; k++){
-                    cardsGroupedByColourSortedByLevel.remove(0);
+                if (numberOfCardsInEachDeck > 0) {
+                    cardsGroupedByColourSortedByLevel.subList (0, numberOfCardsInEachDeck).clear ();
                 }
             }
         }
@@ -293,13 +292,21 @@ public class DevelopmentCardsGrid implements GameComponent {
                 try {
                     if(getDeck(i, j).get(0).hasSameColour(colourToRemove)) {
                         for(;cardsToBeRemoved > 0; cardsToBeRemoved --) {
-                            removeChoosenCardFromGrid(i, j);
+                            removeChosenCard (i, j);
                         }
                     }
                 } catch (EmptyDeckException ignored) {
 
                 }
             }
+        }
+    }
+
+    public void notifyInitialUpdate() {
+        try {
+            notifyUpdate (generateUpdate(buildFrontalIDsGrid()));
+        } catch (EmptyDeckException e) {
+            e.printStackTrace ();
         }
     }
 

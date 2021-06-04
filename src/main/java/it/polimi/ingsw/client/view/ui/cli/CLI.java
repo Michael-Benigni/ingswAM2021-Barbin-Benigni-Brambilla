@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.lightweightmodel.LWeightPersonalBoard;
+import it.polimi.ingsw.client.view.lightweightmodel.LWPersonalBoard;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Header;
@@ -37,13 +37,14 @@ public class CLI extends UI {
 
     @Override
     public void showPersonalBoard() {
-        LWeightPersonalBoard personalBoard = getView ().getModel ().getPersonalBoard ();
+        LWPersonalBoard personalBoard = getView ().getModel ().getPersonalBoard ();
         interlocutor.write (personalBoard.toString ());
     }
 
     @Override
     public void showGameBoard() {
-
+        System.out.println (getView ().getModel ().getPersonalBoard ().getLeaderCardsNotPlayed ().size ());
+        System.out.println (getView ().getModel ().getPersonalBoard ().getLeaderCardsPlayed ().size ());
     }
 
     @Override

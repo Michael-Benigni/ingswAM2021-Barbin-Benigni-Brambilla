@@ -1,17 +1,10 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
+import it.polimi.ingsw.client.view.ui.cli.Colour;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarbleColour;
 import java.util.ArrayList;
 
 public class LWeightBoard {
-
-    /**
-     *
-     */
-    private class LWMarket {
-        private ArrayList<ArrayList<MarbleColour>> marbles;
-        private MarbleColour marbleOnSlide;
-    }
 
     private LWCardsGrid grid;
     private ArrayList<LWCell> faithTrack;

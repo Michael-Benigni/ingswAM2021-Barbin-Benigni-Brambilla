@@ -49,6 +49,7 @@ public class Controller {
             if (room.isFull ()) {
                 GameFactory factory = new GameFactory ();
                 Game game = factory.MultiOrSingleplayerGame (room.getSize ());
+                addGameToRoom(game, room);
                 ArrayList<User> users = room.getAllUsers ();
                 for (User userInRoom : users) {
                     Player player = game.createPlayer ();
@@ -64,6 +65,13 @@ public class Controller {
         }
         else
             throw new OnlyLeaderCanStartGameException ();
+    }
+
+    private void addGameToRoom(Game game, WaitingRoom room) {
+        this.waitingRooms.forEach (entry -> {
+            if(entry.getKey ().equals (room))
+                entry.setValue (game);
+        });
     }
 
     public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException, IllegalNumberOfPlayersException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {

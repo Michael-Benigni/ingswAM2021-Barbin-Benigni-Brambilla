@@ -94,10 +94,12 @@ public enum PlayMove implements MoveType {
             Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.WAREHOUSE);
-            StringRequest playOrStore = new StringRequest ("Digit \"store\" or \"remove\" according to the action that you want to perform", "playOrRemove");
+            StringRequest playOrStore = new StringRequest ("Digit \"store\" or \"remove\" according to the action that you want to perform", "storeOrRemove");
             writer = playOrStore.handleInput (interlocutor, interpreter, writer);
             IntegerRequest depotIdx = new IntegerRequest ("Indicate the number of depot to use", "depotIdx");
             writer = depotIdx.handleInput (interlocutor, interpreter, writer);
+            ResourceRequest resourceReq = new ResourceRequest ("Choose the resource to store", "resourceToPay");
+            writer = resourceReq.handleInput (interlocutor, interpreter, writer);
             return writer.write ();
         };
     }

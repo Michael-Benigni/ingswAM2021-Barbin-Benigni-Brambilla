@@ -31,7 +31,8 @@ public interface Header {
         FULL_ROOM ("full_room"),
         SLOT_DEVCARD_UPDATE("slot_devcard_update"),
         INIT_LEADER_CARDS("init_leader_cards"),
-        STRONGBOX_UPDATE("strongbox_update");
+        STRONGBOX_UPDATE("strongbox_update"),
+        MARKET_UP ("market_up");
 
 
         private final String headerStr;

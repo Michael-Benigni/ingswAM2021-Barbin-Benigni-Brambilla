@@ -6,23 +6,23 @@ import it.polimi.ingsw.client.view.lightweightmodel.LWLeaderCard;
 import java.util.ArrayList;
 
 public class SlotLeaderCardUpdate implements ViewUpdate {
-    private ArrayList<Integer> notPlayedCardsList;
-    private ArrayList<String> notPlayedDescriptions;
-    private ArrayList<Integer> playedCardsList;
-    private ArrayList<String> playedDescriptions;
+    private ArrayList<Integer> cardsNotPlayed;
+    private ArrayList<String> descriptionsNotPlayed;
+    private ArrayList<Integer> cardsPlayed;
+    private ArrayList<String> descriptionsPlayed;
 
-    public SlotLeaderCardUpdate(ArrayList<Integer> notPlayedCardsList, ArrayList<String> notPlayedDescriptions,
-                                ArrayList<Integer> playedCardsList, ArrayList<String> playedDescriptions) {
-        this.playedCardsList = playedCardsList;
-        this.playedDescriptions = playedDescriptions;
-        this.notPlayedCardsList = notPlayedCardsList;
-        this.notPlayedDescriptions = notPlayedDescriptions;
+    public SlotLeaderCardUpdate(ArrayList<Integer> cardsNotPlayed, ArrayList<String> descriptionsNotPlayed,
+                                ArrayList<Integer> cardsPlayed, ArrayList<String> descriptionsPlayed) {
+        this.cardsPlayed = cardsPlayed;
+        this.descriptionsPlayed = descriptionsPlayed;
+        this.cardsNotPlayed = cardsNotPlayed;
+        this.descriptionsNotPlayed = descriptionsNotPlayed;
     }
 
     @Override
     public void update(View view) {
-        view.getModel().getPersonalBoard().updateLeaderCards(buildLWLeaderCards(this.notPlayedCardsList,
-                this.notPlayedDescriptions), buildLWLeaderCards(this.playedCardsList, this.playedDescriptions));
+        view.getModel().getPersonalBoard().updateLeaderCards(buildLWLeaderCards(this.cardsNotPlayed,
+                this.descriptionsNotPlayed), buildLWLeaderCards(this.cardsPlayed, this.descriptionsPlayed));
     }
 
     private ArrayList<LWLeaderCard> buildLWLeaderCards(ArrayList<Integer> cardsIDs, ArrayList<String> descriptions){

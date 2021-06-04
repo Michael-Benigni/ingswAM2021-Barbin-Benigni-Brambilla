@@ -1,12 +1,13 @@
 package it.polimi.ingsw.server.model.gameresources.markettray;
 
-import com.google.gson.JsonArray;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.InvalidMarketColumnException;
 import it.polimi.ingsw.server.model.exception.InvalidMarketRowException;
 import it.polimi.ingsw.server.model.gameresources.Resource;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.*;
 
@@ -40,6 +41,10 @@ public class MarketTray implements GameComponent {
      * will be in the market
      */
     private HashMap<MarketMarble, Integer> howManyMarbles;
+
+    /**
+     *
+     */
     private ArrayList<Observer> observers;
 
 
@@ -56,6 +61,24 @@ public class MarketTray implements GameComponent {
         this.howManyMarbles = howManyMarbles;
         this.observers = new ArrayList<> ();
         setInitialShuffleDisposition ();
+    }
+
+    private Sendable generateUpdate() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.MARKET_UP);
+        writer.addProperty ("market", marblesMatrixForUpdate());
+        writer.addProperty ("marbleOnSlide", marbleOnSlide.getColour ());
+        return writer.write ();
+    }
+
+    private Object marblesMatrixForUpdate() {
+        MarbleColour[][] colours = new MarbleColour[rows][columns];
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                colours[r][c] = getMarbleAt (r, c).getColour ();
+            }
+        }
+        return colours;
     }
 
 
@@ -86,14 +109,13 @@ public class MarketTray implements GameComponent {
         ArrayList<MarketMarble> marbles = allMarbles ();
         Collections.shuffle (marbles);
         marblesMatrix = new ArrayList<> (0);
-        ArrayList<MarketMarble> column = null;
+        ArrayList<MarketMarble> column;
         int i, j;
         for (i = 0; i < columns; i++) {
             column = new ArrayList<> ();
             for (j = 0; j < rows; j++) {
                 column.add (j, marbles.get (j));
             }
-            j = 0;
             marblesMatrix.add (column);
             int alreadyTakenMarbles = 0;
             while (alreadyTakenMarbles < rows) {
@@ -124,13 +146,11 @@ public class MarketTray implements GameComponent {
      * @throws InvalidMarketRowException if selectedRow >= rows (look at the attributes)
      */
     public List<Resource> pickResourcesOnRow(int selectedRow) throws InvalidMarketRowException {
-        //TODO: check how is decoded the row when this method is called
         ArrayList<MarketMarble> rowToSwap = getRow (selectedRow);
         swap (rowToSwap);
         // it has been swapped the row in marblesGrid or a copy of the row?
         return getResources (rowToSwap);
     }
-    //TODO: check how is decoded the row when this method is called
 
 
     /**
@@ -187,7 +207,7 @@ public class MarketTray implements GameComponent {
      * @return the target MarketMarble
      */
     private MarketMarble getMarbleAt(int row, int column) {
-        return marblesMatrix.get (row).get (column);
+        return marblesMatrix.get (column).get (row);
     }
 
 
@@ -198,11 +218,14 @@ public class MarketTray implements GameComponent {
      * @return the correspondent Resources of the vectoOfMarbles
      */
     private ArrayList<Resource> getResources(ArrayList<MarketMarble> vectorOfMarbles) {
-        return vectorOfMarbles
+        ArrayList<Resource> resources =
+                vectorOfMarbles
                 .stream ()
                 .parallel ()
-                .map ((marble) -> marble.getCorrespondentResource ())
+                .map (MarketMarble::getCorrespondentResource)
                 .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
+        notifyUpdate (generateUpdate ());
+        return resources;
     }
 
 
@@ -256,5 +279,9 @@ public class MarketTray implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+    }
+
+    public void notifyInitialUpdate() {
+        notifyUpdate (generateUpdate ());
     }
 }

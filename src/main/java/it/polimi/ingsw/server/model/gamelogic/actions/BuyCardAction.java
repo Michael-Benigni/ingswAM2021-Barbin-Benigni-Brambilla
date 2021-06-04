@@ -26,7 +26,7 @@ class BuyCardAction implements MutualExclusiveAction {
     @Override
     public void perform(Game game, Player player) throws Exception {
         DevelopmentCardsGrid cardsGrid = game.getGameBoard().getDevelopmentCardGrid();
-        DevelopmentCard chosenCard = cardsGrid.getChoosenCard(this.row, this.column, player);
+        DevelopmentCard chosenCard = cardsGrid.getChosenCard (this.row, this.column, player);
         if(player.canBuy(chosenCard)) {
             SlotDevelopmentCards slot = player.getPersonalBoard().getSlotDevelopmentCards(this.slotIdx);
             UnboundedResourcesContainer costContainer = new UnboundedResourcesContainer().storeAll(chosenCard.getCost());
@@ -37,7 +37,7 @@ class BuyCardAction implements MutualExclusiveAction {
             else {
                 game.getCurrentTurn().clearCache();
                 slot.placeOnTop(chosenCard);
-                cardsGrid.removeChoosenCardFromGrid(row, column);
+                cardsGrid.removeChosenCard (row, column);
             }
         }
     }

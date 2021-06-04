@@ -1,21 +1,17 @@
 package it.polimi.ingsw.client.view;
 
-import it.polimi.ingsw.client.view.lightweightmodel.LightweightModel;
-import it.polimi.ingsw.client.view.states.ClientState;
-import it.polimi.ingsw.client.view.states.WaitingRoomState;
+import it.polimi.ingsw.client.view.lightweightmodel.LWModel;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.*;
-
-import java.util.NoSuchElementException;
 
 public class View {
     private Channel channel;
     private UI ui;
-    private LightweightModel model;
+    private LWModel model;
 
     public View(UI ui) {
         this.ui = ui;
-        this.model = new LightweightModel ();
+        this.model = new LWModel ();
     }
 
     public void loop() {
@@ -57,7 +53,7 @@ public class View {
         return this.ui;
     }
 
-    public LightweightModel getModel() {
+    public LWModel getModel() {
         return model;
     }
 }

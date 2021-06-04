@@ -117,11 +117,11 @@ public class DevelopmentCardsGridTest {
         DevelopmentCardsGrid cardsGrid = new DevelopmentCardsGrid(cardsList, numberOfRows, numberOfColumns);
         for(int i = 0; i < numberOfRows; i++) {
             for(int j = 0; j < numberOfColumns; j++) {
-                DevelopmentCard card = cardsGrid.getChoosenCard(i, j, player);
+                DevelopmentCard card = cardsGrid.getChosenCard (i, j, player);
                 for(int k = 1; k < numberOfCardsInEachDeck; k++) {
-                    cardsGrid.removeChoosenCardFromGrid(i, j);
-                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) ||
-                            card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
+                    cardsGrid.removeChosenCard(i, j);
+                    if(!card.hasSameColour(cardsGrid.getChosenCard(i, j, player)) ||
+                            card.levelCompare(cardsGrid.getChosenCard(i, j, player)) != 0) {
                         fail();
                     }
                 }
@@ -142,9 +142,9 @@ public class DevelopmentCardsGridTest {
         DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
         DevelopmentCard card;
         for(int i = 0; i < numberOfRows; i++) {
-            card = cardsGrid.getChoosenCard(i, 0, player);
+            card = cardsGrid.getChosenCard (i, 0, player);
             for (int j = 1; j < numberOfColumns; j++) {
-                if(card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
+                if(card.levelCompare(cardsGrid.getChosenCard (i, j, player)) != 0) {
                     fail();
                 }
             }
@@ -164,9 +164,9 @@ public class DevelopmentCardsGridTest {
         DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
         DevelopmentCard card;
         for(int i = 0; i < numberOfColumns; i++) {
-            card = cardsGrid.getChoosenCard(0, i, player);
+            card = cardsGrid.getChosenCard (0, i, player);
             for (int j = 1; j < numberOfRows; j++) {
-                if(!card.hasSameColour(cardsGrid.getChoosenCard(j, i, player))) {
+                if(!card.hasSameColour(cardsGrid.getChosenCard (j, i, player))) {
                     fail();
                 }
             }
@@ -178,10 +178,10 @@ public class DevelopmentCardsGridTest {
         Player player = new Player();
         DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
         StorableResource discount = new StorableResource(ResourceType.SERVANT, 1);
-        DevelopmentCard choosenCardWithoutDiscount = cardsGrid.getChoosenCard(0, 0, player);
+        DevelopmentCard choosenCardWithoutDiscount = cardsGrid.getChosenCard (0, 0, player);
         choosenCardWithoutDiscount.reduceCost(discount);
         cardsGrid.addPlayerWithDiscount(player, discount);
-        DevelopmentCard choosenCard = cardsGrid.getChoosenCard(0, 0, player);
+        DevelopmentCard choosenCard = cardsGrid.getChosenCard (0, 0, player);
         assertEquals(choosenCardWithoutDiscount, choosenCard);
     }
 
@@ -201,7 +201,7 @@ public class DevelopmentCardsGridTest {
         for(int i = 0; i < numberOfRows; i++)
             for(int j = 0; j < numberOfColumns; j++)
                 try {
-                    GeneralDevelopmentCard choosenCard = newGrid.getChoosenCard(i ,j, player);
+                    GeneralDevelopmentCard choosenCard = newGrid.getChosenCard(i ,j, player);
                     assertFalse(choosenCard.hasSameColour(colourCard));
                 } catch (EmptyDeckException emptyDeckException) {
                     excCount ++;

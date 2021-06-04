@@ -77,4 +77,10 @@ public class GameBoard {
     public DevelopmentCardsGrid getDevelopmentCardGrid() {
         return this.developmentCardGrid;
     }
+
+    public void sendInitialUpdate() {
+        this.getDevelopmentCardGrid ().notifyInitialUpdate();
+        this.getMarketTray ().notifyInitialUpdate ();
+        this.getFaithTrack ().notifyInitialUpdate ();
+    }
 }

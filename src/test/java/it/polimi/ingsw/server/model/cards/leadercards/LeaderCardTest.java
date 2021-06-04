@@ -13,7 +13,6 @@ import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoardTest;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrackTest;
-import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTrayTest;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -22,7 +21,6 @@ import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -125,8 +123,8 @@ public class LeaderCardTest {
             personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
         game.setup(personalBoards, gameBoard, new ArrayList<>());
         leaderCard.play(player, game);
-        ArrayList<StorableResource> cost = developmentCardsGrid.getChoosenCard(0, 0, player).getCost();
-        ArrayList<StorableResource> cost2 = developmentCardsGrid.getChoosenCard(0, 0, auxPlayer).getCost();
+        ArrayList<StorableResource> cost = developmentCardsGrid.getChosenCard (0, 0, player).getCost();
+        ArrayList<StorableResource> cost2 = developmentCardsGrid.getChosenCard (0, 0, auxPlayer).getCost();
         ArrayList<StorableResource> cost1 = new ArrayList<>();
         StorableResource cost11 = new StorableResource(ResourceType.SERVANT, 1);
         cost1.add(cost11);

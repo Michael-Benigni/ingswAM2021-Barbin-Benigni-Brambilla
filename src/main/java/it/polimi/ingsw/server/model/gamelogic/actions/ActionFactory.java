@@ -7,6 +7,7 @@ public class ActionFactory {
     private static final HashMap<Header.ToServer, Class<? extends Action>> map = init ();
 
     private static HashMap<Header.ToServer, Class<? extends Action>> init() {
+        HashMap<Header.ToServer, Class<? extends Action>> map = new HashMap<> ();
         map.put (Header.ToServer.BOARD_PRODUCTION, BoardProductionAction.class);
         map.put (Header.ToServer.BUY_CARD, BuyCardAction.class);
         map.put (Header.ToServer.DISCARD_ALL_RESOURCES, DiscardAllResources.class);
@@ -25,7 +26,6 @@ public class ActionFactory {
     }
 
     public static Class<? extends Action> getActionType(Header.ToServer toServer) {
-        HashMap<Header.ToServer, Class<? extends Action>> map = new HashMap<> ();
         return map.get (toServer);
     }
 }

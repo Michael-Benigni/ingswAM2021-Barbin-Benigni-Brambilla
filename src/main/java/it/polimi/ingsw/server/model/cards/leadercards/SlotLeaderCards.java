@@ -39,7 +39,7 @@ public class SlotLeaderCards implements GameComponent {
         this.listOfLeaderCards = new ArrayList<>(0);
         this.maxNumberOfCards = maxNumberOfCards;
         this.maxNumOfCardsDuringGame = maxNumOfCardsDuringGame;
-        observers = new ArrayList<> ();
+        this.observers = new ArrayList<> ();
     }
 
 
@@ -76,11 +76,8 @@ public class SlotLeaderCards implements GameComponent {
      */
     private ArrayList<String> buildDescriptions(ArrayList<LeaderCard> cards){
         ArrayList<String> listOfDescriptions = new ArrayList<>(0);
-        if(!cards.isEmpty()){
-            for(int i = 0; i < cards.size(); i++){
-                listOfDescriptions.add(cards.get(i).toString());
-            }
-        }
+        for (LeaderCard card : cards)
+            listOfDescriptions.add (card.toString ());
         return listOfDescriptions;
     }
 
@@ -91,11 +88,8 @@ public class SlotLeaderCards implements GameComponent {
      */
     private ArrayList<Integer> buildIDsList(ArrayList<LeaderCard> cards){
         ArrayList<Integer> listOfIDs = new ArrayList<>(0);
-        if(!cards.isEmpty()){
-            for(int i = 0; i < cards.size(); i++){
-                listOfIDs.add(cards.get(i).getCardID());
-            }
-        }
+        for (LeaderCard card : cards)
+            listOfIDs.add (card.getCardID ());
         return listOfIDs;
     }
 

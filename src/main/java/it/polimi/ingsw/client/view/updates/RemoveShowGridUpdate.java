@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.updates;
 
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.lightweightmodel.LWDevCard;
+import it.polimi.ingsw.client.view.ui.cli.Colour;
 
 public class RemoveShowGridUpdate implements ViewUpdate{
 
@@ -19,10 +20,12 @@ public class RemoveShowGridUpdate implements ViewUpdate{
 
     @Override
     public void update(View clientView){
-        LWDevCard cardRemove = new LWDevCard(cardToRemove, removeDescription);
+        Colour colour = null;
+        int level = 1;
+        LWDevCard cardRemove = new LWDevCard(cardToRemove, removeDescription/*, colour, level*/);
         LWDevCard cardShow;
         if(cardToShow != null){
-            cardShow = new LWDevCard(cardToShow, showDescription);
+            cardShow = new LWDevCard(cardToShow, showDescription/*, colour, level*/);
         }
         else
             cardShow = null;

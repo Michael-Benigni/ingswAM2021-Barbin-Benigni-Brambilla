@@ -4,36 +4,34 @@ import it.polimi.ingsw.client.view.ui.cli.Colour;
 
 import java.util.ArrayList;
 
-public class LWeightPersonalBoard {
+public class LWPersonalBoard {
 
     /**
      *
      */
     public static class LWResource {
+
         private Type type;
         private int amount;
         private LWResource(Type type, int amount) {
             this.type = type;
             this.amount = amount;
         }
-
         @Override
         public String toString() {
             return amount + " " + type.toString ();
         }
-    }
 
+    }
     /**
      *
      */
     private enum Type {
-        SERVANT ("SERVANT", Colour.ANSI_PURPLE), STONE ("STONE", Colour.ANSI_PURPLE),
-        SHIELD ("SHIELD", Colour.ANSI_BLUE), COIN ("COIN", Colour.ANSI_YELLOW),
-        EMPTY ("empty", null);
+        SERVANT ("SERVANT", Colour.PURPLE), STONE ("STONE", Colour.PURPLE), SHIELD ("SHIELD", Colour.BLUE), COIN ("COIN", Colour.YELLOW), EMPTY ("empty", null);
 
         private final String type;
-        private final Colour colour;
 
+        private final Colour colour;
         Type(String type, Colour colour) {
             this.type = type;
             this.colour = colour;
@@ -43,13 +41,13 @@ public class LWeightPersonalBoard {
         public String toString() {
             return colour.escape () + type + Colour.RESET.escape ();
         }
-    }
 
+    }
     public static class LWDepot {
+
         private LWResource resource;
         private int capacity;
         private Type type;
-
         public LWDepot(LWResource resource, int capacity, Type type) {
             this.resource = resource;
             this.capacity = capacity;
@@ -82,16 +80,16 @@ public class LWeightPersonalBoard {
                     "/" + capacityStr + "\\\n" +
                     "/" + resourceStr + "\\" ;
         }
+
     }
 
-
     private ArrayList<LWDepot> warehouse;
+
     private ArrayList<LWResource> strongbox;
     private ArrayList<LWResource> temporary;
     private ArrayList<ArrayList<LWDevCard>> slots; // max 3
     private ArrayList<LWLeaderCard> leaderCardsPlayed; // 4 at the beginning, then 2
     private ArrayList<LWLeaderCard> leaderCardsNotPlayed;
-
     public static void main(String[] args) {
         System.out.println (new LWDepot (new LWResource (Type.COIN, 3), 1, null));
         System.out.println (new LWDepot (new LWResource (Type.COIN, 3), 2, null));
@@ -99,12 +97,12 @@ public class LWeightPersonalBoard {
         System.out.println (new LWDepot (new LWResource (Type.COIN, 3), 2, Type.SERVANT));
     }
 
-    public LWeightPersonalBoard() {
+    public LWPersonalBoard() {
         this.warehouse = new ArrayList<> ();
         this.strongbox = new ArrayList<> ();
         this.temporary = new ArrayList<> ();
-        initSlots();
         this.leaderCardsPlayed = new ArrayList<> ();
+        initSlots();
     }
 
     private void initSlots(){
@@ -112,6 +110,30 @@ public class LWeightPersonalBoard {
         for(int i = 0; i < 3; i++){
             slots.add(new ArrayList<>());
         }
+    }
+
+    public ArrayList<LWDepot> getWarehouse() {
+        return warehouse;
+    }
+
+    public ArrayList<LWResource> getStrongbox() {
+        return strongbox;
+    }
+
+    public ArrayList<LWResource> getTemporary() {
+        return temporary;
+    }
+
+    public ArrayList<ArrayList<LWDevCard>> getSlots() {
+        return slots;
+    }
+
+    public ArrayList<LWLeaderCard> getLeaderCardsPlayed() {
+        return leaderCardsPlayed;
+    }
+
+    public ArrayList<LWLeaderCard> getLeaderCardsNotPlayed() {
+        return leaderCardsNotPlayed;
     }
 
     public void updateWarehouse(ArrayList<LWDepot> warehouse) {

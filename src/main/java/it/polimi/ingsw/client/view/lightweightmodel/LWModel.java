@@ -1,12 +1,12 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
-public class LightweightModel {
+public class LWModel {
     private final LWeightBoard board;
-    private final LWeightPersonalBoard personalBoard;
+    private final LWPersonalBoard personalBoard;
     private final InfoMatch infoMatch;
 
-    public LightweightModel() {
-        this.personalBoard = new LWeightPersonalBoard ();
+    public LWModel() {
+        this.personalBoard = new LWPersonalBoard ();
         this.board = new LWeightBoard ();
         this.infoMatch = new InfoMatch ();
     }
@@ -19,7 +19,7 @@ public class LightweightModel {
         return infoMatch;
     }
 
-    public LWeightPersonalBoard getPersonalBoard() {
+    public LWPersonalBoard getPersonalBoard() {
         return personalBoard;
     }
 }

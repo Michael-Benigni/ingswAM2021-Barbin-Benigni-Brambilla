@@ -129,7 +129,7 @@ public class GeneralDevelopmentCard implements Requirement {
     @Override
     public String toString() {
         return "Development Card with\n" +
-                "  COLOUR: " + getCardColour () + "\n" +
-                "  LEVEL: " + (getCardLevel ().ordinal () + 1) + "\n";
+                "  COLOUR: " + (getCardColour () == null ? "WHATEVER" : getCardColour ()) + "\n" +
+                "  LEVEL: " + (getCardLevel () == null ? "WHATEVER" : (getCardLevel ().ordinal () + 1)) + "\n";
     }
 }

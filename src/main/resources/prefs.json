@@ -1,9 +1,9 @@
 {
   "serverPort": 8888,
-  "heartbeatPeriod": 4000,
+  "heartbeatPeriod": 50000,
   "maxUsersInWaitingRoom": 4,
   "pathMainServerDB": "db.json",
-  "maxTimeForACKResponseMSec": 2000,
+  "maxTimeForACKResponseMSec": 50000,
   "defaultServerIP": "127.0.0.1",
   "defaultUICmd": "--cli",
   "maxNumOfPlayers": 4

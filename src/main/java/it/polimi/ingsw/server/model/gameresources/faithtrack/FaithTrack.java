@@ -162,4 +162,8 @@ public class FaithTrack implements GameComponent {
     public void attach(Observer observer) {
         this.observers.add (observer);
     }
+
+    public void notifyInitialUpdate() {
+
+    }
 }

@@ -8,7 +8,7 @@ public class CommandFactory {
     private static HashMap<Header.ToServer, Class<? extends Command>> map = init ();
 
     private static HashMap<Header.ToServer, Class<? extends Command>> init() {
-        map = new HashMap<> ();
+        HashMap<Header.ToServer, Class<? extends Command>> map = new HashMap<> ();
         map.put (Header.ToServer.NEW_USER, NewUserCommand.class);
         map.put (Header.ToServer.SET_NUM_PLAYERS, SetNumPlayersCommand.class);
         map.put (Header.ToServer.SET_USERNAME, UsernameCommand.class);

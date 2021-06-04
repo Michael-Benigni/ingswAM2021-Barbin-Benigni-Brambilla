@@ -2,8 +2,6 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
-import it.polimi.ingsw.server.model.exception.EmptyDeckException;
-import it.polimi.ingsw.server.model.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.server.model.gamelogic.ActionTest;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -18,7 +16,7 @@ class ProductionCardActionTest extends ActionTest {
     @Test
     void performTest1() throws Exception {
         StorableResource resource = new StorableResource(ResourceType.SERVANT, 2);
-        DevelopmentCard developmentCard = game.getGameBoard().getDevelopmentCardGrid().getChoosenCard(2, 0, player1);
+        DevelopmentCard developmentCard = game.getGameBoard().getDevelopmentCardGrid().getChosenCard (2, 0, player1);
         player1.getPersonalBoard().getSlotDevelopmentCards(0).placeOnTop(developmentCard);
         player1.getPersonalBoard().getStrongbox().store(resource);
         ArrayList<PayAction> payActions = new ArrayList<>();

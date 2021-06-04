@@ -69,7 +69,7 @@ public class Player implements GameComponent {
         this.personalBoard.getStrongbox ().attach(observer);
         for (SlotDevelopmentCards slot : this.personalBoard.getListOfSlotDevelopmentCards ())
             slot.attach (observer);
-        //this.personalBoard.getSlotLeaderCards ().attach(observer);
+        this.personalBoard.getSlotLeaderCards ().attach(observer);
         this.personalBoard.getTempContainer ().attach(observer);
         this.personalBoard.getWarehouseDepots ().attach (observer);
     }

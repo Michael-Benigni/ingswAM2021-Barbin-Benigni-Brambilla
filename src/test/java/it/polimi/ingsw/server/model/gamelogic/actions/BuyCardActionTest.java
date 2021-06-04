@@ -36,7 +36,7 @@ class BuyCardActionTest extends ActionTest{
         // cost, consumed resources and produced resources.
         // We are comparing two different cards because the buy action also removes the card from the grid, but we can
         // compare them because they have same colour and level
-        assertTrue(allDevelopmentCardsFromSlots.get(0).equals(game.getGameBoard().getDevelopmentCardGrid().getChoosenCard(2, 0, player1)));
+        assertTrue(allDevelopmentCardsFromSlots.get(0).equals(game.getGameBoard().getDevelopmentCardGrid().getChosenCard (2, 0, player1)));
         ArrayList<StorableResource> resourcesFromStrongbox = player1.getPersonalBoard().getStrongbox().getAllResources();
         ArrayList<StorableResource> resourcesFromWarehouse = player1.getPersonalBoard().getWarehouseDepots().getAllResources();
         assertTrue(resourcesFromStrongbox.get(0).equals(new StorableResource(ResourceType.SERVANT, 6)));
@@ -58,7 +58,7 @@ class BuyCardActionTest extends ActionTest{
         // cost, consumed resources and produced resources.
         // We are comparing two different cards because the buy action also removes the card from the grid, but we can
         // compare them because they have same colour and level
-        assertTrue(allDevelopmentCardsFromSlots.get(0).equals(game.getGameBoard().getDevelopmentCardGrid().getChoosenCard(2, 0, player1)));
+        assertTrue(allDevelopmentCardsFromSlots.get(0).equals(game.getGameBoard().getDevelopmentCardGrid().getChosenCard (2, 0, player1)));
         ArrayList<StorableResource> resourcesFromStrongbox = player1.getPersonalBoard().getStrongbox().getAllResources();
         ArrayList<StorableResource> resourcesFromWarehouse = player1.getPersonalBoard().getWarehouseDepots().getAllResources();
         assertTrue(!resourcesFromStrongbox.isEmpty());

@@ -14,6 +14,7 @@ public class ResourceRequest extends Request{
     @Override
     public MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) {
         super.handleInput (interlocutor, interpreter, writer);
+        interlocutor.write ("The format of the input must be \"RESOURCE_TYPE AMOUNT\"");
         StringParser parser = new StringParser (separator);
         ArrayList<String> info = parser.decompose(interpreter.listen ());
         writer.addProperty ("type", info.get (0));

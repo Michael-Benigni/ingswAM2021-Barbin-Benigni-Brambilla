@@ -30,7 +30,7 @@ public class MarketMarble {
         return (Resource) resource.clone();
     }
 
-    private MarbleColour getColour() {
+    MarbleColour getColour() {
         return this.colour;
     }
 

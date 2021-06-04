@@ -74,9 +74,12 @@ public class Channel {
                 try {
                     receiver.onReceived (msg);
                 } catch (Exception e) {
-                    if (isClientSideChannel)
-                        System.out.printf ("Invalid message from Client n°%s!\n", this.id);
-                    send (new ErrorMessage (e));
+                    if (!isClientSideChannel) {
+                        System.out.printf ("Invalid message \"" + msg + "\" from Client n°%s!\n", this.id);
+                        send (new ErrorMessage (e));
+                    }
+                    else
+                        System.out.println ("Invalid message from Server!");
                 }
             }
         }

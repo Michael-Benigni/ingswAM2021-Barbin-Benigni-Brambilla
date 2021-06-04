@@ -111,12 +111,13 @@ public abstract class Game implements GameComponent {
             }
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());
-            attachToGameBoard ();
-            this.currentPlayer = playersOrder.getFirst ();
-            this.currentPlayer.notifyUpdate (getNextPlayerMessage ());
-            this.numberOfRounds = 0;
+            this.attachToGameBoard ();
+            this.gameBoard.sendInitialUpdate();
             this.currentTurn = new FirstTurn ();
-            this.currentTurn.start ();
+            this.currentTurn.start (this);
+            this.currentPlayer = playersOrder.getFirst ();
+            this.currentPlayer.notifyUpdate (currentTurn.getNextPlayerMessage (this));
+            this.numberOfRounds = 0;
         } else
             throw new IllegalNumberOfPlayersException ();
     }
@@ -194,24 +195,25 @@ public abstract class Game implements GameComponent {
             }
             numberOfRounds++;
         }
+        nextTurn();
+        this.currentPlayer.notifyUpdate (currentTurn.getNextPlayerMessage (this));
+        if (!this.currentPlayer.isConnected ())
+            setNextPlayer ();
+    }
+
+
+    /**
+     * this method starts the next turn
+     */
+    private void nextTurn() {
         if (numberOfRounds == 0)
             this.currentTurn = new FirstTurn();
         else {
             this.currentTurn = new Turn();
         }
-        currentTurn.start();
-        this.currentPlayer.notifyUpdate (getNextPlayerMessage ());
+        this.currentTurn.start(this);
     }
 
-
-    /**
-     * @return the Sendable object that will be sent throw the network to notify the Client that is its turn
-     */
-    private Sendable getNextPlayerMessage() {
-        MessageWriter writer = new MessageWriter ();
-        writer.setHeader (Header.ToClient.YOUR_TURN);
-        return writer.write ();
-    }
 
     /**
      * @return the current ongoing Turn

@@ -5,6 +5,9 @@ import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.model.exception.WrongInitialConfiguration;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gamelogic.actions.PayAction;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 
@@ -33,15 +36,15 @@ public class Turn {
      */
     private TurnToken token;
 
+
     /**
      *
      */
     private enum TurnToken {
         AVAILABLE(),
         UNAVAILABLE(),
-        AVAILABLE_FOR_PRODUCTION()
+        AVAILABLE_FOR_PRODUCTION();
     }
-
     /**
      * Inner enum that represents the possible states of the Turn
      */
@@ -77,8 +80,8 @@ public class Turn {
         TurnState(String stateName) {
             this.stateName = stateName;
         }
-    }
 
+    }
 
     /**
      * Constructor.
@@ -91,6 +94,16 @@ public class Turn {
 
 
     /**
+     * @return the Sendable object that will be sent throw the network to notify the Client that is its turn
+     */
+    public Sendable getNextPlayerMessage(Game game) {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.YOUR_TURN);
+        return writer.write ();
+    }
+
+
+    /**
      * This method adds the next action to perform if it is a valid action in this Turn
      *
      * @param nextAction action to add
@@ -99,17 +112,18 @@ public class Turn {
     void add(Action nextAction) throws NoValidActionException, IllegalTurnState {
         if (nextAction.isValid(this) && this.state == TurnState.PLAY) {
             this.performedActions.add(nextAction);
-        } else
-            if (!nextAction.isValid(this))
-                throw new NoValidActionException();
-            throw new IllegalTurnState();
+        } else {
+            if (!nextAction.isValid (this))
+                throw new NoValidActionException ();
+            throw new IllegalTurnState ();
+        }
     }
 
 
     /**
      * This method sets the state of the Turn in PLAY. After this the Player could perform actions
      */
-    void start() {
+    void start(Game game) {
         if (this.state == TurnState.START) {
             this.state = TurnState.PLAY;
             this.token = TurnToken.AVAILABLE;

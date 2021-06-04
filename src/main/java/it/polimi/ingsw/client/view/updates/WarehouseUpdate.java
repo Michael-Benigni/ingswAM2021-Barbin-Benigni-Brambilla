@@ -1,11 +1,11 @@
 package it.polimi.ingsw.client.view.updates;
 
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.client.view.lightweightmodel.LWeightPersonalBoard.LWDepot;
+import it.polimi.ingsw.client.view.lightweightmodel.LWPersonalBoard.LWDepot;
 
 import java.util.ArrayList;
 
-public class WarehouseUpdate implements ViewUpdate{
+public class WarehouseUpdate implements ViewUpdate {
 
     private ArrayList<LWDepot> depots;
 
