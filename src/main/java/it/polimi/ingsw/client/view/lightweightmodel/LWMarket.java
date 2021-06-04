@@ -10,4 +10,17 @@ public class LWMarket {
         this.marbles = marbles;
         this.marbleOnSlide = marbleOnSlide;
     }
+
+    public void update(LWMarket market) {
+        this.marbleOnSlide = market.marbleOnSlide;
+        this.marbles = market.marbles;
+    }
+
+    public Colour[][] getMarbles() {
+        return marbles;
+    }
+
+    public Colour getMarbleOnSlide() {
+        return marbleOnSlide;
+    }
 }

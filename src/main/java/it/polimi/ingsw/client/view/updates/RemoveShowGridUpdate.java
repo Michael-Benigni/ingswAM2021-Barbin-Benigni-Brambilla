@@ -29,6 +29,6 @@ public class RemoveShowGridUpdate implements ViewUpdate{
         }
         else
             cardShow = null;
-        clientView.getModel().getBoard().updateCardsGrid(cardRemove, cardShow);
+        clientView.getModel().getBoard().getGrid ().update (cardRemove, cardShow);
     }
 }

@@ -16,6 +16,6 @@ public class MarketUP implements ViewUpdate {
     @Override
     public void update(View view) {
         LWMarket lwMarket = new LWMarket (market, marbleOnSlide);
-        view.getModel ().getBoard ().updateMarket (lwMarket);
+        view.getModel ().getBoard ().getMarket().update (lwMarket);
     }
 }

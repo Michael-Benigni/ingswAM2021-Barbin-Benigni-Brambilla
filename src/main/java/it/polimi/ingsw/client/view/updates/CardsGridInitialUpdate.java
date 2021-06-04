@@ -24,7 +24,7 @@ public class CardsGridInitialUpdate implements ViewUpdate{
 
     @Override
     public void update(View clientView){
-        clientView.getModel().getBoard().updateInitialCardsGrid(convertFromIDsToLWDevCards(), rows, columns);
+        clientView.getModel().getBoard().buildDevCardsGrid (convertFromIDsToLWDevCards(), rows, columns);
     }
 
     /**

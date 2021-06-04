@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.view.updates;
 
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.client.view.lightweightmodel.LWPersonalBoard.LWDepot;
+import it.polimi.ingsw.client.view.lightweightmodel.LWDepot;
 
 import java.util.ArrayList;
 
