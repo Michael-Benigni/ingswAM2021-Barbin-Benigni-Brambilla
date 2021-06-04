@@ -1,75 +1,35 @@
 package it.polimi.ingsw.client.view.ui;
 
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.client.view.states.ClientState;
-import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.Interpreter;
 import it.polimi.ingsw.utils.network.Sendable;
-import javafx.application.Application;
 
-import java.util.ArrayDeque;
-import java.util.NoSuchElementException;
-import java.util.Queue;
+public interface UI {
 
-public abstract class UI extends Application {
-    private Queue<Sendable> messages;
-    private ClientState state;
-    private View view;
+    void start() throws Exception;
 
-    public UI() {
-        this.messages = new ArrayDeque<> ();
-        this.state = new WaitingRoomState ();
-    }
+    void showPersonalBoard();
 
-    public abstract void start() throws Exception;
+    void showGameBoard();
 
-    public abstract void showPersonalBoard();
+    void showInfoGame();
 
-    public abstract void showGameBoard();
+    Sendable getNextMessage();
 
-    public abstract void showInfoGame();
+    void setNextState();
 
+    void notifyError(String info);
 
-    public synchronized Sendable getNextMessage() {
-        while (this.messages.size () == 0) {
-            try {
-                wait ();
-            } catch (InterruptedException e) {
-                e.printStackTrace ();
-            }
-        }
-        return messages.remove ();
-    }
+    void notifyMessage(String info);
 
-    protected synchronized ClientState getState() {
-        return state;
-    }
+    void nextInputRequest();
 
-    protected synchronized void addMessage(Sendable sendable) {
-        this.messages.add (sendable);
-        this.notifyAll ();
-    }
+    void setView(View view);
 
-    public void setNextState() {
-        this.state = this.state.getNextState ();
-    }
+    Interlocutor getInterlocutor();
 
-    public abstract void notifyError(String info);
+    Interpreter getInterpreter();
 
-    public abstract void notifyMessage(String info);
-
-    public abstract void nextInputRequest();
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    protected View getView() {
-        return view;
-    }
-
-    public abstract Interlocutor getInterlocutor();
-
-    public abstract Interpreter getInterpreter();
+    View getView();
 }

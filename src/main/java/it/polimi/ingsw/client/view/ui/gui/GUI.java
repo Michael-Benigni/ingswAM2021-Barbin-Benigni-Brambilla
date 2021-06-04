@@ -1,14 +1,26 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
+import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.states.ClientState;
+import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.Interpreter;
+import it.polimi.ingsw.utils.network.Sendable;
+import javafx.application.Application;
 import javafx.stage.Stage;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
-public class GUI extends UI {
+public class GUI extends Application implements UI {
+
+    private Queue<Sendable> messages;
+    private ClientState state;
+    private View view;
 
     public GUI() {
-        super ();
+        this.messages = new ArrayDeque<> ();
+        this.state = new WaitingRoomState ();
     }
 
     @Override
@@ -59,5 +71,41 @@ public class GUI extends UI {
     @Override
     public Interpreter getInterpreter() {
         return null;
+    }
+
+    @Override
+    public synchronized Sendable getNextMessage() {
+        while (this.messages.size () == 0) {
+            try {
+                wait ();
+            } catch (InterruptedException e) {
+                e.printStackTrace ();
+            }
+        }
+        return messages.remove ();
+    }
+
+    protected synchronized ClientState getState() {
+        return state;
+    }
+
+    protected synchronized void addMessage(Sendable sendable) {
+        this.messages.add (sendable);
+        this.notifyAll ();
+    }
+
+    @Override
+    public void setNextState() {
+        this.state = this.state.getNextState ();
+    }
+
+    @Override
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    @Override
+    public View getView() {
+        return view;
     }
 }

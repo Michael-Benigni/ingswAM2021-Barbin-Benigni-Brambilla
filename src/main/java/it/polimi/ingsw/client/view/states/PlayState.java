@@ -34,7 +34,7 @@ public class PlayState extends ClientState {
         }
 
         public static String getPossibilities() {
-            return TurnType.BUY_CARD.toString () + "\n" + TurnType.MARKET + "\n" + TurnType.PRODUCTION + "\n";
+            return TurnType.BUY_CARD + "\n" + TurnType.MARKET + "\n" + TurnType.PRODUCTION + "\n";
         }
     }
 
@@ -49,6 +49,7 @@ public class PlayState extends ClientState {
         addAvailableMove (PlayMove.SWAP_DEPOTS.getCmd (), "SWAP 2 DEPOTS");
         addAvailableMove (PlayMove.SHOW_GAME_BOARD.getCmd (), "SHOW THE GAME BOARD");
         addAvailableMove (PlayMove.SHOW_PERSONAL_BOARD.getCmd (), "SHOW THE PERSONAL BOARD");
+        addAvailableMove (PlayMove.WAREHOUSE.getCmd (), "PERFORM AN ACTION IN THE WAREHOUSE");
     }
 
 
@@ -70,7 +71,6 @@ public class PlayState extends ClientState {
                 addAvailableMove (PlayMove.WHITE_MARBLE.getCmd (), "TRANSFORM A WHITE MARBLE (only after leader card activation)");
                 addAvailableMove (PlayMove.MARKET.getCmd (), "GO TO MARKET");
                 addAvailableMove (PlayMove.MOVE_RESOURCES.getCmd (), "MOVE RESOURCES TO AND FROM WAREHOUSE");
-                addAvailableMove (PlayMove.WAREHOUSE.getCmd (), "WAREHOUSE");
                 break;
             }
             default:

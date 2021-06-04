@@ -23,6 +23,7 @@ public enum PlayMove implements MoveType {
     WHITE_MARBLE ("WM", transformWhiteMarbleMove ()),
     SHOW_PERSONAL_BOARD("SPB", showPersonalBoard()),
     SHOW_GAME_BOARD("SGB", showGameBoard()),
+    SHOW_INFO_GAME("INFO", showInfoGame ()),
     QUIT("QUIT", quitMove()) ;
 
     private static Move quitMove() {
@@ -36,6 +37,13 @@ public enum PlayMove implements MoveType {
     private static Move showGameBoard() {
         return (ui) -> {
             ui.showGameBoard();
+            return null;
+        };
+    }
+
+    private static Move showInfoGame() {
+        return (ui) -> {
+            ui.showInfoGame ();
             return null;
         };
     }

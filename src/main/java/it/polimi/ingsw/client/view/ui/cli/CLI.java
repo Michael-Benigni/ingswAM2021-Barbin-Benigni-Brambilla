@@ -1,27 +1,32 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
+import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.lightweightmodel.LWPersonalBoard;
 import it.polimi.ingsw.client.view.moves.Move;
+import it.polimi.ingsw.client.view.states.ClientState;
+import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
-import javafx.stage.Stage;
 
-public class CLI extends UI {
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+public class CLI implements UI {
     private final Interpreter interpreter;
     private final Interlocutor interlocutor;
+    private Queue<Sendable> messages;
+    private ClientState state;
+    private View view;
 
     public CLI() {
-        super();
+        this.messages = new ArrayDeque<> ();
+        this.state = new WaitingRoomState ();
         interpreter = new Interpreter ();
         interlocutor = new Interlocutor();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-
-    }
 
     @Override
     public void start() {
@@ -145,7 +150,38 @@ public class CLI extends UI {
 
     @Override
     public void setNextState() {
-        super.setNextState ();
+        this.state = this.state.getNextState ();
         clear ();
+    }
+
+    @Override
+    public synchronized Sendable getNextMessage() {
+        while (this.messages.size () == 0) {
+            try {
+                wait ();
+            } catch (InterruptedException e) {
+                e.printStackTrace ();
+            }
+        }
+        return messages.remove ();
+    }
+
+    protected synchronized ClientState getState() {
+        return state;
+    }
+
+    protected synchronized void addMessage(Sendable sendable) {
+        this.messages.add (sendable);
+        this.notifyAll ();
+    }
+
+    @Override
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    @Override
+    public View getView() {
+        return view;
     }
 }
