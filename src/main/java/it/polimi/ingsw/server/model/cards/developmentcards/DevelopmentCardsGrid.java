@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.model.cards.developmentcards;
 
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
-import it.polimi.ingsw.server.model.exception.NoMoreCardsWithThisColourException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.utils.Observer;
@@ -85,7 +84,7 @@ public class DevelopmentCardsGrid implements GameComponent {
     /**
      * this method builds the grid of descriptions of the frontal grid
      * @return the grid of descriptions of the cards that compose the cards grid
-     * @throws EmptyDeckException
+     * @throws EmptyDeckException thrown if the deck is empty running the getDeck method
      */
     String[][] buildDescriptions() throws EmptyDeckException {
         String[][] descriptions = new String[this.rows][this.columns];
@@ -104,7 +103,7 @@ public class DevelopmentCardsGrid implements GameComponent {
      * this methode creates the grid of IDs of the
      * first layer of development cards in the grid
      * @return the created grid of IDs
-     * @throws EmptyDeckException
+     * @throws EmptyDeckException thrown if the deck is empty running the getDeck method
      */
     int[][] buildFrontalIDsGrid() throws EmptyDeckException {
         int[][] frontalGrid = new int[this.rows][this.columns];
@@ -147,7 +146,7 @@ public class DevelopmentCardsGrid implements GameComponent {
      * @param iPos index of the row
      * @param jPos index of the column
      * @return the card that the player has choosen
-     * @throws EmptyDeckException -> thrown if the choosen deck is empty
+     * @throws EmptyDeckException thrown if the choosen deck is empty
      */
     public DevelopmentCard getChoosenCard(int iPos, int jPos, Player player) throws EmptyDeckException {
         DevelopmentCard chosenCard;
@@ -165,9 +164,9 @@ public class DevelopmentCardsGrid implements GameComponent {
     /**
      * this method removes the card on top of one of the deck in the grid
      * this method can be called after the player has choosen the card
-     * @param iPos -> index of the row
-     * @param jPos -> index of the column
-     * @throws EmptyDeckException -> thrown by getDeck if the deck is empty
+     * @param iPos index of the row
+     * @param jPos index of the column
+     * @throws EmptyDeckException thrown by getDeck if the deck is empty
      */
     public void removeChoosenCardFromGrid (int iPos, int jPos) throws EmptyDeckException {
         ArrayList <DevelopmentCard> choosenDeck = getDeck(iPos, jPos);
@@ -207,10 +206,10 @@ public class DevelopmentCardsGrid implements GameComponent {
 
     /**
      * this method provides the deck that is placed in the iPos row and in the jPos column
-     * @param iPos -> index of the row
-     * @param jPos -> index of the column
+     * @param iPos index of the row
+     * @param jPos index of the column
      * @return the array that represents the deck
-     * @throws EmptyDeckException -> EmptyDeckException is thrown if the deck is empty
+     * @throws EmptyDeckException is thrown if the deck is empty
      */
     private ArrayList <DevelopmentCard> getDeck (int iPos, int jPos) throws EmptyDeckException {
         if (! this.cardsGrid.get(iPos).get(jPos).isEmpty()) {
@@ -250,7 +249,7 @@ public class DevelopmentCardsGrid implements GameComponent {
     /**
      * method that groups a list of
      * development cards by colour
-     * @param cardsList -> the list of cards we want to group
+     * @param cardsList the list of cards we want to group
      * @return an ArrayList of DevelopmentCard grouped by colour
      */
     private ArrayList <DevelopmentCard> groupByColour(ArrayList <DevelopmentCard> cardsList) {
@@ -269,7 +268,7 @@ public class DevelopmentCardsGrid implements GameComponent {
     /**
      * method that sorts a list
      * of development cards by level
-     * @param cardsGroupedByColour -> the list of cards we want to sort
+     * @param cardsGroupedByColour the list of cards we want to sort
      * @return an ArrayList of DevelopmentCard sorted by level
      */
     private ArrayList <DevelopmentCard> sortByLevel(ArrayList <DevelopmentCard> cardsGroupedByColour) {
@@ -288,26 +287,18 @@ public class DevelopmentCardsGrid implements GameComponent {
         }
     }
 
-    public void removeNCardsFromGrid(CardColour colour, int cardsToBeRemoved) throws NoMoreCardsWithThisColourException {
-        GeneralDevelopmentCard cardToBeCompared = new GeneralDevelopmentCard(colour, CardLevel.ONE);
-        for(int i = 0; i < rows && cardsToBeRemoved > 0; i++) {
+    public void removeNCardsFromGrid(GeneralDevelopmentCard colourToRemove, int cardsToBeRemoved) {
+        for(int i = rows - 1; i >= 0 && cardsToBeRemoved > 0; i--) {
             for(int j = 0; j < columns && cardsToBeRemoved > 0; j++) {
                 try {
-                    if(getDeck(i, j).get(0).hasSameColour(cardToBeCompared)) {
+                    if(getDeck(i, j).get(0).hasSameColour(colourToRemove)) {
                         for(;cardsToBeRemoved > 0; cardsToBeRemoved --) {
                             removeChoosenCardFromGrid(i, j);
                         }
                     }
-                } catch (EmptyDeckException e) {
+                } catch (EmptyDeckException ignored) {
 
                 }
-            }
-        }
-        for(int j = 0; j < columns; j++) {
-            try{
-                getDeck(rows-1, j);
-            }catch(EmptyDeckException e) {
-                throw new NoMoreCardsWithThisColourException();
             }
         }
     }
@@ -319,8 +310,7 @@ public class DevelopmentCardsGrid implements GameComponent {
 
     /**
      * This method is used to attach the observer to the object that implements this interface
-     *
-     * @param observer
+     * @param observer observer
      */
     @Override
     public void attach(Observer observer) {

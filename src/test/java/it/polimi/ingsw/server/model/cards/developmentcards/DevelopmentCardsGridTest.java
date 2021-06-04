@@ -2,13 +2,11 @@ package it.polimi.ingsw.server.model.cards.developmentcards;
 
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.model.exception.NoMoreCardsWithThisColourException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +23,8 @@ public class DevelopmentCardsGridTest {
      * @return a new grid.
      * @throws NegativeResourceAmountException
      */
-    public static DevelopmentCardsGrid initDevelopmentCardsGrid() throws NegativeResourceAmountException, EmptyDeckException {
+    public static DevelopmentCardsGrid initDevelopmentCardsGrid() throws NegativeResourceAmountException,
+            EmptyDeckException {
         ArrayList<DevelopmentCard> listOfCards = buildCardsForGrid();
         DevelopmentCardsGrid grid = new DevelopmentCardsGrid(listOfCards, 3, 4);
         return grid;
@@ -36,7 +35,7 @@ public class DevelopmentCardsGridTest {
      * the development cards
      * we need to run the tests.
      * @return a list that contains all the created development cards
-     * @throws NegativeResourceAmountException
+     * @throws NegativeResourceAmountException thrown if a resource amount is set to a negative value
      */
     public static ArrayList <DevelopmentCard> buildCardsForGrid() throws NegativeResourceAmountException {
         ArrayList <DevelopmentCard> cardsList = new ArrayList<>(0);
@@ -106,8 +105,8 @@ public class DevelopmentCardsGridTest {
      * method that checks if each
      * deck contains cards
      * with the same colour and level
-     * @throws NegativeResourceAmountException
-     * @throws EmptyDeckException
+     * @throws NegativeResourceAmountException thrown if a resource amount is set to a negative value
+     * @throws EmptyDeckException thrown if the deck of the choosen card is empty
      */
     @Test
     void checkDecks() throws NegativeResourceAmountException, EmptyDeckException {
@@ -121,7 +120,8 @@ public class DevelopmentCardsGridTest {
                 DevelopmentCard card = cardsGrid.getChoosenCard(i, j, player);
                 for(int k = 1; k < numberOfCardsInEachDeck; k++) {
                     cardsGrid.removeChoosenCardFromGrid(i, j);
-                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) || card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
+                    if(!card.hasSameColour(cardsGrid.getChoosenCard(i, j, player)) ||
+                            card.levelCompare(cardsGrid.getChoosenCard(i, j, player)) != 0) {
                         fail();
                     }
                 }
@@ -133,8 +133,8 @@ public class DevelopmentCardsGridTest {
      * method that check if
      * each row contains decks
      * with the same level
-     * @throws NegativeResourceAmountException
-     * @throws EmptyDeckException
+     * @throws NegativeResourceAmountException thrown if a resource amount is set to a negative value
+     * @throws EmptyDeckException thrown if the deck of the choosen card is empty
      */
     @Test
     void checkRows() throws NegativeResourceAmountException, EmptyDeckException {
@@ -155,8 +155,8 @@ public class DevelopmentCardsGridTest {
      * method that check if
      * each column contains decks
      * with the same colour
-     * @throws NegativeResourceAmountException
-     * @throws EmptyDeckException
+     * @throws NegativeResourceAmountException thrown if a resource amount is set to a negative value
+     * @throws EmptyDeckException thrown if the deck of the choosen card is empty
      */
     @Test
     void checkColumns() throws NegativeResourceAmountException, EmptyDeckException {
@@ -187,51 +187,29 @@ public class DevelopmentCardsGridTest {
 
     /**
      * Test on "removeNFromGrid" method of this class.
-     * It tests if the method successfully removes the cards of the provided colour from the grid, and if throws the correct exceptions.
-     * @throws NegativeResourceAmountException
+     * It tests if the method successfully removes the cards of the
+     * provided colour from the grid, and if throws the correct exceptions.
+     * @throws NegativeResourceAmountException thrown if a resource amount is set to a negative value
      */
     @Test
-    void checkRemoveNFromGridIfCorrect() throws NegativeResourceAmountException, EmptyDeckException {
+    void checkRemoveNcardsFromGridIfCorrect() throws NegativeResourceAmountException, EmptyDeckException {
         DevelopmentCardsGrid newGrid = initDevelopmentCardsGrid();
+        GeneralDevelopmentCard colourCard = new GeneralDevelopmentCard(CardColour.BLUE, null);
         Player player = new Player();
-        try {
-            newGrid.removeNCardsFromGrid(CardColour.BLUE, 1);
-        } catch (NoMoreCardsWithThisColourException e) {
-            fail();
-        }
-        try {
-            newGrid.removeNCardsFromGrid(CardColour.BLUE, 1);
-        } catch (NoMoreCardsWithThisColourException e) {
-            fail();
-        }
-        try {
-            for(int i = 0; i < numberOfRows; i++)
-                for(int j = 0; j < numberOfColumns; j++){
-                    newGrid.getChoosenCard(i ,j, player);
+        newGrid.removeNCardsFromGrid(colourCard, 6);
+        int excCount = 0;
+        for(int i = 0; i < numberOfRows; i++)
+            for(int j = 0; j < numberOfColumns; j++)
+                try {
+                    GeneralDevelopmentCard choosenCard = newGrid.getChoosenCard(i ,j, player);
+                    assertFalse(choosenCard.hasSameColour(colourCard));
+                } catch (EmptyDeckException emptyDeckException) {
+                    excCount ++;
                 }
-        } catch (EmptyDeckException e) {
-            assertTrue(true);
-        }
-        try{
-            newGrid.removeNCardsFromGrid(CardColour.BLUE, 4);
-            fail();
-        } catch (NoMoreCardsWithThisColourException e) {
-            try{
-                newGrid.removeNCardsFromGrid(CardColour.BLUE, 1);
-                fail();
-            } catch (NoMoreCardsWithThisColourException exception) {
-                int excCount = 0;
-                for(int i = 0; i < numberOfRows; i++)
-                    for(int j = 0; j < numberOfColumns; j++)
-                        try {
-                            newGrid.getChoosenCard(i ,j, player);
-                        } catch (EmptyDeckException emptyDeckException) {
-                            excCount ++;
-                        }
-                assertEquals(excCount, 3);
-            }
-        }
+        assertEquals(excCount, 3);
     }
+
+
 
     @Test
     void buildFrontalIDsGrid() throws NegativeResourceAmountException, EmptyDeckException {

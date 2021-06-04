@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.cards.actiontoken;
 
 
 import it.polimi.ingsw.server.model.cards.developmentcards.CardColour;
+import it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.SingleplayerGame;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
@@ -20,17 +21,15 @@ public class SoloActionToken {
     }
 
     /**
-     * Method that sets the effect of this token. When it is activated, 2 development cards with the provided colour are discarded
+     * Method that sets the effect of this token. When it is activated,
+     * 2 development cards with the provided colour are discarded
      * from the development cards grid, starting from the lowest level.
      * @param colour colour of the cards to be discarded.
      */
     public void setDiscard2CardsEffect(CardColour colour) {
+        GeneralDevelopmentCard colourCard = new GeneralDevelopmentCard(colour, null);
         this.effect = (game) -> {
-            try {
-                game.getGameBoard().getDevelopmentCardGrid().removeNCardsFromGrid(colour, 2);
-            } catch (NoMoreCardsWithThisColourException e) {
-                throw new GameOverByGridException ();
-            }
+            game.getGameBoard().getDevelopmentCardGrid().removeNCardsFromGrid(colourCard, 2);
         };
     }
 
@@ -42,7 +41,8 @@ public class SoloActionToken {
     }
 
     /**
-     * Method that sets the effect of this token. When it is activated, the black cross is moved forward by one cell, then all the tokens are reshuffled.
+     * Method that sets the effect of this token. When it is activated,
+     * the black cross is moved forward by one cell, then all the tokens are reshuffled.
      */
     public void setMoveBlackCrossAndReShuffle() {
         this.effect = (game) -> {
@@ -56,7 +56,8 @@ public class SoloActionToken {
      * Method that activates the effect of this token.
      */
     public void activateEffect(SingleplayerGame game)
-            throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException, GameOverByFaithTrackException, NegativeVPAmountException {
+            throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException,
+            GameOverByFaithTrackException, NegativeVPAmountException {
         this.effect.activateEffect(game);
     }
 }
