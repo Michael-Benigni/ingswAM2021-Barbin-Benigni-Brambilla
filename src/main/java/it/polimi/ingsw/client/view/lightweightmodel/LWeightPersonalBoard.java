@@ -9,7 +9,7 @@ public class LWeightPersonalBoard {
     /**
      *
      */
-    private static class LWResource {
+    public static class LWResource {
         private Type type;
         private int amount;
         private LWResource(Type type, int amount) {
@@ -27,7 +27,9 @@ public class LWeightPersonalBoard {
      *
      */
     private enum Type {
-        SERVANT ("SERVANT", Colour.ANSI_PURPLE), STONE ("STONE", Colour.ANSI_PURPLE), SHIELD ("SHIELD", Colour.ANSI_BLUE), COIN ("COIN", Colour.ANSI_YELLOW), EMPTY ("empty", null);
+        SERVANT ("SERVANT", Colour.ANSI_PURPLE), STONE ("STONE", Colour.ANSI_PURPLE),
+        SHIELD ("SHIELD", Colour.ANSI_BLUE), COIN ("COIN", Colour.ANSI_YELLOW),
+        EMPTY ("empty", null);
 
         private final String type;
         private final Colour colour;
@@ -116,7 +118,7 @@ public class LWeightPersonalBoard {
         this.warehouse = warehouse;
     }
 
-    void updateStrongbox(ArrayList<LWResource> strongbox) {
+    public void updateStrongbox(ArrayList<LWResource> strongbox) {
         this.strongbox = strongbox;
     }
 

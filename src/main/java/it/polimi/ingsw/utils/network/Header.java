@@ -30,7 +30,8 @@ public interface Header {
         YOUR_TURN ("your_turn"),
         FULL_ROOM ("full_room"),
         SLOT_DEVCARD_UPDATE("slot_devcard_update"),
-        INIT_LEADER_CARDS("init_leader_cards");
+        INIT_LEADER_CARDS("init_leader_cards"),
+        STRONGBOX_UPDATE("strongbox_update");
 
 
         private final String headerStr;

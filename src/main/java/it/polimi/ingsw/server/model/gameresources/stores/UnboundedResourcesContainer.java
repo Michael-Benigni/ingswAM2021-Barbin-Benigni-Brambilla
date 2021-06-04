@@ -28,8 +28,8 @@ public class UnboundedResourcesContainer {
 
     /**
      * Constructor method of this class.
-     * This method use the constructor method of ArrayList with a parameter "initialCapacity" = 0; so it will create an
-     * empty array.
+     * This method use the constructor method of ArrayList with a parameter "initialCapacity" = 0; so it will create
+     * an empty array.
      */
     public UnboundedResourcesContainer() {
         this.containedResources = new ArrayList<>(0);
@@ -53,6 +53,7 @@ public class UnboundedResourcesContainer {
             }
         }
         containedResources.add(storableResource);
+
     }
 
 
@@ -76,7 +77,8 @@ public class UnboundedResourcesContainer {
      * @param storableResource contains the type of the resource to be decremented and by how much to decrement it
      * @throws NotContainedResourceException thrown if the provided resource is not contained in this container.
      */
-    public void remove(StorableResource storableResource) throws NegativeResourceAmountException, NotContainedResourceException {
+    public void remove(StorableResource storableResource) throws NegativeResourceAmountException,
+            NotContainedResourceException {
         for (int i = 0; i < containedResources.size(); ) {
             try {
                 StorableResource decreasedResource = this.containedResources.get(i).decreaseAmount(storableResource);
