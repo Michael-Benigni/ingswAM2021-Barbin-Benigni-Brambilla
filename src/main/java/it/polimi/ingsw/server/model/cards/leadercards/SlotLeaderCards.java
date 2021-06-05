@@ -44,8 +44,8 @@ public class SlotLeaderCards implements GameComponent {
 
 
     /**
-     * This method initializes the slot with the cards input. If the cards are more than the max capacity, then from the
-     * (cards.size() - maxNumberOfCards)^th card, the following are all discarded, not considered
+     * This method initializes the slot with the cards input. If the cards are more than the max capacity,
+     * then from the (cards.size() - maxNumberOfCards)^th card, the following are all discarded, not considered
      * @param cards
      */
     public void init(ArrayList<LeaderCard> cards) {
@@ -61,7 +61,7 @@ public class SlotLeaderCards implements GameComponent {
 
     Sendable generateUpdate(ArrayList<LeaderCard> cardsNotPlayed, ArrayList<LeaderCard> cardsPlayed){
         MessageWriter writer = new MessageWriter();
-        writer.setHeader (Header.ToClient.INIT_LEADER_CARDS);
+        writer.setHeader (Header.ToClient.LEADER_CARDS_UPDATE);
         writer.addProperty ("cardsNotPlayed", buildIDsList(cardsNotPlayed));
         writer.addProperty("descriptionsNotPlayed", buildDescriptions(cardsNotPlayed));
         writer.addProperty ("cardsPlayed", buildIDsList(cardsPlayed));

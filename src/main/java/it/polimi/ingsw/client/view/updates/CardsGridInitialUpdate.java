@@ -13,7 +13,8 @@ public class CardsGridInitialUpdate implements ViewUpdate{
     private final int rows;
     private final int columns;
 
-    public CardsGridInitialUpdate(int[][] initialGrid, String[][] descriptions, Colour[][] colours, int[][] levels, int rows, int columns) {
+    public CardsGridInitialUpdate(int[][] initialGrid, String[][] descriptions, Colour[][] colours, int[][] levels,
+                                  int rows, int columns) {
         this.initialGrid = initialGrid;
         this.descriptions = descriptions;
         this.colours = colours;
@@ -35,7 +36,8 @@ public class CardsGridInitialUpdate implements ViewUpdate{
         LWDevCard[][] lwGrid = new LWDevCard[rows][columns];
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < columns; j++){
-                LWDevCard newLWDevCard = new LWDevCard(initialGrid[i][j], descriptions[i][j]/*, colours[i][j], levels[i][j]*/);
+                LWDevCard newLWDevCard = new LWDevCard(initialGrid[i][j],
+                        descriptions[i][j]/*, colours[i][j], levels[i][j]*/);
                 lwGrid[i][j] = newLWDevCard;
             }
         }

@@ -1,21 +1,22 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
+
 import java.util.ArrayList;
 
 public class LWPersonalBoard {
 
     private ArrayList<LWDepot> warehouse;
     private ArrayList<LWResource> strongbox;
-    private ArrayList<LWResource> temporary;
     private ArrayList<ArrayList<LWDevCard>> slots;
     private ArrayList<LWLeaderCard> leaderCardsPlayed;
     private ArrayList<LWLeaderCard> leaderCardsNotPlayed;
+    private LWTemporaryContainer temporaryContainer;
 
 
     public LWPersonalBoard() {
         this.warehouse = new ArrayList<> ();
         this.strongbox = new ArrayList<> ();
-        this.temporary = new ArrayList<> ();
+        this.temporaryContainer = new LWTemporaryContainer();
         this.leaderCardsPlayed = new ArrayList<> ();
         initSlots();
     }
@@ -33,10 +34,6 @@ public class LWPersonalBoard {
 
     public ArrayList<LWResource> getStrongbox() {
         return strongbox;
-    }
-
-    public ArrayList<LWResource> getTemporary() {
-        return temporary;
     }
 
     public ArrayList<ArrayList<LWDevCard>> getSlots() {
@@ -59,8 +56,9 @@ public class LWPersonalBoard {
         this.strongbox = strongbox;
     }
 
-    void updateTemporaryContainer(ArrayList<LWResource> temporary) {
-        this.temporary = temporary;
+    public void updateTemporaryContainer(ArrayList<LWResource> storableResources, int emptyResources) {
+        this.temporaryContainer.storableResources = storableResources;
+        this.temporaryContainer.emptyResources = emptyResources;
     }
 
     public void updateSlots(LWDevCard addedDevCard, int numberOfSlot) {

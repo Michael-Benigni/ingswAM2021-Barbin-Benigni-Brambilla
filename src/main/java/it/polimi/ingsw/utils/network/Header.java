@@ -30,10 +30,11 @@ public interface Header {
         YOUR_TURN ("your_turn"),
         FULL_ROOM ("full_room"),
         SLOT_DEVCARD_UPDATE("slot_devcard_update"),
-        INIT_LEADER_CARDS("init_leader_cards"),
+        LEADER_CARDS_UPDATE("init_leader_cards"),
         STRONGBOX_UPDATE("strongbox_update"),
-        MARKET_UP ("market_up");
-
+        MARKET_UP ("market_up"),
+        TEMP_CONTAINER_UPDATE("temp_container_update"),
+        GET_PENALTY_UPDATE("get_penalty_update");
 
         private final String headerStr;
 

@@ -11,7 +11,8 @@ public class RemoveShowGridUpdate implements ViewUpdate{
     private Integer cardToShow;
     private String showDescription;
 
-    public RemoveShowGridUpdate(int cardToRemove, String removeDescription, Integer cardToShow, String showDescription) {
+    public RemoveShowGridUpdate(int cardToRemove, String removeDescription, Integer cardToShow,
+                                String showDescription) {
         this.cardToRemove = cardToRemove;
         this.removeDescription = removeDescription;
         this.cardToShow = cardToShow;

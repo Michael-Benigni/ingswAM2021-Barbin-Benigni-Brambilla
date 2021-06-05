@@ -12,7 +12,7 @@ public class UpdateFactory {
         map.put (Header.ToClient.YOUR_TURN, YourTurnUP.class);
         map.put (Header.ToClient.TURN_POSITION_UPDATE, TurnPositionUP.class);
         map.put (Header.ToClient.FULL_ROOM, WaitingRoomFullUP.class);
-        map.put (Header.ToClient.INIT_LEADER_CARDS, SlotLeaderCardUpdate.class);
+        map.put (Header.ToClient.LEADER_CARDS_UPDATE, SlotLeaderCardUpdate.class);
         map.put (Header.ToClient.MARKET_UP, MarketUP.class);
         map.put (Header.ToClient.REMOVE_SHOW_GRID, RemoveShowGridUpdate.class);
         map.put (Header.ToClient.SHOW_INITIAL_GRID, CardsGridInitialUpdate.class);

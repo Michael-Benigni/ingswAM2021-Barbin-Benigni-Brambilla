@@ -1,13 +1,16 @@
 package it.polimi.ingsw.server.model.gameresources.stores;
 
-import com.google.gson.JsonArray;
+
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.NoEmptyResourceException;
 import it.polimi.ingsw.server.model.exception.NotHaveThisEffectException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +24,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     public void clear() {
         super.clear();
         emptyResources.clear();
+        notifyUpdate(generateUpdate());
     }
 
     public TemporaryContainer() {
@@ -40,19 +44,42 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
                 amount++;
             resourceCount += amount - 1;
         }
+        notifyUpdate(generateUpdate(resourceCount));
         return new FaithPoint(resourceCount);
+    }
+
+    private Sendable generateUpdate(int amountOfFP){
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.GET_PENALTY_UPDATE);
+        writer.addProperty ("penalty", amountOfFP);
+        return writer.write ();
     }
 
     void store (EmptyResource emptyResource) {
         this.emptyResources.add(emptyResource);
+        notifyUpdate(generateUpdate());
     }
 
+    @Override
+    public void store(StorableResource storableResource) {
+        super.store(storableResource);
+        notifyUpdate(generateUpdate());
+    }
+
+    private Sendable generateUpdate(){
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.TEMP_CONTAINER_UPDATE);
+        writer.addProperty ("storableResources", this.getAllResources());
+        writer.addProperty ("emptyResourcesAmount", this.emptyResources.size());
+        return writer.write ();
+    }
 
     /**
      * @throws NoEmptyResourceException
      */
-    public void transformEmptyResources(Player player, int resourceIndex) throws NoEmptyResourceException, NotHaveThisEffectException {
-        StorableResource resource = null;
+    public void transformEmptyResources(Player player, int resourceIndex) throws NoEmptyResourceException,
+            NotHaveThisEffectException {
+        StorableResource resource;
         if(this.modifiers.containsKey(player) && resourceIndex < this.modifiers.get(player).size()){
             resource = this.modifiers.get(player).get(resourceIndex);
         }
