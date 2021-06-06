@@ -43,6 +43,10 @@ public class MessageWriter {
         return gson.fromJson (this.message, Message.class);
     }
 
+    public Object getInfo() {
+        return message.get ("info");
+    }
+
     private class Message implements Sendable {
         private JsonElement header;
         private JsonElement info;
