@@ -32,4 +32,16 @@ public class InfoMatch {
     public void addOtherPlayerUsername(String otherPlayersUsernames) {
         this.otherPlayersUsernames.add (otherPlayersUsernames);
     }
+
+    public String getYourUsername() {
+        return yourUsername;
+    }
+
+    public ArrayList<String> getOtherPlayersUsernames() {
+        return otherPlayersUsernames;
+    }
+
+    public String getPlayerAt(int positionInGame){
+        return null;
+    }
 }
