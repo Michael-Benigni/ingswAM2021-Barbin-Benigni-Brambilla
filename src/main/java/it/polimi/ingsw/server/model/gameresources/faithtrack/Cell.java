@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.gameresources.faithtrack;
 import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.utils.network.MessageWriter;
 
 /**
  * Abstract class that represents a cell of the faith track.
@@ -15,7 +16,9 @@ public abstract class Cell {
      * @param player
      * @throws Exception
      */
-    protected abstract void activateCell(FaithTrack faithTrack, Player player) throws CellNotFoundInFaithTrackException, NegativeVPAmountException;
+    protected abstract void activateCell(FaithTrack faithTrack, Player player) throws CellNotFoundInFaithTrackException,
+            NegativeVPAmountException;
 
+    public abstract void getInfo(MessageWriter writer);
 
 }

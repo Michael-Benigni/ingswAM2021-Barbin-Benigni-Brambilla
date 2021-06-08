@@ -34,7 +34,8 @@ public interface Header {
         STRONGBOX_UPDATE("strongbox_update"),
         MARKET_UP ("market_up"),
         TEMP_CONTAINER_UPDATE("temp_container_update"),
-        GET_PENALTY_UPDATE("get_penalty_update");
+        GET_PENALTY_UPDATE("get_penalty_update"),
+        FAITH_TRACK_UPDATE("faith_track_update");
 
         private final String headerStr;
 

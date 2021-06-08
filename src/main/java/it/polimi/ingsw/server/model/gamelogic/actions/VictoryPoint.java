@@ -70,4 +70,8 @@ public class VictoryPoint implements Cloneable{
     public String toString() {
         return amount + " VICTORY POINTS";
     }
+
+    public Integer getPoints() {
+        return this.amount;
+    }
 }

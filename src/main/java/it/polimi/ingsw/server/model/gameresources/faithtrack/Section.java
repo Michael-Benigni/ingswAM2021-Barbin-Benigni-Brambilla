@@ -20,6 +20,9 @@ public abstract class Section {
         this.listCells = listCells;
     }
 
+    ArrayList<Cell> getAllCells(){
+        return this.listCells;
+    }
 
     /**
      * Method that returns the cell in the position determined by cellIndex.

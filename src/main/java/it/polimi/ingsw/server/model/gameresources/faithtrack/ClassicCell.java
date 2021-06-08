@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.utils.network.MessageWriter;
 
 /**
  * Class that represents an empty cell in the faith truck.
@@ -20,6 +22,12 @@ public class ClassicCell extends Cell{
      */
     @Override
     protected void activateCell(FaithTrack faithTrack, Player player) {
+    }
+
+    @Override
+    public void getInfo(MessageWriter writer){
+        writer.addProperty("VP", 0);
+        writer.addProperty("isPopeSpace", false);
     }
 
 

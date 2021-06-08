@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.exception.TileAlreadyActivatedException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.utils.network.MessageWriter;
 
 import java.util.HashMap;
 
@@ -44,6 +45,12 @@ public class PopeSpace extends Cell{
         } catch (TileAlreadyActivatedException e) {
             //tile already activated, so do nothing.
         }
+    }
+
+    @Override
+    public void getInfo(MessageWriter writer){
+        writer.addProperty("VP", 0);
+        writer.addProperty("isPopeSpace", true);
     }
 
 

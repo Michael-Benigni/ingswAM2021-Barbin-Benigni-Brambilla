@@ -6,6 +6,9 @@ import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.Subject;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,10 +52,27 @@ public class FaithTrack implements GameComponent {
         }
     }
 
+    public void notifyInitialUpdate() {
+        notifyUpdate (generateUpdate());
+    }
+
+    private Sendable generateUpdate() {
+        MessageWriter writer = new MessageWriter();
+        writer.setHeader (Header.ToClient.FAITH_TRACK_UPDATE);
+        ArrayList<Cell> allCellOfFT = new ArrayList<>();
+        for(Section s : this.listOfSections){
+            allCellOfFT.addAll(s.getAllCells());
+        }
+        for(Cell c : allCellOfFT){
+            c.getInfo(writer);
+        }
+        return writer.write ();
+    }
+
     /**
      * Method that returns the first cell of the track to the caller.
      *
-     * @return -> the first cell of the track.
+     * @return the first cell of the track.
      */
     private Cell firstCellInFaithTrack() throws WrongCellIndexException {
         return listOfSections.get(0).getCell(0);
@@ -60,8 +80,8 @@ public class FaithTrack implements GameComponent {
 
     /**
      * Method that update the provided cell with the next on the track.
-     * @param currentCell -> the current cell, so the caller wants the next one.
-     * @return -> the next cell.
+     * @param currentCell the current cell, so the caller wants the next one.
+     * @return the next cell.
      */
     private Cell nextCell(Cell currentCell) throws WrongCellIndexException, CellNotFoundInFaithTrackException {
         for (Section s : listOfSections) {
@@ -80,9 +100,9 @@ public class FaithTrack implements GameComponent {
 
     /**
      * Method that return the section that contains the provided cell.
-     * @param currentCell -> cell to find in the faith track.
-     * @return -> the section if exists.
-     * @throws CellNotFoundInFaithTrackException -> exception thrown if the provided cell doesn't exist in this
+     * @param currentCell cell to find in the faith track.
+     * @return the section if exists.
+     * @throws CellNotFoundInFaithTrackException exception thrown if the provided cell doesn't exist in this
      * faith track.
      */
     Section findSectionOfThisCell(Cell currentCell) throws CellNotFoundInFaithTrackException {
@@ -117,7 +137,7 @@ public class FaithTrack implements GameComponent {
 
     /**
      * Getter method for the hashmap contained in this class.
-     * @return -> the entire hashmap mapOfFaithMarker.
+     * @return the entire hashmap mapOfFaithMarker.
      */
     HashMap<Player, FaithMarker> getMapOfFaithMarkers() {
         return mapOfFaithMarkers;
@@ -125,7 +145,7 @@ public class FaithTrack implements GameComponent {
 
     /**
      * Method that returns the last cell of this faith track.
-     * @return -> the last cell of this faith track.
+     * @return the last cell of this faith track.
      */
     private Cell lastCellInFaithTrack() {
         return listOfSections.get(listOfSections.size() - 1).lastCellInSection();
@@ -161,9 +181,5 @@ public class FaithTrack implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
-    }
-
-    public void notifyInitialUpdate() {
-
     }
 }

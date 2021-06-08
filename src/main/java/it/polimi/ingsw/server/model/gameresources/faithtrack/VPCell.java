@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.gameresources.faithtrack;
 import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.utils.network.MessageWriter;
 
 import java.util.HashMap;
 
@@ -32,6 +33,12 @@ public class VPCell extends Cell{
         HashMap<Player, FaithMarker> mapOfFaithMarker = faithTrack.getMapOfFaithMarkers();
         VictoryPoint pointsToBeAddedToPlayer = mapOfFaithMarker.get(player).updateLastVictoryPoint(victoryPoint);
         player.addVictoryPointsToPlayer(pointsToBeAddedToPlayer);
+    }
+
+    @Override
+    public void getInfo(MessageWriter writer){
+        writer.addProperty("VP", this.victoryPoints.getPoints());
+        writer.addProperty("isPopeSpace", false);
     }
 
 
