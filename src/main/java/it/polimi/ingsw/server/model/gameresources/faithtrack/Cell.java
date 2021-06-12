@@ -16,8 +16,8 @@ public abstract class Cell {
      * @param player
      * @throws Exception
      */
-    protected abstract void activateCell(FaithTrack faithTrack, Player player) throws CellNotFoundInFaithTrackException,
-            NegativeVPAmountException;
+    protected abstract void activateCell(FaithTrack faithTrack, Player player)
+            throws CellNotFoundInFaithTrackException, NegativeVPAmountException;
 
     public abstract void getInfo(MessageWriter writer);
 

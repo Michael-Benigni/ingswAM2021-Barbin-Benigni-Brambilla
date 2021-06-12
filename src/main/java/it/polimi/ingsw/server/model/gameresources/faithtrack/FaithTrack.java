@@ -56,7 +56,7 @@ public class FaithTrack implements GameComponent {
 
     private Sendable generateUpdate() {
         MessageWriter writer = new MessageWriter();
-        writer.setHeader (Header.ToClient.FAITH_TRACK_UPDATE);
+        writer.setHeader (Header.ToClient.INITIAL_FAITH_TRACK_UPDATE);
         ArrayList<Cell> allCellOfFT = new ArrayList<>();
         for(Section s : this.listOfSections){
             allCellOfFT.addAll(s.getAllCells());
@@ -117,11 +117,12 @@ public class FaithTrack implements GameComponent {
 
     /**
      * Method that move the marker that belongs to the provided player by a provide number of cells.
-     * @param player -> player whose marker to move.
-     * @param numberOfSteps -> number of cells.
+     * @param player player whose marker to move.
+     * @param numberOfSteps number of cells.
      * @throws Exception
      */
-    void moveMarkerForward(Player player, int numberOfSteps) throws WrongCellIndexException, CellNotFoundInFaithTrackException, NegativeVPAmountException, GameOverByFaithTrackException {
+    void moveMarkerForward(Player player, int numberOfSteps) throws WrongCellIndexException,
+            CellNotFoundInFaithTrackException, NegativeVPAmountException, GameOverByFaithTrackException {
         FaithMarker faithMarker = this.getMapOfFaithMarkers().get(player);
         for(int i = 0; i < numberOfSteps; i++) {
             Cell nextCell = nextCell(faithMarker.getCurrentCell());
@@ -130,7 +131,29 @@ public class FaithTrack implements GameComponent {
             if(nextCell == lastCellInFaithTrack()) {
                 throw new GameOverByFaithTrackException();
             }
+            notifyUpdate(generateUpdate(player, getCellIndex(nextCell)));
         }
+    }
+
+    private Sendable generateUpdate(Player player, int cellIndex){
+        MessageWriter writer = new MessageWriter();
+        writer.setHeader(Header.ToClient.FAITH_TRACK_UPDATE);
+        writer.addProperty("playerOrderReference", player.getPosition());
+        writer.addProperty("playerPositionInFT", cellIndex);
+        return writer.write();
+    }
+
+    private int getCellIndex(Cell cell)  {
+        int cellIndex = 0;
+        for (Section s : this.listOfSections){
+            ArrayList<Cell> cells = s.getAllCells();
+            for(Cell c : cells){
+                if(c == cell)
+                    return cellIndex;
+                cellIndex++;
+            }
+        }
+        return cellIndex;
     }
 
     /**

@@ -34,7 +34,7 @@ public class InfoMatch {
         return yourUsername;
     }
 
-    public ArrayList<String> getAllPlayersUsernames() {
+    public ArrayList<String> getOtherPlayersUsernames() {
         return new ArrayList<> (positionsAndPlayers.values ());
     }
 

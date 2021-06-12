@@ -43,9 +43,10 @@ public class VPCell extends Cell{
 
 
     /**
-     * Method that return if two objects are both instances of this class and they have the same number of victory points..
-     * @param o -> object to be compared.
-     * @return -> boolean: true if the two objects are equals.
+     * Method that return if two objects are both instances of this class
+     * and they have the same number of victory points..
+     * @param o object to be compared.
+     * @return boolean: true if the two objects are equals.
      */
     @Override
     public boolean equals(Object o) {

@@ -24,4 +24,12 @@ public class LWCell {
     public Boolean isPopeSpace() {
         return isPopeSpace;
     }
+
+    public void removePlayer(String playerName){
+        this.playersInThisCell.remove(playerName);
+    }
+
+    public void addPlayer(String playerName){
+        this.playersInThisCell.add(playerName);
+    }
 }

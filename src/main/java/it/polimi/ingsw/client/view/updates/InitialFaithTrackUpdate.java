@@ -24,7 +24,7 @@ public class InitialFaithTrackUpdate implements ViewUpdate{
         ArrayList<LWCell> listOfCells = new ArrayList<>();
         ArrayList<String> usernames = new ArrayList<>();
         usernames.add(infoMatch.getYourUsername());
-        usernames.addAll(infoMatch.getAllPlayersUsernames ());
+        usernames.addAll(infoMatch.getOtherPlayersUsernames());
         listOfCells.add(new LWCell(usernames, this.VP.get(0), this.isPopeSpace.get(0)));
         usernames.clear();
         for(int i = 1; i < this.VP.size(); i++){

@@ -40,7 +40,10 @@ public interface Header {
         WAIT_YOUR_TURN ("wait_your_turn"),
         LAST_ROUND_UP ("last_round"),
         GAME_OVER_UP ("game_over"),
-        SET_NUM_PLAYERS ("set_num_players");
+        SET_NUM_PLAYERS ("set_num_players"),
+        INITIAL_FAITH_TRACK_UPDATE("initial_faith_track_update");
+
+
 
         private final String headerStr;
 

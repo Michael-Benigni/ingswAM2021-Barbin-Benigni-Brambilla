@@ -25,8 +25,8 @@ public class FaithMarker {
     /**
      * Method that update the victory points gained by the last VPCell reached by the faith marker. Then also increase
      * the amount of victory points of that player.
-     * @param newVictoryPoint -> number of earned victory points.
-     * @throws NegativeVPAmountException -> can be thrown by "decreaseVictoryPoint" method of "VictoryPoint" class.
+     * @param newVictoryPoint number of earned victory points.
+     * @throws NegativeVPAmountException can be thrown by "decreaseVictoryPoint" method of "VictoryPoint" class.
      */
     VictoryPoint updateLastVictoryPoint(VictoryPoint newVictoryPoint) throws NegativeVPAmountException {
         VictoryPoint temporaryVictoryPoint = newVictoryPoint;
@@ -37,8 +37,8 @@ public class FaithMarker {
 
     /**
      * Method that returns if the current cell is contained in the provided section.
-     * @param currentSection -> section to be scouted.
-     * @return -> boolean: true if the current cell is in the provided section.
+     * @param currentSection section to be scouted.
+     * @return boolean: true if the current cell is in the provided section.
      */
     boolean ifIsInThisSection(Section currentSection) {
         try {
@@ -51,7 +51,7 @@ public class FaithMarker {
 
     /**
      * Getter method of "currentCell" method of this class.
-     * @return -> the current cell of this faith marker.
+     * @return the current cell of this faith marker.
      */
     Cell getCurrentCell() {
         return currentCell;
@@ -59,7 +59,7 @@ public class FaithMarker {
 
     /**
      * Method that update the current cell of this marker.
-     * @param newCell -> cell to be substituted to this current cell.
+     * @param newCell cell to be substituted to this current cell.
      */
     void updateCurrentCell(Cell newCell) {
         this.currentCell = newCell;

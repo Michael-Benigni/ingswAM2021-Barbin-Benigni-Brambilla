@@ -30,7 +30,8 @@ public class PopeSpace extends Cell{
      * @param faithTrack
      */
     @Override
-    protected void activateCell(FaithTrack faithTrack, Player player) throws CellNotFoundInFaithTrackException, NegativeVPAmountException {
+    protected void activateCell(FaithTrack faithTrack, Player player) throws CellNotFoundInFaithTrackException,
+            NegativeVPAmountException {
         try{
             VictoryPoint pointsFromTile = this.tile.activateTile();
             player.addVictoryPointsToPlayer(pointsFromTile);

@@ -31,4 +31,9 @@ public class LWGameBoard {
     public void updateFaithTrack(ArrayList<LWCell> faithTrack) {
         this.faithTrack = faithTrack;
     }
+
+    public void updatePlayerPosition(String movedPlayerUsrn, int playerPositionInFT){
+        this.faithTrack.get(playerPositionInFT - 1).removePlayer(movedPlayerUsrn);
+        this.faithTrack.get(playerPositionInFT).addPlayer(movedPlayerUsrn);
+    }
 }

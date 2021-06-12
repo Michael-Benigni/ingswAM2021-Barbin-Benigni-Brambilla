@@ -15,10 +15,6 @@ public class AbstractMessage<T> implements Sendable, Receivable<T>{
         this.info = info;
     }
 
-    protected AbstractMessage(String messageStr, Class<? extends Header> headerType) throws IllegalMessageException {
-        this.header = parseForHeader (messageStr, headerType);
-    }
-
     protected AbstractMessage(String messageStr, Class<? extends T> infoClass, Class<? extends Header> headerType) throws IllegalMessageException {
         this.header = parseForHeader (messageStr, headerType);
         this.info = parseForInfo (messageStr, infoClass);
