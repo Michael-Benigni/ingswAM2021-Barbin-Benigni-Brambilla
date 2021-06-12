@@ -27,6 +27,7 @@ public class UpdateFactory {
         map.put (Header.ToClient.LAST_ROUND_UP, LastRoundUP.class);
         map.put (Header.ToClient.SET_NUM_PLAYERS, SetNumPlayersResponseUP.class);
         map.put (Header.ToClient.FAITH_TRACK_UPDATE, FaithTrackOneStepUpdate.class);
+        map.put (Header.ToClient.DISCONNECTION_UP, DisconnectionUP.class);
         return map;
     }
 

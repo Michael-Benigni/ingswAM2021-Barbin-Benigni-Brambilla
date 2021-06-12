@@ -75,7 +75,7 @@ public class Controller {
         });
     }
 
-    public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException, IllegalNumberOfPlayersException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
+    public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException {
         WaitingRoom room = getWaitingRoomOf (user);
         room.setSize (newDim, user);
         MessageWriter writer = new MessageWriter ();

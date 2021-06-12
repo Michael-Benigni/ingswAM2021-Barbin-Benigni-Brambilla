@@ -41,9 +41,8 @@ public interface Header {
         LAST_ROUND_UP ("last_round"),
         GAME_OVER_UP ("game_over"),
         SET_NUM_PLAYERS ("set_num_players"),
-        INITIAL_FAITH_TRACK_UPDATE("initial_faith_track_update");
-
-
+        INITIAL_FAITH_TRACK_UPDATE("initial_faith_track_update"),
+        DISCONNECTION_UP ("disconnection");
 
         private final String headerStr;
 

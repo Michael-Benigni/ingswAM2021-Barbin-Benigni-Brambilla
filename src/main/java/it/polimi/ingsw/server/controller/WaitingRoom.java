@@ -33,9 +33,9 @@ public class WaitingRoom {
                 this.usersPlayers.put (key, null);
                 notifyRegistration (key);
             } else
-                throw new InvalidUserException ();
+                throw new InvalidUserException();
         } else
-            throw new FullWaitingRoomException ();
+            throw new FullWaitingRoomException();
     }
 
     private boolean isUnique (User user) {
@@ -71,7 +71,7 @@ public class WaitingRoom {
                 notifyFullRoom ();
         }
         else
-            throw new ImpossibleChangingSizeException ();
+            throw new ImpossibleChangingSizeException();
     }
 
     public ArrayList<User> getAllUsers() {
@@ -97,8 +97,10 @@ public class WaitingRoom {
     public void disconnect(User user) {
         if (contains (user)) {
             Player player = this.usersPlayers.get (user);
-            if (player != null && !player.isConnected ())
+            if (player != null && !player.isConnected ()) {
                 player.setIsConnected (false);
+                usersPlayers.values ().stream ().filter ((p) -> p != player).forEach ((p) -> p.notifyUpdate (getDisconnectionUpdate(user)));
+            }
             else {
                 this.usersPlayers.remove (user);
                 if (leader == user) {
@@ -110,6 +112,13 @@ public class WaitingRoom {
                 }
             }
         }
+    }
+
+    private Sendable getDisconnectionUpdate(User user) {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.DISCONNECTION_UP);
+        writer.addProperty ("playerDisconnected", getPlayerOf (user).getPosition ());
+        return writer.write ();
     }
 
     public void reconnection(User user) throws FullWaitingRoomException, InvalidUserException {
