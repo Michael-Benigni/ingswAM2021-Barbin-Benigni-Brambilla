@@ -26,7 +26,7 @@ public class AbstractMessage<T> implements Sendable, Receivable<T>{
 
     protected static Header parseForHeader(String messageStr, Class<? extends Header> headerType) throws IllegalMessageException {
         try {
-            return (Header) JsonHandler.getAsJavaObjectFromJSONStr (headerType, "header/", messageStr);
+            return (Header) JsonHandler.getAsJavaObjectFromJSONStr (headerType, "header", messageStr);
         } catch (Exception e) {
             throw new IllegalMessageException ();
         }

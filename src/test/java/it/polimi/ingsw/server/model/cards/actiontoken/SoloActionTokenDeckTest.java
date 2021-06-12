@@ -1,7 +1,8 @@
 package it.polimi.ingsw.server.model.cards.actiontoken;
 
 import it.polimi.ingsw.server.model.cards.developmentcards.CardColour;
-import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeckTest;
+import it.polimi.ingsw.server.model.cards.developmentcards.CardLevel;
+import it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,8 +20,8 @@ public class SoloActionTokenDeckTest {
         ArrayList<SoloActionToken> tokens = new ArrayList<>(0);
         SoloActionToken token1 = new SoloActionToken();
         SoloActionToken token2 = new SoloActionToken();
-        token1.setDiscard2CardsEffect(CardColour.GREEN);
-        token2.setMoveBlackCrossAndReShuffle();
+        token1.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.GREEN, CardLevel.ONE), 2);
+        token2.setMoveBlackCrossAndReShuffle(1);
         tokens.add(token1);
         tokens.add(token2);
         SoloActionTokenDeck deck = new SoloActionTokenDeck(tokens);
@@ -35,17 +36,17 @@ public class SoloActionTokenDeckTest {
     void checkDrawFirstIfCorrect() {
         ArrayList<SoloActionToken> listOfTokens = new ArrayList<>(0);
         SoloActionToken firstToken = new SoloActionToken();
-        firstToken.setDiscard2CardsEffect(CardColour.BLUE);
+        firstToken.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.BLUE, CardLevel.ONE), 2);
         SoloActionToken secondToken = new SoloActionToken();
-        secondToken.setDiscard2CardsEffect(CardColour.BLUE);
+        secondToken.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.BLUE, CardLevel.ONE), 2);
         listOfTokens.add(firstToken);
         listOfTokens.add(secondToken);
         SoloActionToken token = new SoloActionToken();
-        token.setMoveBlackCrossAndReShuffle();
+        token.setMoveBlackCrossAndReShuffle(1);
         listOfTokens.add(token);
-        token.setDiscard2CardsEffect(CardColour.GREEN);
+        token.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.GREEN, CardLevel.ONE), 2);
         listOfTokens.add(token);
-        token.setMoveBlackCrossBy2();
+        token.setMoveBlackCross (2);
         listOfTokens.add(token);
         SoloActionTokenDeck deck = new SoloActionTokenDeck(listOfTokens);
         assertEquals(deck.drawFirst(), firstToken);

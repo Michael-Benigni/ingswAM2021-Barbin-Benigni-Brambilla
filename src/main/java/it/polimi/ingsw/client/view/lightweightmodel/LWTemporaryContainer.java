@@ -10,4 +10,12 @@ public class LWTemporaryContainer {
         this.storableResources = new ArrayList<>();
         this.emptyResources = 0;
     }
+
+    public ArrayList<LWResource> getStorableResources() {
+        return storableResources;
+    }
+
+    public int getEmptyResources() {
+        return emptyResources;
+    }
 }

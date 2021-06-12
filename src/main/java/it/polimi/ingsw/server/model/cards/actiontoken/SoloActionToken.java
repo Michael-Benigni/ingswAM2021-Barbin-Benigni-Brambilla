@@ -15,39 +15,33 @@ public class SoloActionToken {
     private SoloActionTokenEffect effect;
 
     /**
-     * Constructor method of this class.
-     */
-    public SoloActionToken() {
-    }
-
-    /**
      * Method that sets the effect of this token. When it is activated,
      * 2 development cards with the provided colour are discarded
      * from the development cards grid, starting from the lowest level.
-     * @param colour colour of the cards to be discarded.
+     * @param colourCard card with colour of cards to be discarded to be discarded.
+     * @param numCardToDiscard
      */
-    public void setDiscard2CardsEffect(CardColour colour) {
-        GeneralDevelopmentCard colourCard = new GeneralDevelopmentCard(colour, null);
-        this.effect = (game) -> {
-            game.getGameBoard().getDevelopmentCardGrid().removeNCardsFromGrid(colourCard, 2);
-        };
+    public void setDiscard2CardsEffect(GeneralDevelopmentCard colourCard, int numCardToDiscard) {
+        this.effect = (game) -> game.getGameBoard ().getDevelopmentCardGrid ().removeNCardsFromGrid (colourCard, numCardToDiscard);
     }
 
     /**
      * Method that sets the effect of this token. When it is activated, the black cross is moved forward by two cells.
+     * @param numMoves
      */
-    public void setMoveBlackCrossBy2() {
-        this.effect = (game) -> game.getGameBoard().getFaithTrack().moveBlackCross(2);
+    public void setMoveBlackCross(int numMoves) {
+        this.effect = (game) -> game.getGameBoard().getFaithTrack().moveBlackCross(numMoves);
     }
 
     /**
      * Method that sets the effect of this token. When it is activated,
      * the black cross is moved forward by one cell, then all the tokens are reshuffled.
+     * @param numMoves
      */
-    public void setMoveBlackCrossAndReShuffle() {
+    public void setMoveBlackCrossAndReShuffle(int numMoves) {
         this.effect = (game) -> {
             SoloPlayerGameBoard gameBoard = game.getGameBoard();
-            gameBoard.getFaithTrack().moveBlackCross(1);
+            gameBoard.getFaithTrack().moveBlackCross(numMoves);
             gameBoard.getActionTokenDeck().shuffle();
         };
     }

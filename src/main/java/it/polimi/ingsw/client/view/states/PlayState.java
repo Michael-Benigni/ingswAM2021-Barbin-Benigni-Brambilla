@@ -50,6 +50,7 @@ public class PlayState extends ClientState {
         addAvailableMove (PlayMove.SHOW_GAME_BOARD.getCmd (), "SHOW THE GAME BOARD");
         addAvailableMove (PlayMove.SHOW_PERSONAL_BOARD.getCmd (), "SHOW THE PERSONAL BOARD");
         addAvailableMove (PlayMove.WAREHOUSE.getCmd (), "PERFORM AN ACTION IN THE WAREHOUSE");
+        addAvailableMove (PlayMove.SHOW_CARD_INFO.getCmd (), "VISUALIZE THE DESCRIPTION OF A DEVELOPMENT CARD IN THE GRID");
     }
 
 

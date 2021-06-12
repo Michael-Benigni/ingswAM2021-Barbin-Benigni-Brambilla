@@ -100,7 +100,7 @@ public abstract class Game implements GameComponent {
      * This method prepare the game, setting the players' order, creating the first turn, setting the first Player, and
      * the game board
      */
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException {
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException {
         if (isReadyToStart ()) {
             this.params = params;
             this.setPlayersOrder ();
@@ -108,6 +108,9 @@ public abstract class Game implements GameComponent {
                 int index = getPlayerIndex (player);
                 player.buildBoard (personalBoards.get (index));
                 player.setPosition (index);
+                playersOrder.stream ()
+                        .filter ((p) ->p != player)
+                        .forEach ((p) -> p.notifyUpdate (player.getPositionUpdate()));
             }
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());

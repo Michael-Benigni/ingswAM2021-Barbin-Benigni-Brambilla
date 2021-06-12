@@ -23,8 +23,10 @@ public class SoloPlayerFaithTrack extends FaithTrack {
 
     @Override
     public void initMarkers(ArrayList<Player> players) {
-        players.add(comPlayer);
-        super.initMarkers(players);
+        ArrayList<Player> playersSingleGame = new ArrayList<> ();
+        playersSingleGame.addAll (players);
+        playersSingleGame.add(comPlayer);
+        super.initMarkers(playersSingleGame);
     }
 
     /**

@@ -37,8 +37,8 @@ public class VPCell extends Cell{
 
     @Override
     public void getInfo(MessageWriter writer){
-        writer.addProperty("VP", this.victoryPoints.getPoints());
-        writer.addProperty("isPopeSpace", false);
+        writer.addProperty ("VP", this.victoryPoints.getPoints());
+        writer.addProperty ("isPopeSpace", false);
     }
 
 

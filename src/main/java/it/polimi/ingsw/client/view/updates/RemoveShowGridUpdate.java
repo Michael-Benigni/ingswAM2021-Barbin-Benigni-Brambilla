@@ -23,10 +23,10 @@ public class RemoveShowGridUpdate implements ViewUpdate{
     public void update(View clientView){
         Colour colour = null;
         int level = 1;
-        LWDevCard cardRemove = new LWDevCard(cardToRemove, removeDescription/*, colour, level*/);
+        LWDevCard cardRemove = new LWDevCard(cardToRemove, removeDescription, colour, level);
         LWDevCard cardShow;
         if(cardToShow != null){
-            cardShow = new LWDevCard(cardToShow, showDescription/*, colour, level*/);
+            cardShow = new LWDevCard(cardToShow, showDescription, colour, level);
         }
         else
             cardShow = null;

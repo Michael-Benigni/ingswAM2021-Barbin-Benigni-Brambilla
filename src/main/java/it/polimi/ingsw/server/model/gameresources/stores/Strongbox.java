@@ -17,6 +17,19 @@ public class Strongbox extends UnboundedResourcesContainer implements Cloneable,
 
     private ArrayList<Observer> observers;
 
+    /**
+     * Method that stores the provided list of resources in this unbounded resource container.
+     *
+     * @param resources arraylist of storable resource to be stored in this container.
+     * @return this updated container.
+     */
+    @Override
+    public UnboundedResourcesContainer storeAll(ArrayList<StorableResource> resources) {
+        super.storeAll (resources);
+        notifyUpdate (generateUpdate ());
+        return this;
+    }
+
     public Strongbox() {
         this.observers = new ArrayList<> ();
     }

@@ -49,8 +49,8 @@ public class PopeSpace extends Cell{
 
     @Override
     public void getInfo(MessageWriter writer){
-        writer.addProperty("VP", 0);
-        writer.addProperty("isPopeSpace", true);
+        writer.addProperty ("VP", 0);
+        writer.addProperty ("isPopeSpace", true);
     }
 
 

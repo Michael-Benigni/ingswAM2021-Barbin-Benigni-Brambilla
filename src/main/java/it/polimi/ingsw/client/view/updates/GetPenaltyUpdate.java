@@ -12,8 +12,9 @@ public class GetPenaltyUpdate implements ViewUpdate {
 
     @Override
     public void update(View view){
-        view.getUI().notifyMessage("you have discarded some resources, " +
-                "your adversaries move on the faith track by" +
-                penalty + "steps");
+        if (penalty > 0)
+            view.getUI().notifyMessage("you have discarded some resources, " +
+                "your adversaries move on the faith track by " +
+                penalty + " steps");
     }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.gamelogic;
 
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.model.exception.NotEnoughPlayersException;
+import it.polimi.ingsw.server.model.exception.WrongBoardException;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
@@ -28,8 +29,11 @@ public class SingleplayerGame extends Game {
      * the game board
      * @throws NotEnoughPlayersException
      */
-    private void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException {
-        super.setup(personalBoards, gameBoard, params);
+    private void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException {
+        if (gameBoard.getActionTokenDeck () != null)
+            super.setup(personalBoards, gameBoard, params);
+        else
+            throw new WrongBoardException ();
     }
 
 
@@ -39,11 +43,8 @@ public class SingleplayerGame extends Game {
      * @throws NotEnoughPlayersException
      */
     @Override
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException {
-        if (gameBoard instanceof SoloPlayerGameBoard)
-            setup(personalBoards, (SoloPlayerGameBoard) gameBoard, params);
-        /*else
-            throw WrongBoardException();*/
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException {
+        setup(personalBoards, (SoloPlayerGameBoard) gameBoard, params);
     }
 
     @Override

@@ -18,6 +18,7 @@ public class LWPersonalBoard {
         this.strongbox = new ArrayList<> ();
         this.temporaryContainer = new LWTemporaryContainer();
         this.leaderCardsPlayed = new ArrayList<> ();
+        this.leaderCardsNotPlayed = new ArrayList<> ();
         initSlots();
     }
 
@@ -30,6 +31,10 @@ public class LWPersonalBoard {
 
     public ArrayList<LWDepot> getWarehouse() {
         return warehouse;
+    }
+
+    public LWTemporaryContainer getTemporaryContainer() {
+        return temporaryContainer;
     }
 
     public ArrayList<LWResource> getStrongbox() {

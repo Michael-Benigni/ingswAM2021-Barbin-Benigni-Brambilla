@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.controller.exception.*;
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
+import it.polimi.ingsw.server.model.exception.WrongBoardException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.GameFactory;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -43,7 +44,7 @@ public class Controller {
     }
 
 
-    public synchronized void startMatch(User user) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException, OnlyLeaderCanStartGameException {
+    public synchronized void startMatch(User user) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException, OnlyLeaderCanStartGameException, WrongBoardException {
         WaitingRoom room = getWaitingRoomOf (user);
         if (room.getLeader () == user) {
             if (room.isFull ()) {
@@ -56,7 +57,7 @@ public class Controller {
                     room.setPlayerOf (userInRoom, player);
                     player.attach (userInRoom.getView ());
                     game.attach (userInRoom.getView ());
-                    // TODO: evaluate if the game has to begin when the room is full, or uf the start game must be triggered by the client
+                    player.setUsername (userInRoom.getUsername ());
                 }
                 factory.setup (game);
             }

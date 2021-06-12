@@ -98,7 +98,7 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
         MessageWriter messageWriter = new MessageWriter();
         messageWriter.setHeader (Header.ToClient.SLOT_DEVCARD_UPDATE);
         messageWriter.addProperty ("addedDevCard", addedCard.getCardID());
-        messageWriter.addProperty("description", addedCard.toString());
+        messageWriter.addProperty ("description", addedCard.toString());
         messageWriter.addProperty ("numberOfSlot", this.slotIndex);
         return messageWriter.write ();
     }

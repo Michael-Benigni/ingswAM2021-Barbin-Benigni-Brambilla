@@ -1,11 +1,9 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
-import com.google.gson.JsonArray;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;

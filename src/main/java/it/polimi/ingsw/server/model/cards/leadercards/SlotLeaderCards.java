@@ -63,9 +63,9 @@ public class SlotLeaderCards implements GameComponent {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.LEADER_CARDS_UPDATE);
         writer.addProperty ("cardsNotPlayed", buildIDsList(cardsNotPlayed));
-        writer.addProperty("descriptionsNotPlayed", buildDescriptions(cardsNotPlayed));
+        writer.addProperty ("descriptionsNotPlayed", buildDescriptions(cardsNotPlayed));
         writer.addProperty ("cardsPlayed", buildIDsList(cardsPlayed));
-        writer.addProperty("descriptionsPlayed", buildDescriptions(cardsPlayed));
+        writer.addProperty ("descriptionsPlayed", buildDescriptions(cardsPlayed));
         return writer.write ();
     }
 

@@ -1,12 +1,20 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
-public class LWDepot {
-    private LWResource resource;
-    private int capacity;
-    private Type type;
+import com.google.gson.annotations.SerializedName;
 
-    public LWDepot(LWResource resource, int capacity, Type type) {
-        this.resource = resource;
+public class LWDepot {
+    @SerializedName ("storedResource")
+    private LWResource storedResource;
+    @SerializedName ("capacity")
+    private int capacity;
+    @SerializedName ("type")
+    private LWResourceType type;
+
+    public LWDepot() {
+    }
+
+    public LWDepot(LWResource storedResource, int capacity, LWResourceType type) {
+        this.storedResource = storedResource;
         this.capacity = capacity;
         this.type = type;
     }
@@ -21,7 +29,7 @@ public class LWDepot {
             border = border + borderChar;
         }
         String capacityStr = "capacity: " + capacity + (type != null ? ", type: " + type : "");
-        String resourceStr = "content: " + resource.toString ();
+        String resourceStr = "content: " + storedResource.toString ();
         int numSpacePadding = Math.round((width - Math.max (capacityStr.length (), resourceStr.length ())) / 2);
         for (int i = 0; i < numSpacePadding; i++) {
             if (capacityStr.length () < width - 2)
@@ -38,15 +46,15 @@ public class LWDepot {
                 "/" + resourceStr + "\\" ;
     }
 
-    public LWResource getResource() {
-        return resource;
+    public LWResource getStoredResource() {
+        return storedResource;
     }
 
     public int getCapacity() {
         return capacity;
     }
 
-    public Type getType() {
+    public LWResourceType getType() {
         return type;
     }
 }

@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.model.exception.EmptyDeckException;
-import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
-import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGridTest;
@@ -30,11 +27,11 @@ public class ActionTest {
     public ArrayList<Integer> capacities = new ArrayList<>();
 
     @BeforeEach
-    void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException, EmptyDeckException {
+    void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException, EmptyDeckException, WrongBoardException {
         init();
     }
 
-    public void init() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, EmptyDeckException {
+    public void init() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, EmptyDeckException, WrongBoardException {
         capacities.add(1);
         capacities.add(2);
         capacities.add(3);

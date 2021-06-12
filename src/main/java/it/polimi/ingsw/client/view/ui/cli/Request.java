@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
+import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.utils.network.MessageWriter;
 
 public abstract class Request {
@@ -11,7 +12,7 @@ public abstract class Request {
         this.namePropertyRequested = namePropertyRequested;
     }
 
-    protected MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) {
+    protected MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) throws IllegalInputException {
         interlocutor.write (this.getRequestDesc ());
         return writer;
     }

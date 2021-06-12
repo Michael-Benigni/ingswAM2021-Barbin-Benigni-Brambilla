@@ -79,7 +79,8 @@ public class Channel {
                         send (new ErrorMessage (e));
                     }
                     else
-                        System.out.println ("Invalid message from Server!");
+                        System.out.println ("Invalid message   \"" + msg + "\" from Server!");
+                    System.out.println (e.getMessage ());
                 }
             }
         }

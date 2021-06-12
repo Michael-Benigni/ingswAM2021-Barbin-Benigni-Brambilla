@@ -1,6 +1,8 @@
 package it.polimi.ingsw.utils.config;
 
+import it.polimi.ingsw.server.model.cards.actiontoken.SoloActionToken;
 import it.polimi.ingsw.server.model.cards.actiontoken.SoloActionTokenDeck;
+import it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard;
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFaithTrack;
@@ -51,11 +53,47 @@ public class ConfigLoader {
     }
 
     private SoloPlayerFaithTrack initFaithTrack1PFromJSON() throws FileNotFoundException {
-        return (SoloPlayerFaithTrack) initFaithTrackFromJSON();
+        String jsonPath = "gameBoard/faithTrack/";
+        int numOfSections = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numberOfSections/");
+        return new SoloPlayerFaithTrack (getSectionsFromJSON (jsonPath, numOfSections));
     }
 
-    private SoloActionTokenDeck initActionTokenDeckFromJSON() {
-        return null;
+    private SoloActionTokenDeck initActionTokenDeckFromJSON() throws FileNotFoundException {
+        final String keyInJSON = "gameBoard/actionTokensDeck/";
+        int numActionTokens = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "numOfActionTokens/");
+        ArrayList<SoloActionToken> tokens = new ArrayList<> ();
+        for (int i = 0; i < numActionTokens; i++) {
+            SoloActionToken newToken = new SoloActionToken ();
+            setTokenEffectFromJSON(newToken, keyInJSON + "tokens/", i);
+            tokens.add (newToken);
+        }
+        return new SoloActionTokenDeck (tokens);
+    }
+
+    private void setTokenEffectFromJSON(SoloActionToken newToken, String keyInJSON, int index) throws FileNotFoundException {
+        int[] ints = {index};
+        String typeEffect = (String) jsonHandler.getAsJavaObjectFromJSONArray(String.class, keyInJSON + "effect/", ints);
+        switch (typeEffect) {
+            case "Discard2Cards": {
+                GeneralDevelopmentCard card = (GeneralDevelopmentCard) jsonHandler.getAsJavaObjectFromJSONArray (GeneralDevelopmentCard.class, keyInJSON + "card/", ints);
+                int numOfCards = (int) jsonHandler.getAsJavaObjectFromJSONArray (int.class, keyInJSON + "numCardToDiscard/", ints);
+                newToken.setDiscard2CardsEffect (card, numOfCards);
+                break;
+            }
+            case "MoveBlackCross&Shuffle": {
+                int numMoves = (int) jsonHandler.getAsJavaObjectFromJSONArray (int.class, keyInJSON + "numMoves/", ints);
+                newToken.setMoveBlackCrossAndReShuffle (numMoves);
+                break;
+            }
+            case "MoveBlackCross": {
+                int numMoves = (int) jsonHandler.getAsJavaObjectFromJSONArray (int.class, keyInJSON + "numMoves/", ints);
+                newToken.setMoveBlackCross (numMoves);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
     public ArrayList<PersonalBoard> loadPersonalBoards(int numOfPlayers) throws FileNotFoundException {
@@ -85,12 +123,17 @@ public class ConfigLoader {
     private FaithTrack initFaithTrackFromJSON() throws FileNotFoundException {
         String jsonPath = "gameBoard/faithTrack/";
         int numOfSections = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numberOfSections/");
+        ArrayList<Section> sections = getSectionsFromJSON(jsonPath, numOfSections);
+        return new FaithTrack(sections);
+    }
+
+    private ArrayList<Section> getSectionsFromJSON(String jsonPath, int numOfSections) throws FileNotFoundException {
         ArrayList<Section> sections = new ArrayList<>();
         for (int i = 0; i < numOfSections; i++) {
             Section section = (Section) jsonHandler.getAsJavaObjectFromJSONArray(Section.class, jsonPath + "listOfSections/", new int[] {i});
             sections.add(section);
         }
-        return new FaithTrack(sections);
+        return sections;
     }
 
     private MarketTray initMarketFromJSON() throws FileNotFoundException {
@@ -127,7 +170,7 @@ public class ConfigLoader {
         int numOfCards = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numOfCards");
         for (int i = 0; i < numOfCards; i++) {
             LeaderCard card = (LeaderCard) jsonHandler.getAsJavaObjectFromJSONArray(LeaderCard.class, jsonPath + "deck/", new int[] {i});
-            setEffectFromJSON(card, jsonPath + "deck/", new int[] {i});
+            setEffectLeaderCardFromJSON (card, jsonPath + "deck/", new int[] {i});
             leaderCards.add(card);
         }
         return new LeaderCardsDeck(leaderCards);
@@ -140,7 +183,7 @@ public class ConfigLoader {
      * @param ints is an index used to pick the information from the json file
      * @throws FileNotFoundException
      */
-    private void setEffectFromJSON(LeaderCard card, String jsonPath, int[] ints) throws FileNotFoundException {
+    private void setEffectLeaderCardFromJSON(LeaderCard card, String jsonPath, int[] ints) throws FileNotFoundException {
         jsonPath = jsonPath + "effect/";
         String typeEffect = (String) jsonHandler.getAsJavaObjectFromJSONArray(String.class, jsonPath + "effectType", ints);
         StorableResource resource = (StorableResource) jsonHandler.getAsJavaObjectFromJSONArray(StorableResource.class, jsonPath + "resource", ints);

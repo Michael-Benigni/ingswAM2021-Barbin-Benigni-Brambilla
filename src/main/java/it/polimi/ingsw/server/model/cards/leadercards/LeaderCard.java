@@ -158,38 +158,26 @@ public class LeaderCard {
 
     public String toString() {
         String toString = "";
-        String paddingChar = "_";
-        int length = 40;
         String[] namesSections = {"REQUIREMENTS", "VICTORY POINTS", "EFFECT"};
-        int numPadding;
         for (String name : namesSections) {
-            numPadding = Math.round ((length - name.length ()) / 2);
-            boolean isEvenLength = name.length () % 2 == 0;
-            String padding = "";
-            for (int i = 0; i < numPadding; i++) {
-                padding = padding + paddingChar;
-            }
-            String section = padding + name + padding + (!isEvenLength ? paddingChar : "") + "\n";
+            String section = ">> " + name + " <<" + "\n";
             switch (name) {
                 case "REQUIREMENTS": {
                     for (Requirement requirement : requirements)
-                        section = section + "\u20DD" + "  " + requirement + "\n";
+                        section = section + "  " + requirement + "\n";
                     break;
                 }
                 case "VICTORY POINTS": {
-                    section = section + "\u20DD" + "  " + victoryPoint + "\n";
+                    section = section + "  " + victoryPoint + "\n";
                     break;
                 }
                 case "EFFECT": {
-                    section = section + "\u20DD" + "  " + effectDesc + "\n";
+                    section = section + "  " + effectDesc + "\n";
                     break;
                 }
             }
-            for (int i = 0; i < length; i++) {
-                toString = toString + paddingChar;
-            }
-            toString = toString + "\n" + section + "\n\n";
+            toString = toString + "\n" + section ;
         }
-        return "This is the Leader Card with ID: " + cardID + "\n\n" + toString;
+        return "This is the Leader Card with ID: " + cardID + "\n" + toString;
     }
 }

@@ -69,4 +69,17 @@ public class StringParser {
     static void setSeparator(String sep) {
         SEPARATOR = sep;
     }
+
+    public static int getMaxLength(ArrayList<String> strings) {
+        ArrayList<Integer> lengths = strings.stream ().map (String::length).collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
+        lengths.sort ((integer1, integer2)->{
+            if (integer1.equals (integer2))
+                return 0;
+            else {
+                if (integer1 > integer2)
+                    return 1;
+                return -1;
+            }});
+        return lengths.get (0);
+    }
 }

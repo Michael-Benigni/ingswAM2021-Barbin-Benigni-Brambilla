@@ -10,7 +10,6 @@ import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
@@ -28,6 +27,7 @@ public class Player implements GameComponent {
     private PersonalBoard personalBoard;
     private int position;
     private boolean isConnected;
+    private String username;
     private Observer observer;
 
 
@@ -175,5 +175,17 @@ public class Player implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observer = observer;
+    }
+
+    public Sendable getPositionUpdate() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.PLAYER_POSITION_UP);
+        writer.addProperty ("name", username);
+        writer.addProperty ("positionInTurn", position);
+        return writer.write ();
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

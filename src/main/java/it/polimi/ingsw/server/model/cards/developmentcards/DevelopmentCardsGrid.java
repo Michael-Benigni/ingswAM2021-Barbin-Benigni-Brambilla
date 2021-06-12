@@ -70,11 +70,15 @@ public class DevelopmentCardsGrid implements GameComponent {
      *                       first layer of development cards in the grid
      * @return the created sendable message
      */
-    private Sendable generateUpdate(int[][] frontalIDsGrid) throws EmptyDeckException {
-        MessageWriter writer = new MessageWriter();
+    private Sendable generateInitialUpdate(int[][] frontalIDsGrid) throws EmptyDeckException {
+        MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.SHOW_INITIAL_GRID);
-        writer.addProperty ("initialGrid", frontalIDsGrid);
-        writer.addProperty("descriptions", buildDescriptions());
+        for (ArrayList<DevelopmentCard> cards : buildFrontalGrid ()) {
+            writer.addProperty ("initialGrid", cards.stream ().map (DevelopmentCard::getCardID).collect(Collectors.toList()));
+            writer.addProperty ("descriptions", cards.stream ().map (DevelopmentCard::toString).collect(Collectors.toList()));
+            writer.addProperty ("colours", cards.stream ().map (DevelopmentCard::getCardColour).collect(Collectors.toList()));
+            writer.addProperty ("levels", cards.stream ().map ((card)-> card.getCardLevel ().ordinal () + 1).collect(Collectors.toList()));
+        }
         writer.addProperty ("rows", this.rows);
         writer.addProperty ("columns", this.columns);
         return writer.write ();
@@ -111,6 +115,26 @@ public class DevelopmentCardsGrid implements GameComponent {
                 for (int j = 0; j < this.columns; j++){
                     int chosenDeckLastIndex = getDeck(i, j).size() - 1;
                     frontalGrid[i][j] = this.cardsGrid.get(i).get(j).get(chosenDeckLastIndex).getCardID();
+                }
+            }
+        }
+        return frontalGrid;
+    }
+
+    /**
+     * this methode creates the grid of IDs of the
+     * first layer of development cards in the grid
+     * @return the created grid of IDs
+     * @throws EmptyDeckException thrown if the deck is empty running the getDeck method
+     */
+    private ArrayList<ArrayList<DevelopmentCard>> buildFrontalGrid() throws EmptyDeckException {
+        ArrayList<ArrayList<DevelopmentCard>> frontalGrid = new ArrayList<> ();
+        if(this.cardsGrid != null) {
+            for (int i = 0; i < this.rows; i++){
+                frontalGrid.add (new ArrayList<> ());
+                for (int j = 0; j < this.columns; j++){
+                    int chosenDeckLastIndex = getDeck(i, j).size() - 1;
+                    frontalGrid.get (i).add (this.cardsGrid.get(i).get(j).get(chosenDeckLastIndex));
                 }
             }
         }
@@ -174,10 +198,10 @@ public class DevelopmentCardsGrid implements GameComponent {
         DevelopmentCard showCard = null;
         chosenDeck.remove(chosenDeckLastIndex);
         if(chosenDeck.isEmpty())
-            notifyUpdate(generateUpdate(removeCard, null));
+            notifyUpdate(generateInitialUpdate (removeCard, null));
         else
             showCard = chosenDeck.get(chosenDeckLastIndex - 1);
-        notifyUpdate(generateUpdate(removeCard, showCard));
+        notifyUpdate(generateInitialUpdate (removeCard, showCard));
     }
 
     /**
@@ -187,18 +211,18 @@ public class DevelopmentCardsGrid implements GameComponent {
      * @param showCard is card that the clients must show instead the removeCard
      * @return the message we want to send
      */
-    private Sendable generateUpdate(DevelopmentCard removeCard, DevelopmentCard showCard){
+    private Sendable generateInitialUpdate(DevelopmentCard removeCard, DevelopmentCard showCard){
         MessageWriter messageWriter = new MessageWriter();
         messageWriter.setHeader(Header.ToClient.REMOVE_SHOW_GRID);
-        messageWriter.addProperty("cardToRemove", removeCard.getCardID());
-        messageWriter.addProperty("removeDescription", removeCard.toString());
+        messageWriter.addProperty ("cardToRemove", removeCard.getCardID());
+        messageWriter.addProperty ("removeDescription", removeCard.toString());
         if(showCard != null){
-            messageWriter.addProperty("cardToShow", showCard.getCardID());
-            messageWriter.addProperty("showDescription", showCard.toString());
+            messageWriter.addProperty ("cardToShow", showCard.getCardID());
+            messageWriter.addProperty ("showDescription", showCard.toString());
         }
         else {
-            messageWriter.addProperty("cardToShow", null);
-            messageWriter.addProperty("showDescription", null);
+            messageWriter.addProperty ("cardToShow", null);
+            messageWriter.addProperty ("showDescription", null);
         }
         return messageWriter.write();
     }
@@ -304,7 +328,7 @@ public class DevelopmentCardsGrid implements GameComponent {
 
     public void notifyInitialUpdate() {
         try {
-            notifyUpdate (generateUpdate(buildFrontalIDsGrid()));
+            notifyUpdate (generateInitialUpdate (buildFrontalIDsGrid()));
         } catch (EmptyDeckException e) {
             e.printStackTrace ();
         }

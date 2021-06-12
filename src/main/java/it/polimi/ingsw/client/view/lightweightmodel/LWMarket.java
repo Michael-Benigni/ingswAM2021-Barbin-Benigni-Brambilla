@@ -2,11 +2,13 @@ package it.polimi.ingsw.client.view.lightweightmodel;
 
 import it.polimi.ingsw.client.view.ui.cli.Colour;
 
+import java.util.ArrayList;
+
 public class LWMarket {
-    private Colour[][] marbles;
+    private ArrayList<ArrayList<Colour>> marbles;
     private Colour marbleOnSlide;
 
-    public LWMarket(Colour[][] marbles, Colour marbleOnSlide) {
+    public LWMarket(ArrayList<ArrayList<Colour>> marbles, Colour marbleOnSlide) {
         this.marbles = marbles;
         this.marbleOnSlide = marbleOnSlide;
     }
@@ -16,7 +18,7 @@ public class LWMarket {
         this.marbles = market.marbles;
     }
 
-    public Colour[][] getMarbles() {
+    public ArrayList<ArrayList<Colour>> getMarbles() {
         return marbles;
     }
 

@@ -10,7 +10,6 @@ import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class WaitingRoom {
     private int size;
@@ -66,8 +65,11 @@ public class WaitingRoom {
     }
 
     public void setSize(int size, User leader) throws ImpossibleChangingSizeException {
-        if (this.usersPlayers.size () <= size && this.leader == leader)
+        if (this.usersPlayers.size () <= size && this.leader == leader) {
             this.size = size;
+            if (isFull ())
+                notifyFullRoom ();
+        }
         else
             throw new ImpossibleChangingSizeException ();
     }
@@ -118,24 +120,22 @@ public class WaitingRoom {
     }
 
     private void notifyRegistration(User user) {
-        user.getView ().onChanged (getUserInfo (user, true));
-        for (User u : getAllUsers ()) {
-            if (u != user)
-                u.getView ().onChanged (getUserInfo (user, false));
-        }
-        if (isFull ()) {
-            MessageWriter writer = new MessageWriter ();
-            writer.setHeader (Header.ToClient.FULL_ROOM);
-            getLeader ().getView ().onChanged (writer.write ());
-        }
+        user.getView ().onChanged (getUserInfo (user));
+        if (isFull ())
+            notifyFullRoom();
     }
 
-    private Sendable getUserInfo(User user, boolean areYou) {
+    private void notifyFullRoom() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.FULL_ROOM);
+        getLeader ().getView ().onChanged (writer.write ());
+    }
+
+    private Sendable getUserInfo(User user) {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.USER_REGISTERED);
         writer.addProperty ("numUsers", getAllUsers ().size ());
         writer.addProperty ("username", user.getUsername ());
-        writer.addProperty ("areYou", areYou);
         writer.addProperty ("numWaitingRoom", getID());
         return writer.write ();
     }

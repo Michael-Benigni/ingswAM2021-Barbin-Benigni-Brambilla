@@ -8,7 +8,11 @@ public class LWGameBoard {
     private ArrayList<LWCell> faithTrack;
     private LWMarket market;
 
-    public void buildDevCardsGrid(LWDevCard[][] initialCardsGrid, int rows, int columns) {
+    public LWGameBoard() {
+        this.market = new LWMarket (null, null);
+    }
+
+    public void buildDevCardsGrid(ArrayList<ArrayList<LWDevCard>> initialCardsGrid, int rows, int columns) {
         this.grid = new LWCardsGrid(initialCardsGrid, rows, columns);
     }
 

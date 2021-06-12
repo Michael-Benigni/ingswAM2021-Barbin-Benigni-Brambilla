@@ -118,7 +118,8 @@ public class JsonHandler {
      */
     public static Object getAsJavaObjectFromJSONStr(Type type, String jsonPath, String jsonString) {
         JsonElement element = JsonParser.parseString (jsonString);
-        return gson.fromJson (getJsonElement (jsonPath, element), type);
+        element = getJsonElement (jsonPath, element);
+        return gson.fromJson (element, type);
     }
 
 

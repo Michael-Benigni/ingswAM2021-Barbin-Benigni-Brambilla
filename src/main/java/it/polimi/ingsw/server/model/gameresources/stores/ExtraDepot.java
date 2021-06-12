@@ -11,7 +11,7 @@ import it.polimi.ingsw.server.model.exception.ResourceOverflowInDepotException;
  * the power of the leader card
  */
 public class ExtraDepot extends Depot{
-    private ResourceType resource;
+    private ResourceType type;
 
     /**
      * this is the constructor method of this class
@@ -20,7 +20,7 @@ public class ExtraDepot extends Depot{
      */
     public ExtraDepot(int capacity, ResourceType resourceType) throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
         super(capacity);
-        this.resource = resourceType;
+        this.type = resourceType;
         super.storeResourceInDepot(new StorableResource(resourceType, 0));
     }
 
@@ -31,8 +31,8 @@ public class ExtraDepot extends Depot{
             super.getStoredResource();
         } catch(EmptyDepotException exception) {
             try {
-                super.storeResourceInDepot(new StorableResource(this.resource, 0));
-            } catch (ResourceOverflowInDepotException e) {
+                super.storeResourceInDepot(new StorableResource(this.type, 0));
+            } catch (ResourceOverflowInDepotException ignored) {
 
             }
         }

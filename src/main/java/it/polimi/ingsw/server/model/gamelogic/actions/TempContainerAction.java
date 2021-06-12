@@ -25,7 +25,6 @@ class TempContainerAction implements FirstTurnAction {
             EmptyDepotException, SameResourceTypeInDifferentDepotsException, NotEqualResourceTypeException,
             ResourceOverflowInDepotException, NotContainedResourceException {
         TemporaryContainer tempCont = player.getPersonalBoard().getTempContainer();
-        WarehouseDepots warehouse = player.getPersonalBoard().getWarehouseDepots();
         switch (storeOrRemove) {
             case "remove" : {
                 tempCont.remove(this.resource);

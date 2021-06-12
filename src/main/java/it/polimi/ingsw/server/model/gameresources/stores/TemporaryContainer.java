@@ -2,7 +2,9 @@ package it.polimi.ingsw.server.model.gameresources.stores;
 
 
 import it.polimi.ingsw.server.model.GameComponent;
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.NoEmptyResourceException;
+import it.polimi.ingsw.server.model.exception.NotContainedResourceException;
 import it.polimi.ingsw.server.model.exception.NotHaveThisEffectException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 
@@ -19,6 +21,19 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     private ArrayList <EmptyResource> emptyResources;
     private HashMap<Player, ArrayList<StorableResource>> modifiers;
     private ArrayList<Observer> observers;
+
+    /**
+     * Method that stores the provided list of resources in this unbounded resource container.
+     *
+     * @param resources arraylist of storable resource to be stored in this container.
+     * @return this updated container.
+     */
+    @Override
+    public UnboundedResourcesContainer storeAll(ArrayList<StorableResource> resources) {
+        super.storeAll (resources);
+        notifyUpdate (generateUpdate ());
+        return this;
+    }
 
     @Override
     public void clear() {
@@ -64,6 +79,19 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     public void store(StorableResource storableResource) {
         super.store(storableResource);
         notifyUpdate(generateUpdate());
+    }
+
+    /**
+     * Method that decrease the amount of the stored resource by the amount provided. If the amount reaches "0", the
+     * element is removed from the array.
+     *
+     * @param storableResource contains the type of the resource to be decremented and by how much to decrement it
+     * @throws NotContainedResourceException thrown if the provided resource is not contained in this container.
+     */
+    @Override
+    public void remove(StorableResource storableResource) throws NegativeResourceAmountException, NotContainedResourceException {
+        super.remove (storableResource);
+        notifyUpdate (generateUpdate ());
     }
 
     private Sendable generateUpdate(){

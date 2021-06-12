@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.view.updates;
 
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.lightweightmodel.LWDepot;
-
 import java.util.ArrayList;
 
 public class WarehouseUpdate implements ViewUpdate {

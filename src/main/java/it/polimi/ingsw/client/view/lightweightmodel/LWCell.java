@@ -21,7 +21,7 @@ public class LWCell {
         return victoryPoints;
     }
 
-    public Boolean getPopeSpace() {
+    public Boolean isPopeSpace() {
         return isPopeSpace;
     }
 }

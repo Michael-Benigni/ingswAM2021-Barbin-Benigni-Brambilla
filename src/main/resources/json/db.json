@@ -46,11 +46,11 @@
           "quantity": 2,
           "marble": {
             "colour": "GREY",
-          "resource": {
-            "amount": 1,
-            "resourceType": "STONE",
-            "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
-          }
+            "resource": {
+              "amount": 1,
+              "resourceType": "STONE",
+              "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
+            }
           }
         },
         {
@@ -1732,374 +1732,374 @@
       "numOfCards": 16,
       "deck": [
         {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "GREEN",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "GREEN",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "YELLOW",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 2
           },
-          {
-            "cardColour": "YELLOW",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 2
-        },
-        "effect": {
-          "effectType": "discount",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SERVANT"
-          }
-        },
-        "cardID": 1
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "BLUE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "effect": {
+            "effectType": "discount",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SERVANT"
+            }
           },
-          {
-            "cardColour": "PURPLE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 2
+          "cardID": 1
         },
-        "effect": {
-          "effectType": "discount",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SHIELD"
-          }
-        },
-        "cardID": 2
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "BLUE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "BLUE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "PURPLE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 2
           },
-          {
-            "cardColour": "GREEN",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 2
-        },
-        "effect": {
-          "effectType": "discount",
-          "resource": {
-            "amount": 1,
-            "resourceType": "STONE"
-          }
-        },
-        "cardID": 3
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "YELLOW",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "effect": {
+            "effectType": "discount",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SHIELD"
+            }
           },
-          {
-            "cardColour": "PURPLE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 2
+          "cardID": 2
         },
-        "effect": {
-          "effectType": "discount",
-          "resource": {
-            "amount": 1,
-            "resourceType": "COIN"
-          }
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "BLUE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "GREEN",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 2
+          },
+          "effect": {
+            "effectType": "discount",
+            "resource": {
+              "amount": 1,
+              "resourceType": "STONE"
+            }
+          },
+          "cardID": 3
         },
-        "cardID": 4
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "amount": 5,
-            "resourceType": "COIN",
-            "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 3
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "YELLOW",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "PURPLE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 2
+          },
+          "effect": {
+            "effectType": "discount",
+            "resource": {
+              "amount": 1,
+              "resourceType": "COIN"
+            }
+          },
+          "cardID": 4
         },
-        "effect": {
-          "effectType": "extraDepot",
-          "resourceType": "STONE",
-          "capacity": 2
-        },
-        "cardID": 5
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "amount": 5,
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "amount": 5,
+              "resourceType": "COIN",
+              "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 3
+          },
+          "effect": {
+            "effectType": "extraDepot",
             "resourceType": "STONE",
-            "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 3
+            "capacity": 2
+          },
+          "cardID": 5
         },
-        "effect": {
-          "effectType": "extraDepot",
-          "resourceType": "SERVANT",
-          "capacity": 2
-        },
-        "cardID": 6
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "amount": 5,
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "amount": 5,
+              "resourceType": "STONE",
+              "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 3
+          },
+          "effect": {
+            "effectType": "extraDepot",
             "resourceType": "SERVANT",
-            "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 3
+            "capacity": 2
+          },
+          "cardID": 6
         },
-        "effect": {
-          "effectType": "extraDepot",
-          "resourceType": "SHIELD",
-          "capacity": 2
-        },
-        "cardID": 7
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "amount": 5,
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "amount": 5,
+              "resourceType": "SERVANT",
+              "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 3
+          },
+          "effect": {
+            "effectType": "extraDepot",
             "resourceType": "SHIELD",
-            "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 3
-        },
-        "effect": {
-          "effectType": "extraDepot",
-          "resourceType": "COIN",
-          "capacity": 2
-        },
-        "cardID": 8
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "BLUE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            "capacity": 2
           },
-          {
-            "cardColour": "YELLOW",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "cardID": 7
+        },
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "amount": 5,
+              "resourceType": "SHIELD",
+              "className": "it.polimi.ingsw.server.model.gameresources.stores.StorableResource"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 3
           },
-          {
-            "cardColour": "YELLOW",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 5
-        },
-        "effect": {
-          "effectType": "transformWhiteMarble",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SERVANT"
-          }
-        },
-        "cardID": 9
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "GREEN",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "effect": {
+            "effectType": "extraDepot",
+            "resourceType": "COIN",
+            "capacity": 2
           },
-          {
-            "cardColour": "GREEN",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "cardID": 8
+        },
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "BLUE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "YELLOW",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "YELLOW",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 5
           },
-          {
-            "cardColour": "PURPLE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 5
-        },
-        "effect": {
-          "effectType": "transformWhiteMarble",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SHIELD"
-          }
-        },
-        "cardID": 10
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "BLUE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "effect": {
+            "effectType": "transformWhiteMarble",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SERVANT"
+            }
           },
-          {
-            "cardColour": "BLUE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "cardID": 9
+        },
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "GREEN",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "GREEN",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "PURPLE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 5
           },
-          {
-            "cardColour": "YELLOW",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 5
-        },
-        "effect": {
-          "effectType": "transformWhiteMarble",
-          "resource": {
-            "amount": 1,
-            "resourceType": "STONE"
-          }
-        },
-        "cardID": 11
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "PURPLE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "effect": {
+            "effectType": "transformWhiteMarble",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SHIELD"
+            }
           },
-          {
-            "cardColour": "PURPLE",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+          "cardID": 10
+        },
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "BLUE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "BLUE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "YELLOW",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 5
           },
-          {
-            "cardColour": "GREEN",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 5
+          "effect": {
+            "effectType": "transformWhiteMarble",
+            "resource": {
+              "amount": 1,
+              "resourceType": "STONE"
+            }
+          },
+          "cardID": 11
         },
-        "effect": {
-          "effectType": "transformWhiteMarble",
-          "resource": {
-            "amount": 1,
-            "resourceType": "COIN"
-          }
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "PURPLE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "PURPLE",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            },
+            {
+              "cardColour": "GREEN",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 5
+          },
+          "effect": {
+            "effectType": "transformWhiteMarble",
+            "resource": {
+              "amount": 1,
+              "resourceType": "COIN"
+            }
+          },
+          "cardID": 12
         },
-        "cardID": 12
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "YELLOW",
-            "cardLevel": "TWO",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 4
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "YELLOW",
+              "cardLevel": "TWO",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 4
+          },
+          "effect": {
+            "effectType": "extraProductionPower",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SHIELD"
+            }
+          },
+          "cardID": 13
         },
-        "effect": {
-          "effectType": "extraProductionPower",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SHIELD"
-          }
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "BLUE",
+              "cardLevel": "TWO",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 4
+          },
+          "effect": {
+            "effectType": "extraProductionPower",
+            "resource": {
+              "amount": 1,
+              "resourceType": "SERVANT"
+            }
+          },
+          "cardID": 14
         },
-        "cardID": 13
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "BLUE",
-            "cardLevel": "TWO",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 4
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "PURPLE",
+              "cardLevel": "TWO",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 4
+          },
+          "effect": {
+            "effectType": "extraProductionPower",
+            "resource": {
+              "amount": 1,
+              "resourceType": "STONE"
+            }
+          },
+          "cardID": 15
         },
-        "effect": {
-          "effectType": "extraProductionPower",
-          "resource": {
-            "amount": 1,
-            "resourceType": "SERVANT"
-          }
-        },
-        "cardID": 14
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "PURPLE",
-            "cardLevel": "TWO",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 4
-        },
-        "effect": {
-          "effectType": "extraProductionPower",
-          "resource": {
-            "amount": 1,
-            "resourceType": "STONE"
-          }
-        },
-        "cardID": 15
-      },
-      {
-        "isAlreadyPlayed": false,
-        "requirements": [
-          {
-            "cardColour": "GREEN",
-            "cardLevel": "TWO",
-            "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
-          }
-        ],
-        "victoryPoint": {
-          "amount": 4
-        },
-        "effect": {
-          "effectType": "extraProductionPower",
-          "resource": {
-            "amount": 1,
-            "resourceType": "COIN"
-          }
-        },
-        "cardID": 16
-      }
-    ]
+        {
+          "isAlreadyPlayed": false,
+          "requirements": [
+            {
+              "cardColour": "GREEN",
+              "cardLevel": "TWO",
+              "className": "it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard"
+            }
+          ],
+          "victoryPoint": {
+            "amount": 4
+          },
+          "effect": {
+            "effectType": "extraProductionPower",
+            "resource": {
+              "amount": 1,
+              "resourceType": "COIN"
+            }
+          },
+          "cardID": 16
+        }
+      ]
     },
     "faithTrack": {
       "numberOfSections": 6,
@@ -2250,6 +2250,51 @@
             }
           ],
           "className": "it.polimi.ingsw.server.model.gameresources.faithtrack.VaticanReportSection"
+        }
+      ]
+    },
+    "actionTokensDeck": {
+      "numOfActionTokens": 7,
+      "tokens": [
+        {
+          "effect": "Discard2Cards",
+          "card": {
+            "cardColour": "BLUE"
+          },
+          "numCardToDiscard": 2
+        },
+        {
+          "effect": "Discard2Cards",
+          "card": {
+            "cardColour": "GREEN"
+          },
+          "numCardToDiscard": 2
+        },
+        {
+          "effect": "Discard2Cards",
+          "card": {
+            "cardColour": "PURPLE"
+          },
+          "numCardToDiscard": 2
+        },
+        {
+          "effect": "Discard2Cards",
+          "card": {
+            "cardColour": "YELLOW"
+          },
+          "numCardToDiscard": 2
+        },
+        {
+          "effect": "MoveBlackCross&Shuffle",
+          "numMoves": 1
+        },
+        {
+          "effect": "MoveBlackCross",
+          "numMoves": 2
+        },
+        {
+          "effect": "MoveBlackCross",
+          "numMoves": 2
         }
       ]
     }

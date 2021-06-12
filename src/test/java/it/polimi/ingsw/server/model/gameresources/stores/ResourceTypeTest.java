@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests on ResourceType class
  */
-public class LWResourceTypeTest {
+public class ResourceTypeTest {
 
 
     /**

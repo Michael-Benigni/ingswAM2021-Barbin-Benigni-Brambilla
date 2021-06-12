@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.server.model.gamelogic.Player;
-import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.utils.network.MessageWriter;
 
 /**
@@ -26,8 +25,8 @@ public class ClassicCell extends Cell{
 
     @Override
     public void getInfo(MessageWriter writer){
-        writer.addProperty("VP", 0);
-        writer.addProperty("isPopeSpace", false);
+        writer.addProperty ("VP", 0);
+        writer.addProperty ("isPopeSpace", false);
     }
 
 

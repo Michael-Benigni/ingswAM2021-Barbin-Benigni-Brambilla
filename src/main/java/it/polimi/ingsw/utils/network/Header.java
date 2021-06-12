@@ -35,7 +35,8 @@ public interface Header {
         MARKET_UP ("market_up"),
         TEMP_CONTAINER_UPDATE("temp_container_update"),
         GET_PENALTY_UPDATE("get_penalty_update"),
-        FAITH_TRACK_UPDATE("faith_track_update");
+        FAITH_TRACK_UPDATE("faith_track_update"),
+        PLAYER_POSITION_UP ("player_position");
 
         private final String headerStr;
 

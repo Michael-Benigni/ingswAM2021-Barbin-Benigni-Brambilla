@@ -20,7 +20,7 @@ public class SlotDevCardUpdate implements ViewUpdate{
     public void update(View view) {
         Colour colour = null;
         int level = 1;
-        LWDevCard cardToAdd = new LWDevCard(addedDevCard, description/*, colour, level*/);
+        LWDevCard cardToAdd = new LWDevCard(addedDevCard, description,/*, colour, level*/colour, level);
         view.getModel().getPersonalBoard().updateSlots(cardToAdd, numberOfSlot);
     }
 }

@@ -131,40 +131,28 @@ public class DevelopmentCard extends GeneralDevelopmentCard {
     @Override
     public String toString() {
         String toString = "";
-        String paddingChar = "_";
-        int length = 20;
         String[] namesSections = {"COSTS", "TO PRODUCE", "TO CONSUME", "VICTORY POINTS"};
-        int numPadding;
         for (String name : namesSections) {
-            numPadding = Math.round ((length - name.length ()) / 2);
-            boolean isEvenLength = name.length () % 2 == 0;
-            String padding = "";
-            for (int i = 0; i < numPadding; i++) {
-                padding = padding + paddingChar;
-            }
-            String section = padding + name + padding + (!isEvenLength ? paddingChar : "") + "\n";
+            String section = ">>>>>>>>> " + name + " <<<<<<<<<\n";
             switch (name) {
                 case "COSTS":  {
                     for (StorableResource resource : cost)
-                        section = section + "\u20DD" + "  " + resource + "\n";
+                        section = section + "  " + resource + "\n";
                     break;
                 }
                 case "TO PRODUCE":  {
                     for (Producible resource : producedResources)
-                        section = section + "\u20DD" + "  " + resource + "\n";
+                        section = section + "  " + resource + "\n";
                     break;
                 }
                 case "TO CONSUME":  {
                     for (StorableResource resource : consumedResources)
-                        section = section + "\u20DD" + "  " + resource + "\n";
+                        section = section + "  " + resource + "\n";
                     break;
                 }
                 case "VICTORY POINTS": {
-                    section = section + "\u20DD" + "  " + victoryPoints + "\n";
+                    section = section + "  " + victoryPoints + "\n";
                 }
-            }
-            for (int i = 0; i < length; i++) {
-                toString = toString + paddingChar;
             }
             toString = toString + "\n" + section + "\n";
         }

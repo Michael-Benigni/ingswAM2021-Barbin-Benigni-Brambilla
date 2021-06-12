@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.moves;
 
+import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
 import it.polimi.ingsw.client.view.states.PlayState;
 import it.polimi.ingsw.client.view.ui.cli.*;
@@ -24,7 +25,24 @@ public enum PlayMove implements MoveType {
     SHOW_PERSONAL_BOARD("SPB", showPersonalBoard()),
     SHOW_GAME_BOARD("SGB", showGameBoard()),
     SHOW_INFO_GAME("INFO", showInfoGame ()),
+    SHOW_CARD_INFO("CI", showCardInfo()),
     QUIT("QUIT", quitMove()) ;
+
+    private static Move showCardInfo() {
+        return (ui) -> {
+            Interlocutor interlocutor = ui.getInterlocutor();
+            Interpreter interpreter = ui.getInterpreter();
+            interlocutor.write ("Choose the row and the column of the card in the grid: \nRow: ");
+            String rowAsStr = interpreter.listen ();
+            int row = Integer.parseInt (rowAsStr);
+            interlocutor.write ("Column :");
+            String columnAsStr = interpreter.listen ();
+            int column = Integer.parseInt (columnAsStr);
+            String desc = ui.getView ().getModel ().getBoard ().getGrid ().getCard(row, column).getDescription ();
+            interlocutor.write (desc);
+            return null;
+        };
+    }
 
     private static Move quitMove() {
         return (ui) -> {
@@ -255,7 +273,7 @@ public enum PlayMove implements MoveType {
         };
     }
 
-    private static MessageWriter payments(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer, String nameProperty) {
+    private static MessageWriter payments(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer, String nameProperty) throws IllegalInputException {
         String addOrStop;
         do {
             PaymentRequest payment = new PaymentRequest ("", nameProperty);

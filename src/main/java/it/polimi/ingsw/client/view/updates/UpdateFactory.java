@@ -18,6 +18,11 @@ public class UpdateFactory {
         map.put (Header.ToClient.SHOW_INITIAL_GRID, CardsGridInitialUpdate.class);
         map.put (Header.ToClient.WAREHOUSE_UPDATE, WarehouseUpdate.class);
         map.put (Header.ToClient.SLOT_DEVCARD_UPDATE, SlotDevCardUpdate.class);
+        map.put (Header.ToClient.GET_PENALTY_UPDATE, GetPenaltyUpdate.class);
+        map.put (Header.ToClient.STRONGBOX_UPDATE, StrongboxUpdate.class);
+        map.put (Header.ToClient.TEMP_CONTAINER_UPDATE, TempContainerUpdate.class);
+        map.put (Header.ToClient.FAITH_TRACK_UPDATE, InitialFaithTrackUpdate.class);
+        map.put (Header.ToClient.PLAYER_POSITION_UP, PlayerPositionUP.class);
         return map;
     }
 
