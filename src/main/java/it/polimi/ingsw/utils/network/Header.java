@@ -36,7 +36,11 @@ public interface Header {
         TEMP_CONTAINER_UPDATE("temp_container_update"),
         GET_PENALTY_UPDATE("get_penalty_update"),
         FAITH_TRACK_UPDATE("faith_track_update"),
-        PLAYER_POSITION_UP ("player_position");
+        PLAYER_POSITION_UP ("player_position"),
+        WAIT_YOUR_TURN ("wait_your_turn"),
+        LAST_ROUND_UP ("last_round"),
+        GAME_OVER_UP ("game_over"),
+        SET_NUM_PLAYERS ("set_num_players");
 
         private final String headerStr;
 

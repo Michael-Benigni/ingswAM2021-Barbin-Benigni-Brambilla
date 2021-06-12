@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.ui;
 
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.Interpreter;
 import it.polimi.ingsw.utils.network.Sendable;
@@ -19,6 +20,8 @@ public interface UI {
 
     void setNextState();
 
+    void printMenu();
+
     void notifyError(String info);
 
     void notifyMessage(String info);
@@ -32,4 +35,6 @@ public interface UI {
     Interpreter getInterpreter();
 
     View getView();
+
+
 }

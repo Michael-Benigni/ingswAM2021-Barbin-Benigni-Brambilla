@@ -188,4 +188,8 @@ public class Player implements GameComponent {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public int getPosition() {
+        return position;
+    }
 }

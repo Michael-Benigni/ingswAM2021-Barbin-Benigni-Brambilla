@@ -166,6 +166,7 @@ public class FaithTrack implements GameComponent {
         return this.mapOfFaithMarkers.keySet();
     }
 
+
     @Override
     public Iterable<Observer> getObservers() {
         return this.observers;

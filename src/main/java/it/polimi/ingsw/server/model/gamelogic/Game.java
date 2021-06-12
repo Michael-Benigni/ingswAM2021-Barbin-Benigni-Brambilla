@@ -2,13 +2,9 @@ package it.polimi.ingsw.server.model.gamelogic;
 
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
-import it.polimi.ingsw.server.model.gamelogic.actions.Action;
-import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
-import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
-import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.server.model.gamelogic.actions.*;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
 import it.polimi.ingsw.utils.config.Prefs;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
@@ -91,7 +87,7 @@ public abstract class Game implements GameComponent {
     /**
      * @return true if the game is over, otherwise returns false
      */
-    public boolean isGameIsOver() {
+    public boolean isGameOver() {
         return gameIsOver;
     }
 
@@ -163,14 +159,34 @@ public abstract class Game implements GameComponent {
      * @throws IsNotCurrentPlayerException
      * @throws WrongCommandException
      */
-    public void performCommandOf(Player player, Action action) throws Exception {
-        Player currentPlayer = getCurrentPlayer();
-        if (player == currentPlayer) {
-            this.getCurrentTurn().add(action);
-            action.perform(this, currentPlayer);
-        }
-        else
-            throw new IsNotCurrentPlayerException();
+    public void performActionOf(Player player, Action action) throws Exception {
+        if (!isGameOver ()) {
+            Player currentPlayer = getCurrentPlayer ();
+            if (player == currentPlayer) {
+                this.getCurrentTurn ().add (action);
+                try {
+                    action.perform (this, currentPlayer);
+                } catch (GameOverByFaithTrackException | GameOverByGridException e) {
+                    if (player != playersOrder.getLast ())
+                        notifyLastRoundUpdate ();
+                    setLastRound ();
+                    performActionOf (player, new EndTurnAction ());
+                }
+            } else
+                throw new IsNotCurrentPlayerException ();
+        } throw new NoValidActionException ();
+    }
+
+    protected void notifyLastRoundUpdate() {
+        this.playersOrder.stream ().forEach ((p) -> {
+            p.notifyUpdate (getLastRoundUpdate());
+        });
+    }
+
+    private Sendable getLastRoundUpdate() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.LAST_ROUND_UP);
+        return writer.write ();
     }
 
 
@@ -194,14 +210,57 @@ public abstract class Game implements GameComponent {
             this.currentPlayer = this.playersOrder.getFirst();
             if(numberOfRounds == -1) {
                 this.gameIsOver = true;
+                onGameOver();
                 return;
             }
             numberOfRounds++;
         }
         nextTurn();
         this.currentPlayer.notifyUpdate (currentTurn.getNextPlayerMessage (this));
+        sendWaitMessage ();
         if (!this.currentPlayer.isConnected ())
             setNextPlayer ();
+    }
+
+    private void onGameOver() {
+        if (isGameOver ()) {
+            ArrayList<Player> winners = computeWinners ();
+            playersOrder.stream ().forEach ((p) -> p.notifyUpdate (getEndGameUpdate(winners)));
+        }
+    }
+
+    private Sendable getEndGameUpdate(ArrayList<Player> winners) {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.GAME_OVER_UP);
+        String VPs;
+        String position;
+        for (Player player : playersOrder) {
+            if (winners.contains (player)) {
+                position = "winnersRoundPositions";
+                VPs = "winnersVPs";
+            }
+            else {
+                position = "losersRoundPositions";
+                VPs = "LosersVPs";
+            }
+            writer.addProperty (VPs, player.computeAllVP ().getPoints ());
+            writer.addProperty (position, player.getPosition ());
+        }
+        return writer.write ();
+    }
+
+
+    /**
+     * This method sends to all the Observers of the players different from the current one that they have to wait that
+     * the current player ends his turn.
+     */
+    private void sendWaitMessage() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.WAIT_YOUR_TURN);
+        writer.addProperty ("currPlayer", currentPlayer.getPosition ());
+        playersOrder.stream ()
+                .filter ((p) -> p != currentPlayer)
+                .forEach ((p)-> p.notifyUpdate(writer.write ()));
     }
 
 
@@ -266,7 +325,7 @@ public abstract class Game implements GameComponent {
      */
     public ArrayList<Player> computeWinners() {
         ArrayList<Player> winners = new ArrayList<>();
-        if (gameIsOver) {
+        if (isGameOver ()) {
             Player winner = playersOrder.getFirst();
             VictoryPoint winnerPoints = winner.computeAllVP();
             for (Player player : getAllPlayers()) {
@@ -304,10 +363,15 @@ public abstract class Game implements GameComponent {
         this.numberOfRounds = -1;
     }
 
+
+    /**
+     * @return the Iterable object of Observers of this.
+     */
     @Override
     public Iterable<Observer> getObservers() {
         return this.observers;
     }
+
 
     /**
      * This method is used to attach the observer to the object that implements this interface

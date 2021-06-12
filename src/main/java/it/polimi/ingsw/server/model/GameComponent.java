@@ -22,5 +22,8 @@ public interface GameComponent extends Subject {
         });
     }
 
+    /**
+     * @return the Iterable object of Observers of this.
+     */
     Iterable<Observer> getObservers();
 }

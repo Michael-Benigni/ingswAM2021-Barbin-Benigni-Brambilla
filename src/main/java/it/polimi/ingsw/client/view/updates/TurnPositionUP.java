@@ -14,6 +14,5 @@ public class TurnPositionUP implements ViewUpdate {
         view.getModel ().getInfoMatch ().setNumPlayerInTurn (turnPosition);
         view.getUI ().setNextState ();
         view.getUI().notifyMessage ("You are the " + turnPosition + "° player!");
-        view.getUI ().nextInputRequest ();
     }
 }

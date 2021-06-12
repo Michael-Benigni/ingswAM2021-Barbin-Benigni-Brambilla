@@ -14,7 +14,7 @@ import it.polimi.ingsw.utils.Entry;
 import it.polimi.ingsw.utils.config.Prefs;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
-import it.polimi.ingsw.utils.network.Sendable;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -78,6 +78,10 @@ public class Controller {
     public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException, IllegalNumberOfPlayersException, TooManyPlayersException, FileNotFoundException, EmptyDeckException {
         WaitingRoom room = getWaitingRoomOf (user);
         room.setSize (newDim, user);
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.SET_NUM_PLAYERS);
+        writer.addProperty ("numPlayers", newDim);
+        user.getView ().onChanged (writer.write ());
     }
 
     public synchronized void registerToNewRoom(User user) throws FullWaitingRoomException, InvalidUserException {
@@ -123,7 +127,7 @@ public class Controller {
     }
 
     public void handleMatchMoveOf (User user, Action action) throws Exception {
-        getGameOf(user).performCommandOf(this.getWaitingRoomOf (user).getPlayerOf (user), action);
+        getGameOf(user).performActionOf (this.getWaitingRoomOf (user).getPlayerOf (user), action);
     }
 
     public synchronized void disconnect(User user) throws InvalidUserException {

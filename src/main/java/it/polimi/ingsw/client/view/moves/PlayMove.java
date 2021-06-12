@@ -26,7 +26,15 @@ public enum PlayMove implements MoveType {
     SHOW_GAME_BOARD("SGB", showGameBoard()),
     SHOW_INFO_GAME("INFO", showInfoGame ()),
     SHOW_CARD_INFO("CI", showCardInfo()),
+    SHOW_MENU("MENU", showMenu()),
     QUIT("QUIT", quitMove()) ;
+
+    private static Move showMenu() {
+        return (ui) -> {
+            ui.printMenu ();
+            return null;
+        };
+    }
 
     private static Move showCardInfo() {
         return (ui) -> {

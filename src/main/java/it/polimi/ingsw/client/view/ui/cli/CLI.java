@@ -52,7 +52,6 @@ public class CLI implements UI {
         } catch (IllegalInputException e) {
             userInteraction ();
         }
-        nextInputRequest ();
     }
 
     @Override
@@ -185,7 +184,7 @@ public class CLI implements UI {
             }
             result/*.append (padding ("", " ", widthEachElem))*/.append ("\n");
         }
-        return widthCheck(result.toString (), allLines.get (0).get (0).length () );
+        return result.toString ();//widthCheck(result.toString (), allLines.get (0).get (0).length () );
     }
 
     private ArrayList<ArrayList<String>> cut(ArrayList<String> lines, int widthEachElement) {
@@ -354,7 +353,8 @@ public class CLI implements UI {
         }
     }
 
-    private void printMenu() {
+    @Override
+    public void printMenu() {
         interlocutor.write (getState ().menu ());
     }
 

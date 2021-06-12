@@ -100,6 +100,11 @@ public class GUI extends Application implements UI {
     }
 
     @Override
+    public void printMenu() {
+
+    }
+
+    @Override
     public void setView(View view) {
         this.view = view;
     }

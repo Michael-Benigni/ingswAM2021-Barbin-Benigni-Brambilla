@@ -43,7 +43,7 @@ public class Interpreter {
                 try {
                     return getMove (input);
                 } catch (UnavailableMoveName unavailableMoveName) {
-                    System.out.printf ("Invalid move for \"%s\"", input);
+                    System.out.printf ("Invalid move for \"%s\"\n", input);
                     listenForMove ();
                 }
             }
