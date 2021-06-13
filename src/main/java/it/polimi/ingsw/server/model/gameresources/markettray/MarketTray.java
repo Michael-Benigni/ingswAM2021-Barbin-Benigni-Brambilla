@@ -168,29 +168,35 @@ public class MarketTray implements GameComponent {
     public ArrayList<Resource> pickResourcesOnColumn(int selectedColumn) throws InvalidMarketColumnException {
         ArrayList<MarketMarble> columnToSwap = getColumn (selectedColumn);
         ArrayList<Resource> resources = getResources (columnToSwap);
-        swap (columnToSwap);
+        ArrayList<MarketMarble> swappedColumn = swap (columnToSwap);
+        for (int i = 0; i < columnToSwap.size (); i++)
+            marblesMatrix.get (selectedColumn).set (i, swappedColumn.get (selectedColumn));
         return resources;
     }
 
 
     /**
-     * @param selectedColumnIndex row from which will be taken the resources objects
-     * @return the selected row as ArrayList of MarketMarbles
-     * @throws InvalidMarketRowException if selectedColumnIndex >= column (look at the attributes)
+     * @param selectedColumnIndex column from which will be taken the resources objects
+     * @return a copy of the selected column as ArrayList of MarketMarbles
+     * @throws InvalidMarketColumnException if selectedColumnIndex >= column (look at the attributes)
      */
     private ArrayList<MarketMarble> getColumn(int selectedColumnIndex) throws InvalidMarketColumnException {
-        try {
-            return marblesMatrix.get (selectedColumnIndex);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidMarketColumnException ();
+        ArrayList<MarketMarble> column = new ArrayList<> ();
+        for (int i = 0; i < rows; i++) {
+            try {
+                column.add (getMarbleAt (i, selectedColumnIndex));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidMarketColumnException ();
+            }
         }
+        return column;
     }
 
 
     /**
-     * @param selectedRowIndex column from which the player takes the resources
-     * @return the selected column as ArrayList of MarketMarbles
-     * @throws InvalidMarketColumnException if selectedRowIndex >= rows (look at the attributes)
+     * @param selectedRowIndex row from which the player takes the resources
+     * @return a copy of the selected row as ArrayList of MarketMarbles
+     * @throws InvalidMarketRowException if selectedRowIndex >= rows (look at the attributes)
      */
     private ArrayList<MarketMarble> getRow(int selectedRowIndex) throws InvalidMarketRowException {
         ArrayList<MarketMarble> row = new ArrayList<> ();
