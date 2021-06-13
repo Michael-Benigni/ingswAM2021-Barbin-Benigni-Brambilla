@@ -163,14 +163,17 @@ public class CLI implements UI {
 
     private String marketSection() {
         StringBuilder marketAsString = new StringBuilder ();
+        final String LEFT_ARROW = "\uD83E\uDC14\n";
+        final String UP_ARROW = "\uD83E\uDC15";
+        final String MARBLE = "\u2B24";
         ArrayList<ArrayList<Colour>> marbles = getView ().getModel ().getBoard ().getMarket ().getMarbles ();
         String headerColumns = "";
         StringBuilder res = new StringBuilder ();
         for (ArrayList<Colour> c : marbles) {
             res.append (String.format ("ROW: %d\t", marbles.indexOf (c)));
             for (Colour co : c)
-                res.append (String.format ("%s\t", colour (co, "\u2B24")));
-            res.append ("\uD83E\uDC14\n");
+                res.append (String.format ("%s\t", colour (co, MARBLE)));
+            res.append (LEFT_ARROW);
         }
         for (int column = 0; column < marbles.get (0).size (); column++)
             headerColumns = String.format ("%s%s\t", headerColumns, column);
@@ -178,7 +181,7 @@ public class CLI implements UI {
         marketAsString.append (res);
         StringBuilder arrows = new StringBuilder ("\t");
         for (int column = 0; column < marbles.get (0).size (); column++)
-            arrows.append (String.format ("\t%s", "\uD83E\uDC15"));
+            arrows.append (String.format ("\t%s", UP_ARROW));
         marketAsString.append (String.format ("%s\n", arrows));
         marketAsString.append (String.format ("On Slide: %s", colour (getView ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (),"\u2B24")));
         marketAsString.append ("\n");
@@ -190,10 +193,12 @@ public class CLI implements UI {
         int cellDim = 10;
         ArrayList<LWCell> cells = getView ().getModel ().getBoard ().getFaithTrack ();
         ArrayList<String> cellsAsString = cells.stream ()
-                .map ((cell)-> /*colour (cell.isPopeSpace () ? Colour.RED : cell.getVictoryPoints () > 0 ? Colour.YELLOW : Colour.RESET,
-                 */encapsulate ("Cell n°" + cells.indexOf (cell) +
-                        "\nVP: " + cell.getVictoryPoints () + "\n"
-                        + (cell.isPopeSpace () ? "Pope Cell" : " ") + "\n", cellDim)/*)*/).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+                .map ((cell)-> encapsulate ("Cell n°" + cells.indexOf (cell)
+                        + "\nVP: " + cell.getVictoryPoints () + "\n"
+                        + (cell.isPopeSpace () ? "Pope Cell" : " ")
+                        + "\n"
+                        + String.join ("\n", cell.getPlayersInThisCell ()), cellDim))
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
         faithTrackAsString += juxtapose (cellsAsString, cellDim);
         return getSectionHeader (" FAITH TRACK ") + faithTrackAsString;
     }
