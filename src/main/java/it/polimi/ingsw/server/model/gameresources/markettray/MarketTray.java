@@ -147,13 +147,14 @@ public class MarketTray implements GameComponent {
      */
     public List<Resource> pickResourcesOnRow(int selectedRow) throws InvalidMarketRowException {
         ArrayList<MarketMarble> rowToSwap = getRow (selectedRow);
+        ArrayList<Resource> resources = getResources (rowToSwap);
         ArrayList<MarketMarble> swappedRow = swap (rowToSwap);
         for (ArrayList<MarketMarble> columns : marblesMatrix) {
             int columnIdx = marblesMatrix.indexOf (columns);
             marblesMatrix.get (columnIdx).set (selectedRow, swappedRow.get (columnIdx));
         }
         // it has been swapped the row in marblesGrid or a copy of the row?
-        return getResources (rowToSwap);
+        return resources;
     }
 
 
@@ -166,8 +167,9 @@ public class MarketTray implements GameComponent {
      */
     public ArrayList<Resource> pickResourcesOnColumn(int selectedColumn) throws InvalidMarketColumnException {
         ArrayList<MarketMarble> columnToSwap = getColumn (selectedColumn);
+        ArrayList<Resource> resources = getResources (columnToSwap);
         swap (columnToSwap);
-        return getResources (columnToSwap);
+        return resources;
     }
 
 

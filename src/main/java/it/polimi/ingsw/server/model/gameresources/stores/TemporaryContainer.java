@@ -146,5 +146,6 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+        this.notifyUpdate (generateUpdate ());
     }
 }

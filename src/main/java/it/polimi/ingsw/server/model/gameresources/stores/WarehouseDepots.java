@@ -240,5 +240,6 @@ public class WarehouseDepots implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observer = observer;
+        this.notifyUpdate (generateUpdate ());
     }
 }

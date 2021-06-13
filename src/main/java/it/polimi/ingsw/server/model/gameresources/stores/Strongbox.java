@@ -75,5 +75,6 @@ public class Strongbox extends UnboundedResourcesContainer implements Cloneable,
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+        notifyUpdate (generateUpdate ());
     }
 }

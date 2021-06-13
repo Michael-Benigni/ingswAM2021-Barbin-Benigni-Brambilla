@@ -284,7 +284,8 @@ public enum PlayMove implements MoveType {
     private static MessageWriter payments(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer, String nameProperty) throws IllegalInputException {
         String addOrStop;
         do {
-            PaymentRequest payment = new PaymentRequest ("", nameProperty);
+            PaymentRequest payment = new PaymentRequest ("If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT strongbox\", " +
+                    "if you want to pay from WAREHOUSE digit If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT warehouse DEPOT_INDEX\"", nameProperty);
             writer = payment.handleInput (interlocutor, interpreter, writer);
             interlocutor.write ("Digit \"A\" to add another payment, \"S\" to stop");
             addOrStop = interpreter.listen ();

@@ -23,7 +23,7 @@ public class PaymentRequest extends Request {
             resource.addProperty ("amount", payment.get (1));
             writer.addProperty ("resource", resource.getInfo ());
             writer.addProperty ("fromWhere", payment.get (2));
-            if (payment.size () > 3)
+            if (payment.get (2).equals (""))
                 writer.addProperty ("depotIdx", payment.get (3));
         } catch (Exception e) {
             System.out.printf ("Error: %s\n", e.getMessage ());

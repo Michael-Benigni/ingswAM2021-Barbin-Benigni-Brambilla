@@ -16,8 +16,9 @@ public class InitialFaithTrackUpdate implements ViewUpdate{
 
     @Override
     public void update(View view) {
-
         view.getModel().getBoard().updateFaithTrack(buildListOfCells(view.getModel().getInfoMatch()));
+        ArrayList<String> otherPlayers = view.getModel ().getInfoMatch ().getOtherPlayersUsernames ();
+        otherPlayers.stream ().forEach ((p) -> view.getModel ().getBoard ().getFaithTrack ().get (0).addPlayer (p));
     }
 
     private ArrayList<LWCell> buildListOfCells(InfoMatch infoMatch) {
@@ -26,9 +27,8 @@ public class InitialFaithTrackUpdate implements ViewUpdate{
         usernames.add(infoMatch.getYourUsername());
         usernames.addAll(infoMatch.getOtherPlayersUsernames());
         listOfCells.add(new LWCell(usernames, this.VP.get(0), this.isPopeSpace.get(0)));
-        usernames.clear();
         for(int i = 1; i < this.VP.size(); i++){
-            listOfCells.add(new LWCell(usernames, this.VP.get(i), this.isPopeSpace.get(i)));
+            listOfCells.add(new LWCell(new ArrayList<> (), this.VP.get(i), this.isPopeSpace.get(i)));
         }
         return listOfCells;
     }
