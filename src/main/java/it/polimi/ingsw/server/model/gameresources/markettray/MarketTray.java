@@ -154,6 +154,7 @@ public class MarketTray implements GameComponent {
             marblesMatrix.get (columnIdx).set (selectedRow, swappedRow.get (columnIdx));
         }
         // it has been swapped the row in marblesGrid or a copy of the row?
+        notifyUpdate (generateUpdate ());
         return resources;
     }
 
@@ -171,6 +172,7 @@ public class MarketTray implements GameComponent {
         ArrayList<MarketMarble> swappedColumn = swap (columnToSwap);
         for (int i = 0; i < columnToSwap.size (); i++)
             marblesMatrix.get (selectedColumn).set (i, swappedColumn.get (i));
+        notifyUpdate (generateUpdate ());
         return resources;
     }
 
@@ -230,14 +232,11 @@ public class MarketTray implements GameComponent {
      * @return the correspondent Resources of the vectoOfMarbles
      */
     private ArrayList<Resource> getResources(ArrayList<MarketMarble> vectorOfMarbles) {
-        ArrayList<Resource> resources =
-                vectorOfMarbles
+        return vectorOfMarbles
                 .stream ()
                 .parallel ()
                 .map (MarketMarble::getCorrespondentResource)
                 .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
-        notifyUpdate (generateUpdate ());
-        return resources;
     }
 
 
