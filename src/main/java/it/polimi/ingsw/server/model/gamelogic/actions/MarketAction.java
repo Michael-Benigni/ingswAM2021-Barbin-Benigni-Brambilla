@@ -8,11 +8,11 @@ import it.polimi.ingsw.server.model.gameresources.Resource;
 
 import java.util.List;
 
-class MarketAction implements MutualExclusiveAction {
+public class MarketAction implements MutualExclusiveAction {
     private final int numRowOrColumn;
     private final String rowOrColumn;
 
-    MarketAction(int numRowOrColumn, String rowOrColumn) {
+    public MarketAction(int numRowOrColumn, String rowOrColumn) {
         super();
         this.numRowOrColumn = numRowOrColumn;
         this.rowOrColumn = rowOrColumn;

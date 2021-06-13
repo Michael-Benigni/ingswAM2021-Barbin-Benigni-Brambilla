@@ -20,7 +20,7 @@ class MultiplayerGameTest extends ActionTest {
     private ArrayList<PersonalBoard> personalBoards;
 
     @BeforeEach
-    void initGames() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException {
+    void initGames() throws IllegalNumberOfPlayersException, TooManyPlayersException {
         personalBoards = new ArrayList<>();
         for (int i = 0; i < 4; i++)
             personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
@@ -61,7 +61,6 @@ class MultiplayerGameTest extends ActionTest {
             gameNegativeNumOfPlayers = new MultiplayerGame(-1);
             fail();
         } catch (IllegalNumberOfPlayersException e) {
-            assertTrue(true);
             assertNull(gameNegativeNumOfPlayers);
         }
     }
@@ -72,7 +71,6 @@ class MultiplayerGameTest extends ActionTest {
             gameNegativeNumOfPlayers = new MultiplayerGame(0);
             fail();
         } catch (IllegalNumberOfPlayersException e) {
-            assertTrue(true);
             assertNull(gameNegativeNumOfPlayers);
         }
     }

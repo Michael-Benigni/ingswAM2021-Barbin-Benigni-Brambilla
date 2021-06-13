@@ -11,7 +11,7 @@ import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrackTest;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTrayTest;
 
-class GameBoardTest {
+public class GameBoardTest {
 
     public static GameBoard initGameBoard() throws NegativeResourceAmountException, EmptyDeckException {
         FaithTrack faithTrack = new FaithTrackTest().initFaithTrack();
