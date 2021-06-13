@@ -46,6 +46,6 @@ public interface Action extends Command {
 
     @Override
     default void handled(Controller controller, User user) throws Exception {
-        controller.handleMatchMoveOf (user, this);
+         controller.handleMatchMoveOf (user, this);
     }
 }

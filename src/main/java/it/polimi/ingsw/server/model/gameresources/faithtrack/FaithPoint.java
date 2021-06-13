@@ -71,6 +71,6 @@ public class FaithPoint implements Producible {
 
     @Override
     public String toString() {
-        return "resourceType = Faith Point, " + "amount = " + points;
+        return points + " Faith Point";
     }
 }

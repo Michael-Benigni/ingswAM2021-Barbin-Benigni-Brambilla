@@ -258,8 +258,7 @@ public class CLI implements UI {
 
     @Override
     public void showGameBoard() {
-        String boardAsString =
-                cardsGridSection ()
+        String boardAsString = cardsGridSection ()
                         + "\n\n" + faithTrackSection ()
                         + "\n\n" + marketSection();
         interlocutor.write (boardAsString);
@@ -303,6 +302,19 @@ public class CLI implements UI {
     }
 
     private String cardsGridSection() {
+        StringBuilder devCardsAsString = new StringBuilder ();
+        ArrayList<ArrayList<LWDevCard>> grid = getView ().getModel ().getBoard ().getGrid ().getCardsGrid ();
+        for (int column = 0; column < grid.get (0).size (); column++) {
+        }
+        for (ArrayList<LWDevCard> row : grid) {
+            devCardsAsString.append (padding (juxtapose (row.stream ()
+                    .map ((card) -> encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 4)))
+                    .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2), " ", WIDTH_SECTION))
+            .append ("\n");
+        }
+        String sectionHeader = getSectionHeader(" CARDS GRID ");
+        return sectionHeader + devCardsAsString;
+        /*
         StringBuilder cardsGridAsString = new StringBuilder ();
         int cardDim = 10;
         ArrayList<String> headerColumns = new ArrayList<> ();
@@ -320,6 +332,8 @@ public class CLI implements UI {
             cardsGridAsString.append ("\n");
         }
         return getSectionHeader (" DEVELOPMENT CARDS GRID ") + padding (cardsGridAsString.toString (), " ", WIDTH_SECTION);
+
+         */
     }
 
     private String colour(Colour colour, String target) {
