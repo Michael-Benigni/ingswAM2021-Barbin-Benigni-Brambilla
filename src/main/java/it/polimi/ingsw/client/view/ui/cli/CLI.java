@@ -7,13 +7,11 @@ import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
-import it.polimi.ingsw.server.model.cards.developmentcards.CardColour;
 import it.polimi.ingsw.utils.config.StringParser;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
 
-import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -53,6 +51,14 @@ public class CLI implements UI {
         } catch (IllegalInputException e) {
             userInteraction ();
         }
+    }
+
+    @Override
+    public void showGameBoard() {
+        String boardAsString = cardsGridSection ()
+                + "\n\n" + faithTrackSection ()
+                + "\n\n" + marketSection();
+        interlocutor.write (boardAsString);
     }
 
     @Override
@@ -155,6 +161,62 @@ public class CLI implements UI {
         return sectionHeader + warehouseAsString;
     }
 
+    private String marketSection() {
+        StringBuilder marketAsString = new StringBuilder ();
+        ArrayList<ArrayList<Colour>> marbles = getView ().getModel ().getBoard ().getMarket ().getMarbles ();
+        String headerColumns = "";
+        StringBuilder res = new StringBuilder ();
+        for (ArrayList<Colour> c : marbles) {
+            res.append (String.format ("ROW: %d\t", marbles.indexOf (c)));
+            for (Colour co : c)
+                res.append (String.format ("%s\t", colour (co, "\u2B24")));
+            res.append ("\uD83E\uDC14\n");
+        }
+        for (int column = 0; column < marbles.get (0).size (); column++)
+            headerColumns = String.format ("%s%s\t", headerColumns, column);
+        marketAsString.append (String.format ("\t\t%s\n", headerColumns));
+        marketAsString.append (res);
+        StringBuilder arrows = new StringBuilder ("\t");
+        for (int column = 0; column < marbles.get (0).size (); column++)
+            arrows.append (String.format ("\t%s", "\uD83E\uDC15"));
+        marketAsString.append (String.format ("%s\n", arrows));
+        marketAsString.append (String.format ("On Slide: %s", colour (getView ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (),"\u2B24")));
+        marketAsString.append ("\n");
+        return getSectionHeader (" MARKET TRAY ") + marketAsString;
+    }
+
+    private String faithTrackSection() {
+        String faithTrackAsString = "";
+        int cellDim = 10;
+        ArrayList<LWCell> cells = getView ().getModel ().getBoard ().getFaithTrack ();
+        ArrayList<String> cellsAsString = cells.stream ()
+                .map ((cell)-> /*colour (cell.isPopeSpace () ? Colour.RED : cell.getVictoryPoints () > 0 ? Colour.YELLOW : Colour.RESET,
+                 */encapsulate ("Cell n°" + cells.indexOf (cell) +
+                        "\nVP: " + cell.getVictoryPoints () + "\n"
+                        + (cell.isPopeSpace () ? "Pope Cell" : " ") + "\n", cellDim)/*)*/).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+        faithTrackAsString += juxtapose (cellsAsString, cellDim);
+        return getSectionHeader (" FAITH TRACK ") + faithTrackAsString;
+    }
+
+    private String cardsGridSection() {
+        StringBuilder devCardsAsString = new StringBuilder ();
+        LWCardsGrid grid = getView ().getModel ().getBoard ().getGrid ();
+        for (int column = 0; column < grid.getColumns(); column++) {
+            devCardsAsString.append (padding (String.format ("COL: %d", column), " ", WIDTH_SECTION / grid.getColumns()));
+        }
+        devCardsAsString.append ("\n");
+        for (ArrayList<LWDevCard> row : grid.getCardsGrid ()) {
+            ArrayList<String> elements = row.stream ()
+                    .map ((card) -> encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 4)))
+                    .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
+            devCardsAsString.append (String.format ("ROW: %d\n", grid.getCardsGrid ().indexOf (row)));
+            devCardsAsString.append (padding (juxtapose (elements, WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2), " ", WIDTH_SECTION))
+                    .append ("\n");
+        }
+        String sectionHeader = getSectionHeader(" CARDS GRID ");
+        return sectionHeader + devCardsAsString;
+    }
+
     private String getSectionHeader(String header) {
         StringBuilder upperBorder = new StringBuilder ();
         for (int i = 0; i < WIDTH_SECTION; i++)
@@ -254,86 +316,6 @@ public class CLI implements UI {
             toPadding = charPadding + toPadding + charPadding;
         }
         return toPadding;
-    }
-
-    @Override
-    public void showGameBoard() {
-        String boardAsString = cardsGridSection ()
-                        + "\n\n" + faithTrackSection ()
-                        + "\n\n" + marketSection();
-        interlocutor.write (boardAsString);
-    }
-
-    private String marketSection() {
-        StringBuilder marketAsString = new StringBuilder ();
-        ArrayList<ArrayList<Colour>> marbles = getView ().getModel ().getBoard ().getMarket ().getMarbles ();
-        String headerColumns = "";
-        StringBuilder res = new StringBuilder ();
-        for (ArrayList<Colour> c : marbles) {
-            res.append (String.format ("ROW: %d\t", marbles.indexOf (c)));
-            for (Colour co : c)
-                res.append (String.format ("%s\t", colour (co, "\u2B24")));
-            res.append ("\uD83E\uDC14\n");
-        }
-        for (int column = 0; column < marbles.get (0).size (); column++)
-            headerColumns = String.format ("%s%s\t", headerColumns, column);
-        marketAsString.append (String.format ("\t\t%s\n", headerColumns));
-        marketAsString.append (res);
-        StringBuilder arrows = new StringBuilder ("\t");
-        for (int column = 0; column < marbles.get (0).size (); column++)
-            arrows.append (String.format ("\t%s", "\uD83E\uDC15"));
-        marketAsString.append (String.format ("%s\n", arrows));
-        marketAsString.append (String.format ("On Slide: %s", colour (getView ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (),"\u2B24")));
-        marketAsString.append ("\n");
-        return getSectionHeader (" MARKET TRAY ") + marketAsString;
-    }
-
-    private String faithTrackSection() {
-        String faithTrackAsString = "";
-        int cellDim = 10;
-        ArrayList<LWCell> cells = getView ().getModel ().getBoard ().getFaithTrack ();
-        ArrayList<String> cellsAsString = cells.stream ()
-                .map ((cell)-> /*colour (cell.isPopeSpace () ? Colour.RED : cell.getVictoryPoints () > 0 ? Colour.YELLOW : Colour.RESET,
-                        */encapsulate ("Cell n°" + cells.indexOf (cell) +
-                    "\nVP: " + cell.getVictoryPoints () + "\n"
-                    + (cell.isPopeSpace () ? "Pope Cell" : " ") + "\n", cellDim)/*)*/).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-        faithTrackAsString += juxtapose (cellsAsString, cellDim);
-        return getSectionHeader (" FAITH TRACK ") + faithTrackAsString;
-    }
-
-    private String cardsGridSection() {
-        StringBuilder devCardsAsString = new StringBuilder ();
-        ArrayList<ArrayList<LWDevCard>> grid = getView ().getModel ().getBoard ().getGrid ().getCardsGrid ();
-        for (int column = 0; column < grid.get (0).size (); column++) {
-        }
-        for (ArrayList<LWDevCard> row : grid) {
-            devCardsAsString.append (padding (juxtapose (row.stream ()
-                    .map ((card) -> encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 4)))
-                    .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2), " ", WIDTH_SECTION))
-            .append ("\n");
-        }
-        String sectionHeader = getSectionHeader(" CARDS GRID ");
-        return sectionHeader + devCardsAsString;
-        /*
-        StringBuilder cardsGridAsString = new StringBuilder ();
-        int cardDim = 10;
-        ArrayList<String> headerColumns = new ArrayList<> ();
-        ArrayList<ArrayList<LWDevCard>> grid = getView ().getModel ().getBoard ().getGrid ().getCardsGrid ();
-        for (int column = 0; column < grid.get (0).size (); column++)
-            headerColumns.add (padding ("\nCOL: " + column + "\n", " ", cardDim));
-        cardsGridAsString.append (padding (juxtapose (headerColumns, cardDim), " ", WIDTH_SECTION));
-        cardsGridAsString.append ("\n");
-        for (ArrayList<LWDevCard> cardsRow : grid) {
-            ArrayList<String> rowStr = cardsRow.stream ().map ((card) -> colour (card.getColour (),
-                    encapsulate ((card.getLevel () != 0 ? "\nLV. " + card.getLevel () : "EMPTY"), cardDim)) + "\n")
-                    .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
-            rowStr.add (0, padding ("\n \nROW: " + grid.indexOf (cardsRow) + " \n \n", " ", cardDim));
-            cardsGridAsString.append (padding (juxtapose (rowStr, cardDim), " ", WIDTH_SECTION));
-            cardsGridAsString.append ("\n");
-        }
-        return getSectionHeader (" DEVELOPMENT CARDS GRID ") + padding (cardsGridAsString.toString (), " ", WIDTH_SECTION);
-
-         */
     }
 
     private String colour(Colour colour, String target) {
