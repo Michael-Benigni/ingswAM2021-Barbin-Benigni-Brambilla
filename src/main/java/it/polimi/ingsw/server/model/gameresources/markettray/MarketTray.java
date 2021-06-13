@@ -170,7 +170,7 @@ public class MarketTray implements GameComponent {
         ArrayList<Resource> resources = getResources (columnToSwap);
         ArrayList<MarketMarble> swappedColumn = swap (columnToSwap);
         for (int i = 0; i < columnToSwap.size (); i++)
-            marblesMatrix.get (selectedColumn).set (i, swappedColumn.get (selectedColumn));
+            marblesMatrix.get (selectedColumn).set (i, swappedColumn.get (i));
         return resources;
     }
 
