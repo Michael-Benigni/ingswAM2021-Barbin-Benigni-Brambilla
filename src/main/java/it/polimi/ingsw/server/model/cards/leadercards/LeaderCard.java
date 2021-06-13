@@ -52,23 +52,23 @@ public class LeaderCard {
      */
     public void setDiscountEffect(StorableResource resource) {
         this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid().addPlayerWithDiscount(player, resource);
-        this.effectDesc = "";
+        this.effectDesc = "Discount";
     }
 
     public void setExtraDepotEffect (ResourceType resourceType, int depotCapacity){
         this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resourceType);
-        this.effectDesc = "extraDepot";
+        this.effectDesc = "Extra-Depot";
     }
 
     public void setExtraProductionPowerEffect(StorableResource resource) {
         this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
-        this.effectDesc = "extraProductionPower";
+        this.effectDesc = "Extra Production Power";
     }
 
     public void setWhiteMarbleTransformationEffect(StorableResource resource) {
         this.effect = (player, game) ->
                 player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
-        this.effectDesc = "transformWhiteMarble";
+        this.effectDesc = "Transform White Marble";
     }
 
 

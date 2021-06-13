@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.server.model.gamelogic.Turn;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 
 class SwapDepots implements FirstTurnAction {
@@ -21,5 +22,10 @@ class SwapDepots implements FirstTurnAction {
         if(overflow != null){
             player.getPersonalBoard().getTempContainer().store(overflow);
         }
+    }
+
+    @Override
+    public boolean isValid(Turn turn) {
+        return true;
     }
 }

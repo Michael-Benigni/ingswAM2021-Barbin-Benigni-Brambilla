@@ -38,7 +38,7 @@ public class Interpreter {
     public synchronized Move listenForMove() {
         String input;
         while (true) {
-            if (in.hasNextLine ()) {
+            //if (in.hasNextLine ()) {
                 input = in.nextLine ();
                 try {
                     return getMove (input);
@@ -46,7 +46,7 @@ public class Interpreter {
                     System.out.printf ("Invalid move for \"%s\"\n", input);
                     listenForMove ();
                 }
-            }
+            //}
         }
     }
 

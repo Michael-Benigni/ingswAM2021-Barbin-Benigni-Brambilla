@@ -116,6 +116,7 @@ public abstract class Game implements GameComponent {
             this.currentTurn.start (this);
             this.currentPlayer = playersOrder.getFirst ();
             this.currentPlayer.notifyUpdate (currentTurn.getNextPlayerMessage (this));
+            this.sendWaitMessage ();
             this.numberOfRounds = 0;
         } else
             throw new IllegalNumberOfPlayersException ();
@@ -174,7 +175,8 @@ public abstract class Game implements GameComponent {
                 }
             } else
                 throw new IsNotCurrentPlayerException ();
-        } throw new NoValidActionException ();
+        } else
+            throw new NoValidActionException ();
     }
 
     protected void notifyLastRoundUpdate() {

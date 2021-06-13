@@ -78,10 +78,6 @@ public class Controller {
     public synchronized void setWaitingRoomDimension(User user, int newDim) throws InvalidUserException, ImpossibleChangingSizeException {
         WaitingRoom room = getWaitingRoomOf (user);
         room.setSize (newDim, user);
-        MessageWriter writer = new MessageWriter ();
-        writer.setHeader (Header.ToClient.SET_NUM_PLAYERS);
-        writer.addProperty ("numPlayers", newDim);
-        user.getView ().onChanged (writer.write ());
     }
 
     public synchronized void registerToNewRoom(User user) throws FullWaitingRoomException, InvalidUserException {

@@ -67,11 +67,19 @@ public class WaitingRoom {
     public void setSize(int size, User leader) throws ImpossibleChangingSizeException {
         if (this.usersPlayers.size () <= size && this.leader == leader) {
             this.size = size;
+            notifyChangedRoomSize(leader, size);
             if (isFull ())
                 notifyFullRoom ();
         }
         else
             throw new ImpossibleChangingSizeException();
+    }
+
+    private void notifyChangedRoomSize(User leader, int size) {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.SET_NUM_PLAYERS);
+        writer.addProperty ("numPlayers", size);
+        leader.getView ().onChanged (writer.write ());
     }
 
     public ArrayList<User> getAllUsers() {

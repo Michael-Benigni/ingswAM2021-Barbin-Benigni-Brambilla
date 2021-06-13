@@ -1,8 +1,10 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.gamelogic.FirstTurn;
+import it.polimi.ingsw.server.model.gamelogic.Turn;
 
 interface FirstTurnAction extends Action {
+
     /**
      * @param turn turn in which is checked the validity of this action
      * @return true if this Action can be performed after the Action performedActions, otherwise it returns false. This check
@@ -12,5 +14,10 @@ interface FirstTurnAction extends Action {
     @Override
     default boolean isValid(FirstTurn turn) {
         return true;
+    }
+
+    @Override
+    default boolean isValid(Turn turn) {
+        return false;
     }
 }

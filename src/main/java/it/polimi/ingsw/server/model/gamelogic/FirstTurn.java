@@ -19,7 +19,11 @@ public class FirstTurn extends Turn {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.YOUR_TURN);
         InitialParams params = game.getParams (game.getCurrentPlayer ());
-        writer.addProperty ("additionalMsg", "You have to choose " + params.getInitialResources () + " resources, and " + params.getInitialFaithPoints () + " faith points, before the end of the turn, not more, not less.");
+        writer.addProperty ("additionalMsg", "You have to choose " + params.getInitialResources ()
+                + " resources, and " + params.getInitialFaithPoints () + " faith points, before the end of the turn, " +
+                "not more, not less. You have also to discard "
+                + game.getCurrentPlayer ().getPersonalBoard ().getSlotLeaderCards ().getMaxNumOfCardsDuringGame ()
+                + " Leader cards.");
         return writer.write ();
     }
 

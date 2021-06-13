@@ -147,7 +147,11 @@ public class MarketTray implements GameComponent {
      */
     public List<Resource> pickResourcesOnRow(int selectedRow) throws InvalidMarketRowException {
         ArrayList<MarketMarble> rowToSwap = getRow (selectedRow);
-        swap (rowToSwap);
+        ArrayList<MarketMarble> swappedRow = swap (rowToSwap);
+        for (ArrayList<MarketMarble> columns : marblesMatrix) {
+            int columnIdx = marblesMatrix.indexOf (columns);
+            marblesMatrix.get (columnIdx).set (selectedRow, swappedRow.get (columnIdx));
+        }
         // it has been swapped the row in marblesGrid or a copy of the row?
         return getResources (rowToSwap);
     }
@@ -168,34 +172,34 @@ public class MarketTray implements GameComponent {
 
 
     /**
-     * @param selectedRowIndex row from which will be taken the resources objects
+     * @param selectedColumnIndex row from which will be taken the resources objects
      * @return the selected row as ArrayList of MarketMarbles
-     * @throws InvalidMarketRowException if selectedRow >= rows (look at the attributes)
+     * @throws InvalidMarketRowException if selectedColumnIndex >= column (look at the attributes)
      */
-    private ArrayList<MarketMarble> getRow(int selectedRowIndex) throws InvalidMarketRowException {
+    private ArrayList<MarketMarble> getColumn(int selectedColumnIndex) throws InvalidMarketColumnException {
         try {
-            return marblesMatrix.get (selectedRowIndex);
+            return marblesMatrix.get (selectedColumnIndex);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidMarketRowException ();
+            throw new InvalidMarketColumnException ();
         }
     }
 
 
     /**
-     * @param selectedColumnIndex column from which the player takes the resources
+     * @param selectedRowIndex column from which the player takes the resources
      * @return the selected column as ArrayList of MarketMarbles
-     * @throws InvalidMarketColumnException if selectedColumn >= columns (look at the attributes)
+     * @throws InvalidMarketColumnException if selectedRowIndex >= rows (look at the attributes)
      */
-    private ArrayList<MarketMarble> getColumn(int selectedColumnIndex) throws InvalidMarketColumnException {
-        ArrayList<MarketMarble> column = new ArrayList<> ();
-        for (int i = 0; i < rows; i++) {
+    private ArrayList<MarketMarble> getRow(int selectedRowIndex) throws InvalidMarketRowException {
+        ArrayList<MarketMarble> row = new ArrayList<> ();
+        for (int i = 0; i < columns; i++) {
             try {
-                column.add (getMarbleAt (i, selectedColumnIndex));
+                row.add (getMarbleAt (selectedRowIndex, i));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidMarketColumnException ();
+                throw new InvalidMarketRowException ();
             }
         }
-        return column;
+        return row;
     }
 
 

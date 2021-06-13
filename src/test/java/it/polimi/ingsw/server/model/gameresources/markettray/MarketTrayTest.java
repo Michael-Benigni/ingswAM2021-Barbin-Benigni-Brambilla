@@ -56,11 +56,10 @@ public class MarketTrayTest {
     @Test
     void pickResourcesOnRow() throws InvalidMarketRowException, NegativeResourceAmountException {
         MarketTray marketTray = initMarketTray();
-        List<Resource> resourceList = null;
-        resourceList = marketTray.pickResourcesOnRow(1);
+        List<Resource> resourceList = marketTray.pickResourcesOnRow(1);
         assertInstanceOf(ArrayList.class, resourceList);
         assertNotNull(resourceList);
-        assert (resourceList.size() == row);
+        assert (resourceList.size() == col);
         for (Resource resource: resourceList) {
             assertInstanceOf(Resource.class, resource);
         }
@@ -69,8 +68,7 @@ public class MarketTrayTest {
     @Test
     void pickResourcesOnColumn() throws InvalidMarketColumnException, NegativeResourceAmountException {
         MarketTray marketTray = initMarketTray();
-        List<Resource> resourceList = null;
-        resourceList = marketTray.pickResourcesOnColumn(1);
+        List<Resource> resourceList = marketTray.pickResourcesOnColumn(1);
         assertInstanceOf(ArrayList.class, resourceList);
         assertNotNull(resourceList);
         assert (resourceList.size() == row);

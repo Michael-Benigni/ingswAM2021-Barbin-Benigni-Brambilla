@@ -175,4 +175,11 @@ public class SlotLeaderCards implements GameComponent {
     public void attach(Observer observer) {
         this.observers.add (observer);
     }
+
+    /**
+     * @return maxNumberOfCardDuringGame
+     */
+    public int getMaxNumOfCardsDuringGame() {
+        return maxNumOfCardsDuringGame;
+    }
 }

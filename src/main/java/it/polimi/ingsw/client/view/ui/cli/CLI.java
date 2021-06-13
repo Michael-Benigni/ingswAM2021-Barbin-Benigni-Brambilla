@@ -49,6 +49,7 @@ public class CLI implements UI {
         Move move = interpreter.listenForMove ();
         try {
             actuateMove (move);
+            nextInputRequest ();
         } catch (IllegalInputException e) {
             userInteraction ();
         }
@@ -184,7 +185,11 @@ public class CLI implements UI {
             }
             result/*.append (padding ("", " ", widthEachElem))*/.append ("\n");
         }
-        return result.toString ();//widthCheck(result.toString (), allLines.get (0).get (0).length () );
+        try {
+            return widthCheck(result.toString (), allLines.get (0).get (0).length () );
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            return result.toString ();
+        }
     }
 
     private ArrayList<ArrayList<String>> cut(ArrayList<String> lines, int widthEachElement) {
@@ -263,35 +268,23 @@ public class CLI implements UI {
     private String marketSection() {
         StringBuilder marketAsString = new StringBuilder ();
         ArrayList<ArrayList<Colour>> marbles = getView ().getModel ().getBoard ().getMarket ().getMarbles ();
-        ArrayList<String> headerColumns = new ArrayList<> ();
-        int marbleDim = 1;
-        /*
-        String res = "";
+        String headerColumns = "";
+        StringBuilder res = new StringBuilder ();
         for (ArrayList<Colour> c : marbles) {
-            res += String.format ("ROW: %d\t", marbles.indexOf (c));
-            for (Colour co : c) {
-                res += String.format ("%s\u2B24\t", co.escape ());
-            }
-            res += "\n";
-            res = padding (res, " ", WIDTH_SECTION);
+            res.append (String.format ("ROW: %d\t", marbles.indexOf (c)));
+            for (Colour co : c)
+                res.append (String.format ("%s\t", colour (co, "\u2B24")));
+            res.append ("\uD83E\uDC14\n");
         }
-
-        System.out.printf ("%s", res);
-
-         */
-
         for (int column = 0; column < marbles.get (0).size (); column++)
-            headerColumns.add (padding (column + "\t", " ", marbleDim));
-        marketAsString.append (padding (juxtapose (headerColumns, marbleDim), " ", WIDTH_SECTION));
-        marketAsString.append ("\n");
-        for (ArrayList<Colour> row : marbles) {
-            ArrayList<String> rowStr = row.stream ().map ((marble) ->  "\t" + (colour (marble, padding ("\u2B24", " ", marbleDim))))
-                    .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
-            rowStr.add (0, padding ("ROW: " + marbles.indexOf (row) , " ", marbleDim));
-            marketAsString.append (padding (juxtapose (rowStr, marbleDim), " ", WIDTH_SECTION));
-            marketAsString.append ("\n");
-        }
-        marketAsString.append (padding ("On Slide: " + colour (getView ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (), "\u2B24"), " ", WIDTH_SECTION));
+            headerColumns = String.format ("%s%s\t", headerColumns, column);
+        marketAsString.append (String.format ("\t\t%s\n", headerColumns));
+        marketAsString.append (res);
+        StringBuilder arrows = new StringBuilder ("\t");
+        for (int column = 0; column < marbles.get (0).size (); column++)
+            arrows.append (String.format ("\t%s", "\uD83E\uDC15"));
+        marketAsString.append (String.format ("%s\n", arrows));
+        marketAsString.append (String.format ("On Slide: %s", colour (getView ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (),"\u2B24")));
         marketAsString.append ("\n");
         return getSectionHeader (" MARKET TRAY ") + marketAsString;
     }
@@ -320,7 +313,7 @@ public class CLI implements UI {
         cardsGridAsString.append ("\n");
         for (ArrayList<LWDevCard> cardsRow : grid) {
             ArrayList<String> rowStr = cardsRow.stream ().map ((card) -> colour (card.getColour (),
-                    encapsulate ((card.getLevel () != 0 ? "\nLV. " + card.getLevel () : "EMPTY"), cardDim)))
+                    encapsulate ((card.getLevel () != 0 ? "\nLV. " + card.getLevel () : "EMPTY"), cardDim)) + "\n")
                     .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
             rowStr.add (0, padding ("\n \nROW: " + grid.indexOf (cardsRow) + " \n \n", " ", cardDim));
             cardsGridAsString.append (padding (juxtapose (rowStr, cardDim), " ", WIDTH_SECTION));
@@ -336,7 +329,7 @@ public class CLI implements UI {
         for (String line : lines) {
             if (colour == null)
                 colour = Colour.RESET;
-            coloured.append (String.format ("%s%s%s", colour.escape (), line, Colour.RESET.escape ())).append ("\n");
+            coloured.append (String.format ("%s%s%s", colour.escape (), line, Colour.RESET.escape ()));
         }
         return coloured.toString ();
     }
