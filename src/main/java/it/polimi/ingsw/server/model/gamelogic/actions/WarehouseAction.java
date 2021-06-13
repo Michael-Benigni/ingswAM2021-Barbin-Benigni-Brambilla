@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.server.model.gamelogic.Turn;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 import java.util.Objects;
@@ -57,5 +58,10 @@ public class WarehouseAction extends PayAction implements FirstTurnAction {
     @Override
     public int hashCode() {
         return Objects.hash(storeOrRemove, depotIdx);
+    }
+
+    @Override
+    public boolean isValid(Turn turn) {
+        return true;
     }
 }

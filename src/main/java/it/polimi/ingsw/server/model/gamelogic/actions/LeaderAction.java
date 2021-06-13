@@ -5,8 +5,9 @@ import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.server.model.gamelogic.Turn;
 
-public class LeaderAction implements Action {
+public class LeaderAction implements FirstTurnAction{
     private final String playOrDiscard;
     private final int numInSlot;
 
@@ -15,6 +16,10 @@ public class LeaderAction implements Action {
         this.numInSlot = numInSlot;
     }
 
+    @Override
+    public boolean isValid(Turn turn) {
+        return true;
+    }
 
     @Override
     public void perform(Game game, Player player) throws LeaderCardNotDiscardableException, EmptySlotException,
