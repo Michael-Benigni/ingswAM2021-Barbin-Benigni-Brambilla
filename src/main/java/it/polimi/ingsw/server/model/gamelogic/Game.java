@@ -172,9 +172,14 @@ public abstract class Game implements GameComponent {
                     setLastRound ();
                     performActionOf (player, new EndTurnAction ());
                 }
-            } else
-                throw new IsNotCurrentPlayerException ();
-        } throw new NoValidActionException ();
+            }
+            else {
+                throw new IsNotCurrentPlayerException();
+            }
+        }
+        else {
+            throw new NoValidActionException ();
+        }
     }
 
     protected void notifyLastRoundUpdate() {
