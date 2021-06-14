@@ -33,7 +33,8 @@ public class LWGameBoard {
     }
 
     public void updatePlayerPosition(String movedPlayerUsrn, int playerPositionInFT){
-        this.faithTrack.get(playerPositionInFT - 1).removePlayer(movedPlayerUsrn);
+        if (playerPositionInFT > 0)
+            this.faithTrack.get(playerPositionInFT - 1).removePlayer(movedPlayerUsrn);
         this.faithTrack.get(playerPositionInFT).addPlayer(movedPlayerUsrn);
     }
 }

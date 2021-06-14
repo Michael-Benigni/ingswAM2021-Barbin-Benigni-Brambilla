@@ -104,10 +104,8 @@ public abstract class Game implements GameComponent {
                 int index = getPlayerIndex (player);
                 player.buildBoard (personalBoards.get (index));
                 player.setPosition (index);
-                playersOrder.stream ()
-                        .filter ((p) ->p != player)
-                        .forEach ((p) -> p.notifyUpdate (player.getPositionUpdate()));
             }
+            playersOrder.forEach ((p1) -> playersOrder.stream().filter ((p2) -> p2 != p1).forEach ((p3) -> p1.notifyUpdate (p3.getPositionUpdate())));
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());
             this.attachToGameBoard ();

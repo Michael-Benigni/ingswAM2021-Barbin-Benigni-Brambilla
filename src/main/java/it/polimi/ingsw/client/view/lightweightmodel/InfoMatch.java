@@ -39,7 +39,10 @@ public class InfoMatch {
     }
 
     public String getPlayerAt(int positionInGame){
-        return positionsAndPlayers.get (positionInGame);
+        String player = positionsAndPlayers.get (positionInGame);
+        if (player == null)
+            player = yourUsername;
+        return player;
     }
 
     public void putNewPlayer(int position, String name) {

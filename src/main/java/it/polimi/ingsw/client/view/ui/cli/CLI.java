@@ -21,7 +21,7 @@ public class CLI implements UI {
     private final int MAX_HORIZ_DIVISIONS = 4;
     private final Interpreter interpreter;
     private final Interlocutor interlocutor;
-    private Queue<Sendable> messages;
+    private final Queue<Sendable> messages;
     private ClientState state;
     private View view;
     private final int WIDTH_SECTION = 160;
@@ -191,16 +191,28 @@ public class CLI implements UI {
     private String faithTrackSection() {
         String faithTrackAsString = "";
         int cellDim = 10;
+        InfoMatch info = getView ().getModel ().getInfoMatch ();
+        int numOfPlayers = info.getOtherPlayersUsernames ().size () + 1 ;
         ArrayList<LWCell> cells = getView ().getModel ().getBoard ().getFaithTrack ();
         ArrayList<String> cellsAsString = cells.stream ()
                 .map ((cell)-> encapsulate ("Cell n°" + cells.indexOf (cell)
                         + "\nVP: " + cell.getVictoryPoints () + "\n"
                         + (cell.isPopeSpace () ? "Pope Cell" : " ")
                         + "\n"
-                        + String.join ("\n", cell.getPlayersInThisCell ()), cellDim))
+                        + String.join ("\n", (cell.getPlayersInThisCell ()))
+                        + repeat ("\n ", numOfPlayers - cell.getPlayersInThisCell ().size ()), cellDim))
                 .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
         faithTrackAsString += juxtapose (cellsAsString, cellDim);
         return getSectionHeader (" FAITH TRACK ") + faithTrackAsString;
+    }
+
+    private String repeat (String toRepeat, int numOfRepetitions) {
+        StringBuilder result = new StringBuilder (toRepeat);
+        while (numOfRepetitions > 0) {
+            result.append (toRepeat);
+            numOfRepetitions--;
+        }
+        return result.toString ();
     }
 
     private String cardsGridSection() {

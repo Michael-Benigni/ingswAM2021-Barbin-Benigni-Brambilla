@@ -52,6 +52,8 @@ public class FaithTrack implements GameComponent {
 
     public void notifyInitialUpdate() {
         notifyUpdate (generateUpdate());
+        for (Player player : getPlayersFromFaithTrack ())
+            notifyUpdate (generateUpdate (player, 0));
     }
 
     private Sendable generateUpdate() {
