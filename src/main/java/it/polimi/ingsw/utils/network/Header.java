@@ -78,7 +78,8 @@ public interface Header {
         START_MATCH ("start_match"),
         START_PRODUCTION ("start_production"),
         NEW_ROOM ("new_room"),
-        EXISTING_ROOM ("existing_room");
+        EXISTING_ROOM ("existing_room"),
+        DISCARD_LEADER_1ST_TURN ("discard_leader_card_1st_turn");
 
         private String headerStr;
 

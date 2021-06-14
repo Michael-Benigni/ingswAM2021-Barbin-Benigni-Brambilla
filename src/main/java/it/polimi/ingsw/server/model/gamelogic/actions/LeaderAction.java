@@ -7,7 +7,7 @@ import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.Turn;
 
-public class LeaderAction implements FirstTurnAction{
+public class LeaderAction implements Action {
     private final String playOrDiscard;
     private final int numInSlot;
 
@@ -17,16 +17,11 @@ public class LeaderAction implements FirstTurnAction{
     }
 
     @Override
-    public boolean isValid(Turn turn) {
-        return true;
-    }
-
-    @Override
     public void perform(Game game, Player player) throws LeaderCardNotDiscardableException, EmptySlotException,
             NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException,
             ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException,
             WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException,
-            LeaderCardNotFoundException {
+            LeaderCardNotFoundException, NoValidActionException {
         LeaderCard card = player.getPersonalBoard().getSlotLeaderCards().get(numInSlot);
         switch (playOrDiscard) {
             case "play" : {
@@ -39,6 +34,7 @@ public class LeaderAction implements FirstTurnAction{
                 return;
             }
             default:
+                throw new NoValidActionException();
         }
     }
 }

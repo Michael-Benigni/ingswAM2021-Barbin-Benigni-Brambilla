@@ -18,13 +18,17 @@ public class PaymentRequest extends Request {
         StringParser parser = new StringParser (separator);
         ArrayList<String> payment = parser.decompose(interpreter.listen ());
         MessageWriter resource = new MessageWriter ();
+        MessageWriter toPay = new MessageWriter ();
         try {
             resource.addProperty ("resourceType", payment.get (0));
             resource.addProperty ("amount", payment.get (1));
-            writer.addProperty ("resource", resource.getInfo ());
-            writer.addProperty ("fromWhere", payment.get (2));
+            toPay.addProperty ("resource", resource.getInfo ());
+            toPay.addProperty ("fromWhere", payment.get (2));
             if (payment.get (2).equals (""))
-                writer.addProperty ("depotIdx", payment.get (3));
+                toPay.addProperty ("depotIdx", payment.get (3));
+            ArrayList<Object> paymentArray = new ArrayList<> ();
+            paymentArray.add (toPay.getInfo ());
+            writer.addProperty ("payActions", paymentArray);
         } catch (Exception e) {
             System.out.printf ("Error: %s\n", e.getMessage ());
             throw new IllegalInputException ();

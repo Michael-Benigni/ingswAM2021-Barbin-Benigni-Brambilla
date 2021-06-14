@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * class that models the fishable marbles from the market tray
  */
-public class MarketMarble {
+public class MarketMarble implements Cloneable {
 
     private final MarbleColour colour;
     private final Resource resource;
@@ -35,9 +35,9 @@ public class MarketMarble {
     }
 
     @Override
-    protected Object clone() {
+    protected MarketMarble clone() {
         try {
-            return super.clone();
+            return (MarketMarble) super.clone();
         } catch (CloneNotSupportedException e) {
             return null;
         }

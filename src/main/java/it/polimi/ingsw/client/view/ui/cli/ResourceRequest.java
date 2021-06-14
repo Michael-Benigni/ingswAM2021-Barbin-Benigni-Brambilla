@@ -21,7 +21,7 @@ public class ResourceRequest extends Request{
         ArrayList<String> info = parser.decompose(interpreter.listen ());
         try {
             resource.addProperty ("resourceType", info.get (0));
-            resource.addProperty ("amount", info.get (1));
+            resource.addProperty ("amount", Integer.parseInt (info.get (1)));
         } catch (Exception e) {
             throw new IllegalInputException ();
         }

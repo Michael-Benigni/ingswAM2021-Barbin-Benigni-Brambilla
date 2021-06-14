@@ -13,7 +13,7 @@ class EndTurnActionTest extends ActionTest {
             WrongInitialConfiguration, NegativeVPAmountException, LeaderCardNotFoundException, EmptySlotException,
             NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException,
             ResourceOverflowInDepotException, LeaderCardNotDiscardableException, NullResourceAmountException,
-            WrongSlotDevelopmentIndexException {
+            WrongSlotDevelopmentIndexException, NoValidActionException {
         EndTurnAction endTurnAction = new EndTurnAction();
         Player currentPlayer = game.getCurrentPlayer();
         LeaderAction discardLeader = new LeaderAction("discard", 0);

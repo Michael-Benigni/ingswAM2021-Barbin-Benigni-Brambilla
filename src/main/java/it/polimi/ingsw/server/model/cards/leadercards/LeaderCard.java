@@ -68,7 +68,7 @@ public class LeaderCard {
     public void setWhiteMarbleTransformationEffect(StorableResource resource) {
         this.effect = (player, game) ->
                 player.getPersonalBoard().getTempContainer().addPlayerModifier(player, resource);
-        this.effectDesc = "Transform 1 White Marble in " + resource;
+        this.effectDesc = "Transform 1 White Marble\nin " + resource;
     }
 
 

@@ -27,7 +27,18 @@ public enum PlayMove implements MoveType {
     SHOW_INFO_GAME("INFO", showInfoGame ()),
     SHOW_CARD_INFO("CI", showCardInfo()),
     SHOW_MENU("MENU", showMenu()),
-    QUIT("QUIT", quitMove()) ;
+    QUIT("QUIT", quitMove()) ,
+    DISCARD_LEADER_CARD_FIRST_TURN("D", discardLeaderCard1stTurnMove());
+
+    private static Move discardLeaderCard1stTurnMove() {
+        return (ui) -> {
+            MessageWriter writer = new MessageWriter ();
+            writer.setHeader (Header.ToServer.DISCARD_LEADER_1ST_TURN);
+            IntegerRequest request = new IntegerRequest ("Digit the index of the Leader Card to remove", "cardIndex");
+            writer = request.handleInput (ui.getInterlocutor (), ui.getInterpreter (), writer);
+            return writer.write ();
+        };
+    }
 
     private static Move showMenu() {
         return (ui) -> {
@@ -285,7 +296,7 @@ public enum PlayMove implements MoveType {
         String addOrStop;
         do {
             PaymentRequest payment = new PaymentRequest ("If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT strongbox\", " +
-                    "if you want to pay from WAREHOUSE digit If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT warehouse DEPOT_INDEX\"", nameProperty);
+                    "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT warehouse DEPOT_INDEX\"", nameProperty);
             writer = payment.handleInput (interlocutor, interpreter, writer);
             interlocutor.write ("Digit \"A\" to add another payment, \"S\" to stop");
             addOrStop = interpreter.listen ();

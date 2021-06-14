@@ -22,6 +22,7 @@ public class ActionFactory {
         map.put (Header.ToServer.TEMP_CONTAINER, TempContainerAction.class);
         map.put (Header.ToServer.TRANSFORM_WHITE_MARBLE, TransformWhiteMarbleAction.class);
         map.put (Header.ToServer.WAREHOUSE, WarehouseAction.class);
+        map.put (Header.ToServer.DISCARD_LEADER_1ST_TURN, DiscardLeaderCardFirstTurnAction.class);
         return map;
     }
 

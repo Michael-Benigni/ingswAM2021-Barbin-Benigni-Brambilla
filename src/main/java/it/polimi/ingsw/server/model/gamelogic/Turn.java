@@ -44,11 +44,12 @@ public class Turn {
         AVAILABLE(),
         UNAVAILABLE(),
         AVAILABLE_FOR_PRODUCTION();
+
     }
     /**
      * Inner enum that represents the possible states of the Turn
      */
-    private enum TurnState {
+    enum TurnState {
 
         /**
          * the initial state of the Turn
@@ -65,7 +66,6 @@ public class Turn {
          */
         END("end");
 
-
         /**
          * name of the state
          */
@@ -81,8 +81,8 @@ public class Turn {
             this.stateName = stateName;
         }
 
-    }
 
+    }
     /**
      * Constructor.
      */
@@ -143,6 +143,14 @@ public class Turn {
 
     public void addUndoableAction(PayAction action) {
         this.payActions.add(action);
+    }
+
+    protected ArrayList<Action> getPerformedActions() {
+        return performedActions;
+    }
+
+    protected TurnState getState() {
+        return state;
     }
 
     private ArrayList<PayAction> getUndoableActions() {

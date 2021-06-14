@@ -92,7 +92,7 @@ public class MarketTray implements GameComponent {
         for (MarketMarble marble : howManyMarbles.keySet ()) {
             Integer numberOfMarblesOfThisType = howManyMarbles.get (marble);
             while (numberOfMarblesOfThisType > 0) {
-                allMarbles.add (marble);
+                allMarbles.add (marble.clone ());
                 numberOfMarblesOfThisType--;
             }
         }

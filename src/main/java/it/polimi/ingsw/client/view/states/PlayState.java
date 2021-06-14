@@ -25,7 +25,6 @@ public class PlayState extends ClientState {
                     return type;
             }
             throw new UnavailableMoveName ();
-
         }
 
         @Override
@@ -43,6 +42,7 @@ public class PlayState extends ClientState {
     }
 
     public PlayState() {
+        addAvailableMove (PlayMove.DISCARD_LEADER_CARD_FIRST_TURN.getCmd (), "DISCARD A LEADER CARD AT THE BEGINNING OF THE GAME (only in the first turn)");
         addAvailableMove (PlayMove.CHOOSE_TURN_TYPE.getCmd (), "CHOOSE THE TYPE OF TURN TO PLAY");
         addAvailableMove (PlayMove.LEADER.getCmd (), "PLAY OR DISCARD A LEADER CARD");
         addAvailableMove (PlayMove.END_TURN.getCmd (), "TERMINATE YOUR TURN");

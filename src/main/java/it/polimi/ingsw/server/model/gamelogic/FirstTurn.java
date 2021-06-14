@@ -35,10 +35,13 @@ public class FirstTurn extends Turn {
      */
     @Override
     void add(Action nextAction) throws NoValidActionException, IllegalTurnState {
-        if (nextAction.isValid(this))
-            super.add (nextAction);
-        else
-            throw new NoValidActionException ();
+        if (nextAction.isValid(this)&& getState() == TurnState.PLAY) {
+            getPerformedActions().add(nextAction);
+        } else {
+            if (!nextAction.isValid (this))
+                throw new NoValidActionException ();
+            throw new IllegalTurnState ();
+        }
     }
 
 
