@@ -90,6 +90,11 @@ public class MessageWriter {
         return getJsonObjectInfo ().getAsJsonObject ().get (subInfo);
     }
 
+    public void resetProperty(String subInfo, Object subInfoProperty) {
+        JsonObject info = getJsonObjectInfo ().getAsJsonObject ();
+        info.add (subInfo, gson.toJsonTree (subInfoProperty));
+    }
+
     private class Message implements Sendable {
         private JsonElement header;
         private JsonElement info;

@@ -6,7 +6,7 @@ import it.polimi.ingsw.server.model.gamelogic.Player;
 /**
  * Interface that join all the resources (storable, faith points...) in this unique common name
  */
-public interface Resource extends Cloneable{
+public interface Resource extends Cloneable {
 
 
     /**

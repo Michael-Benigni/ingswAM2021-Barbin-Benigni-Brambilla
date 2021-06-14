@@ -214,6 +214,5 @@ public class DevelopmentCardsGridTest {
     @Test
     void buildFrontalIDsGrid() throws NegativeResourceAmountException, EmptyDeckException {
         DevelopmentCardsGrid cardsGrid = initDevelopmentCardsGrid();
-        int[][] idCardsGrid = cardsGrid.buildFrontalIDsGrid();
     }
 }

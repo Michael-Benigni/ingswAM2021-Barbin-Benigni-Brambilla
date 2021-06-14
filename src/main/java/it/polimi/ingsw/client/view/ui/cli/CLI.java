@@ -190,7 +190,7 @@ public class CLI implements UI {
 
     private String faithTrackSection() {
         String faithTrackAsString = "";
-        int cellDim = 10;
+        int cellDim = 12;
         InfoMatch info = getView ().getModel ().getInfoMatch ();
         int numOfPlayers = info.getOtherPlayersUsernames ().size () + 1 ;
         ArrayList<LWCell> cells = getView ().getModel ().getBoard ().getFaithTrack ();
@@ -202,7 +202,7 @@ public class CLI implements UI {
                         + String.join ("\n", (cell.getPlayersInThisCell ()))
                         + repeat ("\n ", numOfPlayers - cell.getPlayersInThisCell ().size ()), cellDim))
                 .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-        faithTrackAsString += juxtapose (cellsAsString, cellDim);
+        faithTrackAsString += (juxtapose (cellsAsString,cellDim + 1 ));
         return getSectionHeader (" FAITH TRACK ") + faithTrackAsString;
     }
 
@@ -257,7 +257,7 @@ public class CLI implements UI {
                 try {
                     result.append (padding (strings.get (index), " ", Math.round (widthEachElem)));
                 } catch (IndexOutOfBoundsException e) {
-                    result.append (padding ("", " ", Math.round (widthEachElem)));
+                    result.append (padding (" ", " ", Math.round (widthEachElem)));
                 }
                 // margin
                 result.append (" ");
@@ -265,7 +265,7 @@ public class CLI implements UI {
             result/*.append (padding ("", " ", widthEachElem))*/.append ("\n");
         }
         try {
-            return widthCheck(result.toString (), allLines.get (0).get (0).length () );
+            return widthCheck(result.toString (), allLines.get (0).get (0).length () + 1);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             return result.toString ();
         }
@@ -409,7 +409,8 @@ public class CLI implements UI {
     private Move usernameMove() {
         return (ui) -> {
             StringRequest usernameReq = new StringRequest("Set your username (if you want to reconnect to an existing game you must set the same username you have used before disconnection): ", "username");
-            MessageWriter writer = usernameReq.handleInput (interlocutor, interpreter, new MessageWriter ());
+            final int MAX_LENGTH = 12;
+            MessageWriter writer = usernameReq.handleInput (interlocutor, interpreter, new MessageWriter (), MAX_LENGTH);
             writer.setHeader (Header.ToServer.SET_USERNAME);
             return writer.write ();
         };

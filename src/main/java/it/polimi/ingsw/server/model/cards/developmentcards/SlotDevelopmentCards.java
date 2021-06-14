@@ -39,8 +39,7 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
      */
     public DevelopmentCard getTopCard() throws EmptySlotException {
         if(!listOfDevelopmentCards.isEmpty()) {
-            DevelopmentCard topCard = (DevelopmentCard) listOfDevelopmentCards.get((listOfDevelopmentCards.size() - 1)).clone();
-            return topCard; //the first position in the list is occupied by the last added development card
+            return (DevelopmentCard) listOfDevelopmentCards.get((listOfDevelopmentCards.size() - 1)).clone(); //the first position in the list is occupied by the last added development card
         }
         throw new EmptySlotException();
     }
@@ -101,6 +100,8 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
         messageWriter.addProperty ("addedDevCard", addedCard.getCardID());
         messageWriter.addProperty ("description", addedCard.toString());
         messageWriter.addProperty ("numberOfSlot", this.slotIndex);
+        messageWriter.addProperty ("level", addedCard.getCardLevel ().ordinal () + 1);
+        messageWriter.addProperty ("colour", addedCard.getCardColour ());
         return messageWriter.write ();
     }
 

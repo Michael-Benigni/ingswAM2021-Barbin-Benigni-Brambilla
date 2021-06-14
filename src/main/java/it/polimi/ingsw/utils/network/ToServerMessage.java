@@ -10,9 +10,5 @@ public class ToServerMessage extends AbstractMessage<Command> {
     public ToServerMessage(String messageStr) throws IllegalMessageException {
         super (messageStr, CommandFactory.getCommandType ((Header.ToServer) parseForHeader (messageStr, Header.ToServer.class)), Header.ToServer.class);
     }
-
-    public ToServerMessage(Header.ToServer header, Command command) {
-        super (header, command);
-    }
 }
 

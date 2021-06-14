@@ -22,9 +22,10 @@ public class PaymentRequest extends Request {
         try {
             resource.addProperty ("resourceType", payment.get (0));
             resource.addProperty ("amount", Integer.parseInt (payment.get (1)));
-            toPay.addProperty ("resource", resource.getInfo ());
+            toPay.addProperty ("resourceToPay", resource.getInfo ());
             toPay.addProperty ("fromWhere", payment.get (2));
-            if (payment.get (2).equals (""))
+            toPay.addProperty ("storeOrRemove", "remove");
+            if (payment.get (2).equals ("warehouse"))
                 toPay.addProperty ("depotIdx", Integer.parseInt (payment.get (3)));
             writer.addProperty ("payActions", toPay.getInfo ());
         } catch (Exception e) {

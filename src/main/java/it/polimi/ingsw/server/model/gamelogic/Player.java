@@ -160,7 +160,7 @@ public class Player implements GameComponent {
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         ArrayList<Observer> observers = new ArrayList<> ();
         if (observer != null)
             observers.add (observer);

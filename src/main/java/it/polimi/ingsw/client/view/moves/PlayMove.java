@@ -311,7 +311,7 @@ public enum PlayMove implements MoveType {
         if (iterations == 1) {
             ArrayList<Object> paymentArray = new ArrayList<> ();
             paymentArray.add (writer.getInfo("payActions"));
-            writer.addProperty ("payActions", paymentArray);
+            writer.resetProperty ("payActions", paymentArray);
         }
         return writer;
     }

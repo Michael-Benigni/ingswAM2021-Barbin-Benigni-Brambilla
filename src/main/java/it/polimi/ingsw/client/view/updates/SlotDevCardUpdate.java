@@ -6,21 +6,23 @@ import it.polimi.ingsw.client.view.ui.cli.Colour;
 
 public class SlotDevCardUpdate implements ViewUpdate{
 
-    private int addedDevCard;
-    private String description;
-    private int numberOfSlot;
+    private final int addedDevCard;
+    private final String description;
+    private final int numberOfSlot;
+    private final int level;
+    private final Colour colour;
 
-    public SlotDevCardUpdate(int addedDevCard, String description, int numberOfSlot) {
+    public SlotDevCardUpdate(int addedDevCard, String description, int numberOfSlot, int level, Colour colour) {
         this.addedDevCard = addedDevCard;
         this.description = description;
         this.numberOfSlot = numberOfSlot;
+        this.level = level;
+        this.colour = colour;
     }
 
     @Override
     public void update(View view) {
-        Colour colour = null;
-        int level = 1;
-        LWDevCard cardToAdd = new LWDevCard(addedDevCard, description,/*, colour, level*/colour, level);
+        LWDevCard cardToAdd = new LWDevCard(addedDevCard, description, colour, level);
         view.getModel().getPersonalBoard().updateSlots(cardToAdd, numberOfSlot);
     }
 }

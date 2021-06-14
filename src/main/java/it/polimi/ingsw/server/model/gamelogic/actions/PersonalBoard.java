@@ -148,7 +148,7 @@ public class PersonalBoard implements Producer, GameComponent {
         this.slotLeaderCards = new SlotLeaderCards(maxLeaderCardsInSlot, maxNumOfCardsDuringGame);
         this.tempContainer = new TemporaryContainer();
         this.extraProductionPowers = new ArrayList<>(0);
-        observers = new ArrayList<> ();
+        this.observers = new ArrayList<> ();
     }
 
 
@@ -186,7 +186,7 @@ public class PersonalBoard implements Producer, GameComponent {
     private ArrayList<SlotDevelopmentCards> initSlotsDevCards(int numberOfSlotDevCards, int maxNumberOfDevCards) {
         ArrayList<SlotDevelopmentCards> slotsOfDevCardsArray = new ArrayList<>(numberOfSlotDevCards);
         for (int i = 0; i < numberOfSlotDevCards; i++) {
-            slotsOfDevCardsArray.add(new SlotDevelopmentCards(maxNumberOfDevCards, numberOfSlotDevCards));
+            slotsOfDevCardsArray.add(new SlotDevelopmentCards(maxNumberOfDevCards, i));
         }
         return slotsOfDevCardsArray;
     }

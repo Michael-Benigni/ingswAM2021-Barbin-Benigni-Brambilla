@@ -29,23 +29,23 @@ public class MarketTray implements GameComponent {
     /**
      * number of rows of the matrix
      */
-    private Integer rows;
+    private final Integer rows;
 
     /**
      * number of columns of the matrix
      */
-    private Integer columns;
+    private final Integer columns;
 
     /**
      * HashMap that relates a marble to a number: the number indicates the how many marbles of the associated type
      * will be in the market
      */
-    private HashMap<MarketMarble, Integer> howManyMarbles;
+    private final HashMap<MarketMarble, Integer> howManyMarbles;
 
     /**
      *
      */
-    private ArrayList<Observer> observers;
+    private final ArrayList<Observer> observers;
 
 
     /**
@@ -134,7 +134,7 @@ public class MarketTray implements GameComponent {
      * @param marbleOnSlide the new marbleOnSlide
      */
     private void setNewMarbleOnSlide(MarketMarble marbleOnSlide) {
-        this.marbleOnSlide = marbleOnSlide;
+        this.marbleOnSlide = marbleOnSlide.clone ();
     }
 
 
@@ -221,7 +221,7 @@ public class MarketTray implements GameComponent {
      * @return the target MarketMarble
      */
     private MarketMarble getMarbleAt(int row, int column) {
-        return marblesMatrix.get (column).get (row);
+        return marblesMatrix.get (column).get (row).clone ();
     }
 
 
@@ -249,11 +249,10 @@ public class MarketTray implements GameComponent {
      * @return the new updated vector of marbles as ArrayList of MarketMarbles
      */
     private ArrayList<MarketMarble> swap(ArrayList<MarketMarble> vectorToSwap) {
-        MarketMarble oldMarbleOnSlide = marbleOnSlide;
+        MarketMarble oldMarbleOnSlide = marbleOnSlide.clone ();
         setNewMarbleOnSlide (vectorToSwap.get (0));
-        for (int i = 0; i < vectorToSwap.size () - 1; i++) {
+        for (int i = 0; i < vectorToSwap.size () - 1; i++)
             vectorToSwap.set (i, vectorToSwap.get (i + 1));
-        }
         vectorToSwap.set (vectorToSwap.size () - 1, oldMarbleOnSlide);
         return vectorToSwap;
     }

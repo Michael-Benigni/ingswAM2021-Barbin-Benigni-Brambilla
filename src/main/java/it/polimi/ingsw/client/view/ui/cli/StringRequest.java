@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.view.ui.cli;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.utils.network.MessageWriter;
 
-public class StringRequest extends Request{
+public class StringRequest extends Request {
     public StringRequest(String requestDesc, String namePropertyRequested) {
         super (requestDesc, namePropertyRequested);
     }
@@ -13,5 +13,12 @@ public class StringRequest extends Request{
         super.handleInput (interlocutor, interpreter, writer);
         writer.addProperty (getNamePropertyRequested (), interpreter.listen ());
         return writer;
+    }
+
+    public MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter messageWriter, int maxLength) throws IllegalInputException {
+        super.handleInput (interlocutor, interpreter, messageWriter);
+        String string = interpreter.listen ().substring (0, maxLength);
+        messageWriter.addProperty (getNamePropertyRequested (), string);
+        return messageWriter;
     }
 }

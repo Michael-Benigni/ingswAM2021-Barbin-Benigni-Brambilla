@@ -51,12 +51,12 @@ public class FaithTrack implements GameComponent {
     }
 
     public void notifyInitialUpdate() {
-        notifyUpdate (generateUpdate());
+        notifyUpdate (generateInitialUpdate ());
         for (Player player : getPlayersFromFaithTrack ())
             notifyUpdate (generateUpdate (player, 0));
     }
 
-    private Sendable generateUpdate() {
+    private Sendable generateInitialUpdate() {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.INITIAL_FAITH_TRACK_UPDATE);
         ArrayList<Cell> allCellOfFT = new ArrayList<>();
@@ -86,8 +86,7 @@ public class FaithTrack implements GameComponent {
     private Cell nextCell(Cell currentCell) throws WrongCellIndexException, CellNotFoundInFaithTrackException {
         for (Section s : listOfSections) {
             try {
-                Cell nextCell = s.searchNextCellInSection(currentCell);
-                return nextCell;
+                return s.searchNextCellInSection(currentCell);
             } catch (LastCellInSectionException e) {
                 int sectionIndex = listOfSections.indexOf(s) + 1;
                 return listOfSections.get(sectionIndex).firstCellInSection();
@@ -133,11 +132,11 @@ public class FaithTrack implements GameComponent {
             if(nextCell == lastCellInFaithTrack()) {
                 throw new GameOverByFaithTrackException();
             }
-            notifyUpdate(generateUpdate(player, getCellIndex(nextCell)));
+            notifyUpdate(generateUpdate (player, getCellIndex(nextCell)));
         }
     }
 
-    private Sendable generateUpdate(Player player, int cellIndex){
+    protected Sendable generateUpdate(Player player, int cellIndex){
         MessageWriter writer = new MessageWriter();
         writer.setHeader(Header.ToClient.FAITH_TRACK_UPDATE);
         writer.addProperty("playerOrderReference", player.getPosition());

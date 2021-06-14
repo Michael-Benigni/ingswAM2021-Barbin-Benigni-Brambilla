@@ -66,11 +66,9 @@ public class DevelopmentCardsGrid implements GameComponent {
     /**
      * this method creates a sendable message to inform
      * the client about the initial grid of development cards
-     * @param frontalIDsGrid it is the grid that contains only the IDs of the
-     *                       first layer of development cards in the grid
      * @return the created sendable message
      */
-    private Sendable generateInitialUpdate(int[][] frontalIDsGrid) throws EmptyDeckException {
+    private Sendable generateInitialUpdate() throws EmptyDeckException {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.SHOW_INITIAL_GRID);
         for (ArrayList<DevelopmentCard> cards : buildFrontalGrid ()) {
@@ -216,12 +214,18 @@ public class DevelopmentCardsGrid implements GameComponent {
         messageWriter.setHeader(Header.ToClient.REMOVE_SHOW_GRID);
         messageWriter.addProperty ("cardToRemove", removeCard.getCardID());
         messageWriter.addProperty ("removeDescription", removeCard.toString());
+        messageWriter.addProperty ("levelCardToRemove", removeCard.getCardLevel ().ordinal () + 1);
+        messageWriter.addProperty ("colourCardToRemove", removeCard.getCardColour ());
         if(showCard != null){
             messageWriter.addProperty ("cardToShow", showCard.getCardID());
             messageWriter.addProperty ("showDescription", showCard.toString());
+            messageWriter.addProperty ("levelCardToShow", showCard.getCardLevel ().ordinal () + 1);
+            messageWriter.addProperty ("colourCardToShow", showCard.getCardColour ());
         }
         else {
             messageWriter.addProperty ("cardToShow", null);
+            messageWriter.addProperty ("showDescription", null);
+            messageWriter.addProperty ("levelCardToShow", null);
             messageWriter.addProperty ("showDescription", null);
         }
         return messageWriter.write();
@@ -328,7 +332,7 @@ public class DevelopmentCardsGrid implements GameComponent {
 
     public void notifyInitialUpdate() {
         try {
-            notifyUpdate (generateInitialUpdate (buildFrontalIDsGrid()));
+            notifyUpdate (generateInitialUpdate ());
         } catch (EmptyDeckException e) {
             e.printStackTrace ();
         }
