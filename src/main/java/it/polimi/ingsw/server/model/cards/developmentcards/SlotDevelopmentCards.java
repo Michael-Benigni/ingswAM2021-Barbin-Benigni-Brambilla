@@ -81,11 +81,12 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
             if (cardToAdd.isOfNextLevel(card)) {
                 this.listOfDevelopmentCards.add(cardToAdd);
                 notifyUpdate(generateUpdate(cardToAdd));
-                return;
             }
-            throw new DevelopmentCardNotAddableException();
+            else
+                throw new DevelopmentCardNotAddableException();
         }
-        throw new SlotDevelopmentCardsIsFullException();
+        else
+            throw new SlotDevelopmentCardsIsFullException();
     }
 
     /**
