@@ -18,7 +18,7 @@ public class MultiplayerGame extends Game {
      * Constructor.
      * @param numberOfPlayers
      */
-    protected MultiplayerGame(int numberOfPlayers) throws IllegalNumberOfPlayersException {
+    public MultiplayerGame(int numberOfPlayers) throws IllegalNumberOfPlayersException {
         super(numberOfPlayers);
         if (numberOfPlayers == 1)
             throw new IllegalNumberOfPlayersException();
