@@ -189,7 +189,9 @@ public enum PlayMove implements MoveType {
             Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.TEMP_CONTAINER);
-            StringRequest playOrStore = new StringRequest ("Digit \"store\" or \"remove\" according to the action that you want to perform", "storeOrRemove");
+            StringRequest playOrStore = new StringRequest ("Digit \"store\" if you want to store a resource " +
+                    "from a Depot to the Temporary Container,\nor digit \"remove\" if you want to remove a resource from" +
+                    " the Temporary Container and store it into a depot", "storeOrRemove");
             writer = playOrStore.handleInput (interlocutor, interpreter, writer);
             ResourceRequest resource = new ResourceRequest ("Choose the resource: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount to move", "resource");
             writer = resource.handleInput (interlocutor, interpreter, writer);
