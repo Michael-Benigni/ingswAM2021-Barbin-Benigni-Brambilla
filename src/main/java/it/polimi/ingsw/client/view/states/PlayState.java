@@ -51,6 +51,7 @@ public class PlayState extends ClientState {
         addAvailableMove (PlayMove.SHOW_PERSONAL_BOARD.getCmd (), "SHOW THE PERSONAL BOARD");
         addAvailableMove (PlayMove.WAREHOUSE.getCmd (), "PERFORM AN ACTION IN THE WAREHOUSE");
         addAvailableMove (PlayMove.SHOW_CARD_INFO.getCmd (), "VISUALIZE THE DESCRIPTION OF A DEVELOPMENT CARD IN THE GRID");
+        addAvailableMove (PlayMove.MOVE_RESOURCES.getCmd (), "MOVE RESOURCES BETWEEN WAREHOUSE AND TEMPORARY CONTAINER");
     }
 
 
@@ -71,7 +72,6 @@ public class PlayState extends ClientState {
             case MARKET: {
                 addAvailableMove (PlayMove.WHITE_MARBLE.getCmd (), "TRANSFORM A WHITE MARBLE (only after leader card activation)");
                 addAvailableMove (PlayMove.MARKET.getCmd (), "GO TO MARKET");
-                addAvailableMove (PlayMove.MOVE_RESOURCES.getCmd (), "MOVE RESOURCES TO AND FROM WAREHOUSE");
                 break;
             }
             default:
