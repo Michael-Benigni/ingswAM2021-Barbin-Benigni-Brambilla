@@ -21,11 +21,11 @@ public class PaymentRequest extends Request {
         MessageWriter toPay = new MessageWriter ();
         try {
             resource.addProperty ("resourceType", payment.get (0));
-            resource.addProperty ("amount", payment.get (1));
+            resource.addProperty ("amount", Integer.parseInt (payment.get (1)));
             toPay.addProperty ("resource", resource.getInfo ());
             toPay.addProperty ("fromWhere", payment.get (2));
             if (payment.get (2).equals (""))
-                toPay.addProperty ("depotIdx", payment.get (3));
+                toPay.addProperty ("depotIdx", Integer.parseInt (payment.get (3)));
             ArrayList<Object> paymentArray = new ArrayList<> ();
             paymentArray.add (toPay.getInfo ());
             writer.addProperty ("payActions", paymentArray);
