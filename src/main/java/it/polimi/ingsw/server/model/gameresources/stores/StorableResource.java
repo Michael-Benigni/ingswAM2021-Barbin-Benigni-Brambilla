@@ -216,7 +216,7 @@ public class StorableResource implements Storable, Requirement, Producible {
 
     @Override
     public String toString() {
-        return amount + " " + resourceType.toString ().toUpperCase()  ;
+        return amount + " " + resourceType.toString ();
     }
 }
 

@@ -18,4 +18,8 @@ public enum ResourceType {
         this.resourceTypeName = resourceTypeName;
     }
 
+    @Override
+    public String toString() {
+        return resourceTypeName.toUpperCase ();
+    }
 }
