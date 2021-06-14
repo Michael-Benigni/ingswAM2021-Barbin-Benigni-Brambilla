@@ -7,6 +7,8 @@ import it.polimi.ingsw.client.view.ui.cli.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 
+import java.util.ArrayList;
+
 public enum PlayMove implements MoveType {
     BOARD_PRODUCTION ("BOARD", boardProductionMove ()),
     BUY_CARD ("BUY", buyCardMove ()),
@@ -296,13 +298,21 @@ public enum PlayMove implements MoveType {
 
     private static MessageWriter payments(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer, String nameProperty) throws IllegalInputException {
         String addOrStop;
+        int iterations = 0;
         do {
             PaymentRequest payment = new PaymentRequest ("If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT strongbox\", " +
                     "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT warehouse DEPOT_INDEX\"", nameProperty);
             writer = payment.handleInput (interlocutor, interpreter, writer);
             interlocutor.write ("Digit \"A\" to add another payment, \"S\" to stop");
             addOrStop = interpreter.listen ();
+            iterations++;
         } while (addOrStop.equals ("A"));
+        interlocutor.write ("--------------END---------------");
+        if (iterations == 1) {
+            ArrayList<Object> paymentArray = new ArrayList<> ();
+            paymentArray.add (writer.getInfo("payActions"));
+            writer.addProperty ("payActions", paymentArray);
+        }
         return writer;
     }
 }

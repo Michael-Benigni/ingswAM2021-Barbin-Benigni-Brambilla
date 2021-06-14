@@ -79,7 +79,15 @@ public class MessageWriter {
     }
 
     public Object getInfo() {
+        return getJsonObjectInfo ();
+    }
+
+    private JsonElement getJsonObjectInfo() {
         return message.get ("info");
+    }
+
+    public Object getInfo(String subInfo) {
+        return getJsonObjectInfo ().getAsJsonObject ().get (subInfo);
     }
 
     private class Message implements Sendable {

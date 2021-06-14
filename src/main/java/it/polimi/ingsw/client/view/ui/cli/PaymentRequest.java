@@ -26,9 +26,7 @@ public class PaymentRequest extends Request {
             toPay.addProperty ("fromWhere", payment.get (2));
             if (payment.get (2).equals (""))
                 toPay.addProperty ("depotIdx", Integer.parseInt (payment.get (3)));
-            ArrayList<Object> paymentArray = new ArrayList<> ();
-            paymentArray.add (toPay.getInfo ());
-            writer.addProperty ("payActions", paymentArray);
+            writer.addProperty ("payActions", toPay.getInfo ());
         } catch (Exception e) {
             System.out.printf ("Error: %s\n", e.getMessage ());
             throw new IllegalInputException ();
