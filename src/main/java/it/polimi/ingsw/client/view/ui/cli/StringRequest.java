@@ -17,7 +17,8 @@ public class StringRequest extends Request {
 
     public MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter messageWriter, int maxLength) throws IllegalInputException {
         super.handleInput (interlocutor, interpreter, messageWriter);
-        String string = interpreter.listen ().substring (0, maxLength);
+        String string = interpreter.listen ();
+        string = string.substring (0, Math.min(string.length (), maxLength));
         messageWriter.addProperty (getNamePropertyRequested (), string);
         return messageWriter;
     }
