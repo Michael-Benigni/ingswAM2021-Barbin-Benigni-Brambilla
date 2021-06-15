@@ -28,13 +28,11 @@ class TempContainerAction implements FirstTurnAction {
         TemporaryContainer tempCont = player.getPersonalBoard().getTempContainer();
         switch (storeOrRemove) {
             case "remove" : {
-
-                new WarehouseAction("store", resource, depotIdx).perform(game, player);
                 tempCont.remove(this.resource);
+                new WarehouseAction("store", resource, depotIdx).perform(game, player);
                 break;
             }
             case "store": {
-
                 new WarehouseAction("remove", resource, depotIdx).perform(game, player);
                 tempCont.store(this.resource);
                 break;

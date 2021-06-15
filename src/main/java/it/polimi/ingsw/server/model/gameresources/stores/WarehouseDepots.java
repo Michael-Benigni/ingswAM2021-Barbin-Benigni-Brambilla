@@ -99,8 +99,12 @@ public class WarehouseDepots implements GameComponent {
             NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException, SameResourceTypeInDifferentDepotsException {
         if (ifDepotIndexIsCorrect(depotIndex)) {
             if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex) || depotIndex > this.numberOfDepots) {
-                listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
-                notifyUpdate(generateUpdate ());
+                try{
+                    listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
+                }
+                finally {
+                    notifyUpdate(generateUpdate ());
+                }
             }
             else
                 throw new SameResourceTypeInDifferentDepotsException();
