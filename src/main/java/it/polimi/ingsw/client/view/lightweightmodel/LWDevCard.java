@@ -5,12 +5,13 @@ import it.polimi.ingsw.client.view.ui.cli.Colour;
 public class LWDevCard {
     private final int id;
     private final String description;
-
     private final Colour colour;
-
     private final int level;
-    public LWDevCard(int id, String description, Colour colour, int level) {
+    private final int indexInSlot;
+
+    public LWDevCard(int id, String description, Colour colour, int level, int indexInSlot) {
         this.id = id;
+        this.indexInSlot = indexInSlot;
         this.description = description;
         this.colour = colour;
         this.level = level;
@@ -38,5 +39,9 @@ public class LWDevCard {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public int getIndexInSlot() {
+        return indexInSlot;
     }
 }

@@ -9,6 +9,7 @@ import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 /**
@@ -62,10 +63,12 @@ public class SlotLeaderCards implements GameComponent {
     Sendable generateUpdate(ArrayList<LeaderCard> cardsNotPlayed, ArrayList<LeaderCard> cardsPlayed){
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.LEADER_CARDS_UPDATE);
-        writer.addProperty ("cardsNotPlayed", buildIDsList(cardsNotPlayed));
-        writer.addProperty ("descriptionsNotPlayed", buildDescriptions(cardsNotPlayed));
-        writer.addProperty ("cardsPlayed", buildIDsList(cardsPlayed));
-        writer.addProperty ("descriptionsPlayed", buildDescriptions(cardsPlayed));
+        writer.addProperty ("cardsNotPlayed", cardsNotPlayed.stream ().map (LeaderCard::getCardID).collect(Collectors.toList()));
+        writer.addProperty ("cardsNotPlayedIndexes", cardsNotPlayed.stream ().map (this.listOfLeaderCards::indexOf).collect(Collectors.toList()));
+        writer.addProperty ("descriptionsNotPlayed", cardsNotPlayed.stream ().map (LeaderCard::toString).collect(Collectors.toList()));
+        writer.addProperty ("cardsPlayed", cardsPlayed.stream ().map (LeaderCard::getCardID).collect(Collectors.toList()));
+        writer.addProperty ("cardsPlayedIndexes", cardsPlayed.stream ().map (this.listOfLeaderCards::indexOf).collect(Collectors.toList()));
+        writer.addProperty ("descriptionsPlayed", cardsPlayed.stream ().map (LeaderCard::toString).collect(Collectors.toList()));
         return writer.write ();
     }
 

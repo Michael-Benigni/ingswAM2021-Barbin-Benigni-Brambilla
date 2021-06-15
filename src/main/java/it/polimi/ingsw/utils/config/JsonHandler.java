@@ -77,23 +77,23 @@ public class JsonHandler {
      * can be reached only passing through at least one Json Array (or more). The path of the Json file is set to the main DB
      * @param type the type of the element that will be deserialized
      * @param jsonPath string that represents the sequences of the Json nodes of the Json tree in the Json file
-     * @param listIndeces it's an ordered array of indeces: the length of this array represents the number of Json arrays
+     * @param listindexes it's an ordered array of indexes: the length of this array represents the number of Json arrays
      *                    that will be crossed to reach the target element, and each element represent the index of the
-     *                    correspondent array. For example if listIndeces is [2,6], means that while the Json tree is
+     *                    correspondent array. For example if listindexes is [2,6], means that while the Json tree is
      *                    crossed, when is found the first Json array the 2nd element will be access, and when is reached
      *                    the third array, the 6th element will be accessed.
      * @return the correspondent Java Object, result of the deserialization of the Json element of the file
      * @throws FileNotFoundException
      */
-    public Object getAsJavaObjectFromJSONArray (Type type, String jsonPath, int[] listIndeces) throws FileNotFoundException {
-        return getAsJavaObjectFromJSONArray(type, jsonPath, PATH_TO_DB, listIndeces);
+    public Object getAsJavaObjectFromJSONArray (Type type, String jsonPath, int[] listindexes) throws FileNotFoundException {
+        return getAsJavaObjectFromJSONArray(type, jsonPath, PATH_TO_DB, listindexes);
     }
 
 
     /**
      * It's the method that actually does the parsing of the JsonFile using the pathToJsonElem. If during the crossing of
      * the Json tree it is reached a Json Array, the method returns the array because this method has no way to know which
-     * element of the array is requested, since there is not indeces passed as parameters.
+     * element of the array is requested, since there is not indexes passed as parameters.
      * @param jsonPath it's a String that represents the path to pass through the Json Tree of the file, stored in
      *                       the JsonTreeStruct
      * @param filePath it's the file from which the element is deserialized
@@ -109,7 +109,7 @@ public class JsonHandler {
     /**
      * It's the method that actually does the parsing of the JsonFile using the pathToJsonElem. If during the crossing of
      * the Json tree it is reached a Json Array, the method returns the array because this method has no way to know which
-     * element of the array is requested, since there is not indeces passed as parameters.
+     * element of the array is requested, since there is not indexes passed as parameters.
      * @param jsonPath it's a String that represents the path to pass through the Json Tree of the file, stored in
      *                       the JsonTreeStruct
      * @param type the type of the element that will be deserialized
@@ -128,18 +128,18 @@ public class JsonHandler {
      * can be reached only passing through at least one Json Array (or more).
      * @param type the type of the element that will be deserialized
      * @param jsonPath string that represents the sequences of the Json nodes of the Json tree in the Json file
-     * @param listIndeces it's an ordered array of indeces: the length of this array represents the number of Json arrays
+     * @param listindexes it's an ordered array of indexes: the length of this array represents the number of Json arrays
      *                    that will be crossed to reach the target element, and each element represent the index of the
-     *                    correspondent array. For example if listIndeces is [2,6], means that while the Json tree is
+     *                    correspondent array. For example if listindexes is [2,6], means that while the Json tree is
      *                    crossed, when is found the first Json array the 2nd element will be access, and when is reached
      *                    the third array, the 6th element will be accessed.
      * @param filePath the path of the Json file that will be read
      * @return the correspondent Java Object, result of the deserialization of the Json element of the file
      * @throws FileNotFoundException
      */
-    public static Object getAsJavaObjectFromJSONArray (Type type, String jsonPath, String filePath, int[] listIndeces) throws FileNotFoundException {
+    public static Object getAsJavaObjectFromJSONArray (Type type, String jsonPath, String filePath, int[] listindexes) throws FileNotFoundException {
         JsonObject DBAsJsonObject = getFileAsJsonElement(filePath).getAsJsonObject();
-        JsonElement attributeValueAsJsonElem = getJsonElementFromJsonArray(jsonPath, DBAsJsonObject, listIndeces);
+        JsonElement attributeValueAsJsonElem = getJsonElementFromJsonArray(jsonPath, DBAsJsonObject, listindexes);
         return gson.fromJson(attributeValueAsJsonElem, type);
     }
 
@@ -159,7 +159,7 @@ public class JsonHandler {
     /**
      * It's the method that actually does the crossing of the JsonElement. If during the crossing of the Json tree it is
      * reached a Json Array, the method returns the whole JsonArray because this method has no way to know which
-     * element of the array is requested, since there is not indeces passed as parameters.
+     * element of the array is requested, since there is not indexes passed as parameters.
      * @param pathToJsonElem it's a String that represents the path to pass through the Json Tree of the JsonElement json
      * @param json it's the whole JsonElement from which the method extracts one of the properties
      * @return the target JsonElement
@@ -190,20 +190,20 @@ public class JsonHandler {
      * It's the method that get a Json object that belongs to a Json array, or that belongs to an element that
      * can be reached only passing through at least one Json Array (or more).
      * @param pathToJsonElemInArray string that represents the sequences of the Json nodes of the Json tree of json param
-     * @param listIndeces it's an ordered array of indeces: the length of this array represents the number of Json arrays
+     * @param listindexes it's an ordered array of indexes: the length of this array represents the number of Json arrays
      *                    that will be crossed to reach the target element, and each element represent the index of the
-     *                    correspondent array. For example if listIndeces is [2,6], means that while the Json tree is
+     *                    correspondent array. For example if listindexes is [2,6], means that while the Json tree is
      *                    crossed, when is found the first Json array the 2nd element will be access, and when is reached
      *                    the third array, the 6th element will be accessed.
      * @param json the JsonElement to cross
      * @return the correspondent JsonElement at the path pathToJsonElemInArray
      */
-    private static JsonElement getJsonElementFromJsonArray(String pathToJsonElemInArray, JsonElement json, int[] listIndeces) {
+    private static JsonElement getJsonElementFromJsonArray(String pathToJsonElemInArray, JsonElement json, int[] listindexes) {
         JsonElement element = json;
         for (int i = 0; pathToJsonElemInArray != null; i++) {
             element = getJsonElement(pathToJsonElemInArray, element);
             if(element.isJsonArray() && i < element.getAsJsonArray().size()) {
-                element = element.getAsJsonArray().get(listIndeces[i]);
+                element = element.getAsJsonArray().get(listindexes[i]);
             }
             pathToJsonElemInArray = updateJsonPath(element, pathToJsonElemInArray);
         }

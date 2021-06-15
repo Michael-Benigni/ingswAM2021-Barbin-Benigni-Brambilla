@@ -29,8 +29,8 @@ public class RemoveShowGridUpdate implements ViewUpdate{
 
     @Override
     public void update(Controller clientController){
-        LWDevCard cardRemoved = new LWDevCard(cardToRemove, removeDescription, colourCardToRemove, levelCardToRemove);
-        LWDevCard cardShown = new LWDevCard(cardToShow, showDescription, colourCardToShow, levelCardToShow);
+        LWDevCard cardRemoved = new LWDevCard(cardToRemove, removeDescription, colourCardToRemove, levelCardToRemove, -1);
+        LWDevCard cardShown = new LWDevCard(cardToShow, showDescription, colourCardToShow, levelCardToShow, -1);
         clientController.getModel().getBoard().getGrid ().update (cardRemoved, cardShown);
     }
 }

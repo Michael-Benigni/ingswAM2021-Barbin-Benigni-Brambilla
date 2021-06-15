@@ -67,10 +67,14 @@ public class CLI implements UI {
                 strongboxSection ()
                 + "\n\n" + warehouseSection ()
                 + "\n\n" + devCardsSection()
-                + "\n\n" + inactiveLeaderCardsSection()
-                + "\n\n" + activeLeaderCardsSection ()
+                + "\n\n" + leaderCardSection()
                 + "\n\n" + tempContainerSection ();
         interlocutor.write (boardAsString);
+    }
+
+    private String leaderCardSection() {
+        return getSectionHeader (" LEADER CARD ", "*") + "\n" + inactiveLeaderCardsSection()
+                + "\n\n" + activeLeaderCardsSection ();
     }
 
     private String tempContainerSection() {
@@ -84,27 +88,28 @@ public class CLI implements UI {
                         " ", WIDTH_SECTION) + "\n")
                 .collect(Collectors.joining());
         strongboxAsString += padding (board.getTemporaryContainer ().getEmptyResources () > 0 ? board.getTemporaryContainer ().getEmptyResources () + " White Marbles\n" : "\n", " ", WIDTH_SECTION);
-        String sectionHeader = getSectionHeader(" TEMPORARY CONTAINER ");
+        String sectionHeader = getSectionHeader(" TEMPORARY CONTAINER ", "*");
         return sectionHeader + strongboxAsString;
     }
 
     private String inactiveLeaderCardsSection() {
-        String inactiveLeaderCardsAsString = "";
+        StringBuilder inactiveLeaderCardsAsString;
         ArrayList<LWLeaderCard> cards = getView ().getModel ().getPersonalBoard ().getLeaderCardsNotPlayed ();
-        inactiveLeaderCardsAsString = padding (juxtapose (cards.stream ()
-                .map ((card) -> encapsulate (card.getDescription(), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 4)))
-                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll), WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2), " ", WIDTH_SECTION);
-        String sectionHeader = getSectionHeader(" INACTIVE LEADER CARDS ");
-        return sectionHeader + inactiveLeaderCardsAsString;
+        inactiveLeaderCardsAsString = new StringBuilder (padding (juxtapose (cards.stream ()
+                .map ((card) -> String.format ("index: %d", card.getSlotIndex ()) + "\n" + encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 4)))
+                .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2), " ", WIDTH_SECTION));
+        String sectionHeader = getSectionHeader(" INACTIVE LEADER CARDS ", ".");
+        return sectionHeader + "\n" + inactiveLeaderCardsAsString;
     }
 
     private String activeLeaderCardsSection() {
         ArrayList<LWLeaderCard> cards = getView ().getModel ().getPersonalBoard ().getLeaderCardsPlayed ();
-        String activeLeaderCardsAsString = padding (juxtapose (cards.stream ()
-                .map ((card) -> encapsulate (card.getDescription(), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2)))
-                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll), WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 1), " ", WIDTH_SECTION);
-        String sectionHeader = getSectionHeader(" ACTIVE LEADER CARDS ");
-        return sectionHeader + activeLeaderCardsAsString;
+        StringBuilder activeLeaderCardsAsString = new StringBuilder (padding (juxtapose (cards.stream ()
+                .map ((card) -> String.format ("index: %d", card.getSlotIndex ()) + "\n" + encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2)))
+                .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 1), " ", WIDTH_SECTION));
+        String sectionHeader = getSectionHeader(" ACTIVE LEADER CARDS ", ".");
+        activeLeaderCardsAsString.append ("\n");
+        return sectionHeader + "\n" + activeLeaderCardsAsString;
     }
 
     private String devCardsSection() {
@@ -114,16 +119,16 @@ public class CLI implements UI {
             if (!slot.isEmpty ()) {
                 devCardsAsString.append (("SLOT n° "))
                         .append (slots.indexOf (slot))
-                        .append ("\n")
-                        .append (padding (juxtapose (slot.stream ()
-                                .map ((card) -> card.getColour ().escape ()
-                                        + encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2))
-                                        + Colour.RESET.escape ())
+                        .append ("\n");
+                devCardsAsString.append ("\n");
+                devCardsAsString.append (padding (juxtapose (slot.stream ()
+                                .map ((card) -> String.format ("index: %d", card.getIndexInSlot ()) + "\n"
+                                        + encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2)))
                                 .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 1), " ", WIDTH_SECTION))
                         .append ("\n");
             }
         }
-        String sectionHeader = getSectionHeader(" TOP DEVELOPMENT CARDS ");
+        String sectionHeader = getSectionHeader(" TOP DEVELOPMENT CARDS ", "*");
         return sectionHeader + devCardsAsString;
     }
 
@@ -137,7 +142,7 @@ public class CLI implements UI {
                         resource.getAmount (),
                         " ", WIDTH_SECTION) + "\n")
                 .collect(Collectors.joining());
-        String sectionHeader = getSectionHeader(" STRONGBOX ");
+        String sectionHeader = getSectionHeader(" STRONGBOX ", "*");
         return sectionHeader + strongboxAsString;
     }
 
@@ -157,7 +162,7 @@ public class CLI implements UI {
                                 ((depot.getType () != null) ? depot.getType () : "") +
                                 "\n", WIDTH_SECTION / MAX_HORIZ_DIVISIONS * depot.getCapacity ()), " ", WIDTH_SECTION)
                         ).collect(Collectors.joining());
-        String sectionHeader = getSectionHeader(" WAREHOUSE ");
+        String sectionHeader = getSectionHeader(" WAREHOUSE ", "*");
         return sectionHeader + warehouseAsString;
     }
 
@@ -185,7 +190,7 @@ public class CLI implements UI {
         marketAsString.append (String.format ("%s\n", arrows));
         marketAsString.append (String.format ("On Slide: %s", colour (getView ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (),"\u2B24")));
         marketAsString.append ("\n");
-        return getSectionHeader (" MARKET TRAY ") + marketAsString;
+        return getSectionHeader (" MARKET TRAY ", "*") + marketAsString;
     }
 
     private String faithTrackSection() {
@@ -203,7 +208,7 @@ public class CLI implements UI {
                         + repeat ("\n ", numOfPlayers - cell.getPlayersInThisCell ().size ()), cellDim))
                 .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
         faithTrackAsString += (juxtapose (cellsAsString,cellDim + 1 ));
-        return getSectionHeader (" FAITH TRACK ") + faithTrackAsString;
+        return getSectionHeader (" FAITH TRACK ", "*") + faithTrackAsString;
     }
 
     private String repeat (String toRepeat, int numOfRepetitions) {
@@ -218,9 +223,8 @@ public class CLI implements UI {
     private String cardsGridSection() {
         StringBuilder devCardsAsString = new StringBuilder ();
         LWCardsGrid grid = getView ().getModel ().getBoard ().getGrid ();
-        for (int column = 0; column < grid.getColumns(); column++) {
+        for (int column = 0; column < grid.getColumns(); column++)
             devCardsAsString.append (padding (String.format ("COL: %d", column), " ", WIDTH_SECTION / grid.getColumns()));
-        }
         devCardsAsString.append ("\n");
         for (ArrayList<LWDevCard> row : grid.getCardsGrid ()) {
             ArrayList<String> elements = row.stream ()
@@ -230,15 +234,15 @@ public class CLI implements UI {
             devCardsAsString.append (padding (juxtapose (elements, WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2), " ", WIDTH_SECTION))
                     .append ("\n");
         }
-        String sectionHeader = getSectionHeader(" CARDS GRID ");
+        String sectionHeader = getSectionHeader(" CARDS GRID ", "*");
         return sectionHeader + devCardsAsString;
     }
 
-    private String getSectionHeader(String header) {
+    private String getSectionHeader(String header, String charPadding) {
         StringBuilder upperBorder = new StringBuilder ();
         for (int i = 0; i < WIDTH_SECTION; i++)
-            upperBorder.append ("*");
-        return upperBorder + "\n" + padding (header, "*", WIDTH_SECTION) + "\n";
+            upperBorder.append (charPadding);
+        return upperBorder + "\n" + padding (header, charPadding, WIDTH_SECTION) + "\n";
     }
 
     private String juxtapose(ArrayList<String> elements, int widthEachElem) {

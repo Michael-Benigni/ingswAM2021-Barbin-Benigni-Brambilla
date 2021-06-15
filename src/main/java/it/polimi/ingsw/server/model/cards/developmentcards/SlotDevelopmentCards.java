@@ -102,6 +102,7 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
         messageWriter.addProperty ("numberOfSlot", this.slotIndex);
         messageWriter.addProperty ("level", addedCard.getCardLevel ().ordinal () + 1);
         messageWriter.addProperty ("colour", addedCard.getCardColour ());
+        messageWriter.addProperty ("index", listOfDevelopmentCards.indexOf (addedCard));
         return messageWriter.write ();
     }
 

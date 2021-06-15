@@ -41,7 +41,7 @@ public class CardsGridInitialUpdate implements ViewUpdate {
             lwGrid.add (row);
             for(int j = 0; j < columns; j++){
                 LWDevCard newLWDevCard = new LWDevCard(initialGrid.get (i).get (j),
-                        descriptions.get (i).get (j), colours.get (i).get (j), levels.get (i).get (j));
+                        descriptions.get (i).get (j), colours.get (i).get (j), levels.get (i).get (j), -1);
                 lwGrid.get (i).add (j, newLWDevCard);
             }
         }
