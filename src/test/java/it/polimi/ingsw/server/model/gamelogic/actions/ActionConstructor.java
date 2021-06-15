@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.gamelogic.MultiplayerGame;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 
@@ -14,7 +15,7 @@ public class ActionConstructor {
 
     public static HashMap<String, Action> getPossibleAction() throws NegativeResourceAmountException {
         HashMap<String, Action> actions = new HashMap<>();
-        actions.put("END_TURN", new EndTurnAction());
+        actions.put("END_TURN", new MultiplayerGame.EndTurnMultiplayerAction ());
         actions.put("ALWAYS_VALID", new StrongboxAction("store", new StorableResource(ResourceType.COIN, 5)));
         actions.put("UNIQUE", new MarketAction(0,"row"));
         actions.put("START_PRODUCTION", new StartProductionAction());

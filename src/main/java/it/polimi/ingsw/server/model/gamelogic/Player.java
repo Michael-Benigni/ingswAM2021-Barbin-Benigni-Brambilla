@@ -56,7 +56,7 @@ public class Player implements GameComponent {
     private Sendable positionInTurnUpdate() {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.TURN_POSITION_UPDATE);
-        writer.addProperty ("turnPosition", this.position + 1);
+        writer.addProperty ("turnPosition", this.position);
         return writer.write ();
     }
 

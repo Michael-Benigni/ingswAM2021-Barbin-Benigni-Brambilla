@@ -20,7 +20,7 @@ public class SoloActionTokenDeckTest {
         ArrayList<SoloActionToken> tokens = new ArrayList<>(0);
         SoloActionToken token1 = new SoloActionToken();
         SoloActionToken token2 = new SoloActionToken();
-        token1.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.GREEN, CardLevel.ONE), 2);
+        token1.setDiscardNCardsEffect (new GeneralDevelopmentCard (CardColour.GREEN, CardLevel.ONE), 2);
         token2.setMoveBlackCrossAndReShuffle(1);
         tokens.add(token1);
         tokens.add(token2);
@@ -36,15 +36,15 @@ public class SoloActionTokenDeckTest {
     void checkDrawFirstIfCorrect() {
         ArrayList<SoloActionToken> listOfTokens = new ArrayList<>(0);
         SoloActionToken firstToken = new SoloActionToken();
-        firstToken.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.BLUE, CardLevel.ONE), 2);
+        firstToken.setDiscardNCardsEffect (new GeneralDevelopmentCard (CardColour.BLUE, CardLevel.ONE), 2);
         SoloActionToken secondToken = new SoloActionToken();
-        secondToken.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.BLUE, CardLevel.ONE), 2);
+        secondToken.setDiscardNCardsEffect (new GeneralDevelopmentCard (CardColour.BLUE, CardLevel.ONE), 2);
         listOfTokens.add(firstToken);
         listOfTokens.add(secondToken);
         SoloActionToken token = new SoloActionToken();
         token.setMoveBlackCrossAndReShuffle(1);
         listOfTokens.add(token);
-        token.setDiscard2CardsEffect(new GeneralDevelopmentCard (CardColour.GREEN, CardLevel.ONE), 2);
+        token.setDiscardNCardsEffect (new GeneralDevelopmentCard (CardColour.GREEN, CardLevel.ONE), 2);
         listOfTokens.add(token);
         token.setMoveBlackCross (2);
         listOfTokens.add(token);

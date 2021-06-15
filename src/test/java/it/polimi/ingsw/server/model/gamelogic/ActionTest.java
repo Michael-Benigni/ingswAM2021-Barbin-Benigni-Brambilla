@@ -21,17 +21,16 @@ import java.util.ArrayList;
 
 public class ActionTest {
     public Game game;
-    MarketTrayTest marketTrayTest = new MarketTrayTest();
     public FaithTrackTest faithTrackTest = new FaithTrackTest();
     public Player player1, player2;
     public ArrayList<Integer> capacities = new ArrayList<>();
 
     @BeforeEach
-    void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException, EmptyDeckException, WrongBoardException {
+    void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException, EmptyDeckException, WrongBoardException, CellNotFoundInFaithTrackException {
         init();
     }
 
-    public void init() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, EmptyDeckException, WrongBoardException {
+    public void init() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, EmptyDeckException, WrongBoardException, CellNotFoundInFaithTrackException {
         capacities.add(1);
         capacities.add(2);
         capacities.add(3);

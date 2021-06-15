@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
+import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.model.exception.WrongBoardException;
@@ -21,7 +22,7 @@ public class GameFactory {
         return game;
     }
 
-    public void setup(Game game) throws FileNotFoundException, IllegalNumberOfPlayersException, EmptyDeckException, WrongBoardException {
+    public void setup(Game game) throws FileNotFoundException, IllegalNumberOfPlayersException, EmptyDeckException, WrongBoardException, CellNotFoundInFaithTrackException {
         loader = new ConfigLoader();
             if (game.getAllPlayers().size() != 1)
                 game.setup(

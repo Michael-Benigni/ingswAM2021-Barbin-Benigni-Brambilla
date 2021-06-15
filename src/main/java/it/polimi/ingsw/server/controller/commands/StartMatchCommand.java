@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 
 public class StartMatchCommand implements Command {
     @Override
-    public void handled(Controller controller, User user) throws FileNotFoundException, InvalidUserException, Exception {
+    public void handled(Controller controller, User user) throws Exception {
         controller.startMatch (user);
     }
 }

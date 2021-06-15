@@ -50,13 +50,13 @@ public class FaithTrack implements GameComponent {
         }
     }
 
-    public void notifyInitialUpdate() {
+    public void notifyInitialUpdate() throws CellNotFoundInFaithTrackException {
         notifyUpdate (generateInitialUpdate ());
         for (Player player : getPlayersFromFaithTrack ())
             notifyUpdate (generateUpdate (player, 0));
     }
 
-    private Sendable generateInitialUpdate() {
+    private Sendable generateInitialUpdate() throws CellNotFoundInFaithTrackException {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.INITIAL_FAITH_TRACK_UPDATE);
         ArrayList<Cell> allCellOfFT = new ArrayList<>();
@@ -65,6 +65,7 @@ public class FaithTrack implements GameComponent {
         }
         for(Cell c : allCellOfFT){
             c.getInfo(writer);
+            writer.addProperty ("sections", findSectionOfThisCell (c).getInfo());
         }
         return writer.write ();
     }

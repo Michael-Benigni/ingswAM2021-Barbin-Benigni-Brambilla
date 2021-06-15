@@ -29,6 +29,7 @@ public class UpdateFactory {
         map.put (Header.ToClient.FAITH_TRACK_UPDATE, FaithTrackOneStepUpdate.class);
         map.put (Header.ToClient.DISCONNECTION_UP, DisconnectionUP.class);
         map.put (Header.ToClient.GAME_OVER_UP, GameOverUpdate.class);
+        map.put (Header.ToClient.GENERIC_INFO, GenericInfoUpdate.class);
         return map;
     }
 

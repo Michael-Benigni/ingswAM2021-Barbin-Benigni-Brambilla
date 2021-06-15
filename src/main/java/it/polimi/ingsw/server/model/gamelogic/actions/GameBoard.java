@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardsDeck;
+import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrack;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTray;
@@ -78,7 +79,7 @@ public class GameBoard {
         return this.developmentCardGrid;
     }
 
-    public void sendInitialUpdate() {
+    public void sendInitialUpdate() throws CellNotFoundInFaithTrackException {
         this.getDevelopmentCardGrid ().notifyInitialUpdate();
         this.getMarketTray ().notifyInitialUpdate ();
         this.getFaithTrack ().notifyInitialUpdate ();

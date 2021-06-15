@@ -226,7 +226,7 @@ public class DevelopmentCardsGrid implements GameComponent {
             messageWriter.addProperty ("cardToShow", null);
             messageWriter.addProperty ("showDescription", null);
             messageWriter.addProperty ("levelCardToShow", null);
-            messageWriter.addProperty ("showDescription", null);
+            messageWriter.addProperty ("colourCardToShow", null);
         }
         return messageWriter.write();
     }

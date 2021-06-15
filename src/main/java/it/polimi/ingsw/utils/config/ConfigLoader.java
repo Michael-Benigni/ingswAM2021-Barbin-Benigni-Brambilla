@@ -77,17 +77,20 @@ public class ConfigLoader {
             case "Discard2Cards": {
                 GeneralDevelopmentCard card = (GeneralDevelopmentCard) jsonHandler.getAsJavaObjectFromJSONArray (GeneralDevelopmentCard.class, keyInJSON + "card/", ints);
                 int numOfCards = (int) jsonHandler.getAsJavaObjectFromJSONArray (int.class, keyInJSON + "numCardToDiscard/", ints);
-                newToken.setDiscard2CardsEffect (card, numOfCards);
+                newToken.setDiscardNCardsEffect (card, numOfCards);
+                newToken.setDescription (numOfCards + " Development Cards of colour " + card.getCardColour() +  " have been discarded");
                 break;
             }
             case "MoveBlackCross&Shuffle": {
                 int numMoves = (int) jsonHandler.getAsJavaObjectFromJSONArray (int.class, keyInJSON + "numMoves/", ints);
                 newToken.setMoveBlackCrossAndReShuffle (numMoves);
+                newToken.setDescription ("The BLACK CROSS has been moved by " + numMoves +  " steps. The Action-Token Deck has been shuffled");
                 break;
             }
             case "MoveBlackCross": {
                 int numMoves = (int) jsonHandler.getAsJavaObjectFromJSONArray (int.class, keyInJSON + "numMoves/", ints);
                 newToken.setMoveBlackCross (numMoves);
+                newToken.setDescription ("The BLACK CROSS has been moved by " + numMoves +  " steps.");
                 break;
             }
             default: {

@@ -15,4 +15,9 @@ public class VaticanReportSection extends Section{
         super(listCell);
     }
 
+    @Override
+    public String getInfo() {
+        return "Vatican";
+    }
+
 }

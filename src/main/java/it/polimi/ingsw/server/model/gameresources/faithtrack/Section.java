@@ -95,4 +95,5 @@ public abstract class Section {
         throw new CellNotFoundInSectionException();
     }
 
+    public abstract String getInfo();
 }

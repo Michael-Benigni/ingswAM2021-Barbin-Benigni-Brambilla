@@ -1,10 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.model.exception.NotEnoughPlayersException;
-import it.polimi.ingsw.server.model.exception.WrongBoardException;
-import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
-import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
+import it.polimi.ingsw.server.model.exception.*;
+import it.polimi.ingsw.server.model.gamelogic.actions.*;
 
 import java.util.ArrayList;
 
@@ -31,12 +28,28 @@ public class MultiplayerGame extends Game {
      * @throws NotEnoughPlayersException
      */
     @Override
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException {
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {
         super.setup(personalBoards, gameBoard, params);
     }
 
     @Override
     public GameBoard getGameBoard() {
         return super.getGameBoard();
+    }
+
+    @Override
+    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException {
+        new EndTurnMultiplayerAction ().perform (this, this.getCurrentPlayer ());
+    }
+
+    public static class EndTurnMultiplayerAction extends EndTurnAction {
+
+        @Override
+        public void perform(Game game, Player player) throws WrongInitialConfiguration, WrongCellIndexException,
+                CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException, GameOverByGridException {
+            new DiscardAllResources ().perform(game, player);
+            game.getCurrentTurn().terminate(game);
+            game.setNextPlayer();
+        }
     }
 }

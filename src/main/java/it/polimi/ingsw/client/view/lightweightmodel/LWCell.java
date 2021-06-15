@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class LWCell {
     private ArrayList<String> playersInThisCell;
     private int victoryPoints;
-    private Boolean isPopeSpace;
+    private boolean isPopeSpace;
+    private String section;
 
-    public LWCell(ArrayList<String> playersInThisCell, int victoryPoints, Boolean isPopeSpace) {
+    public LWCell(ArrayList<String> playersInThisCell, int victoryPoints, boolean isPopeSpace, String section) {
         this.playersInThisCell = playersInThisCell;
         this.victoryPoints = victoryPoints;
         this.isPopeSpace = isPopeSpace;
+        this.section = section;
     }
 
     public ArrayList<String> getPlayersInThisCell() {
@@ -21,7 +23,7 @@ public class LWCell {
         return victoryPoints;
     }
 
-    public Boolean isPopeSpace() {
+    public boolean isPopeSpace() {
         return isPopeSpace;
     }
 

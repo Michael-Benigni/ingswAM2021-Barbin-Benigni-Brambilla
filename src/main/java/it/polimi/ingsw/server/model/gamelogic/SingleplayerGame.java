@@ -1,11 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.model.exception.NotEnoughPlayersException;
-import it.polimi.ingsw.server.model.exception.WrongBoardException;
-import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
-import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
-import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
+import it.polimi.ingsw.server.model.exception.*;
+import it.polimi.ingsw.server.model.gamelogic.actions.*;
 import it.polimi.ingsw.utils.Observer;
 
 import java.util.ArrayList;
@@ -29,7 +25,7 @@ public class SingleplayerGame extends Game {
      * the game board
      * @throws NotEnoughPlayersException
      */
-    private void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException {
+    private void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {
         if (gameBoard.getActionTokenDeck () != null)
             super.setup(personalBoards, gameBoard, params);
         else
@@ -43,7 +39,7 @@ public class SingleplayerGame extends Game {
      * @throws NotEnoughPlayersException
      */
     @Override
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException {
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {
         setup(personalBoards, (SoloPlayerGameBoard) gameBoard, params);
     }
 
@@ -53,8 +49,26 @@ public class SingleplayerGame extends Game {
     }
 
     @Override
+    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException {
+        new EndTurnSingleplayerAction ().perform (this);
+    }
+
+    @Override
     protected void attachToGameBoard() {
         super.attachToGameBoard ();
         getGameBoard ().getActionTokenDeck ().attachAll(new ArrayList<> ((Collection<? extends Observer>) getObservers ()));
+    }
+
+    public static class EndTurnSingleplayerAction extends MultiplayerGame.EndTurnMultiplayerAction {
+        /**
+         * This is the method that performs this Action in the Game, and changes the actual state of the Game
+         *
+         * @param game   -> the Game on which this Action will be performed
+         */
+        public void perform(SingleplayerGame game) throws WrongCellIndexException, CellNotFoundInFaithTrackException,
+                GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, GameOverByGridException {
+            super.perform (game, game.getCurrentPlayer ());
+            game.getGameBoard ().getActionTokenDeck ().drawFirst ().activateEffect (game, game.getCurrentPlayer ());
+        }
     }
 }

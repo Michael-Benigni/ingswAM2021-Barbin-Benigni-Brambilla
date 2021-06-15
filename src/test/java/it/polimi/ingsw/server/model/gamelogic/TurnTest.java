@@ -23,7 +23,7 @@ class TurnTest {
     void init() throws Exception {
         alwaysValid = new LeaderAction("play", 1);
         payAction = new StrongboxAction("store", new StorableResource(ResourceType.COIN, 1));
-        endTurn = new EndTurnAction();
+        endTurn = new MultiplayerGame.EndTurnMultiplayerAction ();
         unique = new MarketAction(1, "row");
         game = new MultiplayerGame(4);
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();

@@ -2,10 +2,7 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.controller.commands.Command;
 import it.polimi.ingsw.server.controller.exception.*;
-import it.polimi.ingsw.server.model.exception.EmptyDeckException;
-import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
-import it.polimi.ingsw.server.model.exception.WrongBoardException;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.GameFactory;
 import it.polimi.ingsw.server.model.gamelogic.Player;
@@ -44,7 +41,7 @@ public class Controller {
     }
 
 
-    public synchronized void startMatch(User user) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException, OnlyLeaderCanStartGameException, WrongBoardException {
+    public synchronized void startMatch(User user) throws IllegalNumberOfPlayersException, InvalidUserException, TooManyPlayersException, FileNotFoundException, EmptyDeckException, OnlyLeaderCanStartGameException, WrongBoardException, CellNotFoundInFaithTrackException {
         WaitingRoom room = getWaitingRoomOf (user);
         if (room.getLeader () == user) {
             if (room.isFull ()) {

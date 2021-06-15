@@ -7,10 +7,12 @@ import java.util.ArrayList;
 public class InitialFaithTrackUpdate implements ViewUpdate{
     private final ArrayList<Integer> VP;
     private final ArrayList<Boolean> isPopeSpace;
+    private final ArrayList<String> sections;
 
-    public InitialFaithTrackUpdate(ArrayList<Integer> vp, ArrayList<Boolean> isPopeSpace) {
+    public InitialFaithTrackUpdate(ArrayList<Integer> vp, ArrayList<Boolean> isPopeSpace, ArrayList<String> sections) {
         VP = vp;
         this.isPopeSpace = isPopeSpace;
+        this.sections = sections;
     }
 
     @Override
@@ -21,7 +23,7 @@ public class InitialFaithTrackUpdate implements ViewUpdate{
     private ArrayList<LWCell> buildListOfCells() {
         ArrayList<LWCell> listOfCells = new ArrayList<>();
         for(int i = 0; i < this.VP.size(); i++)
-            listOfCells.add(new LWCell(new ArrayList<> (), this.VP.get(i), this.isPopeSpace.get(i)));
+            listOfCells.add(new LWCell(new ArrayList<> (), this.VP.get(i), this.isPopeSpace.get(i), this.sections.get (i)));
         return listOfCells;
     }
 

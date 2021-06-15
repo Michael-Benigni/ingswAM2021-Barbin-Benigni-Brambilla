@@ -96,7 +96,7 @@ public abstract class Game implements GameComponent {
      * This method prepare the game, setting the players' order, creating the first turn, setting the first Player, and
      * the game board
      */
-    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException {
+    public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {
         if (isReadyToStart ()) {
             this.params = params;
             this.setPlayersOrder ();
@@ -380,5 +380,7 @@ public abstract class Game implements GameComponent {
     public void attach(Observer observer) {
         this.observers.add (observer);
     }
+
+    public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException;
 }
 

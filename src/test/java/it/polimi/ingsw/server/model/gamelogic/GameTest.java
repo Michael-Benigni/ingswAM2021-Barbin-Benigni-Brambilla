@@ -40,7 +40,7 @@ class GameTest {
      */
     private void skipInitialTurn() throws Exception {
         for(Player p : game.getAllPlayers())
-            game.performActionOf(p, new EndTurnAction());
+            game.performActionOf(p, new MultiplayerGame.EndTurnMultiplayerAction ());
     }
 
     @Test
@@ -114,7 +114,7 @@ class GameTest {
         }
         if(isCorrect)
             assertEquals(currentMap.get(actions), Result.CORRECT);
-        if(!(actions.get(actions.size() - 1).equals(new EndTurnAction())))
+        if(!(actions.get(actions.size() - 1).equals(new MultiplayerGame.EndTurnMultiplayerAction ())))
             game.setNextPlayer();
     }
 

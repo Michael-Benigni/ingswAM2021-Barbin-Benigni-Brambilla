@@ -29,7 +29,7 @@ public class GeneralDevelopmentCard implements Requirement {
      * this method provides the card colour to the caller
      * @return the card's colour
      */
-    protected CardColour getCardColour() {
+    public CardColour getCardColour() {
         return cardColour;
     }
 

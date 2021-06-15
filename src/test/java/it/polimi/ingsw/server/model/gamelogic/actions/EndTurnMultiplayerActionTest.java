@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Tests for "EndTurnAction" class.
+ * Tests for "EndTurnMultiplayerAction" class.
  */
-public class EndTurnActionTest {
+public class EndTurnMultiplayerActionTest {
 
     Game game;
 
@@ -45,7 +45,7 @@ public class EndTurnActionTest {
      */
     @Test
     void checkPerform() throws Exception {
-        Action action = new EndTurnAction();
+        Action action = new MultiplayerGame.EndTurnMultiplayerAction ();
         Player player0 = game.getAllPlayers().get(0);
         player0.getPersonalBoard().getTempContainer().store(new StorableResource(ResourceType.COIN, 1));
         action.perform(game, player0);
@@ -65,7 +65,7 @@ public class EndTurnActionTest {
      */
     @Test
     void checkPerformIfGameOver() throws Exception {
-        Action action = new EndTurnAction();
+        Action action = new MultiplayerGame.EndTurnMultiplayerAction ();
         Player player0 = game.getAllPlayers().get(0);
         player0.getPersonalBoard().getTempContainer().store(new StorableResource(ResourceType.COIN, 120));
         try {

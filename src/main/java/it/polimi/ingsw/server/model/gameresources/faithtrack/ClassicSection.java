@@ -14,5 +14,10 @@ public class ClassicSection extends Section{
         super(listCell);
     }
 
+    @Override
+    public String getInfo() {
+        return "Classic";
+    }
+
 
 }
