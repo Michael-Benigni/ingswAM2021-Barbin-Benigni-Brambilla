@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 
 public class FaithTrackOneStepUpdate implements ViewUpdate{
     private final int playerOrderReference;
@@ -12,8 +12,8 @@ public class FaithTrackOneStepUpdate implements ViewUpdate{
     }
 
     @Override
-    public void update(View view) {
-        view.getModel().getBoard().updatePlayerPosition(
-                view.getModel().getInfoMatch().getPlayerAt(playerOrderReference), this.playerPositionInFT);
+    public void update(Controller controller) {
+        controller.getModel().getBoard().updatePlayerPosition(
+                controller.getModel().getInfoMatch().getPlayerAt(playerOrderReference), this.playerPositionInFT);
     }
 }

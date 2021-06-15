@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.LWDevCard;
 import it.polimi.ingsw.client.view.ui.cli.Colour;
 
@@ -26,8 +26,8 @@ public class CardsGridInitialUpdate implements ViewUpdate {
     }
 
     @Override
-    public void update(View clientView){
-        clientView.getModel().getBoard().buildDevCardsGrid (convertFromIDsToLWDevCards(), rows, columns);
+    public void update(Controller clientController){
+        clientController.getModel().getBoard().buildDevCardsGrid (convertFromIDsToLWDevCards(), rows, columns);
     }
 
     /**

@@ -4,12 +4,12 @@ import it.polimi.ingsw.client.view.lightweightmodel.LWModel;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.*;
 
-public class View {
+public class Controller {
     private Channel channel;
-    private UI ui;
-    private LWModel model;
+    private final UI ui;
+    private final LWModel model;
 
-    public View(UI ui) {
+    public Controller(UI ui) {
         this.ui = ui;
         this.model = new LWModel ();
     }
@@ -29,7 +29,7 @@ public class View {
         }).start ();
     }
 
-    private synchronized void setNextState() {
+    public synchronized void setNextState() {
         this.ui.setNextState ();
     }
 

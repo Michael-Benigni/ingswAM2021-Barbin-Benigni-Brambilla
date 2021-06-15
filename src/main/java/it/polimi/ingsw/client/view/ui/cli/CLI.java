@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.*;
 import it.polimi.ingsw.client.view.moves.Move;
@@ -23,7 +23,7 @@ public class CLI implements UI {
     private final Interlocutor interlocutor;
     private final Queue<Sendable> messages;
     private ClientState state;
-    private View view;
+    private Controller controller;
     private final int WIDTH_SECTION = 160;
 
     public CLI() {
@@ -478,12 +478,12 @@ public class CLI implements UI {
     }
 
     @Override
-    public void setView(View view) {
-        this.view = view;
+    public void setView(Controller controller) {
+        this.controller = controller;
     }
 
     @Override
-    public View getView() {
-        return view;
+    public Controller getView() {
+        return controller;
     }
 }

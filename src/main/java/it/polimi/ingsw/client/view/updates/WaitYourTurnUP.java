@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 
 public class WaitYourTurnUP implements ViewUpdate {
     private final int currPlayer;
@@ -10,7 +10,7 @@ public class WaitYourTurnUP implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        view.getUI ().notifyMessage ("It's the turn of player " + currPlayer + ". Wait your turn.");
+    public void update(Controller controller) {
+        controller.getUI ().notifyMessage ("It's the turn of player " + currPlayer + ". Wait your turn.");
     }
 }

@@ -178,9 +178,7 @@ public abstract class Game implements GameComponent {
     }
 
     protected void notifyLastRoundUpdate() {
-        this.playersOrder.stream ().forEach ((p) -> {
-            p.notifyUpdate (getLastRoundUpdate());
-        });
+        this.playersOrder.forEach ((p) -> p.notifyUpdate (getLastRoundUpdate()));
     }
 
     private Sendable getLastRoundUpdate() {
@@ -225,7 +223,7 @@ public abstract class Game implements GameComponent {
     private void onGameOver() {
         if (isGameOver ()) {
             ArrayList<Player> winners = computeWinners ();
-            playersOrder.stream ().forEach ((p) -> p.notifyUpdate (getEndGameUpdate(winners)));
+            playersOrder.forEach ((p) -> p.notifyUpdate (getEndGameUpdate(winners)));
         }
     }
 
@@ -241,7 +239,7 @@ public abstract class Game implements GameComponent {
             }
             else {
                 position = "losersRoundPositions";
-                VPs = "LosersVPs";
+                VPs = "losersVPs";
             }
             writer.addProperty (VPs, player.computeAllVP ().getPoints ());
             writer.addProperty (position, player.getPosition ());

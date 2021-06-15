@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.LWResource;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class TempContainerUpdate implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        view.getModel().getPersonalBoard().updateTemporaryContainer(this.storableResources, this.emptyResourcesAmount);
+    public void update(Controller controller) {
+        controller.getModel().getPersonalBoard().updateTemporaryContainer(this.storableResources, this.emptyResourcesAmount);
     }
 }

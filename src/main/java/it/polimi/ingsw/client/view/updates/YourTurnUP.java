@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 
 public class YourTurnUP implements ViewUpdate {
     private final String additionalMsg;
@@ -10,10 +10,10 @@ public class YourTurnUP implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        view.getUI ().notifyMessage ("It's your Turn!");
+    public void update(Controller controller) {
+        controller.getUI ().notifyMessage ("It's your Turn!");
         if (additionalMsg != null)
-            view.getUI ().notifyMessage (additionalMsg);
-        view.getUI ().nextInputRequest ();
+            controller.getUI ().notifyMessage (additionalMsg);
+        controller.getUI ().nextInputRequest ();
     }
 }

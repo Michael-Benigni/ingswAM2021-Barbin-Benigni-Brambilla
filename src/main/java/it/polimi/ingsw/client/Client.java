@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.ClientNetworkLayer;
-import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.ui.UIFactory;
 import it.polimi.ingsw.utils.config.Prefs;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ public class Client {
     public static void launch(int port, String[] args) {
         ClientNetworkLayer network = new ClientNetworkLayer (getIP (args), port);
         UI ui = UIFactory.getUI (getCLIorGUI (args));
-        View view = new View (ui);
-        ui.setView (view);
-        network.connect (view);
+        Controller controller = new Controller (ui);
+        ui.setView (controller);
+        network.connect (controller);
     }
 
     private static String getIP(String[] args) {

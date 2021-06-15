@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 
 public class DisconnectionUP implements ViewUpdate {
     private final int playerDisconnected;
@@ -10,8 +10,8 @@ public class DisconnectionUP implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        view.getUI ().notifyMessage ("Player " + playerDisconnected + " with username "
-                + view.getModel ().getInfoMatch ().getPlayerAt (playerDisconnected));
+    public void update(Controller controller) {
+        controller.getUI ().notifyMessage ("Player " + playerDisconnected + " with username "
+                + controller.getModel ().getInfoMatch ().getPlayerAt (playerDisconnected));
     }
 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 
 public class GetPenaltyUpdate implements ViewUpdate {
 
@@ -11,9 +11,9 @@ public class GetPenaltyUpdate implements ViewUpdate {
     }
 
     @Override
-    public void update(View view){
+    public void update(Controller controller){
         if (penalty > 0)
-            view.getUI().notifyMessage("you have discarded some resources, " +
+            controller.getUI().notifyMessage("you have discarded some resources, " +
                 "your adversaries move on the faith track by " +
                 penalty + " steps");
     }

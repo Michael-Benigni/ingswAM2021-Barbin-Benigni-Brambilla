@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
 
 public class UserRegisteredUP implements ViewUpdate {
@@ -15,12 +15,12 @@ public class UserRegisteredUP implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        InfoMatch infoMatch = view.getModel ().getInfoMatch ();
+    public void update(Controller controller) {
+        InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
         infoMatch.setYourUsername (username);
         infoMatch.setRoomID (numWaitingRoom);
         infoMatch.setTotalNumPlayers (numUsers);
-        view.getUI ().notifyMessage (numUsers + "° user registered, in the waiting room n° " + numWaitingRoom + ", with name: " + username);
-        view.getUI ().nextInputRequest ();
+        controller.getUI ().notifyMessage (numUsers + "° user registered, in the waiting room n° " + numWaitingRoom + ", with name: " + username);
+        controller.getUI ().nextInputRequest ();
     }
 }

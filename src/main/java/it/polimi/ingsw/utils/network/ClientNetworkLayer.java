@@ -1,6 +1,6 @@
 package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.utils.network.exception.IllegalMessageException;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class ClientNetworkLayer {
         this.port = port;
     }
 
-    public void connect(View view) {
+    public void connect(Controller controller) {
         Socket socket = null;
         try {
             socket = new Socket (ip, port);
@@ -24,20 +24,20 @@ public class ClientNetworkLayer {
             System.err.println (e.getMessage ());
         }
         Channel channel = new Channel(socket, "");
-        view.setChannel(channel);
-        view.loop ();
+        controller.setChannel(channel);
+        controller.loop ();
         channel.listeningLoop ((msg)-> {
             // DEBUG: System.out.print (msg + "\n");
             if (ACK.isACKMessage (msg))
                 responseACK(channel, msg);
             else if(ValidMoveMessage.isValidMoveMessage(msg))/**/;
-                //view.readyForNextMove ();
+                //controller.readyForNextMove ();
             else if(ErrorMessage.isErrorMessage(msg))
-                view.handleError(new ErrorMessage (msg));
+                controller.handleError(new ErrorMessage (msg));
             else {
                 // DEBUG: System.out.printf ("Received from Server: %s\n", msg);
                 ToClientMessage message = new ToClientMessage (msg);
-                view.handle (message);
+                controller.handle (message);
             }
         });
     }

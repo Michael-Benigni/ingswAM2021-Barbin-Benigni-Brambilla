@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.LWCell;
 import java.util.ArrayList;
 
@@ -15,8 +14,8 @@ public class InitialFaithTrackUpdate implements ViewUpdate{
     }
 
     @Override
-    public void update(View view) {
-        view.getModel().getBoard().updateFaithTrack(buildListOfCells());
+    public void update(Controller controller) {
+        controller.getModel().getBoard().updateFaithTrack(buildListOfCells());
     }
 
     private ArrayList<LWCell> buildListOfCells() {

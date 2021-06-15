@@ -137,9 +137,9 @@ public class StorableResource implements Storable, Requirement, Producible {
      * @return -> the copy of the caller
      */
     @Override
-    public Object clone() {
+    public StorableResource clone() {
         try {
-            return super.clone();
+            return (StorableResource) super.clone();
         } catch (CloneNotSupportedException e) {
             return null;
         }

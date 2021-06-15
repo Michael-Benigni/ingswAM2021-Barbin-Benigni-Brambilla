@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 
 public class TurnPositionUP implements ViewUpdate {
     private final int turnPosition;
@@ -10,9 +10,9 @@ public class TurnPositionUP implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        view.getModel ().getInfoMatch ().setNumPlayerInTurn (turnPosition);
-        view.getUI ().setNextState ();
-        view.getUI().notifyMessage ("You are the " + turnPosition + "° player!");
+    public void update(Controller controller) {
+        controller.getModel ().getInfoMatch ().setNumPlayerInTurn (turnPosition);
+        controller.setNextState ();
+        controller.getUI().notifyMessage ("You are the " + turnPosition + "° player!");
     }
 }

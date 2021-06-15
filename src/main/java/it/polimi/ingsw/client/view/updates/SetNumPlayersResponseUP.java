@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 
 public class SetNumPlayersResponseUP implements ViewUpdate {
     private final int numPlayers;
@@ -10,8 +10,8 @@ public class SetNumPlayersResponseUP implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        view.getUI ().notifyMessage ("The number of players of the Game has been set to " + numPlayers);
-        view.getUI ().nextInputRequest ();
+    public void update(Controller controller) {
+        controller.getUI ().notifyMessage ("The number of players of the Game has been set to " + numPlayers);
+        controller.getUI ().nextInputRequest ();
     }
 }

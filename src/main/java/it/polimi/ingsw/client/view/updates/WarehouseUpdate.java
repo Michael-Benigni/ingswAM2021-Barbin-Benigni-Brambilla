@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.LWDepot;
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class WarehouseUpdate implements ViewUpdate {
     }
 
     @Override
-    public void update(View clientView){
-        clientView.getModel().getPersonalBoard().updateWarehouse(depots);
+    public void update(Controller clientController){
+        clientController.getModel().getPersonalBoard().updateWarehouse(depots);
     }
 }

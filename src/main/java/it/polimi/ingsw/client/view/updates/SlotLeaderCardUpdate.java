@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.LWLeaderCard;
 
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ public class SlotLeaderCardUpdate implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
-        view.getModel().getPersonalBoard().updateLeaderCards(buildLWLeaderCards(this.cardsNotPlayed,
+    public void update(Controller controller) {
+        controller.getModel().getPersonalBoard().updateLeaderCards(buildLWLeaderCards(this.cardsNotPlayed,
                 this.descriptionsNotPlayed), buildLWLeaderCards(this.cardsPlayed, this.descriptionsPlayed));
     }
 

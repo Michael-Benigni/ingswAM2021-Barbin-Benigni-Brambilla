@@ -48,23 +48,22 @@ class Depot {
      */
     void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, NegativeResourceAmountException, ResourceOverflowInDepotException {
         StorableResource resourceTot;
-        try {
-            resourceTot = this.getStoredResource().increaseAmount(resourceToStore);
-        } catch(EmptyDepotException e) {
-            resourceTot = (StorableResource) resourceToStore.clone();
-        }
-        if (resourceTot.amountLessEqualThan(capacity)) {
-            storedResource = resourceTot;
-        } else {
-            //TODO: this piece of code is correct for the resource picked from the market tray, but if we want to
-            // store a resource that exceed the limit of the depot, we will store all the resources that fill
-            // the depot... maybe can be a problem (???)
-            storedResource = resourceToStore;
-            storedResource.setAmount(capacity);
+        if (resourceToStore != null) {
             try {
-                throw new ResourceOverflowInDepotException(resourceTot.decreaseAmount(storedResource));
-            } catch (NullResourceAmountException e) {
+                resourceTot = this.getStoredResource ().increaseAmount (resourceToStore);
+            } catch (EmptyDepotException e) {
+                resourceTot = resourceToStore.clone ();
+            }
+            if (resourceTot.amountLessEqualThan (capacity)) {
+                storedResource = resourceTot;
+            } else {
+                storedResource = resourceToStore;
+                storedResource.setAmount (capacity);
+                try {
+                    throw new ResourceOverflowInDepotException (resourceTot.decreaseAmount (storedResource));
+                } catch (NullResourceAmountException ignored) {
 
+                }
             }
         }
     }
@@ -78,8 +77,6 @@ class Depot {
      */
     void removeResourceFromDepot(StorableResource resourceToRemove) throws NotEqualResourceTypeException, NegativeResourceAmountException, EmptyDepotException {
         try {
-            if(this.getStoredResource() == null)
-                throw new EmptyDepotException();
             storedResource = this.getStoredResource().decreaseAmount(resourceToRemove);
         } catch (NullResourceAmountException e) {
             storedResource = null;

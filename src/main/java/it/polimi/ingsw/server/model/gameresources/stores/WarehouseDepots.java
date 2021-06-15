@@ -153,24 +153,36 @@ public class WarehouseDepots implements GameComponent {
         StorableResource depotOverflow = null;
         if (ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2)) {
             Depot depot1 = listDepot.get(depotIndex1);
-            StorableResource resource1 = depot1.getStoredResource();
-            depot1.removeResourceFromDepot(resource1);
+            StorableResource resource1 = getResourceAndRemove (depot1);
             Depot depot2 = listDepot.get(depotIndex2);
-            StorableResource resource2 = listDepot.get(depotIndex2).getStoredResource();
-            depot2.removeResourceFromDepot(resource2);
+            StorableResource resource2 = getResourceAndRemove (depot2);
             try {
-                depot1.storeResourceInDepot(resource2);
-            } catch (ResourceOverflowInDepotException e) {
-                depotOverflow = e.getResource();
+                try {
+                    depot1.storeResourceInDepot (resource2);
+                } catch (ResourceOverflowInDepotException e) {
+                    depotOverflow = e.getResource ();
+                }
+                try {
+                    depot2.storeResourceInDepot (resource1);
+                } catch (ResourceOverflowInDepotException e) {
+                    depotOverflow = e.getResource ();
+                }
+            } finally {
+                notifyUpdate(generateUpdate ());
             }
-            try {
-                depot2.storeResourceInDepot(resource1);
-            } catch (ResourceOverflowInDepotException e) {
-                depotOverflow = e.getResource();
-            }
-            notifyUpdate(generateUpdate ());
         }
         return depotOverflow;
+    }
+
+    private StorableResource getResourceAndRemove(Depot depot) throws NotEqualResourceTypeException, NegativeResourceAmountException {
+        StorableResource resource;
+        try {
+            resource = depot.getStoredResource ();
+            depot.removeResourceFromDepot(resource);
+        } catch (EmptyDepotException e) {
+            resource = null;
+        }
+        return resource;
     }
 
     /**

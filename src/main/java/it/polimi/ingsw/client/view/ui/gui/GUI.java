@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
@@ -16,7 +16,7 @@ public class GUI extends Application implements UI {
 
     private Queue<Sendable> messages;
     private ClientState state;
-    private View view;
+    private Controller controller;
 
     public GUI() {
         this.messages = new ArrayDeque<> ();
@@ -105,12 +105,12 @@ public class GUI extends Application implements UI {
     }
 
     @Override
-    public void setView(View view) {
-        this.view = view;
+    public void setView(Controller controller) {
+        this.controller = controller;
     }
 
     @Override
-    public View getView() {
-        return view;
+    public Controller getView() {
+        return controller;
     }
 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.updates;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.LWMarket;
 import it.polimi.ingsw.client.view.ui.cli.Colour;
 
@@ -16,8 +16,8 @@ public class MarketUP implements ViewUpdate {
     }
 
     @Override
-    public void update(View view) {
+    public void update(Controller controller) {
         LWMarket lwMarket = new LWMarket (market, marbleOnSlide);
-        view.getModel ().getBoard ().getMarket().update (lwMarket);
+        controller.getModel ().getBoard ().getMarket().update (lwMarket);
     }
 }
