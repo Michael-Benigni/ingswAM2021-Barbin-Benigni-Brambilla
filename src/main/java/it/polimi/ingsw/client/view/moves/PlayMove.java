@@ -22,7 +22,7 @@ public enum PlayMove implements MoveType {
     MOVE_RESOURCES ("R", moveResourcesMove ()),
     START_PRODUCTION ("SP", startProductionMove ()),
     SWAP_DEPOTS ("SW", swapDepotMove ()),
-    WAREHOUSE ("W", warehouseMove ()),
+    WAREHOUSE ("IR", warehouseMove ()),
     WHITE_MARBLE ("WM", transformWhiteMarbleMove ()),
     SHOW_PERSONAL_BOARD("SPB", showPersonalBoard()),
     SHOW_GAME_BOARD("SGB", showGameBoard()),
