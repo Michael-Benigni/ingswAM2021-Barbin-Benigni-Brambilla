@@ -202,6 +202,7 @@ public class CLI implements UI {
         ArrayList<String> cellsAsString = cells.stream ()
                 .map ((cell)-> encapsulate ("Cell n°" + cells.indexOf (cell)
                         + "\nVP: " + cell.getVictoryPoints () + "\n"
+                        + cell.getSection () + "\n"
                         + (cell.isPopeSpace () ? "Pope Cell" : " ")
                         + "\n"
                         + String.join ("\n", (cell.getPlayersInThisCell ()))

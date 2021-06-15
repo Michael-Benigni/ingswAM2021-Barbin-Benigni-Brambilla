@@ -16,7 +16,7 @@ public class ClassicSection extends Section{
 
     @Override
     public String getInfo() {
-        return "Classic";
+        return " ";
     }
 
 

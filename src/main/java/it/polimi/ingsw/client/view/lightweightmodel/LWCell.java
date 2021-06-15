@@ -34,4 +34,8 @@ public class LWCell {
     public void addPlayer(String playerName){
         this.playersInThisCell.add(playerName);
     }
+
+    public String getSection() {
+        return section;
+    }
 }

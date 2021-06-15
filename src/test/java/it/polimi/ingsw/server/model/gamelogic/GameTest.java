@@ -17,7 +17,7 @@ class GameTest {
     private HashMap<ArrayList<Action>, Result> currentMap;
 
     @BeforeEach
-    private void init() throws IllegalNumberOfPlayersException, NegativeResourceAmountException, EmptyDeckException, TooManyPlayersException, WrongBoardException {
+    private void init() throws IllegalNumberOfPlayersException, NegativeResourceAmountException, EmptyDeckException, TooManyPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {
         game = new MultiplayerGame(4);
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
         for (int i = 0; i < 4; i++)
