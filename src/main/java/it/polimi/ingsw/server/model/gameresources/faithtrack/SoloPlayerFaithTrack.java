@@ -28,16 +28,15 @@ public class SoloPlayerFaithTrack extends FaithTrack {
 
     @Override
     public void initMarkers(ArrayList<Player> players) {
+        Player singlePlayer = players.get (0);
         ArrayList<Player> playersSingleGame = new ArrayList<> (players);
         createBlackCross();
         playersSingleGame.add(blackCross);
         super.initMarkers(playersSingleGame);
-        notifyBlackCrossCreation();
+        notifyBlackCrossCreation(singlePlayer.getObservers ());
     }
 
-    private void notifyBlackCrossCreation() {
-        ArrayList<Player> players = new ArrayList<> (getMapOfFaithMarkers ().keySet ());
-        ArrayList<Observer> observers = players.get (0).getObservers ();
+    private void notifyBlackCrossCreation(ArrayList<Observer> observers) {
         blackCross.attachAll (observers);
         blackCross.notifyUpdate (blackCross.getPositionUpdate ());
     }
@@ -45,7 +44,7 @@ public class SoloPlayerFaithTrack extends FaithTrack {
     private void createBlackCross() {
         blackCross = new Player();
         blackCross.setUsername ("BLACK CROSS");
-        blackCross.setPosition (-1);
+        blackCross.setPosition (2);
     }
 
 

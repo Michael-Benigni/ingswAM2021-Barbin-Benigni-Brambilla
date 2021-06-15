@@ -192,4 +192,8 @@ public class Player implements GameComponent {
     public int getPosition() {
         return position;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.gameresources.stores;
 
 
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
+import it.polimi.ingsw.server.model.exception.LeaderCardNotPlayedException;
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCardTest;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
@@ -23,7 +24,11 @@ class TemporaryContainerTest {
         catch (NotHaveThisEffectException e){
             assertTrue(true);
         }
-        leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        try {
+            leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         try{
             LeaderCardTest.player.getPersonalBoard().getTempContainer().transformEmptyResources(LeaderCardTest.player, 0);
             fail();
@@ -53,7 +58,11 @@ class TemporaryContainerTest {
     void checkTransformWhiteMarbleEffect2() throws NegativeResourceAmountException, IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotHaveThisEffectException {
         LeaderCard leaderCard = LeaderCardTest.buildTransformWhiteMarbleCard();
         leaderCardTest.prepareTests();
-        leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        try {
+            leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         EmptyResource emptyResource = new EmptyResource();
         LeaderCardTest.player.getPersonalBoard().getTempContainer().store(emptyResource);
         LeaderCardTest.auxPlayer.getPersonalBoard().getTempContainer().store(emptyResource);
@@ -77,7 +86,11 @@ class TemporaryContainerTest {
         temporaryContainer.store(coin);
         temporaryContainer.store(servant);
         temporaryContainer.store(shield);
-        leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        try {
+            leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         ArrayList<StorableResource> allResources = temporaryContainer.getAllResources();
         if(allResources.size() == 0)
             fail();
@@ -125,7 +138,11 @@ class TemporaryContainerTest {
     void transformEmptyResources() throws IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException, NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotHaveThisEffectException {
         LeaderCard leaderCard = LeaderCardTest.buildTransformWhiteMarbleCard();
         leaderCardTest.prepareTests();
-        leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        try {
+            leaderCard.play(LeaderCardTest.player, LeaderCardTest.game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         EmptyResource emptyResource = new EmptyResource();
         LeaderCardTest.player.getPersonalBoard().getTempContainer().store(emptyResource);
         LeaderCardTest.player.getPersonalBoard().getTempContainer().transformEmptyResources(LeaderCardTest.player, 0);

@@ -76,7 +76,11 @@ public class LeaderCardTest {
     @Test
     void playTest() throws EmptySlotException, NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException, NullResourceAmountException, CloneNotSupportedException, WrongSlotDevelopmentIndexException, ResourceOverflowInDepotException {
         LeaderCard leaderCard = buildLeaderCardWithEffect();
-        leaderCard.play(player, game);
+        try {
+            leaderCard.play(player, game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         assertTrue(activated);
         activated = false;
     }
@@ -92,7 +96,11 @@ public class LeaderCardTest {
         resources.add(stone);
         resources.add(servant);
         player.getPersonalBoard().getStrongbox().storeAll(resources);
-        leaderCard.play(player, null);
+        try {
+            leaderCard.play(player, null);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         assertTrue(activated);
         activated = false;
     }
@@ -108,7 +116,12 @@ public class LeaderCardTest {
         resources.add(stone);
         resources.add(servant);
         player.getPersonalBoard().getStrongbox().storeAll(resources);
-        leaderCard.play(player, game);
+        try {
+            leaderCard.play(player, game);
+            fail ();
+        } catch (LeaderCardNotPlayedException e) {
+            assertTrue (true);
+        }
         assertFalse(activated);
     }
 
@@ -122,7 +135,11 @@ public class LeaderCardTest {
         for (int i = 0; i < 2; i++)
             personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
         game.setup(personalBoards, gameBoard, new ArrayList<>());
-        leaderCard.play(player, game);
+        try {
+            leaderCard.play(player, game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         ArrayList<StorableResource> cost = developmentCardsGrid.getChosenCard (0, 0, player).getCost();
         ArrayList<StorableResource> cost2 = developmentCardsGrid.getChosenCard (0, 0, auxPlayer).getCost();
         ArrayList<StorableResource> cost1 = new ArrayList<>();
@@ -148,7 +165,11 @@ public class LeaderCardTest {
         catch (IndexOutOfBoundsException | WrongDepotIndexException e){
             assertTrue(true);
         }
-        leaderCard.play(player, game);
+        try {
+            leaderCard.play(player, game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         try{
             player.getPersonalBoard().getWarehouseDepots().store(resourceToStore, 3);
         }
@@ -160,7 +181,11 @@ public class LeaderCardTest {
     @Test
     void checkExtraProductionEffect1() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotExistingExtraProductionPower, ResourceOverflowInDepotException {
         LeaderCard leaderCard = buildExtraProductionCard();
-        leaderCard.play(player, game);
+        try {
+            leaderCard.play(player, game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         try{
             player.getPersonalBoard().getExtraPower(0);
         }
@@ -184,8 +209,16 @@ public class LeaderCardTest {
     void checkExtraProductionEffect3() throws NegativeResourceAmountException, EmptySlotException, NoEmptyResourceException, NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException, NotExistingExtraProductionPower, ResourceOverflowInDepotException {
         LeaderCard leaderCard1 = buildExtraProductionCard();
         LeaderCard leaderCard2 = buildExtraProductionCard();
-        leaderCard1.play(player, game);
-        leaderCard2.play(player, game);
+        try {
+            leaderCard1.play(player, game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
+        try {
+            leaderCard2.play(player, game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         try{
             player.getPersonalBoard().getExtraPower(0);
             player.getPersonalBoard().getExtraPower(1);
@@ -237,7 +270,11 @@ public class LeaderCardTest {
         VictoryPoint victoryPoints = new VictoryPoint(1);
         Effect effect = (player2, game2) -> {};
         LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, effect);
-        leaderCard.play(player, game);
+        try {
+            leaderCard.play(player, game);
+        } catch (LeaderCardNotPlayedException e) {
+            fail ();
+        }
         return leaderCard;
     }
 

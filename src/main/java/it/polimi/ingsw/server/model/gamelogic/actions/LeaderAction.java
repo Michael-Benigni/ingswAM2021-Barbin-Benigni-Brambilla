@@ -2,10 +2,10 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 
 
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
+import it.polimi.ingsw.server.model.exception.LeaderCardNotPlayedException;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
-import it.polimi.ingsw.server.model.gamelogic.Turn;
 
 public class LeaderAction implements Action {
     private final String playOrDiscard;
@@ -21,7 +21,7 @@ public class LeaderAction implements Action {
             NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException,
             ResourceOverflowInDepotException, NullResourceAmountException, WrongSlotDevelopmentIndexException,
             WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException,
-            LeaderCardNotFoundException, NoValidActionException {
+            LeaderCardNotFoundException, NoValidActionException, LeaderCardNotPlayedException {
         LeaderCard card = player.getPersonalBoard().getSlotLeaderCards().get(numInSlot);
         switch (playOrDiscard) {
             case "play" : {

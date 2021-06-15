@@ -5,7 +5,6 @@ import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
-import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -83,7 +82,7 @@ public class LeaderCard {
      * @return the faith point that the player earns
      */
     public FaithPoint onDiscarded() throws LeaderCardNotDiscardableException {
-        if(this.isAlreadyPlayed == false)
+        if(!this.isAlreadyPlayed)
             return new FaithPoint(1);
         else
             throw new LeaderCardNotDiscardableException();
@@ -103,13 +102,15 @@ public class LeaderCard {
      */
     public void play(Player player, Game game) throws EmptySlotException, NegativeResourceAmountException,
             NotEqualResourceTypeException, NullResourceAmountException, WrongSlotDevelopmentIndexException,
-            NoEmptyResourceException, ResourceOverflowInDepotException {
-        this.isAlreadyPlayed = true;
-        if(checkRequirementsOf(player))
-            effect.applyOn(player, game);
-        SlotLeaderCards auxiliarySlot = player.getPersonalBoard().getSlotLeaderCards();
-        auxiliarySlot.notifyUpdate(auxiliarySlot.generateUpdate(auxiliarySlot.getAllNotPlayedCards(),
-                auxiliarySlot.getAllPlayedCards()));
+            NoEmptyResourceException, ResourceOverflowInDepotException, LeaderCardNotPlayedException {
+        if(!isAlreadyPlayed () && checkRequirementsOf(player)) {
+            effect.applyOn (player, game);
+            this.isAlreadyPlayed = true;
+            SlotLeaderCards auxiliarySlot = player.getPersonalBoard().getSlotLeaderCards();
+            auxiliarySlot.notifyUpdate(auxiliarySlot.generateUpdate(auxiliarySlot.getAllNotPlayedCards(),
+                    auxiliarySlot.getAllPlayedCards()));
+        } else
+            throw new LeaderCardNotPlayedException ();
     }
 
     /**

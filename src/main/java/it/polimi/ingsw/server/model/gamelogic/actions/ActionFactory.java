@@ -9,6 +9,7 @@ public class ActionFactory {
     private static HashMap<Header.ToServer, Class<? extends Action>> init() {
         HashMap<Header.ToServer, Class<? extends Action>> map = new HashMap<> ();
         map.put (Header.ToServer.BOARD_PRODUCTION, BoardProductionAction.class);
+        map.put (Header.ToServer.START_PRODUCTION, StartProductionAction.class);
         map.put (Header.ToServer.BUY_CARD, BuyCardAction.class);
         map.put (Header.ToServer.DISCARD_ALL_RESOURCES, DiscardAllResources.class);
         map.put (Header.ToServer.END_PRODUCTION, EndProductionAction.class);
