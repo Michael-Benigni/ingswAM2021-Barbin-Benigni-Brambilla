@@ -7,7 +7,7 @@ import java.util.Objects;
 public class ErrorMessage extends AbstractMessage<String> {
 
     public ErrorMessage(Exception e) {
-        super(Header.Common.ERROR, "error" /*e.getMessage ()*/);
+        super(Header.Common.ERROR, e.getMessage ());
     }
 
     public ErrorMessage(String msg) throws IllegalMessageException {
