@@ -37,4 +37,13 @@ public class ExtraDepot extends Depot{
             }
         }
     }
+
+    @Override
+    StorableResource getStoredResource() throws EmptyDepotException {
+        StorableResource resource = super.getStoredResource();
+        if(resource.getAmount() == 0){
+            resource = null;
+        }
+        return resource;
+    }
 }

@@ -2,12 +2,14 @@ package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.states.ClientState;
-import it.polimi.ingsw.client.view.states.WaitingRoomState;
+import it.polimi.ingsw.client.view.states.GUIState;
+import it.polimi.ingsw.client.view.states.GUIWaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.Interpreter;
 import it.polimi.ingsw.utils.network.Sendable;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -15,17 +17,22 @@ import java.util.Queue;
 public class GUI extends Application implements UI {
 
     private final Queue<Sendable> messages;
-    private ClientState state;
+    private GUIState state;
     private Controller controller;
 
     public GUI() {
         this.messages = new ArrayDeque<> ();
-        this.state = new WaitingRoomState ();
+
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        stage.show ();
+    public void start(Stage primaryStage) throws Exception {
+        this.state = new GUIWaitingRoomState();
+        primaryStage.setTitle("Master Of Renaissance");
+        primaryStage.setScene(state.getScene());
+
+
+        primaryStage.show ();
     }
 
     @Override
@@ -96,7 +103,6 @@ public class GUI extends Application implements UI {
 
     @Override
     public void setNextState() {
-        this.state = this.state.getNextState ();
     }
 
     @Override
