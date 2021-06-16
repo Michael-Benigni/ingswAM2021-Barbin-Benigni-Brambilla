@@ -31,6 +31,7 @@ class EndProductionAction implements Action {
         ArrayList<StorableResource> resources = player.getPersonalBoard ().getTempContainer ().getAllResources ();
         player.getPersonalBoard ().getStrongbox ().storeAll (resources);
         player.getPersonalBoard ().getTempContainer ().clear();
+        player.getPersonalBoard ().getTempContainer ().setAsContainerForProduction (false);
         for (Producer producer : player.getPersonalBoard ().getAllProducers ())
             producer.setAvailableForProduction (true);
     }

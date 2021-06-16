@@ -48,7 +48,6 @@ public class MultiplayerGame extends Game {
         public void perform(Game game, Player player) throws WrongInitialConfiguration, WrongCellIndexException,
                 CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException {
             new DiscardAllResources ().perform(game, player);
-            player.getPersonalBoard ().getTempContainer ().setAsContainerForProduction (false);
             game.getCurrentTurn().terminate(game);
             game.setNextPlayer();
         }
