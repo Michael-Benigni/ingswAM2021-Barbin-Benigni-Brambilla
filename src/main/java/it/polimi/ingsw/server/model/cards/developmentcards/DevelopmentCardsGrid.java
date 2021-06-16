@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.cards.developmentcards;
 
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
+import it.polimi.ingsw.server.model.exception.GameOverByCardsGridException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.utils.Observer;
@@ -314,20 +315,30 @@ public class DevelopmentCardsGrid implements GameComponent {
         }
     }
 
-    public void removeNCardsFromGrid(GeneralDevelopmentCard colourToRemove, int cardsToBeRemoved) {
-        for(int i = rows - 1; i >= 0 && cardsToBeRemoved > 0; i--) {
-            for(int j = 0; j < columns && cardsToBeRemoved > 0; j++) {
+    public void removeNCardsFromGrid(GeneralDevelopmentCard colourToRemove, int cardsToBeRemoved) throws GameOverByCardsGridException {
+        for(int i = rows - 1; i >= 0 && cardsToBeRemoved > 0; i--)
+            for(int j = 0; j < columns && cardsToBeRemoved > 0; j++)
                 try {
-                    if(getDeck(i, j).get(0).hasSameColour(colourToRemove)) {
-                        for(;cardsToBeRemoved > 0; cardsToBeRemoved --) {
-                            removeChosenCard (i, j);
-                        }
-                    }
+                    for(; cardsToBeRemoved > 0 && getDeck(i, j).get(0).hasSameColour(colourToRemove); cardsToBeRemoved --)
+                        removeChosenCard (i, j);
                 } catch (EmptyDeckException ignored) {
 
                 }
-            }
-        }
+        if (checkIfNoMoreCardLike(colourToRemove))
+            throw new GameOverByCardsGridException ();
+    }
+
+    private boolean checkIfNoMoreCardLike(GeneralDevelopmentCard colour) {
+        boolean result = true;
+        for(int i = rows - 1; i >= 0; i--)
+            for(int j = 0; j < columns; j++)
+                try {
+                    if (getDeck(i, j).get(0).hasSameColour(colour))
+                        result = false;
+                } catch (EmptyDeckException ignored) {
+
+                }
+        return result;
     }
 
     public void notifyInitialUpdate() {

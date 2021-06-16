@@ -15,6 +15,7 @@ public class StartProductionAction implements ProductionAction {
         for (Producer producer : producers) {
             producer.setAvailableForProduction(true);
         }
+        player.getPersonalBoard ().getTempContainer ().setAsContainerForProduction(true);
     }
 
     @Override

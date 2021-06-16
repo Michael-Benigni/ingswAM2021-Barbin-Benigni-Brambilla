@@ -27,8 +27,9 @@ class TurnTest {
         unique = new MarketAction(1, "row");
         game = new MultiplayerGame(4);
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
+        int numOfResourcesForProduction = 2;
         for (int i = 0; i < 4; i++)
-            personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 2, 2));
+            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 2, 2));
         GameBoard gameBoard = GameBoardTest.initGameBoard();
         ArrayList<InitialParams> listOfParams = new ArrayList<>();
         listOfParams.add(new InitialParams(0, 0));

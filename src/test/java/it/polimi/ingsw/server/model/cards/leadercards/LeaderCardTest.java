@@ -43,8 +43,9 @@ public class LeaderCardTest {
         capacities.add(3);
         capacities.add(3);
         WarehouseDepots warehouseDepots = new WarehouseDepots(3, capacities);
-        PersonalBoard personalBoard1 = new PersonalBoard(warehouseDepots, 3, 3, 2, 2);
-        PersonalBoard personalBoard2 = new PersonalBoard(warehouseDepots, 3, 3, 2, 2);
+        int numOfResourcesForProduction = 2;
+        PersonalBoard personalBoard1 = new PersonalBoard(numOfResourcesForProduction, warehouseDepots, 3, 3, 2, 2);
+        PersonalBoard personalBoard2 = new PersonalBoard(numOfResourcesForProduction, warehouseDepots, 3, 3, 2, 2);
         player.buildBoard(personalBoard1);
         auxPlayer.buildBoard(personalBoard2);
     }
@@ -132,8 +133,9 @@ public class LeaderCardTest {
         DevelopmentCardsGrid developmentCardsGrid = new DevelopmentCardsGrid(cardsList, 3, 4);
         GameBoard gameBoard = new GameBoard(new FaithTrackTest().initFaithTrack(), developmentCardsGrid, MarketTrayTest.initMarketTray (), new LeaderCardsDeckTest().getLeaderCardsDeck());
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
+        int numOfResourcesForProduction = 2;
         for (int i = 0; i < 2; i++)
-            personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
+            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
         game.setup(personalBoards, gameBoard, new ArrayList<>());
         try {
             leaderCard.play(player, game);

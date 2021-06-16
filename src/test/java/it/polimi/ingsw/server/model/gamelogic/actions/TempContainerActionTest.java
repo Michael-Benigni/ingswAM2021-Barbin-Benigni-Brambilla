@@ -18,7 +18,7 @@ class TempContainerActionTest extends ActionTest {
     @Test
     void performStoreTest() throws WrongDepotIndexException, NegativeResourceAmountException, EmptyDepotException,
             SameResourceTypeInDifferentDepotsException, NotEqualResourceTypeException, ResourceOverflowInDepotException,
-            NotContainedResourceException {
+            NotContainedResourceException, TempContainerForProductionException {
         player1.getPersonalBoard().getWarehouseDepots().store(resource, 0);
         TempContainerAction tempContainerAction = new TempContainerAction("store", resource, 0);
         tempContainerAction.perform(game, player1);
@@ -29,7 +29,7 @@ class TempContainerActionTest extends ActionTest {
     @Test
     void performRemoveTest() throws WrongDepotIndexException, NegativeResourceAmountException, EmptyDepotException,
             SameResourceTypeInDifferentDepotsException, NotEqualResourceTypeException, ResourceOverflowInDepotException,
-            NotContainedResourceException {
+            NotContainedResourceException, TempContainerForProductionException {
         player1.getPersonalBoard().getTempContainer().store(resource);
         TempContainerAction tempContainerAction = new TempContainerAction("remove", resource, 0);
         tempContainerAction.perform(game, player1);

@@ -35,6 +35,7 @@ public class PersonalBoard implements Producer, GameComponent {
      */
     class ExtraProductionPower implements Producer {
 
+
         private final StorableResource consumedResource;
 
         private boolean availableForProduction;
@@ -53,7 +54,6 @@ public class PersonalBoard implements Producer, GameComponent {
         public StorableResource getConsumedResource() {
             return (StorableResource) consumedResource.clone();
         }
-
         /**
          * this method activates the extra production power
          * @param producedResource is the resource that the player wants to receive
@@ -95,18 +95,18 @@ public class PersonalBoard implements Producer, GameComponent {
             this.availableForProduction = availableForProduction;
         }
 
+
+
     }
-
-    private Strongbox strongbox;
-
-    private WarehouseDepots warehouseDepots;
-    private ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
-    private TemporaryContainer tempContainer;
-    private SlotLeaderCards slotLeaderCards;
-    private ArrayList <ExtraProductionPower> extraProductionPowers;
+    private final Strongbox strongbox;
+    private final int numOfResourcesForProduction;
+    private final WarehouseDepots warehouseDepots;
+    private final ArrayList<SlotDevelopmentCards> listOfSlotDevelopmentCards;
+    private final TemporaryContainer tempContainer;
+    private final SlotLeaderCards slotLeaderCards;
+    private final ArrayList <ExtraProductionPower> extraProductionPowers;
     private boolean availableForProduction;
     private final ArrayList<Observer> observers;
-
     @Override
     public boolean isAvailableForProduction() {
         return availableForProduction;
@@ -141,7 +141,8 @@ public class PersonalBoard implements Producer, GameComponent {
      * Constructor method of this class. It creates an empty personal board.
      * The method is public because called by Action/Game/Controller outside this package.
      */
-    public PersonalBoard(WarehouseDepots warehouseDepots, int numberOfSlotDevCards, int maxDevCardsInSlot, int maxLeaderCardsInSlot, int maxNumOfCardsDuringGame) {
+    public PersonalBoard(int numOfResourcesForProduction, WarehouseDepots warehouseDepots, int numberOfSlotDevCards, int maxDevCardsInSlot, int maxLeaderCardsInSlot, int maxNumOfCardsDuringGame) {
+        this.numOfResourcesForProduction = numOfResourcesForProduction;
         this.strongbox = new Strongbox();
         this.warehouseDepots = warehouseDepots;
         this.listOfSlotDevelopmentCards = initSlotsDevCards(numberOfSlotDevCards, maxDevCardsInSlot);
@@ -298,6 +299,10 @@ public class PersonalBoard implements Producer, GameComponent {
     @Override
     public int hashCode() {
         return Objects.hash(getStrongbox(), getWarehouseDepots(), listOfSlotDevelopmentCards, getTempContainer(), getSlotLeaderCards(), extraProductionPowers);
+    }
+
+    public int getNumOfResourcesForProduction() {
+        return this.numOfResourcesForProduction;
     }
 
 

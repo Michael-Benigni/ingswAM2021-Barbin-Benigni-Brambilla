@@ -21,12 +21,10 @@ import java.util.Arrays;
  */
 public class PersonalBoardTest {
 
-    private int cardID = 1;
-
     public static PersonalBoard init() {
         ArrayList<Integer> capacities = new ArrayList<>(Arrays.asList(1, 2, 3));
-        PersonalBoard p = new PersonalBoard(new WarehouseDepots(3, capacities), 3, 3, 4, 2);
-        return p;
+        int numOfResourcesForProduction = 2;
+        return new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(3, capacities), 3, 3, 4, 2);
     }
 
     /**
@@ -145,6 +143,7 @@ public class PersonalBoardTest {
         coin1.add(new StorableResource(ResourceType.COIN, 1));
         ArrayList<Producible> faithPoint2 = new ArrayList<>(0);
         faithPoint2.add(new FaithPoint(2));
+        int cardID = 1;
         DevelopmentCard card1 = new DevelopmentCard(CardColour.BLUE, CardLevel.ONE, cardID, stone3, coin1, faithPoint2, new VictoryPoint(3));
 
         ArrayList<StorableResource> stone5 = new ArrayList<>(0);

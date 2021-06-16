@@ -22,6 +22,7 @@
     "maxNumOfLeaderCardsInSlot": 4,
     "maxLeaderCardsDuringGame": 2,
     "maxNumOfDevCardsInSlot": 3,
+    "numOfResourcesForProduction": 2,
     "warehouseDepots": {
       "numOfDepots": 3,
       "capacities": [1, 2, 3]

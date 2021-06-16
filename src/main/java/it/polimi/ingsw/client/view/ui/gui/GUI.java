@@ -14,7 +14,7 @@ import java.util.Queue;
 
 public class GUI extends Application implements UI {
 
-    private Queue<Sendable> messages;
+    private final Queue<Sendable> messages;
     private ClientState state;
     private Controller controller;
 

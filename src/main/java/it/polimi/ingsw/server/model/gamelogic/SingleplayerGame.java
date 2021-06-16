@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
+import it.polimi.ingsw.server.model.exception.GameOverByCardsGridException;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.*;
 import it.polimi.ingsw.utils.Observer;
@@ -49,8 +50,12 @@ public class SingleplayerGame extends Game {
     }
 
     @Override
-    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException {
-        new EndTurnSingleplayerAction ().perform (this);
+    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException,  GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException {
+        try {
+            new EndTurnSingleplayerAction ().perform (this);
+        } catch (GameOverByCardsGridException e) {
+            e.printStackTrace ();
+        }
     }
 
     @Override
@@ -66,7 +71,7 @@ public class SingleplayerGame extends Game {
          * @param game   -> the Game on which this Action will be performed
          */
         public void perform(SingleplayerGame game) throws WrongCellIndexException, CellNotFoundInFaithTrackException,
-                GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, GameOverByGridException {
+                GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException,  GameOverByCardsGridException {
             super.perform (game, game.getCurrentPlayer ());
             game.getGameBoard ().getActionTokenDeck ().drawFirst ().activateEffect (game, game.getCurrentPlayer ());
         }

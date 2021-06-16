@@ -46,10 +46,11 @@ public class ActionTest {
         game = gameFactory.MultiOrSingleplayerGame(2);
         player1 = game.createPlayer();
         player2 = game.createPlayer();
-        PersonalBoard personalBoard1 = new PersonalBoard(depots,3,3,4, 2);
-        PersonalBoard personalBoard2 = new PersonalBoard(depots,3,3,4, 2);
-        PersonalBoard personalBoard3 = new PersonalBoard(depots,3,3,4, 2);
-        PersonalBoard personalBoard4 = new PersonalBoard(depots,3,3,4, 2);
+        int numOfResourcesForProduction = 2;
+        PersonalBoard personalBoard1 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
+        PersonalBoard personalBoard2 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
+        PersonalBoard personalBoard3 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
+        PersonalBoard personalBoard4 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
         ArrayList<PersonalBoard> listOfPersonalBoard = new ArrayList<>(0);
         listOfPersonalBoard.add(personalBoard1);
         listOfPersonalBoard.add(personalBoard2);

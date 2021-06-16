@@ -3,10 +3,13 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
+import it.polimi.ingsw.server.model.gameresources.Storable;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesContainer;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class BoardProductionAction implements ProductionAction {
     private final StorableResource produced;
@@ -26,7 +29,9 @@ class BoardProductionAction implements ProductionAction {
      */
     @Override
     public void perform(Game game, Player player) throws Exception {
-        if (player.getPersonalBoard().isAvailableForProduction()) {
+        List<StorableResource> resourcesToPay = payActions.stream ().map (PayAction::getResource).collect (Collectors.toList ());
+        int numOfResources = resourcesToPay.stream ().map (StorableResource::getAmount).reduce(0, (a, b) -> a + b);
+        if (player.getPersonalBoard().isAvailableForProduction() && numOfResources >= player.getPersonalBoard ().getNumOfResourcesForProduction()) {
             UnboundedResourcesContainer cost = new UnboundedResourcesContainer();
             for (PayAction action : payActions)
                 cost.store(action.getResource());

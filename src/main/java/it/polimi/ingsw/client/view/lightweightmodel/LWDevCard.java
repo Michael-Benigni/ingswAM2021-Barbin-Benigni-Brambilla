@@ -3,13 +3,13 @@ package it.polimi.ingsw.client.view.lightweightmodel;
 import it.polimi.ingsw.client.view.ui.cli.Colour;
 
 public class LWDevCard {
-    private final int id;
+    private final Integer id;
     private final String description;
     private final Colour colour;
-    private final int level;
-    private final int indexInSlot;
+    private final Integer level;
+    private final Integer indexInSlot;
 
-    public LWDevCard(int id, String description, Colour colour, int level, int indexInSlot) {
+    public LWDevCard(Integer id, String description, Colour colour, Integer level, Integer indexInSlot) {
         this.id = id;
         this.indexInSlot = indexInSlot;
         this.description = description;
@@ -17,7 +17,7 @@ public class LWDevCard {
         this.level = level;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -25,7 +25,7 @@ public class LWDevCard {
         return this.colour ;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
@@ -41,7 +41,7 @@ public class LWDevCard {
         return this.description;
     }
 
-    public int getIndexInSlot() {
+    public Integer getIndexInSlot() {
         return indexInSlot;
     }
 }

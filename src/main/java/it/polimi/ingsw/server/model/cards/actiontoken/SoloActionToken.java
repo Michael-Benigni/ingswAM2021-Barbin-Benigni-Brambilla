@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.cards.actiontoken;
 
 import it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard;
+import it.polimi.ingsw.server.model.exception.GameOverByCardsGridException;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.SingleplayerGame;
@@ -53,8 +54,8 @@ public class SoloActionToken {
      * Method that activates the effect of this token.
      */
     public void activateEffect(SingleplayerGame game, Player player)
-            throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException,
-            GameOverByFaithTrackException, NegativeVPAmountException {
+            throws WrongCellIndexException, CellNotFoundInFaithTrackException,
+            GameOverByFaithTrackException, NegativeVPAmountException, GameOverByCardsGridException {
         this.effect.activateEffect(game);
         player.notifyUpdate (generateUpdate());
     }

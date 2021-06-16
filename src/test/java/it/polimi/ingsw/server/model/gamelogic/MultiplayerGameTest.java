@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
-import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
@@ -22,8 +21,9 @@ class MultiplayerGameTest extends ActionTest {
     @BeforeEach
     void initGames() throws IllegalNumberOfPlayersException, TooManyPlayersException {
         personalBoards = new ArrayList<>();
+        int numOfResourcesForProduction = 2;
         for (int i = 0; i < 4; i++)
-            personalBoards.add(new PersonalBoard(new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
+            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
         gameNoPlayers = new MultiplayerGame(4);
         game4Players = new MultiplayerGame(4);
         game3Players = new MultiplayerGame(4);

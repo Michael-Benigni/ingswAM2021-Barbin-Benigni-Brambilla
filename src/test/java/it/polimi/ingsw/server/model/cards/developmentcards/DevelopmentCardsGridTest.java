@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.cards.developmentcards;
 
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.GameOverByCardsGridException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.Producible;
@@ -192,7 +193,7 @@ public class DevelopmentCardsGridTest {
      * @throws NegativeResourceAmountException thrown if a resource amount is set to a negative value
      */
     @Test
-    void checkRemoveNcardsFromGridIfCorrect() throws NegativeResourceAmountException, EmptyDeckException {
+    void checkRemoveNcardsFromGridIfCorrect() throws NegativeResourceAmountException, EmptyDeckException, GameOverByCardsGridException {
         DevelopmentCardsGrid newGrid = initDevelopmentCardsGrid();
         GeneralDevelopmentCard colourCard = new GeneralDevelopmentCard(CardColour.BLUE, null);
         Player player = new Player();

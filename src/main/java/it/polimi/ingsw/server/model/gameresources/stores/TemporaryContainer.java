@@ -21,6 +21,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     private ArrayList <EmptyResource> emptyResources;
     private HashMap<Player, ArrayList<StorableResource>> modifiers;
     private ArrayList<Observer> observers;
+    private boolean isContainerForProduction;
 
     /**
      * Method that stores the provided list of resources in this unbounded resource container.
@@ -47,6 +48,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
         this.emptyResources = new ArrayList<>();
         this.modifiers = new HashMap<>();
         this.observers = new ArrayList<> ();
+        this.isContainerForProduction = false;
     }
 
     public FaithPoint getPenalty() {
@@ -147,5 +149,13 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     public void attach(Observer observer) {
         this.observers.add (observer);
         this.notifyUpdate (generateUpdate ());
+    }
+
+    public void setAsContainerForProduction(boolean isContainerForProduction) {
+        this.isContainerForProduction = isContainerForProduction;
+    }
+
+    public boolean isContainerForProduction() {
+        return this.isContainerForProduction;
     }
 }

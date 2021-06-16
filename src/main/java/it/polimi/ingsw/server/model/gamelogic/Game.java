@@ -165,7 +165,7 @@ public abstract class Game implements GameComponent {
                 this.getCurrentTurn ().add (action);
                 try {
                     action.perform (this, currentPlayer);
-                } catch (GameOverByFaithTrackException | GameOverByGridException e) {
+                } catch (GameOverException e) {
                     if (player != playersOrder.getLast ())
                         notifyLastRoundUpdate ();
                     setLastRound ();
@@ -230,8 +230,8 @@ public abstract class Game implements GameComponent {
     private Sendable getEndGameUpdate(ArrayList<Player> winners) {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.GAME_OVER_UP);
-        String VPs;
-        String position;
+        String VPs = "";
+        String position = "";
         for (Player player : playersOrder) {
             if (winners.contains (player)) {
                 position = "winnersRoundPositions";
@@ -243,6 +243,22 @@ public abstract class Game implements GameComponent {
             }
             writer.addProperty (VPs, player.computeAllVP ().getPoints ());
             writer.addProperty (position, player.getPosition ());
+        }
+        ArrayList<Integer> VPAsArray = new ArrayList<> ();
+        ArrayList<Integer> positionsAsArray = new ArrayList<> ();
+        if (winners.size () == 1) {
+            positionsAsArray.add (winners.get (0).getPosition ());
+            VPAsArray.add (winners.get (0).computeAllVP ().getPoints ());
+            writer.resetProperty (VPs, VPAsArray);
+            writer.resetProperty (position, positionsAsArray);
+        } else if (winners.size () == numberOfPlayers - 1) {
+            for (Player player : playersOrder)
+                if (!winners.contains (player)) {
+                    positionsAsArray.add (player.getPosition ());
+                    VPAsArray.add (player.computeAllVP ().getPoints ());
+                    writer.resetProperty (VPs, VPAsArray);
+                    writer.resetProperty (position, positionsAsArray);
+                }
         }
         return writer.write ();
     }
@@ -321,7 +337,7 @@ public abstract class Game implements GameComponent {
     /**
      *
      */
-    public ArrayList<Player> computeWinners() {
+    private ArrayList<Player> computeWinners() {
         ArrayList<Player> winners = new ArrayList<>();
         if (isGameOver ()) {
             Player winner = playersOrder.getFirst();
@@ -381,6 +397,6 @@ public abstract class Game implements GameComponent {
         this.observers.add (observer);
     }
 
-    public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByGridException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException;
+    public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException,  GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException;
 }
 

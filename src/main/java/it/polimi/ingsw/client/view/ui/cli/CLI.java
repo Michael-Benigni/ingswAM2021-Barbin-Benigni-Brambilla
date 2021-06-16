@@ -229,7 +229,7 @@ public class CLI implements UI {
         devCardsAsString.append ("\n");
         for (ArrayList<LWDevCard> row : grid.getCardsGrid ()) {
             ArrayList<String> elements = row.stream ()
-                    .map ((card) -> encapsulate (card.getDescription (), (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 4)))
+                    .map ((card) -> encapsulate (card.getDescription () != null ? card.getDescription () : " ", (int) Math.floor (WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 4)))
                     .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
             devCardsAsString.append (String.format ("ROW: %d\n", grid.getCardsGrid ().indexOf (row)));
             devCardsAsString.append (padding (juxtapose (elements, WIDTH_SECTION / MAX_HORIZ_DIVISIONS - 2), " ", WIDTH_SECTION))

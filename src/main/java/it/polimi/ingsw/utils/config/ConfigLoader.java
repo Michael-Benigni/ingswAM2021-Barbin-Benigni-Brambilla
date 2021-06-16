@@ -105,17 +105,17 @@ public class ConfigLoader {
         int numberSlotDevCards = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "numOfSlotDevCards/");
         int maxLeaderCardsInSlot = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumOfLeaderCardsInSlot/");
         int maxLeaderCardsDuringGame = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxLeaderCardsDuringGame/");
+        int numOfResourcesForProduction = (int) jsonHandler.getAsJavaObjectFromJSON (int.class, keyInJSON + "numOfResourcesForProduction/");
         ArrayList<PersonalBoard> boards = new ArrayList<>();
         for (int i = 0; i < numOfPlayers; i++)
-            boards.add(new PersonalBoard(initWarehouseFromJSON(), numberSlotDevCards, maxNumberOfDevCardsInSlot, maxLeaderCardsInSlot, maxLeaderCardsDuringGame));
+            boards.add(new PersonalBoard(numOfResourcesForProduction, initWarehouseFromJSON(), numberSlotDevCards, maxNumberOfDevCardsInSlot, maxLeaderCardsInSlot, maxLeaderCardsDuringGame));
         return boards;
     }
 
     public ArrayList<InitialParams> loadInitialParams(int maxNumOfPlayers) throws FileNotFoundException {
         final String keyInJSON = "initialParams/";
         ArrayList<InitialParams> paramsArrayList = new ArrayList<>();
-        ArrayList<String> keys = new ArrayList<>();
-        keys.addAll(Arrays.asList(new String[] {"first/", "second/", "third/", "fourth/"}));
+        ArrayList<String> keys = new ArrayList<> (Arrays.asList ("first/", "second/", "third/", "fourth/"));
         for (int i = 0; i < maxNumOfPlayers; i++) {
             InitialParams params = (InitialParams) jsonHandler.getAsJavaObjectFromJSON(InitialParams.class, keyInJSON + keys.get(i));
             paramsArrayList.add(params);
