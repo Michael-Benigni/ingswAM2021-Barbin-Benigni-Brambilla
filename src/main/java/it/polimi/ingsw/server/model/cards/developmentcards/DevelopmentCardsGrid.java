@@ -84,43 +84,6 @@ public class DevelopmentCardsGrid implements GameComponent {
     }
 
     /**
-     * this method builds the grid of descriptions of the frontal grid
-     * @return the grid of descriptions of the cards that compose the cards grid
-     * @throws EmptyDeckException thrown if the deck is empty running the getDeck method
-     */
-    String[][] buildDescriptions() throws EmptyDeckException {
-        String[][] descriptions = new String[this.rows][this.columns];
-        if(this.cardsGrid != null){
-            for (int i = 0; i < this.rows; i++){
-                for (int j = 0; j < this.columns; j++){
-                    int chosenDeckLastIndex = getDeck(i, j).size() - 1;
-                    descriptions[i][j] = this.cardsGrid.get(i).get(j).get(chosenDeckLastIndex).toString();
-                }
-            }
-        }
-        return descriptions;
-    }
-
-    /**
-     * this methode creates the grid of IDs of the
-     * first layer of development cards in the grid
-     * @return the created grid of IDs
-     * @throws EmptyDeckException thrown if the deck is empty running the getDeck method
-     */
-    int[][] buildFrontalIDsGrid() throws EmptyDeckException {
-        int[][] frontalGrid = new int[this.rows][this.columns];
-        if(this.cardsGrid != null){
-            for (int i = 0; i < this.rows; i++){
-                for (int j = 0; j < this.columns; j++){
-                    int chosenDeckLastIndex = getDeck(i, j).size() - 1;
-                    frontalGrid[i][j] = this.cardsGrid.get(i).get(j).get(chosenDeckLastIndex).getCardID();
-                }
-            }
-        }
-        return frontalGrid;
-    }
-
-    /**
      * this methode creates the grid of IDs of the
      * first layer of development cards in the grid
      * @return the created grid of IDs

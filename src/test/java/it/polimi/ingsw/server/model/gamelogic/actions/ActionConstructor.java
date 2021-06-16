@@ -22,7 +22,7 @@ public class ActionConstructor {
         ArrayList<PayAction> listOfPayAction = new ArrayList<>();
         listOfPayAction.add(new StrongboxAction("store", new StorableResource(ResourceType.STONE, 1)));
         listOfPayAction.add(new StrongboxAction("store", new StorableResource(ResourceType.SHIELD, 1)));
-        actions.put("PRODUCTION", new ProductionCardAction(0, listOfPayAction));
+        actions.put("PRODUCTION", new BoardProductionAction(new StorableResource(ResourceType.COIN, 1), listOfPayAction));
         actions.put("END_PRODUCTION", new EndProductionAction());
         return actions;
     }

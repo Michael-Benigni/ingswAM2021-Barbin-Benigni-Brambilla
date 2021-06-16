@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameTest {
 
     private Game game;
-    private int countSequence = 0;
     private HashMap<ArrayList<Action>, Result> currentMap;
 
     @BeforeEach
@@ -86,21 +85,19 @@ class GameTest {
         }
     }
 
-    private void initPerformActionTest() throws Exception {
+    @RepeatedTest(value = 12, name = "performActionOf - Sequence #{currentRepetition}") //remember to update the value for each added sequence
+    void performActionOf(RepetitionInfo repetitionInfo) throws Exception {
         skipInitialTurn();
         ArrayList<HashMap<ArrayList<Action>, Result>> listOfMaps = getListsOfAction();
-        currentMap = listOfMaps.get(countSequence);
-        countSequence++;
-    }
-
-    @RepeatedTest(value = 3, name = "performActionOf - Sequence #{currentRepetition}") //remember to update the value for each added sequence
-    void performActionOf() throws Exception {
-        initPerformActionTest();
+        int index = repetitionInfo.getCurrentRepetition();
+        currentMap = listOfMaps.get(index - 1);
         ArrayList<ArrayList<Action>> listOfLists = new ArrayList<>((currentMap.keySet()));
         ArrayList<Action> actions = listOfLists.get(0);
         Player player = game.getCurrentPlayer();
         boolean isCorrect = true;
+        //System.out.println("Sequenza " + index);
         for(Action action : actions) {
+            //System.out.println(action.toString());
             if(isCorrect) {
                 try {
                     game.performActionOf(player, action);
@@ -109,6 +106,9 @@ class GameTest {
                     isCorrect = false;
                 } catch (IllegalTurnState i) {
                     assertEquals(currentMap.get(actions), Result.ERR_TURN_STATE);
+                    isCorrect = false;
+                } catch (IsNotCurrentPlayerException p) {
+                    assertEquals(currentMap.get(actions), Result.ERR_NOTCURRENT_PLAYER);
                     isCorrect = false;
                 }
             }
@@ -120,7 +120,7 @@ class GameTest {
     }
 
     private enum Result {
-        CORRECT("correct"), ERR_VALIDITY("errValidity"), ERR_TURN_STATE("errTurnState");
+        CORRECT("correct"), ERR_VALIDITY("errValidity"), ERR_TURN_STATE("errTurnState"), ERR_NOTCURRENT_PLAYER("errPlayer");
         private final String result;
 
         Result(String result) {
@@ -156,11 +156,113 @@ class GameTest {
         actions.clear();
 
         //Test 3: production started and ended. --> correct
+        actions.add(possibleActions.get("START_PRODUCTION"));
         actions.add(possibleActions.get("ALWAYS_VALID"));
-        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
         actions.add(possibleActions.get("ALWAYS_VALID"));
         actions.add(possibleActions.get("END_TURN"));
         map.put(new ArrayList<>(actions), Result.CORRECT);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 4: 2 times mutual exclusive. --> noValid
+        actions.add(possibleActions.get("UNIQUE"));
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("UNIQUE"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.ERR_VALIDITY);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 5: actions after endTurn. --> noValid
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("UNIQUE"));
+        actions.add(possibleActions.get("END_TURN"));
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        map.put(new ArrayList<>(actions), Result.ERR_NOTCURRENT_PLAYER);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 6: production between start and end. --> correct
+        actions.add(possibleActions.get("START_PRODUCTION"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.CORRECT);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 7: actions between start production and end production. --> correct
+        actions.add(possibleActions.get("START_PRODUCTION"));
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.CORRECT);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 8: production after end production --> noValid
+        actions.add(possibleActions.get("START_PRODUCTION"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.ERR_VALIDITY);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 9: mutual exclusive before start production. --> noValid
+        actions.add(possibleActions.get("UNIQUE"));
+        actions.add(possibleActions.get("START_PRODUCTION"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.ERR_VALIDITY);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 10: mutual exclusive after start production. --> noValid
+        actions.add(possibleActions.get("UNIQUE"));
+        actions.add(possibleActions.get("START_PRODUCTION"));
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.ERR_VALIDITY);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 11: mutual exclusive after end production. --> noValid
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("START_PRODUCTION"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
+        actions.add(possibleActions.get("UNIQUE"));
+        actions.add(possibleActions.get("ALWAYS_VALID"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.ERR_VALIDITY);
+        returningList.add(new HashMap<>(map));
+        map.clear();
+        actions.clear();
+
+        //Test 12: production before start production. --> noValid
+        actions.add(possibleActions.get("UNIQUE"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("START_PRODUCTION"));
+        actions.add(possibleActions.get("PRODUCTION"));
+        actions.add(possibleActions.get("END_PRODUCTION"));
+        actions.add(possibleActions.get("END_TURN"));
+        map.put(new ArrayList<>(actions), Result.ERR_VALIDITY);
         returningList.add(new HashMap<>(map));
         map.clear();
         actions.clear();
