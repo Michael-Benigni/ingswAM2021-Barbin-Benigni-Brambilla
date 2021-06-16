@@ -30,6 +30,7 @@ class EndProductionAction implements Action {
     public void perform(Game game, Player player) throws Exception {
         ArrayList<StorableResource> resources = player.getPersonalBoard ().getTempContainer ().getAllResources ();
         player.getPersonalBoard ().getStrongbox ().storeAll (resources);
+        player.getPersonalBoard ().getTempContainer ().clear();
         for (Producer producer : player.getPersonalBoard ().getAllProducers ())
             producer.setAvailableForProduction (true);
     }
