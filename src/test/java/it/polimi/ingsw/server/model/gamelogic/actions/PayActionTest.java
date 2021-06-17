@@ -8,6 +8,8 @@ import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesConta
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+
+import static it.polimi.ingsw.server.model.gamelogic.actions.PayAction.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PayActionTest extends ActionTest {
@@ -17,14 +19,14 @@ class PayActionTest extends ActionTest {
     private StorableResource servant2 = new StorableResource(ResourceType.SERVANT, 2);
     private StorableResource servant1 = new StorableResource(ResourceType.SERVANT, 1);
     private StorableResource shield3 = new StorableResource(ResourceType.SHIELD, 3);
-    private StrongboxAction strongboxActionRemove3coin = new StrongboxAction("remove", coin3);
-    private StrongboxAction strongboxActionRemove2stone = new StrongboxAction("remove", stone2);
-    private StrongboxAction strongboxActionRemove2servant = new StrongboxAction("remove", servant2);
-    private StrongboxAction strongboxActionStore3shield = new StrongboxAction("store", shield3);
-    private WarehouseAction warehouseActionRemove3coin = new WarehouseAction("remove", coin3, 2);
-    private WarehouseAction warehouseActionRemove2stone = new WarehouseAction("remove", stone2, 1);
-    private WarehouseAction warehouseActionRemove2servant = new WarehouseAction("remove", servant2, 0);
-    private WarehouseAction warehouseActionStore3shield = new WarehouseAction("store", shield3, 2);
+    private StrongboxAction strongboxActionRemove3coin = new StrongboxAction(StoreOrRemove.REMOVE, coin3);
+    private StrongboxAction strongboxActionRemove2stone = new StrongboxAction(StoreOrRemove.REMOVE, stone2);
+    private StrongboxAction strongboxActionRemove2servant = new StrongboxAction(StoreOrRemove.REMOVE, servant2);
+    private StrongboxAction strongboxActionStore3shield = new StrongboxAction(PayAction.StoreOrRemove.STORE, shield3);
+    private WarehouseAction warehouseActionRemove3coin = new WarehouseAction(StoreOrRemove.REMOVE, coin3, 2);
+    private WarehouseAction warehouseActionRemove2stone = new WarehouseAction(StoreOrRemove.REMOVE, stone2, 1);
+    private WarehouseAction warehouseActionRemove2servant = new WarehouseAction(StoreOrRemove.REMOVE, servant2, 0);
+    private WarehouseAction warehouseActionStore3shield = new WarehouseAction(PayAction.StoreOrRemove.STORE, shield3, 2);
     private ArrayList<StorableResource> allResources = new ArrayList<>();
 
     PayActionTest() throws NegativeResourceAmountException, NegativeResourceAmountException {
@@ -51,11 +53,10 @@ class PayActionTest extends ActionTest {
         warehouseActionRemove2stone.payOrUndo(game, player1, cost);
         warehouseActionRemove2servant.payOrUndo(game, player1, cost);
         assertTrue(cost.getAllResources().size() == 2);
-        assertTrue(cost.getAllResources().get(0).equals(coin3));
-        assertTrue(cost.getAllResources().get(1).equals(servant2));
+        assertTrue(cost.getAllResources().get(0).equals(shield3));
+        assertTrue(cost.getAllResources().get(1).equals(coin3));
         allResources = player1.getPersonalBoard().getWarehouseDepots().getAllResources();
-        assertTrue(allResources.size() == 2);
-        assertTrue(stone2.equals(allResources.get(1)));
+        assertTrue(allResources.size() == 1);
         assertTrue(servant1.equals(allResources.get(0)));
 
     }
@@ -65,12 +66,9 @@ class PayActionTest extends ActionTest {
         warehouseActionRemove3coin.payOrUndo(game, player1, cost);
         warehouseActionRemove2stone.payOrUndo(game, player1, cost);
         warehouseActionRemove2servant.payOrUndo(game, player1, cost);
-        assertTrue(cost.getAllResources().size() == 2);
+        assertTrue(cost.getAllResources().size() == 1);
         assertTrue(cost.getAllResources().get(0).equals(shield3));
-        assertTrue(cost.getAllResources().get(1).equals(servant2));
         allResources = player1.getPersonalBoard().getWarehouseDepots().getAllResources();
-        assertTrue(coin3.equals(allResources.get(2)));
-        assertTrue(stone2.equals(allResources.get(1)));
         assertTrue(servant1.equals(allResources.get(0)));
     }
 
@@ -79,13 +77,10 @@ class PayActionTest extends ActionTest {
         strongboxActionRemove3coin.payOrUndo(game, player1, cost);
         strongboxActionRemove2stone.payOrUndo(game, player1, cost);
         strongboxActionRemove2servant.payOrUndo(game, player1, cost);
-        assertTrue(cost.getAllResources().size() == 2);
-        assertTrue(cost.getAllResources().get(0).equals(shield3));
-        assertTrue(cost.getAllResources().get(1).equals(servant2));
+        assertEquals (1, cost.getAllResources ().size ());
+        assertEquals (cost.getAllResources ().get (0), shield3);
         allResources = player1.getPersonalBoard().getStrongbox().getAllResources();
-        assertTrue(stone2.equals(allResources.get(2)));
-        assertTrue(coin3.equals(allResources.get(1)));
-        assertTrue(servant1.equals(allResources.get(0)));
+        assertEquals (servant1, allResources.get (0));
     }
 
     @Test
@@ -95,11 +90,9 @@ class PayActionTest extends ActionTest {
         strongboxActionRemove2stone.payOrUndo(game, player1, cost);
         strongboxActionRemove2servant.payOrUndo(game, player1, cost);
         assertTrue(cost.getAllResources().size() == 1);
-        assertTrue(cost.getAllResources().get(0).equals(servant2));
+        assertTrue(cost.getAllResources().get(0).equals(new StorableResource (ResourceType.SHIELD, 3)));
         allResources = player1.getPersonalBoard().getStrongbox().getAllResources();
-        assertTrue(stone2.equals(allResources.get(2)));
-        assertTrue(coin3.equals(allResources.get(1)));
         assertTrue(servant1.equals(allResources.get(0)));
-        assertTrue(allResources.size() == 3);
+        assertTrue(allResources.size() == 1);
     }
 }

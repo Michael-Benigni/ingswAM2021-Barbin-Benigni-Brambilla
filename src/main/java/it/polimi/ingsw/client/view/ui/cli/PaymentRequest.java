@@ -23,10 +23,9 @@ public class PaymentRequest extends Request {
             resource.addProperty ("resourceType", payment.get (0));
             resource.addProperty ("amount", Integer.parseInt (payment.get (1)));
             toPay.addProperty ("resourceToPay", resource.getInfo ());
-            toPay.addProperty ("fromWhere", payment.get (2));
-            toPay.addProperty ("storeOrRemove", "remove");
-            if (payment.get (2).equals ("warehouse"))
-                toPay.addProperty ("depotIdx", Integer.parseInt (payment.get (3)));
+            toPay.addProperty ("storeOrRemove", "REMOVE");
+            if (payment.size () > 2)
+                toPay.addProperty ("depotIdx", Integer.parseInt (payment.get (2)));
             writer.addProperty ("payActions", toPay.getInfo ());
         } catch (Exception e) {
             interlocutor.write ("Error: " + e.getMessage ());

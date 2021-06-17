@@ -22,19 +22,14 @@ public class PayActionAdapter extends JsonAdapter<PayAction> {
      */
     @Override
     public PayAction deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        JsonElement fromWhere = jsonElement.getAsJsonObject().get("fromWhere");
+        JsonElement fromWhere = jsonElement.getAsJsonObject().get("depotIdx");
         Class<? extends PayAction> clazz;
-        switch (fromWhere.getAsString ()) {
-            case "strongbox": {
-                clazz = StrongboxAction.class;
-                break;
-            }
-            case "warehouse": {
-                clazz = WarehouseAction.class;
-                break;
-            }
-            default:
-                throw new IllegalStateException ("Unexpected value: " + fromWhere.getAsString ());
+        if (fromWhere == null) {
+            clazz = StrongboxAction.class;
+        } else if (fromWhere.isJsonPrimitive ()) {
+            clazz = WarehouseAction.class;
+        } else {
+            throw new IllegalStateException ("Unexpected value: " + fromWhere.getAsString ());
         }
         return jsonDeserializationContext.deserialize (jsonElement, clazz);
     }

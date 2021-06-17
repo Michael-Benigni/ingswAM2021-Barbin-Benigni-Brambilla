@@ -18,12 +18,12 @@ class StrongboxActionTest extends ActionTest {
     void performTest() throws NegativeResourceAmountException, NotContainedResourceException {
         StorableResource stone = new StorableResource(ResourceType.STONE, 2);
         StorableResource coin = new StorableResource(ResourceType.COIN, 3);
-        StrongboxAction strongboxAction1 = new StrongboxAction("store", stone);
+        StrongboxAction strongboxAction1 = new StrongboxAction(PayAction.StoreOrRemove.STORE, stone);
         strongboxAction1.perform(game, player1);
         ArrayList<StorableResource> resourcesFromStrongbox = player1.getPersonalBoard().getStrongbox().getAllResources();
         assertTrue(stone.equals(resourcesFromStrongbox.get(0)));
 
-        StrongboxAction strongboxAction2 = new StrongboxAction("store", coin);
+        StrongboxAction strongboxAction2 = new StrongboxAction(PayAction.StoreOrRemove.STORE, coin);
         ArrayList<StorableResource> listOfAddedResources = new ArrayList<>();
         listOfAddedResources.add(stone);
         listOfAddedResources.add(coin);
@@ -31,7 +31,7 @@ class StrongboxActionTest extends ActionTest {
         resourcesFromStrongbox = player1.getPersonalBoard().getStrongbox().getAllResources();
         assertTrue(resourcesFromStrongbox.equals(listOfAddedResources));
 
-        StrongboxAction strongboxAction3 = new StrongboxAction("remove", stone);
+        StrongboxAction strongboxAction3 = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, stone);
         strongboxAction3.perform(game, player1);
         resourcesFromStrongbox = player1.getPersonalBoard().getStrongbox().getAllResources();
         listOfAddedResources.remove(stone);
@@ -49,8 +49,8 @@ class StrongboxActionTest extends ActionTest {
     @Test
     void getUndoActionTest() throws NegativeResourceAmountException {
         StorableResource resource = new StorableResource(ResourceType.SERVANT, 1);
-        StrongboxAction strongboxAction1 = new StrongboxAction("store", resource);
-        StrongboxAction strongboxAction2 = new StrongboxAction("remove", resource);
+        StrongboxAction strongboxAction1 = new StrongboxAction(PayAction.StoreOrRemove.STORE, resource);
+        StrongboxAction strongboxAction2 = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, resource);
         Action action1 = strongboxAction1.getUndoAction();
         Action action2 = strongboxAction2.getUndoAction();
         assertTrue(strongboxAction2.equals(action1));
@@ -60,7 +60,7 @@ class StrongboxActionTest extends ActionTest {
     @Test
     void getResourceTest() throws NegativeResourceAmountException {
         StorableResource resource = new StorableResource(ResourceType.SERVANT, 1);
-        StrongboxAction strongboxAction = new StrongboxAction("store", resource);
+        StrongboxAction strongboxAction = new StrongboxAction(PayAction.StoreOrRemove.STORE, resource);
         StorableResource resource1 = strongboxAction.getResource();
         assertTrue(resource.equals(resource1));
     }

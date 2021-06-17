@@ -20,7 +20,7 @@ class TempContainerActionTest extends ActionTest {
             SameResourceTypeInDifferentDepotsException, NotEqualResourceTypeException, ResourceOverflowInDepotException,
             NotContainedResourceException, TempContainerForProductionException {
         player1.getPersonalBoard().getWarehouseDepots().store(resource, 0);
-        TempContainerAction tempContainerAction = new TempContainerAction("store", resource, 0);
+        TempContainerAction tempContainerAction = new TempContainerAction(PayAction.StoreOrRemove.STORE, resource, 0);
         tempContainerAction.perform(game, player1);
         assertTrue(player1.getPersonalBoard().getTempContainer().getAllResources().get(0).equals(resource));
         assertTrue(player1.getPersonalBoard().getWarehouseDepots().getAllResources().isEmpty());
@@ -31,7 +31,7 @@ class TempContainerActionTest extends ActionTest {
             SameResourceTypeInDifferentDepotsException, NotEqualResourceTypeException, ResourceOverflowInDepotException,
             NotContainedResourceException, TempContainerForProductionException {
         player1.getPersonalBoard().getTempContainer().store(resource);
-        TempContainerAction tempContainerAction = new TempContainerAction("remove", resource, 0);
+        TempContainerAction tempContainerAction = new TempContainerAction(PayAction.StoreOrRemove.REMOVE, resource, 0);
         tempContainerAction.perform(game, player1);
         assertTrue(player1.getPersonalBoard().getWarehouseDepots().getAllResources().get(0).equals(resource));
         assertTrue(player1.getPersonalBoard().getTempContainer().getAllResources().isEmpty());

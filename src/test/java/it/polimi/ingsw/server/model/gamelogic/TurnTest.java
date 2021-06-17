@@ -22,7 +22,7 @@ class TurnTest {
     @BeforeEach
     void init() throws Exception {
         alwaysValid = new LeaderAction("play", 1);
-        payAction = new StrongboxAction("store", new StorableResource(ResourceType.COIN, 1));
+        payAction = new StrongboxAction(PayAction.StoreOrRemove.STORE, new StorableResource(ResourceType.COIN, 1));
         endTurn = new MultiplayerGame.EndTurnMultiplayerAction ();
         unique = new MarketAction(1, "row");
         game = new MultiplayerGame(4);
@@ -232,7 +232,7 @@ class TurnTest {
      */
     @Test
     void undo() throws Exception {
-        StrongboxAction store5 = new StrongboxAction("store", new StorableResource(ResourceType.STONE, 5));
+        StrongboxAction store5 = new StrongboxAction(PayAction.StoreOrRemove.STORE, new StorableResource(ResourceType.STONE, 5));
         ArrayList<StorableResource> listOfResources = new ArrayList<>();
         listOfResources.add(new StorableResource(ResourceType.STONE, 5));
         gameTurn.addUndoableAction(store5);

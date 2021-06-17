@@ -51,6 +51,10 @@ public class FaithTrackTest {
         listOfCells1.add(cell3);
         listOfCells2.add(cell4);
         listOfCells2.add(cell5);
+        for (int i = 0; i < 15; i++) {
+            listOfCells1.add (new ClassicCell ());
+            listOfCells2.add (new ClassicCell ());
+        }
         listOfSections = new ArrayList<>();
         section1 = new ClassicSection(listOfCells1);
         section2 = new VaticanReportSection(listOfCells2);

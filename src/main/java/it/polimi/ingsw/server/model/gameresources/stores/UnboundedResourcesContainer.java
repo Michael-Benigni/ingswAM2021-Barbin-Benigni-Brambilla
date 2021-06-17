@@ -77,8 +77,7 @@ public class UnboundedResourcesContainer {
      * @param storableResource contains the type of the resource to be decremented and by how much to decrement it
      * @throws NotContainedResourceException thrown if the provided resource is not contained in this container.
      */
-    public void remove(StorableResource storableResource) throws NegativeResourceAmountException,
-            NotContainedResourceException {
+    public void remove(StorableResource storableResource) throws NegativeResourceAmountException, NotContainedResourceException {
         for (int i = 0; i < containedResources.size(); ) {
             try {
                 StorableResource decreasedResource = this.containedResources.get(i).decreaseAmount(storableResource);

@@ -9,11 +9,11 @@ import it.polimi.ingsw.server.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 
 class TempContainerAction implements FirstTurnAction {
-    private final String storeOrRemove;
+    private final PayAction.StoreOrRemove storeOrRemove;
     private final StorableResource resource;
     private final int depotIdx;
 
-    TempContainerAction(String storeOrRemove, StorableResource resource, int depotIdx) {
+    TempContainerAction(PayAction.StoreOrRemove storeOrRemove, StorableResource resource, int depotIdx) {
         super();
         this.storeOrRemove = storeOrRemove;
         this.resource = resource;
@@ -28,13 +28,13 @@ class TempContainerAction implements FirstTurnAction {
         TemporaryContainer tempCont = player.getPersonalBoard().getTempContainer();
         if (!tempCont.isContainerForProduction()) {
             switch (storeOrRemove) {
-                case "remove": {
+                case REMOVE: {
                     tempCont.remove (this.resource);
-                    new WarehouseAction ("store", resource, depotIdx).perform (game, player);
+                    new WarehouseAction (PayAction.StoreOrRemove.STORE, resource, depotIdx).perform (game, player);
                     break;
                 }
-                case "store": {
-                    new WarehouseAction ("remove", resource, depotIdx).perform (game, player);
+                case STORE: {
+                    new WarehouseAction (PayAction.StoreOrRemove.REMOVE, resource, depotIdx).perform (game, player);
                     tempCont.store (this.resource);
                     break;
                 }

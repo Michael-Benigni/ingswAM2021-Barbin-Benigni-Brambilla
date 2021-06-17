@@ -20,7 +20,7 @@ class ProductionCardActionTest extends ActionTest {
         player1.getPersonalBoard().getSlotDevelopmentCards(0).placeOnTop(developmentCard);
         player1.getPersonalBoard().getStrongbox().store(resource);
         ArrayList<PayAction> payActions = new ArrayList<>();
-        StrongboxAction strongboxAction = new StrongboxAction("remove", resource);
+        StrongboxAction strongboxAction = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, resource);
         payActions.add(strongboxAction);
         ProductionCardAction productionCardAction = new ProductionCardAction(0, payActions);
         StartProductionAction startProductionAction = new StartProductionAction();

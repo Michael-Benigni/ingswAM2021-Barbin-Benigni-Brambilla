@@ -14,8 +14,8 @@ class BoardProductionActionTest extends ActionTest {
      StorableResource coin1 = new StorableResource(ResourceType.COIN, 1);
      StorableResource stone2 = new StorableResource(ResourceType.STONE, 2);
      StorableResource servant1 = new StorableResource(ResourceType.SERVANT, 1);
-     StrongboxAction pay2stone = new StrongboxAction("remove", stone2);
-     WarehouseAction pay1servant = new WarehouseAction("remove", servant1, 1);
+     StrongboxAction pay2stone = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, stone2);
+     WarehouseAction pay1servant = new WarehouseAction(PayAction.StoreOrRemove.REMOVE, servant1, 1);
      ArrayList<PayAction> payActions = new ArrayList<>();
     BoardProductionAction boardProductionAction;
 

@@ -41,7 +41,9 @@ class BuyCardAction implements MutualExclusiveAction {
                 cardsGrid.removeChosenCard (row, column);
             }
         }
-        else
+        else {
+            game.getCurrentTurn ().resetToken();
             throw new CardNotBuyableException ();
+        }
     }
 }

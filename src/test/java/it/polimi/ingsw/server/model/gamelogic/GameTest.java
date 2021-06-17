@@ -78,7 +78,7 @@ class GameTest {
         ArrayList<Player> players = game.getAllPlayers();
         Player p = players.get(players.indexOf(game.getCurrentPlayer()) + 1);
         try {
-            game.performActionOf(p, new StrongboxAction("store", new StorableResource(ResourceType.COIN, 6)));
+            game.performActionOf(p, new StrongboxAction(PayAction.StoreOrRemove.STORE, new StorableResource(ResourceType.COIN, 6)));
             fail();
         } catch (IsNotCurrentPlayerException e) {
             assertNotEquals(p, game.getCurrentPlayer());
@@ -96,7 +96,7 @@ class GameTest {
         ArrayList<Action> actions = listOfLists.get(0);
         Player player = game.getCurrentPlayer();
         boolean isCorrect = true;
-        //System.out.println("Sequenza " + index);
+        System.out.println("Sequence " + index);
         for(Action action : actions) {
             //System.out.println(action.toString());
             if(isCorrect) {

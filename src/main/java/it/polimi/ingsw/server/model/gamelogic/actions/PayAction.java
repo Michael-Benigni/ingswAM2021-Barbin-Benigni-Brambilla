@@ -9,10 +9,20 @@ import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesConta
 
 
 public abstract class PayAction implements Action {
+    public enum StoreOrRemove {
+        STORE(),
+        REMOVE();
+    }
+    private final StoreOrRemove storeOrRemove;
     private StorableResource resourceToPay;
 
-    protected PayAction(StorableResource resourceToPay) {
+    protected PayAction(StorableResource resourceToPay, StoreOrRemove storeOrRemove) {
         this.resourceToPay = resourceToPay;
+        this.storeOrRemove = storeOrRemove;
+    }
+
+    public StoreOrRemove getStoreOrRemove() {
+        return storeOrRemove;
     }
 
     protected StorableResource getResource() {
@@ -23,20 +33,27 @@ public abstract class PayAction implements Action {
     public abstract PayAction getUndoAction();
 
     void payOrUndo (Game game, Player player, UnboundedResourcesContainer cost) throws Exception {
-        try {
-            perform(game, player);
-            PayAction undoAction = this.getUndoAction ();
+        PayAction undoAction = this.getUndoAction ();
+        if (getResource ().containedIn (player) && getStoreOrRemove ().equals (StoreOrRemove.REMOVE)) {
+            // if the perform method throws an exception, means that in the warehouse or in the strongbox
+            // it has been not possible to remove the target resources. Nothing changes in warehouse and in
+            // strongbox in these cases, so we can simply ignore the exception.
             try {
-                cost.remove(getResource());
+                perform (game, player);
+            } catch (Exception ignored) {
+                return;
+            }
+            try {
+                cost.remove (getResource ());
+                game.getCurrentTurn ().addUndoableAction (this);
             } catch (NegativeResourceAmountException e) {
+                cost.remove (getResource ().decreaseAmount (e.getRemainder ()));
+                this.setResource (getResource ().decreaseAmount (e.getRemainder ()));
                 undoAction.setResource (e.getRemainder ());
                 undoAction.perform (game, player);
-            } catch (NotContainedResourceException ignored) {
+            } catch (Exception e) {
                 undoAction.perform (game, player);
             }
-            game.getCurrentTurn().addUndoableAction(this);
-        } catch (Exception e) {
-            game.getCurrentTurn ().undo (game, player);
         }
     }
 

@@ -61,7 +61,7 @@ public class StorableResource implements Storable, Requirement, Producible {
         if (!this.ifSameResourceType(resource))
             throw new NotEqualResourceTypeException();
         else if (this.getAmount() < resource.getAmount())
-            throw new NegativeResourceAmountException(new StorableResource (resourceType, resource.getAmount () - this.getAmount ()));
+            throw new NegativeResourceAmountException(new StorableResource (this.getResourceType (), resource.getAmount () - this.getAmount ()));
         else if (this.getAmount() == resource.getAmount())
             throw new NullResourceAmountException();
         return new StorableResource(this.getResourceType(), this.getAmount() - resource.getAmount());

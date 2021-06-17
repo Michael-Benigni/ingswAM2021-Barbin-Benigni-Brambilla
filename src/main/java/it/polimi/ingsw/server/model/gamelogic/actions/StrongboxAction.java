@@ -10,23 +10,21 @@ import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 import java.util.Objects;
 
 public class StrongboxAction extends PayAction {
-    private final String storeOrRemove;
 
-    public StrongboxAction(String storeOrRemove, StorableResource resource) {
-        super(resource);
-        this.storeOrRemove = storeOrRemove;
+    public StrongboxAction(StoreOrRemove storeOrRemove, StorableResource resource) {
+        super(resource, storeOrRemove);
     }
 
 
     @Override
     public void perform(Game game, Player player) throws NegativeResourceAmountException, NotContainedResourceException {
         Strongbox strongbox = player.getPersonalBoard().getStrongbox();
-        switch (this.storeOrRemove) {
-            case "store" : {
+        switch (getStoreOrRemove ()) {
+            case STORE: {
                 strongbox.store(this.getResource());
                 break;
             }
-            case "remove" : {
+            case REMOVE: {
                 strongbox.remove(this.getResource());
                 break;
             }
@@ -36,9 +34,9 @@ public class StrongboxAction extends PayAction {
 
     @Override
     public PayAction getUndoAction() {
-        if(storeOrRemove.equals("remove"))
-            return new StrongboxAction("store", getResource());
-        return new StrongboxAction("remove", getResource());
+        if(getStoreOrRemove ().equals(StoreOrRemove.REMOVE))
+            return new StrongboxAction(StoreOrRemove.STORE, getResource());
+        return new StrongboxAction(StoreOrRemove.REMOVE, getResource());
     }
 
     @Override
@@ -46,6 +44,6 @@ public class StrongboxAction extends PayAction {
         if (this == o) return true;
         if (!(o instanceof StrongboxAction)) return false;
         StrongboxAction that = (StrongboxAction) o;
-        return Objects.equals(storeOrRemove, that.storeOrRemove);
+        return Objects.equals(getStoreOrRemove (), that.getStoreOrRemove ());
     }
 }

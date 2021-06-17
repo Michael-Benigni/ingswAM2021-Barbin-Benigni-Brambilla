@@ -24,7 +24,7 @@ class BuyCardActionTest extends ActionTest{
     @Test
     void performFromStrongboxTest() throws Exception {
         ArrayList<PayAction> fromWhereAndWhat = new ArrayList<>();
-        PayAction payAction1 = new StrongboxAction("remove", new StorableResource(ResourceType.SERVANT, 2));
+        PayAction payAction1 = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, new StorableResource(ResourceType.SERVANT, 2));
         fromWhereAndWhat.add(payAction1);
         BuyCardAction buyCardAction = new BuyCardAction(2, 0, fromWhereAndWhat, 1);
         buyCardAction.perform(game, player1);
@@ -46,7 +46,7 @@ class BuyCardActionTest extends ActionTest{
     @Test
     void performFromWarehouseTest() throws Exception {
         ArrayList<PayAction> fromWhereAndWhat = new ArrayList<>();
-        PayAction payAction1 = new WarehouseAction("remove", new StorableResource(ResourceType.SERVANT, 2), 1);
+        PayAction payAction1 = new WarehouseAction(PayAction.StoreOrRemove.REMOVE, new StorableResource(ResourceType.SERVANT, 2), 1);
         fromWhereAndWhat.add(payAction1);
         BuyCardAction buyCardAction = new BuyCardAction(2, 0, fromWhereAndWhat, 1);
         buyCardAction.perform(game, player1);
@@ -68,7 +68,7 @@ class BuyCardActionTest extends ActionTest{
     @Test
     void performTooManyCards() throws Exception {
         ArrayList<PayAction> fromWhereAndWhat = new ArrayList<>();
-        PayAction payAction1 = new StrongboxAction("remove", new StorableResource(ResourceType.SERVANT, 2));
+        PayAction payAction1 = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, new StorableResource(ResourceType.SERVANT, 2));
         fromWhereAndWhat.add(payAction1);
         BuyCardAction buyCardAction = new BuyCardAction(2, 0, fromWhereAndWhat, 1);
         BuyCardAction buyCardAction1 = new BuyCardAction(1, 0, fromWhereAndWhat, 1);

@@ -141,7 +141,7 @@ public enum PlayMove implements MoveType {
             Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.WAREHOUSE);
-            StringRequest playOrStore = new StringRequest ("Digit \"store\" or \"remove\" according to the action that you want to perform", "storeOrRemove");
+            StringRequest playOrStore = new StringRequest ("Digit \"STORE\" or \"REMOVE\" according to the action that you want to perform", "storeOrRemove");
             writer = playOrStore.handleInput (interlocutor, interpreter, writer);
             IntegerRequest depotIdx = new IntegerRequest ("Indicate the number of depot to use", "depotIdx");
             writer = depotIdx.handleInput (interlocutor, interpreter, writer);
@@ -191,8 +191,8 @@ public enum PlayMove implements MoveType {
             Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.TEMP_CONTAINER);
-            StringRequest playOrStore = new StringRequest ("Digit \"store\" if you want to store a resource " +
-                    "from a Depot to the Temporary Container,\nor digit \"remove\" if you want to remove a resource from" +
+            StringRequest playOrStore = new StringRequest ("Digit \"STORE\" if you want to store a resource " +
+                    "from a Depot to the Temporary Container,\nor digit \"REMOVE\" if you want to remove a resource from" +
                     " the Temporary Container and store it into a depot", "storeOrRemove");
             writer = playOrStore.handleInput (interlocutor, interpreter, writer);
             ResourceRequest resource = new ResourceRequest ("Choose the resource: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount to move", "resource");
@@ -300,8 +300,8 @@ public enum PlayMove implements MoveType {
         String addOrStop;
         int iterations = 0;
         do {
-            PaymentRequest payment = new PaymentRequest ("If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT strongbox\", " +
-                    "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT warehouse DEPOT_INDEX\"", nameProperty);
+            PaymentRequest payment = new PaymentRequest ("If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT\", " +
+                    "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT DEPOT_INDEX\"", nameProperty);
             writer = payment.handleInput (interlocutor, interpreter, writer);
             interlocutor.write ("Digit \"A\" to add another payment, \"S\" to stop");
             addOrStop = interpreter.listen ();

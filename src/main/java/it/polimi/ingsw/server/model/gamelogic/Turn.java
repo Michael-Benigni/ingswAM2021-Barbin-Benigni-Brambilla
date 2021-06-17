@@ -169,7 +169,7 @@ public class Turn {
             resetToken();
     }
 
-    private void resetToken() {
+    public void resetToken() {
         token = TurnToken.AVAILABLE;
     }
 

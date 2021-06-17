@@ -10,12 +10,10 @@ import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 import java.util.Objects;
 
 public class WarehouseAction extends PayAction implements FirstTurnAction {
-    private final String storeOrRemove;
     private final int depotIdx;
 
-    WarehouseAction(String storeOrRemove, StorableResource resourceToPay, int depotIdx) {
-        super(resourceToPay);
-        this.storeOrRemove = storeOrRemove;
+    WarehouseAction(StoreOrRemove storeOrRemove, StorableResource resourceToPay, int depotIdx) {
+        super(resourceToPay, storeOrRemove);
         this.depotIdx = depotIdx;
     }
 
@@ -23,8 +21,8 @@ public class WarehouseAction extends PayAction implements FirstTurnAction {
     public void perform(Game game, Player player) throws WrongDepotIndexException, NegativeResourceAmountException,
             NotEqualResourceTypeException, ResourceOverflowInDepotException, EmptyDepotException, SameResourceTypeInDifferentDepotsException {
         WarehouseDepots warehouse = player.getPersonalBoard().getWarehouseDepots();
-        switch (storeOrRemove) {
-            case "store": {
+        switch (getStoreOrRemove ()) {
+            case STORE: {
                 try {
                     warehouse.store(getResource(), depotIdx);
                 } catch (ResourceOverflowInDepotException e) {
@@ -33,7 +31,7 @@ public class WarehouseAction extends PayAction implements FirstTurnAction {
                 }
                 break;
             }
-            case "remove": {
+            case REMOVE: {
                 warehouse.remove(getResource(), depotIdx);
             }
             default:
@@ -42,9 +40,9 @@ public class WarehouseAction extends PayAction implements FirstTurnAction {
 
     @Override
     public PayAction getUndoAction() {
-        if (this.storeOrRemove == "remove")
-            return new WarehouseAction("store", getResource(), depotIdx);
-        return new WarehouseAction("remove", getResource(), depotIdx);
+        if (getStoreOrRemove ().equals (StoreOrRemove.REMOVE))
+            return new WarehouseAction(StoreOrRemove.STORE, getResource(), depotIdx);
+        return new WarehouseAction(StoreOrRemove.REMOVE, getResource(), depotIdx);
     }
 
     @Override
@@ -52,12 +50,12 @@ public class WarehouseAction extends PayAction implements FirstTurnAction {
         if (this == o) return true;
         if (!(o instanceof WarehouseAction)) return false;
         WarehouseAction that = (WarehouseAction) o;
-        return depotIdx == that.depotIdx && Objects.equals(storeOrRemove, that.storeOrRemove);
+        return depotIdx == that.depotIdx && Objects.equals(getStoreOrRemove (), that.getStoreOrRemove ());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(storeOrRemove, depotIdx);
+        return Objects.hash(getStoreOrRemove (), depotIdx);
     }
 
     /**
