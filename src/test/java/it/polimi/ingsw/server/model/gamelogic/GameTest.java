@@ -87,6 +87,7 @@ class GameTest {
 
     @RepeatedTest(value = 12, name = "performActionOf - Sequence #{currentRepetition}") //remember to update the value for each added sequence
     void performActionOf(RepetitionInfo repetitionInfo) throws Exception {
+        init();
         skipInitialTurn();
         ArrayList<HashMap<ArrayList<Action>, Result>> listOfMaps = getListsOfAction();
         int index = repetitionInfo.getCurrentRepetition();
