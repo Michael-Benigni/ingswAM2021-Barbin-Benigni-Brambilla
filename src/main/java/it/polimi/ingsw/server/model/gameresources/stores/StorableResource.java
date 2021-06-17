@@ -170,11 +170,12 @@ public class StorableResource implements Storable, Requirement, Producible {
      */
     @Override
     public boolean containedIn(Player player) {
+        StorableResource thisCopy = this.clone();
         ArrayList <StorableResource> requirements = player.getResourceRequirements();
         for (StorableResource requirement : requirements) {
             try {
-                StorableResource resourceDecreased = this.decreaseAmount (requirement);
-                this.setAmount (resourceDecreased.getAmount ());
+                StorableResource resourceDecreased = thisCopy.decreaseAmount (requirement);
+                thisCopy.setAmount (resourceDecreased.getAmount ());
             } catch (NegativeResourceAmountException | NullResourceAmountException e) {
                 return true;
             } catch (NotEqualResourceTypeException ignored) {

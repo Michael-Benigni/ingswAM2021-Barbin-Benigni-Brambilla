@@ -98,7 +98,7 @@ public class WarehouseDepots implements GameComponent {
     public void store(StorableResource resourceToStore, int depotIndex) throws NegativeResourceAmountException,
             NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException, SameResourceTypeInDifferentDepotsException {
         if (ifDepotIndexIsCorrect(depotIndex)) {
-            if (! ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex) || depotIndex > this.numberOfDepots) {
+            if (!(ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex)) || depotIndex >= this.numberOfDepots) {
                 try{
                     listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
                 }
