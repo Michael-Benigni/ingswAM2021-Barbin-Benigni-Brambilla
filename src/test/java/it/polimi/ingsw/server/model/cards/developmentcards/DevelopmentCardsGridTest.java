@@ -197,7 +197,12 @@ public class DevelopmentCardsGridTest {
         DevelopmentCardsGrid newGrid = initDevelopmentCardsGrid();
         GeneralDevelopmentCard colourCard = new GeneralDevelopmentCard(CardColour.BLUE, null);
         Player player = new Player();
-        newGrid.removeNCardsFromGrid(colourCard, 6);
+        try {
+            newGrid.removeNCardsFromGrid(colourCard, 6);
+            fail ();
+        } catch (GameOverByCardsGridException e) {
+            assertTrue (true);
+        }
         int excCount = 0;
         for(int i = 0; i < numberOfRows; i++)
             for(int j = 0; j < numberOfColumns; j++)

@@ -41,7 +41,7 @@ public class WarehouseAction extends PayAction implements FirstTurnAction {
     }
 
     @Override
-    public Action getUndoAction() {
+    public PayAction getUndoAction() {
         if (this.storeOrRemove == "remove")
             return new WarehouseAction("store", getResource(), depotIdx);
         return new WarehouseAction("remove", getResource(), depotIdx);

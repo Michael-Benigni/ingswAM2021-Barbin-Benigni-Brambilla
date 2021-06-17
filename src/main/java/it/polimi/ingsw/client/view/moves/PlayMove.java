@@ -59,7 +59,7 @@ public enum PlayMove implements MoveType {
             interlocutor.write ("Column :");
             String columnAsStr = interpreter.listen ();
             int column = Integer.parseInt (columnAsStr);
-            String desc = ui.getView ().getModel ().getBoard ().getGrid ().getCard(row, column).getDescription ();
+            String desc = ui.getController ().getModel ().getBoard ().getGrid ().getCard(row, column).getDescription ();
             interlocutor.write (desc);
             return null;
         };

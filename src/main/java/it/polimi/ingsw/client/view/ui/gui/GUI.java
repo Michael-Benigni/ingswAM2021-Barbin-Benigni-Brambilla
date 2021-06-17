@@ -4,41 +4,30 @@ import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.states.GUIState;
 import it.polimi.ingsw.client.view.states.GUIWaitingRoomState;
+import it.polimi.ingsw.client.view.ui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.UI;
-import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
-import it.polimi.ingsw.client.view.ui.cli.Interpreter;
 import it.polimi.ingsw.utils.network.Sendable;
 import javafx.application.Application;
-import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.stage.Stage;
+
 import java.util.ArrayDeque;
-import java.util.Queue;
 
-public class GUI extends Application implements UI {
+public class GUI implements UI {
 
-    private final Queue<Sendable> messages;
     private GUIState state;
     private Controller controller;
+    private final GUIInterlocutor interlocutor;
+    private final GUIInterpreter interpreter;
+    private final ArrayDeque<Sendable> messages;
 
     public GUI() {
-        this.messages = new ArrayDeque<> ();
-
+        interlocutor = new GUIInterlocutor();
+        interpreter = new GUIInterpreter();
+        messages = new ArrayDeque<>();
+        new Thread (JavaFXApp::show).start();
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        this.state = new GUIWaitingRoomState();
-        primaryStage.setTitle("Master Of Renaissance");
-        primaryStage.setScene(state.getScene());
-
-
-        primaryStage.show ();
-    }
-
-    @Override
-    public void start() throws Exception {
-        launch ();
-    }
 
     @Override
     public void showPersonalBoard() {
@@ -71,13 +60,43 @@ public class GUI extends Application implements UI {
     }
 
     @Override
-    public Interlocutor getInterlocutor() {
-        return null;
+    public GUIInterlocutor getInterlocutor() {
+        return interlocutor;
     }
 
     @Override
-    public Interpreter getInterpreter() {
-        return null;
+    public GUIInterpreter getInterpreter() {
+        return interpreter;
+    }
+
+    protected synchronized ClientState getState() {
+        return state;
+    }
+
+    @Override
+    public void setNextState() {
+    }
+
+
+    @Override
+    public void printMenu() {
+
+    }
+
+    @Override
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public Controller getController() {
+        return controller;
+    }
+
+    @Override
+    public synchronized void addMessage(Sendable sendable) {
+        this.messages.addLast (sendable);
+        notifyAll ();
     }
 
     @Override
@@ -90,33 +109,5 @@ public class GUI extends Application implements UI {
             }
         }
         return messages.remove ();
-    }
-
-    protected synchronized ClientState getState() {
-        return state;
-    }
-
-    protected synchronized void addMessage(Sendable sendable) {
-        this.messages.add (sendable);
-        this.notifyAll ();
-    }
-
-    @Override
-    public void setNextState() {
-    }
-
-    @Override
-    public void printMenu() {
-
-    }
-
-    @Override
-    public void setView(Controller controller) {
-        this.controller = controller;
-    }
-
-    @Override
-    public Controller getView() {
-        return controller;
     }
 }

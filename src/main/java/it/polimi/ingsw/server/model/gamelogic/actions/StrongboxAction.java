@@ -35,7 +35,7 @@ public class StrongboxAction extends PayAction {
     }
 
     @Override
-    public Action getUndoAction() {
+    public PayAction getUndoAction() {
         if(storeOrRemove.equals("remove"))
             return new StrongboxAction("store", getResource());
         return new StrongboxAction("remove", getResource());

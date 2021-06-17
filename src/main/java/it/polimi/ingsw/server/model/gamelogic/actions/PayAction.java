@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
+import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
+import it.polimi.ingsw.server.model.exception.NotContainedResourceException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -14,19 +16,27 @@ public abstract class PayAction implements Action {
     }
 
     protected StorableResource getResource() {
-        return (StorableResource) this.resourceToPay.clone();
+        return this.resourceToPay.clone();
     }
 
 
-    public abstract Action getUndoAction();
+    public abstract PayAction getUndoAction();
 
     void payOrUndo (Game game, Player player, UnboundedResourcesContainer cost) throws Exception {
         try {
             perform(game, player);
-            cost.remove(getResource());
+            PayAction undoAction = this.getUndoAction ();
+            try {
+                cost.remove(getResource());
+            } catch (NegativeResourceAmountException e) {
+                undoAction.setResource (e.getRemainder ());
+                undoAction.perform (game, player);
+            } catch (NotContainedResourceException ignored) {
+                undoAction.perform (game, player);
+            }
             game.getCurrentTurn().addUndoableAction(this);
         } catch (Exception e) {
-            this.getUndoAction().perform(game, player);
+            game.getCurrentTurn ().undo (game, player);
         }
     }
 

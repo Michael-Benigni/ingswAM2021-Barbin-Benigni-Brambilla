@@ -9,13 +9,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Client {
+    private static Controller controller;
 
     public static void launch(int port, String[] args) {
         ClientNetworkLayer network = new ClientNetworkLayer (getIP (args), port);
         UI ui = UIFactory.getUI (getCLIorGUI (args));
-        Controller controller = new Controller (ui);
-        ui.setView (controller);
+        Client.controller = new Controller (ui);
+        ui.setController (controller);
         network.connect (controller);
+    }
+
+    public static UI getUI() {
+        return controller.getUI();
     }
 
     private static String getIP(String[] args) {

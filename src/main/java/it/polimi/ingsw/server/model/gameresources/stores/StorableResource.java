@@ -10,7 +10,6 @@ import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.Storable;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -28,7 +27,7 @@ public class StorableResource implements Storable, Requirement, Producible {
      * */
     public StorableResource(ResourceType resourceType, int amount) throws NegativeResourceAmountException {
         if (amount < 0)
-            throw new NegativeResourceAmountException();
+            throw new NegativeResourceAmountException(null);
         else
             this.amount = amount;
         this.resourceType = resourceType;
@@ -62,7 +61,7 @@ public class StorableResource implements Storable, Requirement, Producible {
         if (!this.ifSameResourceType(resource))
             throw new NotEqualResourceTypeException();
         else if (this.getAmount() < resource.getAmount())
-            throw new NegativeResourceAmountException();
+            throw new NegativeResourceAmountException(new StorableResource (resourceType, resource.getAmount () - this.getAmount ()));
         else if (this.getAmount() == resource.getAmount())
             throw new NullResourceAmountException();
         return new StorableResource(this.getResourceType(), this.getAmount() - resource.getAmount());

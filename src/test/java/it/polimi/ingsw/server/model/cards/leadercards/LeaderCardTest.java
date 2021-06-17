@@ -173,9 +173,8 @@ public class LeaderCardTest {
             fail ();
         }
         try{
-            player.getPersonalBoard().getWarehouseDepots().store(resourceToStore, 3);
-        }
-        catch (WrongDepotIndexException e){
+            player.getPersonalBoard().getWarehouseDepots().store(resourceToStore, 2);
+        } catch (WrongDepotIndexException e){
             fail();
         }
     }

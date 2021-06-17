@@ -165,6 +165,12 @@ public class Turn {
         for (PayAction payAction : this.getUndoableActions()) {
             payAction.getUndoAction().perform(game, player);
         }
+        if (token.equals (TurnToken.UNAVAILABLE))
+            resetToken();
+    }
+
+    private void resetToken() {
+        token = TurnToken.AVAILABLE;
     }
 
     public void consumeToken() throws NoValidActionException {

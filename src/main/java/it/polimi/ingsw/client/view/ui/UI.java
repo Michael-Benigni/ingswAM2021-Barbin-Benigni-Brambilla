@@ -7,15 +7,11 @@ import it.polimi.ingsw.utils.network.Sendable;
 
 public interface UI {
 
-    void start() throws Exception;
-
     void showPersonalBoard();
 
     void showGameBoard();
 
     void showInfoGame();
-
-    Sendable getNextMessage();
 
     void setNextState();
 
@@ -27,13 +23,16 @@ public interface UI {
 
     void nextInputRequest();
 
-    void setView(Controller controller);
+    void setController(Controller controller);
 
     Interlocutor getInterlocutor();
 
     Interpreter getInterpreter();
 
-    Controller getView();
+    Controller getController();
+
+    void addMessage(Sendable sendable);
 
 
+    Sendable getNextMessage();
 }

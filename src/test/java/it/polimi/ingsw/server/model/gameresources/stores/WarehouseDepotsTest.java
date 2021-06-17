@@ -4,8 +4,8 @@ import it.polimi.ingsw.server.model.exception.WrongDepotIndexException;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests on "WarehouseDepots" class.
@@ -95,7 +95,8 @@ public class WarehouseDepotsTest {
         newWarehouseDepots.addExtraDepot(10, ResourceType.COIN);
         ArrayList<StorableResource> newResource = new ArrayList<>(0);
         newResource.add(new StorableResource(ResourceType.COIN, 0));
-        assertEquals(newWarehouseDepots.getAllResources(), newResource);
+        assertNotEquals(newWarehouseDepots.getAllResources(), newResource);
+        assertEquals (newWarehouseDepots.getAllResources (), new ArrayList<> ());
     }
 
     /**

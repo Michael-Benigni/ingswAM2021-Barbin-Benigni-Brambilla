@@ -17,11 +17,6 @@ public class Controller {
     public void loop() {
         new Thread (()->
         {
-            try {
-                this.ui.start ();
-            } catch (Exception e) {
-                e.printStackTrace ();
-            }
             while (true) {
                 Sendable sendable = getNextMove ();
                 this.channel.send (sendable);

@@ -29,7 +29,7 @@ public class PaymentRequest extends Request {
                 toPay.addProperty ("depotIdx", Integer.parseInt (payment.get (3)));
             writer.addProperty ("payActions", toPay.getInfo ());
         } catch (Exception e) {
-            System.out.printf ("Error: %s\n", e.getMessage ());
+            interlocutor.write ("Error: " + e.getMessage ());
             throw new IllegalInputException ();
         }
         return writer;

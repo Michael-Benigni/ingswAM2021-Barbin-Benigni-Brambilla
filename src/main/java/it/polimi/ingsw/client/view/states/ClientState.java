@@ -13,13 +13,6 @@ public abstract class ClientState {
         addAvailableMove (PlayMove.QUIT.getCmd (), "QUIT THE GAME");
     }
 
-    private Move menuMove() {
-        return (ui) -> {
-            ui.getInterlocutor ().write (menu ());
-            return null;
-        };
-    }
-
     public static String menu() {
         String menu = "You can perform these actions: ";
         for (String key : nameAndDesc.keySet ())

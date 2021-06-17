@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
+import it.polimi.ingsw.server.model.exception.CardNotBuyableException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesContainer;
@@ -40,5 +41,7 @@ class BuyCardAction implements MutualExclusiveAction {
                 cardsGrid.removeChosenCard (row, column);
             }
         }
+        else
+            throw new CardNotBuyableException ();
     }
 }

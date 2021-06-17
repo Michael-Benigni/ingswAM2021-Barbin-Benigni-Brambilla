@@ -191,12 +191,13 @@ public class WarehouseDepots implements GameComponent {
      * @return a copy of the resource contained inside the specified depot.
      */
     private StorableResource getResourceFromDepot(int depotIndex) {
+        StorableResource temporaryResource;
         try {
-            StorableResource temporaryResource = listDepot.get(depotIndex).getStoredResource();
-            return (StorableResource) temporaryResource.clone();
+            temporaryResource = listDepot.get(depotIndex).getStoredResource();
         } catch(EmptyDepotException e) {
-            return null;
+            temporaryResource = null;
         }
+        return temporaryResource;
     }
 
     /**

@@ -5,12 +5,20 @@ import it.polimi.ingsw.client.view.ui.gui.GUI;
 
 public class UIFactory {
     public static UI getUI(String cliOrGui) {
+        UI ui;
         switch (cliOrGui) {
-            case "--cli":
-                return new CLI ();
+            case "--cli": {
+                CLI cli = new CLI ();
+                cli.start ();
+                ui = cli;
+                break;
+            }
             case "--gui":
-            default:
-                return new GUI ();
+            default: {
+                ui = new GUI ();
+                break;
+            }
         }
+        return ui;
     }
 }
