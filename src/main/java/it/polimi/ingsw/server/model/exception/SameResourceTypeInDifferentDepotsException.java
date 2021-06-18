@@ -6,5 +6,6 @@ package it.polimi.ingsw.server.model.exception;
  */
 public class SameResourceTypeInDifferentDepotsException extends Exception{
     public SameResourceTypeInDifferentDepotsException() {
+        super("Another depot in the warehouse contains resource with same type of the one provided.");
     }
 }

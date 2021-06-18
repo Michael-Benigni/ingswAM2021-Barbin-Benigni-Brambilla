@@ -34,7 +34,7 @@ public class LeaderAction implements Action {
                 return;
             }
             default:
-                throw new NoValidActionException();
+                throw new NoValidActionException(this);
         }
     }
 }

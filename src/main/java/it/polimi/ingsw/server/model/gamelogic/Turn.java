@@ -115,7 +115,7 @@ public class Turn {
             this.performedActions.add(nextAction);
         } else {
             if (!nextAction.isValid (this))
-                throw new NoValidActionException ();
+                throw new NoValidActionException (nextAction);
             throw new IllegalTurnState ();
         }
     }
@@ -182,7 +182,7 @@ public class Turn {
             this.token = TurnToken.UNAVAILABLE;
         }
         else
-            throw new NoValidActionException();
+            throw new NoValidActionException(this.performedActions.get(this.performedActions.size()-1));
     }
 
     public void startProductionPhase() throws NoValidActionException {
@@ -190,12 +190,12 @@ public class Turn {
             this.token = TurnToken.AVAILABLE_FOR_PRODUCTION;
         }
         else
-            throw new NoValidActionException();
+            throw new NoValidActionException(this.performedActions.get(this.performedActions.size()-1));
     }
 
     public void consumeTokenInProductionPhase() throws NoValidActionException {
         if(this.token != TurnToken.AVAILABLE_FOR_PRODUCTION)
-            throw new NoValidActionException();
+            throw new NoValidActionException(this.performedActions.get(this.performedActions.size()-1));
     }
 
     public void endProductionPhase() throws NoValidActionException {
@@ -203,7 +203,7 @@ public class Turn {
             this.token = TurnToken.UNAVAILABLE;
         }
         else
-            throw new NoValidActionException();
+            throw new NoValidActionException(this.performedActions.get(this.performedActions.size()-1));
     }
 }
 

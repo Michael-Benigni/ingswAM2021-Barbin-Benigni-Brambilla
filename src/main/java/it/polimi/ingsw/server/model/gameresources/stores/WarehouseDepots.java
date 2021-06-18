@@ -84,7 +84,7 @@ public class WarehouseDepots implements GameComponent {
      */
     private boolean ifDepotIndexIsCorrect(int depotIndex) throws WrongDepotIndexException {
         if(depotIndex < 0 || depotIndex > listDepot.size())
-            throw new WrongDepotIndexException();
+            throw new WrongDepotIndexException(depotIndex);
         else
             return true;
     }
@@ -96,8 +96,8 @@ public class WarehouseDepots implements GameComponent {
      * @throws Exception thrown by "ifDepotIndexIsCorrect" and "IfNotSameTypeInOtherDepots" methods.
      */
     public void store(StorableResource resourceToStore, int depotIndex) throws NotEqualResourceTypeException, ResourceOverflowInDepotException, WrongDepotIndexException, SameResourceTypeInDifferentDepotsException {
-        if (ifDepotIndexIsCorrect(depotIndex)) {
-            if (!(ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex)) || depotIndex >= this.numberOfDepots) {
+        if (ifDepotIndexIsCorrect(depotIndex) && depotIndex < this.numberOfDepots) {
+            if (!(ifAlreadyContainedInOtherDepots(resourceToStore, depotIndex))) {
                 try {
                     listDepot.get(depotIndex).storeResourceInDepot(resourceToStore);
                 } finally {
@@ -106,6 +106,8 @@ public class WarehouseDepots implements GameComponent {
             }
             else
                 throw new SameResourceTypeInDifferentDepotsException();
+        } else {
+            throw new WrongDepotIndexException(depotIndex);
         }
     }
 

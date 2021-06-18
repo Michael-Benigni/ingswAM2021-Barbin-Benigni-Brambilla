@@ -239,7 +239,7 @@ public class PersonalBoard implements Producer, GameComponent {
     SlotDevelopmentCards getSlotDevelopmentCards(int slotIndex) throws WrongSlotDevelopmentIndexException {
         if(slotIndex >= 0 && slotIndex < listOfSlotDevelopmentCards.size())
             return listOfSlotDevelopmentCards.get(slotIndex);
-        else { throw new WrongSlotDevelopmentIndexException();}
+        else { throw new WrongSlotDevelopmentIndexException(slotIndex);}
     }
 
 

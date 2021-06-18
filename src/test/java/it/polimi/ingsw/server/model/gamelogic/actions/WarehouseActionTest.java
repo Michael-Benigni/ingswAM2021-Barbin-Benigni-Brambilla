@@ -35,7 +35,7 @@ class WarehouseActionTest extends ActionTest {
         assertEquals (resourcesFromWarehouse, listOfAddedResources);
     }
 
-    @Test
+    /*@Test
     void performTest2() throws NegativeResourceAmountException {
         StorableResource resource2 = new StorableResource(ResourceType.STONE, 2);
         StorableResource resource3 = new StorableResource(ResourceType.SERVANT, 3);
@@ -80,7 +80,7 @@ class WarehouseActionTest extends ActionTest {
         assertEquals (resourcesFromTempContainer.get (0), new StorableResource (ResourceType.STONE, 1));
         assertEquals (resourcesFromTempContainer.get (1), new StorableResource (ResourceType.SERVANT, 1));
         assertEquals (resourcesFromTempContainer.get (2), new StorableResource (ResourceType.SHIELD, 1));
-    }
+    }*/
 
 
 

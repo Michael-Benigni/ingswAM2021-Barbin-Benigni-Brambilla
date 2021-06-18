@@ -33,7 +33,7 @@ public class MarketAction implements MutualExclusiveAction {
                 break;
             }
             default:
-                throw new NoValidActionException();
+                throw new NoValidActionException(this);
         }
         for (Resource r : resources) {
             r.activate(player, game);

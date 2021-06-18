@@ -140,7 +140,7 @@ public abstract class Game implements GameComponent {
             playersOrder.add(newPlayer);
         }
         else
-            throw new TooManyPlayersException();
+            throw new TooManyPlayersException(numberOfPlayers);
         return newPlayer;
     }
 
@@ -174,7 +174,7 @@ public abstract class Game implements GameComponent {
             } else
                 throw new IsNotCurrentPlayerException (currentPlayer.getUsername());
         } else
-            throw new NoValidActionException ();
+            throw new NoValidActionException (action);
     }
 
     protected void notifyLastRoundUpdate() {

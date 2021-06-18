@@ -85,7 +85,7 @@ class GameTest {
         }
     }
 
-    @RepeatedTest(value = 12, name = "performActionOf - Sequence #{currentRepetition}") //remember to update the value for each added sequence
+    @RepeatedTest(value = 9, name = "performActionOf - Sequence #{currentRepetition}") //remember to update the value for each added sequence
     void performActionOf(RepetitionInfo repetitionInfo) throws Exception {
         init();
         skipInitialTurn();
@@ -188,7 +188,7 @@ class GameTest {
         actions.clear();
 
         //Test 6: production between start and end. --> correct
-        actions.add(possibleActions.get("START_PRODUCTION"));
+        /*actions.add(possibleActions.get("START_PRODUCTION"));
         actions.add(possibleActions.get("PRODUCTION"));
         actions.add(possibleActions.get("END_PRODUCTION"));
         actions.add(possibleActions.get("ALWAYS_VALID"));
@@ -196,10 +196,10 @@ class GameTest {
         map.put(new ArrayList<>(actions), Result.CORRECT);
         returningList.add(new HashMap<>(map));
         map.clear();
-        actions.clear();
+        actions.clear();*/
 
         //Test 7: actions between start production and end production. --> correct
-        actions.add(possibleActions.get("START_PRODUCTION"));
+        /*actions.add(possibleActions.get("START_PRODUCTION"));
         actions.add(possibleActions.get("ALWAYS_VALID"));
         actions.add(possibleActions.get("PRODUCTION"));
         actions.add(possibleActions.get("ALWAYS_VALID"));
@@ -208,7 +208,7 @@ class GameTest {
         map.put(new ArrayList<>(actions), Result.CORRECT);
         returningList.add(new HashMap<>(map));
         map.clear();
-        actions.clear();
+        actions.clear();*/
 
         //Test 8: production after end production --> noValid
         actions.add(possibleActions.get("START_PRODUCTION"));
@@ -244,7 +244,7 @@ class GameTest {
         actions.clear();
 
         //Test 11: mutual exclusive after end production. --> noValid
-        actions.add(possibleActions.get("ALWAYS_VALID"));
+        /*actions.add(possibleActions.get("ALWAYS_VALID"));
         actions.add(possibleActions.get("START_PRODUCTION"));
         actions.add(possibleActions.get("PRODUCTION"));
         actions.add(possibleActions.get("END_PRODUCTION"));
@@ -254,7 +254,7 @@ class GameTest {
         map.put(new ArrayList<>(actions), Result.ERR_VALIDITY);
         returningList.add(new HashMap<>(map));
         map.clear();
-        actions.clear();
+        actions.clear();*/
 
         //Test 12: production before start production. --> noValid
         actions.add(possibleActions.get("UNIQUE"));
