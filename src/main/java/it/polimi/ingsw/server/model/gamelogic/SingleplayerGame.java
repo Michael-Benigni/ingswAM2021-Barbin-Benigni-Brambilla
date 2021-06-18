@@ -23,8 +23,7 @@ public class SingleplayerGame extends Game {
 
     /**
      * This method prepare the game, setting the players' order, creating the first turn, setting the first Player, and
-     * the game board
-     * @throws NotEnoughPlayersException
+     * the game board.
      */
     private void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {
         if (gameBoard.getActionTokenDeck () != null)
@@ -36,8 +35,7 @@ public class SingleplayerGame extends Game {
 
     /**
      * This method prepare the game, setting the players' order, creating the first turn, setting the first Player, and
-     * the game board
-     * @throws NotEnoughPlayersException
+     * the game board.
      */
     @Override
     public void setup(ArrayList<PersonalBoard> personalBoards, GameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {

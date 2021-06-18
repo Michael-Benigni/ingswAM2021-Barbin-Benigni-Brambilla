@@ -6,5 +6,6 @@ package it.polimi.ingsw.server.model.exception;
  */
 public class NotContainedResourceException extends Exception{
     public NotContainedResourceException() {
+        super("Impossible to find resources with the provided type for this player.");
     }
 }

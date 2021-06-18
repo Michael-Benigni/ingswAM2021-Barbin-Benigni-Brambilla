@@ -117,7 +117,7 @@ public class SlotLeaderCards implements GameComponent {
      */
     public void remove(LeaderCard cardToRemove) throws LeaderCardNotFoundException {
         if( ! this.listOfLeaderCards.contains(cardToRemove) )
-            throw new LeaderCardNotFoundException();
+            throw new LeaderCardNotFoundException(cardToRemove.getCardID());
         else
             this.listOfLeaderCards.remove(cardToRemove);
         notifyUpdate(generateUpdate(getAllNotPlayedCards(), getAllPlayedCards()));

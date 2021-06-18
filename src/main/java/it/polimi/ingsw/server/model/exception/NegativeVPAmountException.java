@@ -5,5 +5,6 @@ package it.polimi.ingsw.server.model.exception;
  */
 public class NegativeVPAmountException extends Exception{
     public NegativeVPAmountException() {
+        super("One VictoryPoint object has a negative amount.");
     }
 }
