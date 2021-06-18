@@ -69,7 +69,7 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
      * @throws DevelopmentCardNotAddableException
      * @throws SlotDevelopmentCardsIsFullException
      */
-    public void placeOnTop (DevelopmentCard cardToAdd) throws Exception {
+    public void placeOnTop (DevelopmentCard cardToAdd) throws DevelopmentCardNotAddableException, SlotDevelopmentCardsIsFullException {
         if (listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
             DevelopmentCard card;
             try {

@@ -23,8 +23,8 @@ class ProductionCardAction implements ProductionAction {
     public void perform(Game game, Player player) throws Exception {
         UnboundedResourcesContainer costs = new UnboundedResourcesContainer();
         SlotDevelopmentCards slot = player.getPersonalBoard().getSlotDevelopmentCards(numSlot);
+        DevelopmentCard card = slot.getTopCard();
         if (slot.isAvailableForProduction()) {
-            DevelopmentCard card = slot.getTopCard();
             costs.storeAll(card.getConsumedResources());
             for (PayAction payAction : payActions)
                 payAction.payOrUndo(game, player, costs);
