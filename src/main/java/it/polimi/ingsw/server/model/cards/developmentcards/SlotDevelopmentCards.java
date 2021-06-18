@@ -72,17 +72,23 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
     public void placeOnTop (DevelopmentCard cardToAdd) throws DevelopmentCardNotAddableException, SlotDevelopmentCardsIsFullException {
         if (listOfDevelopmentCards.size() < maxNumberOfCardsInSlot) {
             DevelopmentCard card;
+            Integer idCardAlreadyPlaced, idCardToAdd = cardToAdd.getCardID();
             try {
                 card = getTopCard();
+                idCardAlreadyPlaced = card.getCardID();
             } catch (EmptySlotException exc) {
                 card = null;
+                idCardAlreadyPlaced = null;
             }
             if (cardToAdd.isOfNextLevel(card)) {
                 this.listOfDevelopmentCards.add(cardToAdd);
                 notifyUpdate(generateUpdate(cardToAdd));
             }
             else
-                throw new DevelopmentCardNotAddableException(card.getCardLevel(), cardToAdd.getCardLevel());
+                if(idCardAlreadyPlaced == null)
+                    throw new DevelopmentCardNotAddableException(idCardToAdd);
+                else
+                    throw new DevelopmentCardNotAddableException(idCardAlreadyPlaced, idCardToAdd);
         }
         else
             throw new SlotDevelopmentCardsIsFullException();
