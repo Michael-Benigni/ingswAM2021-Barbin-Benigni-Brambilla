@@ -1,11 +1,14 @@
 package it.polimi.ingsw.client.view.ui;
 
 import it.polimi.ingsw.client.view.Controller;
+import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.Interpreter;
 import it.polimi.ingsw.utils.network.Sendable;
 
 public interface UI {
+
+    ClientState getState();
 
     void showPersonalBoard();
 

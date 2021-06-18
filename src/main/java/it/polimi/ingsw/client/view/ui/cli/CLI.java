@@ -302,7 +302,8 @@ public class CLI implements UI {
         clear ();
     }
 
-    protected synchronized ClientState getState() {
+    @Override
+    public synchronized ClientState getState() {
         return state;
     }
 

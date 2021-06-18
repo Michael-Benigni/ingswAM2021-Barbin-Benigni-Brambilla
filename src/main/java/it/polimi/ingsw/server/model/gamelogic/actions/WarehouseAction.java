@@ -23,12 +23,7 @@ public class WarehouseAction extends PayAction implements FirstTurnAction {
         WarehouseDepots warehouse = player.getPersonalBoard().getWarehouseDepots();
         switch (getStoreOrRemove ()) {
             case STORE: {
-                try {
-                    warehouse.store(getResource(), depotIdx);
-                } catch (ResourceOverflowInDepotException e) {
-                    player.getPersonalBoard().getTempContainer().store(e.getResource());
-                    throw new ResourceOverflowInDepotException(e.getResource());
-                }
+                warehouse.store(getResource(), depotIdx);
                 break;
             }
             case REMOVE: {

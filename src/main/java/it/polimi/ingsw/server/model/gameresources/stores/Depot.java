@@ -46,23 +46,22 @@ class Depot {
      * difference and throws an exception.
      * @param resourceToStore resource to be added to this depot.
      */
-    void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, NegativeResourceAmountException, ResourceOverflowInDepotException {
+    void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, ResourceOverflowInDepotException {
         StorableResource resourceTot;
         if (resourceToStore != null) {
             try {
                 resourceTot = this.getStoredResource ().increaseAmount (resourceToStore);
             } catch (EmptyDepotException e) {
                 resourceTot = resourceToStore.clone ();
-            }
-            if (resourceTot.amountLessEqualThan (capacity)) {
+            } if (resourceTot.amountLessEqualThan (capacity)) {
                 storedResource = resourceTot;
             } else {
                 storedResource = resourceToStore;
                 storedResource.setAmount (capacity);
                 try {
                     throw new ResourceOverflowInDepotException (resourceTot.decreaseAmount (storedResource));
-                } catch (NullResourceAmountException ignored) {
-
+                } catch (NullResourceAmountException | NegativeResourceAmountException | NotEqualResourceTypeException e) {
+                    e.printStackTrace ();
                 }
             }
         }

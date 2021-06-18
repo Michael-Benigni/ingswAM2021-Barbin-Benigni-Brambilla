@@ -30,8 +30,6 @@ public class ClientNetworkLayer {
             // DEBUG: System.out.print (msg + "\n");
             if (ACK.isACKMessage (msg))
                 responseACK(channel, msg);
-            else if(ValidMoveMessage.isValidMoveMessage(msg))/**/;
-                //controller.readyForNextMove ();
             else if(ErrorMessage.isErrorMessage(msg))
                 controller.handleError(new ErrorMessage (msg));
             else {

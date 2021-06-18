@@ -75,12 +75,13 @@ public class Channel {
                     receiver.onReceived (msg);
                 } catch (Exception e) {
                     if (!isClientSideChannel) {
-                        System.out.printf ("Invalid message \"" + msg + "\" from Client n°%s!\n", this.id);
+                        System.out.printf ("NETWORK ERROR: Invalid message \"" + msg + "\" from Client n°%s!\n", this.id);
                         send (new ErrorMessage (e));
                     }
-                    else
-                        System.out.println ("Invalid message   \"" + msg + "\" from Server!");
-                    System.out.println (e.getMessage ());
+                    else {
+                        System.out.println ("NETWORK ERROR: Invalid message   \"" + msg + "\" from Server!");
+                        System.out.println ("DESCRIPTION: " + e.getMessage ());
+                    }
                 }
             }
         }

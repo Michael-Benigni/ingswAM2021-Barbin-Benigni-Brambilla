@@ -1,15 +1,12 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.Controller;
-import it.polimi.ingsw.client.view.states.ClientState;
 import it.polimi.ingsw.client.view.states.GUIState;
 import it.polimi.ingsw.client.view.states.GUIWaitingRoomState;
 import it.polimi.ingsw.client.view.ui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Sendable;
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
 
@@ -22,9 +19,10 @@ public class GUI implements UI {
     private final ArrayDeque<Sendable> messages;
 
     public GUI() {
-        interlocutor = new GUIInterlocutor();
-        interpreter = new GUIInterpreter();
-        messages = new ArrayDeque<>();
+        this.state = new GUIWaitingRoomState ();
+        this.interlocutor = new GUIInterlocutor();
+        this.interpreter = new GUIInterpreter();
+        this.messages = new ArrayDeque<>();
         new Thread (JavaFXApp::show).start();
     }
 
@@ -46,12 +44,12 @@ public class GUI implements UI {
 
     @Override
     public void notifyError(String info) {
-
+        Platform.runLater (() -> Popup.alert ("ERROR", info));
     }
 
     @Override
     public void notifyMessage(String info) {
-
+        Platform.runLater (() -> Popup.alert ("INFO", info));
     }
 
     @Override
@@ -69,7 +67,8 @@ public class GUI implements UI {
         return interpreter;
     }
 
-    protected synchronized ClientState getState() {
+    @Override
+    public synchronized GUIState getState() {
         return state;
     }
 

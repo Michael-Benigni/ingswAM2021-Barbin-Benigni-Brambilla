@@ -7,18 +7,16 @@ import javafx.scene.Scene;
 import java.util.ArrayDeque;
 
 public abstract class GUIState extends ClientState {
-    private final Scene scene;
-
-    public GUIState(GUI gui) {
-        this.scene = buildScene(gui);
-    }
+    private Scene scene;
 
     public Scene getScene(){
         return this.scene;
     }
 
-    public Scene buildScene(GUI gui){
-        return null;
+    public abstract void buildScene(GUI gui);
+
+    protected void setScene(Scene scene) {
+        this.scene = scene;
     }
 
 }

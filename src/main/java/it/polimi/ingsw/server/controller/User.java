@@ -15,7 +15,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-        view.onChanged (new ValidMoveMessage ());
     }
 
     public String getUsername() {
