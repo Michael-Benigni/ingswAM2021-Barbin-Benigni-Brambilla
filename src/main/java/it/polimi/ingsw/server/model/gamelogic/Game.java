@@ -303,7 +303,6 @@ public abstract class Game implements GameComponent {
      *
      * @return the ArrayList of all the actual (not copies) Players registered in the instance of the game on which this method has been called.
      * This ArrayList is ordered according to the Players' order of registration in the game.
-     * @throws NotEnoughPlayersException if has not been reached the numberOfPlayers registered when this method is called.
      */
     public ArrayList<Player> getAllPlayers() {
         return new ArrayList<> (this.playersOrder);

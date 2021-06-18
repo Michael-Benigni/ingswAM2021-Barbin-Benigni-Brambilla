@@ -120,7 +120,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
             this.emptyResources.remove(emptyResources.size() - 1);
             store(resource);
         } catch (IndexOutOfBoundsException e) {
-            throw new NoEmptyResourceException();
+            throw new NoEmptyResourceException(player.getUsername());
         }
     }
 

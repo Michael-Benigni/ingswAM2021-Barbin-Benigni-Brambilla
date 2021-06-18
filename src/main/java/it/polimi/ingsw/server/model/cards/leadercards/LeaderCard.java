@@ -110,7 +110,7 @@ public class LeaderCard {
             auxiliarySlot.notifyUpdate(auxiliarySlot.generateUpdate(auxiliarySlot.getAllNotPlayedCards(),
                     auxiliarySlot.getAllPlayedCards()));
         } else
-            throw new LeaderCardNotPlayedException ();
+            throw new LeaderCardNotPlayedException (this.getCardID());
     }
 
     /**
