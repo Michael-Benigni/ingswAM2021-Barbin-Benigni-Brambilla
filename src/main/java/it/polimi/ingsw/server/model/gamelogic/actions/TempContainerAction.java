@@ -30,7 +30,13 @@ class TempContainerAction implements FirstTurnAction {
             switch (storeOrRemove) {
                 case REMOVE: {
                     tempCont.remove (this.resource);
-                    new WarehouseAction (PayAction.StoreOrRemove.STORE, resource, depotIdx).perform (game, player);
+                    try{
+                        new WarehouseAction (PayAction.StoreOrRemove.STORE, resource, depotIdx).perform (game, player);
+                    }
+                    catch (SameResourceTypeInDifferentDepotsException e){
+                        player.getPersonalBoard().getTempContainer().store(this.resource);
+                        throw new SameResourceTypeInDifferentDepotsException();
+                    }
                     break;
                 }
                 case STORE: {
