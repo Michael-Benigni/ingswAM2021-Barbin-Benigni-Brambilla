@@ -188,7 +188,7 @@ public class MarketTray implements GameComponent {
             try {
                 column.add (getMarbleAt (i, selectedColumnIndex));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidMarketColumnException ();
+                throw new InvalidMarketColumnException (selectedColumnIndex, this.columns);
             }
         }
         return column;
@@ -206,7 +206,7 @@ public class MarketTray implements GameComponent {
             try {
                 row.add (getMarbleAt (selectedRowIndex, i));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidMarketRowException ();
+                throw new InvalidMarketRowException (selectedRowIndex, this.rows);
             }
         }
         return row;
