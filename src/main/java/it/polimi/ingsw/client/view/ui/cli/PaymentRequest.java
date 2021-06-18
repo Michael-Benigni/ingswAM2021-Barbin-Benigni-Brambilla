@@ -26,7 +26,7 @@ public class PaymentRequest extends Request {
             toPay.addProperty ("storeOrRemove", "REMOVE");
             if (payment.size () > 2)
                 toPay.addProperty ("depotIdx", Integer.parseInt (payment.get (2)));
-            writer.addProperty ("payActions", toPay.getInfo ());
+            writer.addProperty (getNamePropertyRequested (), toPay.getInfo ());
         } catch (Exception e) {
             interlocutor.write ("Error: " + e.getMessage ());
             throw new IllegalInputException ();

@@ -1,8 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.view.VirtualView;
-import it.polimi.ingsw.utils.network.ValidMoveMessage;
-
 import java.util.Objects;
 
 public class User {

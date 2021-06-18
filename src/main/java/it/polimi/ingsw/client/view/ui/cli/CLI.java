@@ -271,13 +271,13 @@ public class CLI implements UI {
 
     @Override
     public synchronized void notifyError(String info) {
-        this.interlocutor.write ("Error: " + info);
+        this.interlocutor.write (colour (Colour.RED, "Error: " + info));
         this.nextInputRequest ();
     }
 
     @Override
     public synchronized void notifyMessage(String info) {
-        this.interlocutor.write ("From Server: " + info);
+        this.interlocutor.write (colour (Colour.BLUE, "From Server: " + info));
     }
 
     @Override
