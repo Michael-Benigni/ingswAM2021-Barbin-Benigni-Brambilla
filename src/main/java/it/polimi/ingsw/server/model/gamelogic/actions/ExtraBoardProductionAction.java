@@ -10,12 +10,12 @@ import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesConta
 import java.util.ArrayList;
 
 public class ExtraBoardProductionAction implements ProductionAction {
-    private final PayAction fromWhere;
+    private final PayAction payActions;
     private final StorableResource resourceProduced;
     private final int numExtraPower;
 
-    public ExtraBoardProductionAction(PayAction fromWhere, StorableResource resourceProduced, int numExtraPower) {
-        this.fromWhere = fromWhere;
+    public ExtraBoardProductionAction(PayAction payActions, StorableResource resourceProduced, int numExtraPower) {
+        this.payActions = payActions;
         this.resourceProduced = resourceProduced;
         this.numExtraPower = numExtraPower;
     }
@@ -32,10 +32,10 @@ public class ExtraBoardProductionAction implements ProductionAction {
         PersonalBoard.ExtraProductionPower power = player.getPersonalBoard().getExtraPower(numExtraPower);
         ArrayList<Producible> allProduced = power.produce(player, resourceProduced);
         if (power.isAvailableForProduction()) {
-            fromWhere.setResource(power.getConsumedResource());
+            payActions.setResource(power.getConsumedResource());
             UnboundedResourcesContainer cost = new UnboundedResourcesContainer();
             cost.store(power.getConsumedResource());
-            fromWhere.payOrUndo(game, player, cost);
+            payActions.payOrUndo(game, player, cost);
             if (!cost.getAllResources().isEmpty()) {
                 game.getCurrentTurn().undo(game, player);
             }

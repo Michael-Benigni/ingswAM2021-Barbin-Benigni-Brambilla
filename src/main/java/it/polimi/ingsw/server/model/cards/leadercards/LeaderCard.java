@@ -61,7 +61,8 @@ public class LeaderCard {
 
     public void setExtraProductionPowerEffect(StorableResource resource) {
         this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
-        this.effectDesc = "Extra Production Power\nthat produces " + resource;
+        this.effectDesc = "Extra Production Power\nthat consumes " + resource + "\nto earn 1 Faith Point and" +
+                "\none resource of your choice";
     }
 
     public void setWhiteMarbleTransformationEffect(StorableResource resource) {
