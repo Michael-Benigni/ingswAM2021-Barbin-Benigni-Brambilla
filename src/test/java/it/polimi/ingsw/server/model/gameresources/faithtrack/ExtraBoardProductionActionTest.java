@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
 import it.polimi.ingsw.server.model.cards.leadercards.LeaderCard;
 import it.polimi.ingsw.server.model.cards.leadercards.Requirement;
-import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
+import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
 import it.polimi.ingsw.server.model.gamelogic.ActionTest;
 import it.polimi.ingsw.server.model.gamelogic.actions.*;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
@@ -41,7 +41,7 @@ class ExtraBoardProductionActionTest extends ActionTest {
             extraBoardProductionAction.perform(game, player1);
             fail();
         }
-        catch (AlreadyUsedForProuctionException e) {
+        catch (AlreadyUsedForProductionException e) {
             assertTrue(true);
         }
 

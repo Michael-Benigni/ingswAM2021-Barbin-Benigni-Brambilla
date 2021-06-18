@@ -172,7 +172,7 @@ public abstract class Game implements GameComponent {
                     performActionOf (player, new EndTurnAction ());
                 }
             } else
-                throw new IsNotCurrentPlayerException ();
+                throw new IsNotCurrentPlayerException (currentPlayer.getUsername());
         } else
             throw new NoValidActionException ();
     }

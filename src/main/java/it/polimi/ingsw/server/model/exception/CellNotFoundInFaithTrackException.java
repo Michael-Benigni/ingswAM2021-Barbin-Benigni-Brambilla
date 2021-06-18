@@ -5,5 +5,6 @@ package it.polimi.ingsw.server.model.exception;
  */
 public class CellNotFoundInFaithTrackException extends Exception {
     public CellNotFoundInFaithTrackException() {
+        super("Cell not found in the faith track.");
     }
 }

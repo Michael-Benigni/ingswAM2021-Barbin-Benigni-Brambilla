@@ -5,5 +5,6 @@ package it.polimi.ingsw.server.model.exception;
  */
 public class EmptyDepotException extends Exception {
     public EmptyDepotException() {
+        super("This depot is empty.");
     }
 }

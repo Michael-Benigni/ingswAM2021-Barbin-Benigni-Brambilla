@@ -207,7 +207,7 @@ public class DevelopmentCardsGrid implements GameComponent {
             return this.cardsGrid.get(iPos).get(jPos);
         }
         else {
-            throw new EmptyDeckException();
+            throw new EmptyDeckException(iPos, jPos);
         }
     }
 
@@ -288,7 +288,7 @@ public class DevelopmentCardsGrid implements GameComponent {
 
                 }
         if (checkIfNoMoreCardLike(colourToRemove))
-            throw new GameOverByCardsGridException ();
+            throw new GameOverByCardsGridException (colourToRemove.getCardColour());
     }
 
     private boolean checkIfNoMoreCardLike(GeneralDevelopmentCard colour) {
