@@ -53,7 +53,7 @@ public class DepotTest {
             newDepot.storeResourceInDepot(resourceToStore3);
         } catch (ResourceOverflowInDepotException e) {
             assertEquals(fillingResource, newDepot.getStoredResource());
-        } catch (NotEqualResourceTypeException | NegativeResourceAmountException e) {
+        } catch (NotEqualResourceTypeException e) {
             fail();
         }
     }
