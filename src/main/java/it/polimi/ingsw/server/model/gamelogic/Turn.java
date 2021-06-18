@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
 import it.polimi.ingsw.server.model.exception.IllegalTurnState;
+import it.polimi.ingsw.server.model.exception.IncorrectPaymentException;
 import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.model.exception.WrongInitialConfiguration;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
@@ -167,6 +168,9 @@ public class Turn {
         }
         if (token.equals (TurnToken.UNAVAILABLE))
             resetToken();
+        throw new IncorrectPaymentException("Your payment hasn't been made..." +
+                "Please check if you have all the necessary resources " +
+                "and check if you are picking them from the right place");
     }
 
     public void resetToken() {
