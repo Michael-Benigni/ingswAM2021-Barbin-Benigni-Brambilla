@@ -4,6 +4,8 @@ import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
 import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.server.model.exception.CardNotBuyableException;
+import it.polimi.ingsw.server.model.exception.DevelopmentCardNotAddableException;
+import it.polimi.ingsw.server.model.exception.SlotDevelopmentCardsIsFullException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesContainer;
@@ -37,8 +39,12 @@ class BuyCardAction implements MutualExclusiveAction {
                 game.getCurrentTurn().undo(game, player);
             else {
                 game.getCurrentTurn().clearCache();
-                slot.placeOnTop(chosenCard);
-                cardsGrid.removeChosenCard (row, column);
+                try {
+                    slot.placeOnTop (chosenCard);
+                    cardsGrid.removeChosenCard (row, column);
+                } catch (DevelopmentCardNotAddableException | SlotDevelopmentCardsIsFullException e) {
+                    game.getCurrentTurn ().undo (game, player);
+                }
             }
         }
         else {
