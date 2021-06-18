@@ -105,7 +105,7 @@ public class SlotLeaderCards implements GameComponent {
         if(this.listOfLeaderCards.size() <= maxNumberOfCards)
             this.listOfLeaderCards.add(cardToAdd);
         else
-            throw new FullLeaderCardSlotException();
+            throw new FullLeaderCardSlotException(maxNumberOfCards);
     }
 
 

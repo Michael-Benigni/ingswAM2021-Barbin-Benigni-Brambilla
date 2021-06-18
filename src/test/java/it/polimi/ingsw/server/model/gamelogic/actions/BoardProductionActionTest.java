@@ -42,7 +42,7 @@ class BoardProductionActionTest extends ActionTest {
             boardProductionAction.perform(game, player1);
             fail();
         }
-        catch (AlreadyUsedForProuctionException e){
+        catch (AlreadyUsedForProductionException e){
             assertTrue(true);
         }
     }

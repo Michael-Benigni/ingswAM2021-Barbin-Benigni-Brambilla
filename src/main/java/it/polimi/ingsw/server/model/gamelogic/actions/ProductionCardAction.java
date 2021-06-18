@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
+import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.server.model.gamelogic.Game;
@@ -39,7 +39,7 @@ class ProductionCardAction implements ProductionAction {
             }
         }
         else
-            throw new AlreadyUsedForProuctionException();
+            throw new AlreadyUsedForProductionException();
     }
 }
 

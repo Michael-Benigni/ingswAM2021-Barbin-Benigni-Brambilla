@@ -1,9 +1,8 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
+import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
-import it.polimi.ingsw.server.model.gameresources.Storable;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
 import it.polimi.ingsw.server.model.gameresources.stores.UnboundedResourcesContainer;
 
@@ -46,6 +45,6 @@ class BoardProductionAction implements ProductionAction {
             }
         }
         else
-            throw new AlreadyUsedForProuctionException();
+            throw new AlreadyUsedForProductionException();
     }
 }

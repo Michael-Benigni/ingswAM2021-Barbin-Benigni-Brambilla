@@ -131,7 +131,7 @@ public class FaithTrack implements GameComponent {
             faithMarker.updateCurrentCell(nextCell);
             nextCell.activateCell(this, player);
             if(nextCell == lastCellInFaithTrack()) {
-                throw new GameOverByFaithTrackException();
+                throw new GameOverByFaithTrackException(player.getUsername());
             }
             notifyUpdate(generateUpdate (player, getCellIndex(nextCell)));
         }

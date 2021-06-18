@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
-import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
+import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
 import it.polimi.ingsw.server.model.gamelogic.ActionTest;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -35,7 +35,7 @@ class ProductionCardActionTest extends ActionTest {
             productionCardAction.perform(game, player1);
             fail();
         }
-        catch (AlreadyUsedForProuctionException e){
+        catch (AlreadyUsedForProductionException e){
             assertTrue(true);
         }
     }

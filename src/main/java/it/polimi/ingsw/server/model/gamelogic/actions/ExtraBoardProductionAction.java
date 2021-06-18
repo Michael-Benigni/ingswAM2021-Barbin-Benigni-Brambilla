@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
-import it.polimi.ingsw.server.model.exception.AlreadyUsedForProuctionException;
+import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.Producible;
@@ -46,6 +46,6 @@ public class ExtraBoardProductionAction implements ProductionAction {
                 power.setAvailableForProduction(false);
             }
         } else
-            throw new AlreadyUsedForProuctionException();
+            throw new AlreadyUsedForProductionException();
     }
 }

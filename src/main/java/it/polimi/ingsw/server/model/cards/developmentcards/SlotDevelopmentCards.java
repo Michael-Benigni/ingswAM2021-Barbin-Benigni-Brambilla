@@ -82,7 +82,7 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
                 notifyUpdate(generateUpdate(cardToAdd));
             }
             else
-                throw new DevelopmentCardNotAddableException();
+                throw new DevelopmentCardNotAddableException(card.getCardLevel(), cardToAdd.getCardLevel());
         }
         else
             throw new SlotDevelopmentCardsIsFullException();
