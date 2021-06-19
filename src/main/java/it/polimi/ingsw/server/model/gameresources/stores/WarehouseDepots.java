@@ -69,7 +69,7 @@ public class WarehouseDepots implements GameComponent {
      * @return a boolean value: false if every other depot contains a different type of resource.
      */
     private boolean ifAlreadyContainedInOtherDepots(StorableResource resourceToCompare, int depotIndex) {
-        for (int i = 0; i < this.numberOfDepots; i++)
+        for (int i = 0; i < this.numberOfDepots && resourceToCompare != null; i++)
             if(i != depotIndex && listDepot.get(i).alreadyContained(resourceToCompare))
                 return true;
         return false;
@@ -149,9 +149,18 @@ public class WarehouseDepots implements GameComponent {
         if (ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2)) {
             Depot depot1 = listDepot.get (depotIndex1);
             Depot depot2 = listDepot.get (depotIndex2);
-            StorableResource tempResource1 = depot1.getStoredResource ();
-            StorableResource tempResource2 = depot2.getStoredResource ();
-            if (ifAlreadyContainedInOtherDepots (tempResource1, depotIndex1) && ifAlreadyContainedInOtherDepots (tempResource2, depotIndex2)) {
+            StorableResource tempResource1;
+            StorableResource tempResource2;
+            try {
+                 tempResource1 = depot1.getStoredResource ();
+            } catch (EmptyDepotException ignored) {
+                tempResource1 = null;
+            } try {
+                tempResource2 = depot2.getStoredResource ();
+            } catch (EmptyDepotException e) {
+                tempResource2 = null;
+            }
+            if (!ifAlreadyContainedInOtherDepots (tempResource1, depotIndex1) && !ifAlreadyContainedInOtherDepots (tempResource2, depotIndex2)) {
                 StorableResource resource1 = getResourceAndRemove (depot1);
                 StorableResource resource2 = getResourceAndRemove (depot2);
                 try {
@@ -177,9 +186,9 @@ public class WarehouseDepots implements GameComponent {
                 } finally {
                     notifyUpdate (generateUpdate ());
                 }
-            }
-        } else
-            throw new SameResourceTypeInDifferentDepotsException ();
+            } else
+                throw new SameResourceTypeInDifferentDepotsException ();
+        }
         return depotOverflow;
     }
 
