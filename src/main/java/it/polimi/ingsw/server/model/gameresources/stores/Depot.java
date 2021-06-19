@@ -114,4 +114,8 @@ class Depot {
     public int hashCode() {
         return Objects.hash(storedResource, capacity);
     }
+
+    public void clear() {
+        this.storedResource = null;
+    }
 }

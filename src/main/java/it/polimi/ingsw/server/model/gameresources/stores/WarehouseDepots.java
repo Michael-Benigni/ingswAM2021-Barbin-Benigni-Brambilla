@@ -162,6 +162,15 @@ public class WarehouseDepots implements GameComponent {
                 } catch (ResourceOverflowInDepotException e) {
                     depotOverflow = e.getResource ();
                 }
+            } catch ( NotEqualResourceTypeException e) {
+                try {
+                    depot1.clear();
+                    depot2.clear ();
+                    depot1.storeResourceInDepot (resource1);
+                    depot2.storeResourceInDepot (resource2);
+                } catch (ResourceOverflowInDepotException ignored) {
+                    ignored.printStackTrace ();
+                }
             } finally {
                 notifyUpdate(generateUpdate ());
             }

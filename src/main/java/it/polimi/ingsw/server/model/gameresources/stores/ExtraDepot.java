@@ -24,6 +24,15 @@ public class ExtraDepot extends Depot{
         super.storeResourceInDepot(new StorableResource(resourceType, 0));
     }
 
+    @Override
+    public void clear() {
+        try {
+            storeResourceInDepot (null);
+        } catch (NotEqualResourceTypeException | ResourceOverflowInDepotException e) {
+            e.printStackTrace ();
+        }
+    }
+
     /**
      * Method that puts a resource in this depot. This action is performed if and only if this depot is empty or
      * if it contains a resource of the same type as the one provided in input and, in both cases, the amount of the
@@ -40,14 +49,13 @@ public class ExtraDepot extends Depot{
         } catch (NegativeResourceAmountException e) {
             e.printStackTrace ();
         }
-        try {
-            if (! getStoredResource ().ifSameResourceType (resource))
+        if (resourceToStore != null) {
+            if (!resource.ifSameResourceType (resourceToStore))
                 throw new NotEqualResourceTypeException (resource, resourceToStore);
             else
                 super.storeResourceInDepot (resourceToStore);
-        } catch (EmptyDepotException e) {
-            e.printStackTrace ();
-        }
+        } else
+            super.storeResourceInDepot (resource);
     }
 
     @Override
