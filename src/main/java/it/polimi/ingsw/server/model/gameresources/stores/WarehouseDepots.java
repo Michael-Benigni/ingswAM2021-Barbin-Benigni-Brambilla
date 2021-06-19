@@ -144,37 +144,42 @@ public class WarehouseDepots implements GameComponent {
      * @param depotIndex2 index of the second depot.
      */
     public StorableResource swapDepots(int depotIndex1, int depotIndex2) throws WrongDepotIndexException, EmptyDepotException,
-            NegativeResourceAmountException, NotEqualResourceTypeException {
+            NegativeResourceAmountException, NotEqualResourceTypeException, SameResourceTypeInDifferentDepotsException {
         StorableResource depotOverflow = null;
         if (ifDepotIndexIsCorrect(depotIndex1) && ifDepotIndexIsCorrect(depotIndex2)) {
-            Depot depot1 = listDepot.get(depotIndex1);
-            StorableResource resource1 = getResourceAndRemove (depot1);
-            Depot depot2 = listDepot.get(depotIndex2);
-            StorableResource resource2 = getResourceAndRemove (depot2);
-            try {
+            Depot depot1 = listDepot.get (depotIndex1);
+            Depot depot2 = listDepot.get (depotIndex2);
+            StorableResource tempResource1 = depot1.getStoredResource ();
+            StorableResource tempResource2 = depot2.getStoredResource ();
+            if (ifAlreadyContainedInOtherDepots (tempResource1, depotIndex1) && ifAlreadyContainedInOtherDepots (tempResource2, depotIndex2)) {
+                StorableResource resource1 = getResourceAndRemove (depot1);
+                StorableResource resource2 = getResourceAndRemove (depot2);
                 try {
-                    depot1.storeResourceInDepot (resource2);
-                } catch (ResourceOverflowInDepotException e) {
-                    depotOverflow = e.getResource ();
+                    try {
+                        depot1.storeResourceInDepot (resource2);
+                    } catch (ResourceOverflowInDepotException e) {
+                        depotOverflow = e.getResource ();
+                    }
+                    try {
+                        depot2.storeResourceInDepot (resource1);
+                    } catch (ResourceOverflowInDepotException e) {
+                        depotOverflow = e.getResource ();
+                    }
+                } catch (NotEqualResourceTypeException e) {
+                    try {
+                        depot1.clear ();
+                        depot2.clear ();
+                        depot1.storeResourceInDepot (resource1);
+                        depot2.storeResourceInDepot (resource2);
+                    } catch (ResourceOverflowInDepotException ignored) {
+                        ignored.printStackTrace ();
+                    }
+                } finally {
+                    notifyUpdate (generateUpdate ());
                 }
-                try {
-                    depot2.storeResourceInDepot (resource1);
-                } catch (ResourceOverflowInDepotException e) {
-                    depotOverflow = e.getResource ();
-                }
-            } catch ( NotEqualResourceTypeException e) {
-                try {
-                    depot1.clear();
-                    depot2.clear ();
-                    depot1.storeResourceInDepot (resource1);
-                    depot2.storeResourceInDepot (resource2);
-                } catch (ResourceOverflowInDepotException ignored) {
-                    ignored.printStackTrace ();
-                }
-            } finally {
-                notifyUpdate(generateUpdate ());
             }
-        }
+        } else
+            throw new SameResourceTypeInDifferentDepotsException ();
         return depotOverflow;
     }
 
