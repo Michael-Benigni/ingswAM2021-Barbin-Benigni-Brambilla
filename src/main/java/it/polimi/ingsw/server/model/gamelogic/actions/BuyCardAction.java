@@ -38,17 +38,18 @@ class BuyCardAction implements MutualExclusiveAction {
             if (!costContainer.getAllResources().isEmpty())
                 game.getCurrentTurn().undo(game, player);
             else {
-                game.getCurrentTurn().clearCache();
                 try {
                     slot.placeOnTop (chosenCard);
                     cardsGrid.removeChosenCard (row, column);
                 } catch (DevelopmentCardNotAddableException | SlotDevelopmentCardsIsFullException e) {
-                    try {
+                    try{
                         game.getCurrentTurn ().undo (game, player);
-                    } catch (Exception exception) {
+                    }
+                    catch(Exception ex){
                         throw e;
                     }
                 }
+                game.getCurrentTurn().clearCache();
             }
         }
         else {

@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
 import it.polimi.ingsw.server.model.exception.InvalidAmountForProductionProducedResource;
+import it.polimi.ingsw.server.model.exception.TooMuchResourcesProvided;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -48,7 +49,9 @@ class BoardProductionAction implements ProductionAction {
         }
         else {
             if (! (numOfResources == player.getPersonalBoard ().getNumOfResourcesToPay ()))
-                throw new InvalidAmountForProductionProducedResource (player.getPersonalBoard ().getNumOfResourcesToPay ());
+                throw new TooMuchResourcesProvided(player.getPersonalBoard ().getNumOfResourcesToPay ());
+            else if (! (produced.getAmount () == player.getPersonalBoard ().getNumOfResourcesToProduce()))
+                throw new InvalidAmountForProductionProducedResource (player.getPersonalBoard ().getNumOfResourcesToProduce ());
             throw new AlreadyUsedForProductionException ();
         }
     }
