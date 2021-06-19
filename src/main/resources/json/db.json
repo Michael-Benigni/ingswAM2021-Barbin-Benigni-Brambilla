@@ -23,7 +23,7 @@
     "maxLeaderCardsDuringGame": 2,
     "maxNumOfDevCardsInSlot": 3,
     "numOfResourcesToProduce": 1,
-    "numOfResourcesToPay": 1,
+    "numOfResourcesToPay": 2,
     "warehouseDepots": {
       "numOfDepots": 3,
       "capacities": [1, 2, 3]
