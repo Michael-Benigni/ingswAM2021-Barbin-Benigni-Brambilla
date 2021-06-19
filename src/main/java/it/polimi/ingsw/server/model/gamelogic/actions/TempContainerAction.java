@@ -34,7 +34,7 @@ class TempContainerAction implements FirstTurnAction {
                         new WarehouseAction (PayAction.StoreOrRemove.STORE, resource, depotIdx).perform (game, player);
                     } catch (WrongDepotIndexException | NotEqualResourceTypeException | SameResourceTypeInDifferentDepotsException e){
                         player.getPersonalBoard().getTempContainer().store(this.resource);
-                        throw new SameResourceTypeInDifferentDepotsException();
+                        throw e;
                     } catch (ResourceOverflowInDepotException e) {
                         player.getPersonalBoard().getTempContainer().store(e.getResource ());
                         throw new ResourceOverflowInDepotException (e.getResource ());
