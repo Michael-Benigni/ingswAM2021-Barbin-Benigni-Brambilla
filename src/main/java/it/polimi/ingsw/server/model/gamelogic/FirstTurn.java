@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.gamelogic;
 import it.polimi.ingsw.server.model.exception.IllegalTurnState;
 import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.model.exception.WrongInitialConfiguration;
+import it.polimi.ingsw.server.model.exception.YouMustEndTheProductionPhaseException;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.utils.network.Header;
@@ -46,7 +47,7 @@ public class FirstTurn extends Turn {
 
 
     @Override
-    public void terminate(Game game) throws WrongInitialConfiguration {
+    public void terminate(Game game) throws WrongInitialConfiguration, YouMustEndTheProductionPhaseException {
         int initialResources = game.getParams(game.getCurrentPlayer()).getInitialResources();
         if(!game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(initialResources))
             throw new WrongInitialConfiguration();

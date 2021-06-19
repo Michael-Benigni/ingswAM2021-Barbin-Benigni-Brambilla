@@ -105,10 +105,11 @@ public class ConfigLoader {
         int numberSlotDevCards = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "numOfSlotDevCards/");
         int maxLeaderCardsInSlot = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumOfLeaderCardsInSlot/");
         int maxLeaderCardsDuringGame = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxLeaderCardsDuringGame/");
-        int numOfResourcesForProduction = (int) jsonHandler.getAsJavaObjectFromJSON (int.class, keyInJSON + "numOfResourcesForProduction/");
+        int numOfResourcesToPay = (int) jsonHandler.getAsJavaObjectFromJSON (int.class, keyInJSON + "numOfResourcesToPay/");
+        int numOfResourcesToProduce = (int) jsonHandler.getAsJavaObjectFromJSON (int.class, keyInJSON + "numOfResourcesToProduce/");
         ArrayList<PersonalBoard> boards = new ArrayList<>();
         for (int i = 0; i < numOfPlayers; i++)
-            boards.add(new PersonalBoard(numOfResourcesForProduction, initWarehouseFromJSON(), numberSlotDevCards, maxNumberOfDevCardsInSlot, maxLeaderCardsInSlot, maxLeaderCardsDuringGame));
+            boards.add(new PersonalBoard(numOfResourcesToPay, numOfResourcesToProduce, initWarehouseFromJSON(), numberSlotDevCards, maxNumberOfDevCardsInSlot, maxLeaderCardsInSlot, maxLeaderCardsDuringGame));
         return boards;
     }
 
@@ -202,7 +203,9 @@ public class ConfigLoader {
                 break;
             }
             case "extraProductionPower": {
-                card.setExtraProductionPowerEffect(resource);
+                int amountToProduce = (int) jsonHandler.getAsJavaObjectFromJSONArray(int.class, jsonPath + "amountToProduce", ints);
+                int amountToPay = (int) jsonHandler.getAsJavaObjectFromJSONArray(int.class, jsonPath + "amountToPay", ints);
+                card.setExtraProductionPowerEffect(resource, amountToProduce, amountToPay);
                 break;
             }
             case "transformWhiteMarble": {

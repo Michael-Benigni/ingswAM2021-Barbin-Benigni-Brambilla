@@ -22,7 +22,8 @@
     "maxNumOfLeaderCardsInSlot": 4,
     "maxLeaderCardsDuringGame": 2,
     "maxNumOfDevCardsInSlot": 3,
-    "numOfResourcesForProduction": 2,
+    "numOfResourcesToProduce": 1,
+    "numOfResourcesToPay": 1,
     "warehouseDepots": {
       "numOfDepots": 3,
       "capacities": [1, 2, 3]
@@ -2030,6 +2031,8 @@
           },
           "effect": {
             "effectType": "extraProductionPower",
+            "amountToPay": 1,
+            "amountToProduce": 1,
             "resource": {
               "amount": 1,
               "resourceType": "SHIELD"
@@ -2051,6 +2054,8 @@
           },
           "effect": {
             "effectType": "extraProductionPower",
+            "amountToPay": 1,
+            "amountToProduce": 1,
             "resource": {
               "amount": 1,
               "resourceType": "SERVANT"
@@ -2072,6 +2077,8 @@
           },
           "effect": {
             "effectType": "extraProductionPower",
+            "amountToPay": 1,
+            "amountToProduce": 1,
             "resource": {
               "amount": 1,
               "resourceType": "STONE"
@@ -2093,6 +2100,8 @@
           },
           "effect": {
             "effectType": "extraProductionPower",
+            "amountToPay": 1,
+            "amountToProduce": 1,
             "resource": {
               "amount": 1,
               "resourceType": "COIN"

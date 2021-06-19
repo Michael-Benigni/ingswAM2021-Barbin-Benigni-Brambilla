@@ -13,7 +13,7 @@ class EndTurnMultiplayerActionTest extends ActionTest {
             WrongInitialConfiguration, NegativeVPAmountException, LeaderCardNotFoundException, EmptySlotException,
             NoEmptyResourceException, NegativeResourceAmountException, NotEqualResourceTypeException,
             ResourceOverflowInDepotException, LeaderCardNotDiscardableException, NullResourceAmountException,
-            WrongSlotDevelopmentIndexException, NoValidActionException {
+            WrongSlotDevelopmentIndexException, NoValidActionException, YouMustEndTheProductionPhaseException {
         MultiplayerGame.EndTurnMultiplayerAction endTurnMultiplayerAction = new MultiplayerGame.EndTurnMultiplayerAction ();
         Player currentPlayer = game.getCurrentPlayer();
         LeaderAction discardLeader = new LeaderAction("discard", 0);

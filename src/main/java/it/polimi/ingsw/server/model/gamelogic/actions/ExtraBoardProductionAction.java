@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
+import it.polimi.ingsw.server.model.exception.InvalidAmountForExtraProductionProducedResource;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.Producible;
@@ -31,7 +32,7 @@ public class ExtraBoardProductionAction implements ProductionAction {
     public void perform(Game game, Player player) throws Exception {
         PersonalBoard.ExtraProductionPower power = player.getPersonalBoard().getExtraPower(numExtraPower);
         ArrayList<Producible> allProduced = power.produce(player, resourceProduced);
-        if (power.isAvailableForProduction()) {
+        if (power.isAvailableForProduction() && payAction.getResource ().getAmount () == power.getAmountToPay () && resourceProduced.getAmount () == power.getAmountToProduce()) {
             payAction.setResource(power.getConsumedResource());
             UnboundedResourcesContainer cost = new UnboundedResourcesContainer();
             cost.store(power.getConsumedResource());
@@ -45,7 +46,12 @@ public class ExtraBoardProductionAction implements ProductionAction {
                     producible.onProduced(player, game);
                 power.setAvailableForProduction(false);
             }
-        } else
-            throw new AlreadyUsedForProductionException();
+        } else {
+            if (payAction.getResource ().getAmount () != power.getAmountToPay ())
+                throw new InvalidAmountForExtraProductionProducedResource (payAction.getResource (), power.getAmountToPay ());
+            else if (resourceProduced.getAmount () != power.getAmountToProduce ())
+                throw new InvalidAmountForExtraProductionProducedResource (resourceProduced, power.getAmountToProduce ());
+            throw new AlreadyUsedForProductionException ();
+        }
     }
 }

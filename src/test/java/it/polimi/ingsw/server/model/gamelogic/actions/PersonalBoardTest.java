@@ -24,7 +24,8 @@ public class PersonalBoardTest {
     public static PersonalBoard init() {
         ArrayList<Integer> capacities = new ArrayList<>(Arrays.asList(1, 2, 3));
         int numOfResourcesForProduction = 2;
-        return new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(3, capacities), 3, 3, 4, 2);
+        int numOfResourcesToProduce = 1;
+        return new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, new WarehouseDepots(3, capacities), 3, 3, 4, 2);
     }
 
     /**
@@ -199,20 +200,23 @@ public class PersonalBoardTest {
         } catch(NotExistingExtraProductionPower e) {
             assertTrue(true);
         }
-        StorableResource coin = new StorableResource(ResourceType.COIN, 6);
-        p.addExtraProductionPower(coin);
+        StorableResource coin = new StorableResource(ResourceType.COIN, 1);
+        p.addExtraProductionPower(coin, 1, 1);
         try {
             p.getExtraPower(0).produce(player, coin);
+            fail ();
         } catch(NotExistingExtraProductionPower e) {
             fail();
         } catch (NotContainedResourceException e) {
-            assertTrue(true);
+            assertTrue  (true);
+        } catch (InvalidAmountForExtraProductionProducedResource invalidAmountForExtraProductionProducedResource) {
+            fail ();
         }
         player.getPersonalBoard().getStrongbox().store(new StorableResource(ResourceType.COIN, 10));
         try {
             ArrayList<Producible> producibles = p.getExtraPower(0).produce(player, coin);
             assertTrue(producibles.size() == 2 && producibles.contains(coin) && producibles.contains(new FaithPoint(1)));
-        } catch (NotExistingExtraProductionPower | NotContainedResourceException e) {
+        } catch (NotExistingExtraProductionPower | NotContainedResourceException | InvalidAmountForExtraProductionProducedResource e) {
             fail();
         }
     }

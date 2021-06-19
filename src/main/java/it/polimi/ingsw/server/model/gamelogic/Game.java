@@ -396,6 +396,6 @@ public abstract class Game implements GameComponent {
         this.observers.add (observer);
     }
 
-    public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException,  GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException;
+    public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, YouMustEndTheProductionPhaseException;
 }
 

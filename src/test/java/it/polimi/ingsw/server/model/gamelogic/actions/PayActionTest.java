@@ -52,7 +52,7 @@ class PayActionTest extends ActionTest {
         warehouseActionStore3shield.payOrUndo(game, player1, cost);
         warehouseActionRemove2stone.payOrUndo(game, player1, cost);
         warehouseActionRemove2servant.payOrUndo(game, player1, cost);
-        assertTrue(cost.getAllResources().size() == 2);
+        assertTrue(cost.getAllResources().size() == 3);
         assertTrue(cost.getAllResources().get(0).equals(shield3));
         assertTrue(cost.getAllResources().get(1).equals(coin3));
         allResources = player1.getPersonalBoard().getWarehouseDepots().getAllResources();
@@ -66,7 +66,7 @@ class PayActionTest extends ActionTest {
         warehouseActionRemove3coin.payOrUndo(game, player1, cost);
         warehouseActionRemove2stone.payOrUndo(game, player1, cost);
         warehouseActionRemove2servant.payOrUndo(game, player1, cost);
-        assertTrue(cost.getAllResources().size() == 1);
+        assertTrue(cost.getAllResources().size() == 2);
         assertTrue(cost.getAllResources().get(0).equals(shield3));
         allResources = player1.getPersonalBoard().getWarehouseDepots().getAllResources();
         assertTrue(servant1.equals(allResources.get(0)));
@@ -77,7 +77,7 @@ class PayActionTest extends ActionTest {
         strongboxActionRemove3coin.payOrUndo(game, player1, cost);
         strongboxActionRemove2stone.payOrUndo(game, player1, cost);
         strongboxActionRemove2servant.payOrUndo(game, player1, cost);
-        assertEquals (1, cost.getAllResources ().size ());
+        assertEquals (2, cost.getAllResources ().size ());
         assertEquals (cost.getAllResources ().get (0), shield3);
         allResources = player1.getPersonalBoard().getStrongbox().getAllResources();
         assertEquals (servant1, allResources.get (0));
@@ -89,7 +89,7 @@ class PayActionTest extends ActionTest {
         strongboxActionRemove3coin.payOrUndo(game, player1, cost);
         strongboxActionRemove2stone.payOrUndo(game, player1, cost);
         strongboxActionRemove2servant.payOrUndo(game, player1, cost);
-        assertTrue(cost.getAllResources().size() == 1);
+        assertTrue(cost.getAllResources().size() == 2);
         assertTrue(cost.getAllResources().get(0).equals(new StorableResource (ResourceType.SHIELD, 3)));
         allResources = player1.getPersonalBoard().getStrongbox().getAllResources();
         assertTrue(servant1.equals(allResources.get(0)));

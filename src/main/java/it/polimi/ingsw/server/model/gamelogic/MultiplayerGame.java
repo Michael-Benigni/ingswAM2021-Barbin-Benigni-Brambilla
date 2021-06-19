@@ -37,7 +37,7 @@ public class MultiplayerGame extends Game {
     }
 
     @Override
-    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException,  GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException {
+    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, YouMustEndTheProductionPhaseException {
         new EndTurnMultiplayerAction ().perform (this, this.getCurrentPlayer ());
     }
 
@@ -45,9 +45,9 @@ public class MultiplayerGame extends Game {
 
         @Override
         public void perform(Game game, Player player) throws WrongInitialConfiguration, WrongCellIndexException,
-                CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException {
-            new DiscardAllResources ().perform(game, player);
+                CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException, YouMustEndTheProductionPhaseException {
             game.getCurrentTurn().terminate(game);
+            new DiscardAllResources ().perform(game, player);
             game.setNextPlayer();
         }
     }

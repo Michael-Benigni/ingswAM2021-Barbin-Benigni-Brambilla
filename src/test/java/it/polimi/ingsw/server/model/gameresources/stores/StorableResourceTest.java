@@ -205,7 +205,8 @@ public class StorableResourceTest {
         Player player = new Player();
         WarehouseDepots warehouse = new WarehouseDepots(3, new ArrayList<>(Arrays.asList(3, 4, 5)));
         int numOfResourcesForProduction = 2;
-        PersonalBoard pb = new PersonalBoard(numOfResourcesForProduction, warehouse, 1, 3, 2, 2);
+        int numOfResourcesToProduce = 1;
+        PersonalBoard pb = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, warehouse, 1, 3, 2, 2);
         player.buildBoard(pb);
         player.getPersonalBoard().getStrongbox().store(new StorableResource(ResourceType.STONE, 3));
         warehouse.store(new StorableResource(ResourceType.STONE, 3), 0);

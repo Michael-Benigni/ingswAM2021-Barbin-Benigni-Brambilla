@@ -61,7 +61,8 @@ public class FaithTrackTest {
         listOfSections.add(section1);
         listOfSections.add(section2);
         int numOfResourcesForProduction = 2;
-        PersonalBoard pb = new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(2, new ArrayList<>(Arrays.asList(2, 3))), 3, 3, 4, 2);
+        int numOfResourcesToProduce = 1;
+        PersonalBoard pb = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, new WarehouseDepots(2, new ArrayList<>(Arrays.asList(2, 3))), 3, 3, 4, 2);
         listOfPlayers = new ArrayList<>(0);
         Player player1 = new Player();
         listOfPlayers.add(player1);

@@ -2,8 +2,7 @@ package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
-import it.polimi.ingsw.server.controller.exception.InvalidUserException;
-import it.polimi.ingsw.server.model.exception.NoValidActionException;
+import it.polimi.ingsw.server.model.exception.InvalidAmountForProductionProducedResource;
 import it.polimi.ingsw.server.controller.commands.Command;
 import it.polimi.ingsw.server.model.gamelogic.FirstTurn;
 import it.polimi.ingsw.server.model.gamelogic.Game;
@@ -21,7 +20,7 @@ public interface Action extends Command {
      * @param game -> the Game on which this Action will be performed
      * @param player -> the Player who perform this Action
      */
-    void perform(Game game, Player player) throws Exception;
+    void perform(Game game, Player player) throws Exception, InvalidAmountForProductionProducedResource;
 
 
     /**

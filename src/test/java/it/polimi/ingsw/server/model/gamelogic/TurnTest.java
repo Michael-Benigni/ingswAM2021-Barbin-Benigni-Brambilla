@@ -28,8 +28,9 @@ class TurnTest {
         game = new MultiplayerGame(4);
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
         int numOfResourcesForProduction = 2;
+        int numOfResourcesToProduce = 1;
         for (int i = 0; i < 4; i++)
-            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 2, 2));
+            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 2, 2));
         GameBoard gameBoard = GameBoardTest.initGameBoard();
         ArrayList<InitialParams> listOfParams = new ArrayList<>();
         listOfParams.add(new InitialParams(0, 0));
@@ -135,7 +136,11 @@ class TurnTest {
     void addAfterEnd() throws WrongInitialConfiguration {
         Turn turn = new Turn();
         turn.start(game);
-        turn.terminate(game);
+        try {
+            turn.terminate(game);
+        } catch (YouMustEndTheProductionPhaseException e) {
+            e.printStackTrace ();
+        }
         try {
             turn.add(unique);
             fail();
@@ -154,7 +159,11 @@ class TurnTest {
     void terminateBeforeAction() throws WrongInitialConfiguration {
         Turn turn = new Turn();
         turn.start(game);
-        turn.terminate(game);
+        try {
+            turn.terminate(game);
+        } catch (YouMustEndTheProductionPhaseException e) {
+            e.printStackTrace ();
+        }
         try {
             turn.add(unique);
             fail();
@@ -170,7 +179,7 @@ class TurnTest {
      * It tests if the method prevents starting the same turn after its activation.
      */
     @Test
-    void terminateBeforeStart() throws WrongInitialConfiguration {
+    void terminateBeforeStart() throws WrongInitialConfiguration, YouMustEndTheProductionPhaseException {
         Turn turn = new Turn();
         turn.terminate(game);
         turn.start(game);
@@ -238,7 +247,11 @@ class TurnTest {
         gameTurn.addUndoableAction(store5);
         game.performActionOf(player, store5);
         assertEquals(listOfResources, player.getPersonalBoard().getStrongbox().getAllResources());
-        gameTurn.undo(game, player);
+        try {
+            gameTurn.undo(game, player);
+        } catch (IncorrectPaymentException e) {
+            assertTrue (true);
+        }
         assertEquals(player.getPersonalBoard().getStrongbox().getAllResources(), new ArrayList<StorableResource>());
     }
 

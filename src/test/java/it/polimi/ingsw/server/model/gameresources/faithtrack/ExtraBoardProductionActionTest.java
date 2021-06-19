@@ -23,7 +23,7 @@ class ExtraBoardProductionActionTest extends ActionTest {
         ArrayList<Requirement> requirements = new ArrayList<>();
         VictoryPoint victoryPoints = new VictoryPoint(1);
         LeaderCard leaderCard = new LeaderCard(1, requirements, victoryPoints, null);
-        leaderCard.setExtraProductionPowerEffect(new StorableResource(ResourceType.COIN, 1));
+        leaderCard.setExtraProductionPowerEffect(new StorableResource(ResourceType.COIN, 1), 1, 1);
         leaderCard.play(player1, game);
         StrongboxAction strongboxAction = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, new StorableResource(ResourceType.COIN, 1));
         ExtraBoardProductionAction extraBoardProductionAction = new ExtraBoardProductionAction(strongboxAction, new StorableResource(ResourceType.STONE, 1), 0);

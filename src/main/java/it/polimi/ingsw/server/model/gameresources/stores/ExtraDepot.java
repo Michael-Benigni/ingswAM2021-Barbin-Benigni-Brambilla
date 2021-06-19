@@ -24,6 +24,32 @@ public class ExtraDepot extends Depot{
         super.storeResourceInDepot(new StorableResource(resourceType, 0));
     }
 
+    /**
+     * Method that puts a resource in this depot. This action is performed if and only if this depot is empty or
+     * if it contains a resource of the same type as the one provided in input and, in both cases, the amount of the
+     * contained resource must not exceed "capacity". If it happens, this method fills this depot, calculates the
+     * difference and throws an exception.
+     *
+     * @param resourceToStore resource to be added to this depot.
+     */
+    @Override
+    void storeResourceInDepot(StorableResource resourceToStore) throws NotEqualResourceTypeException, ResourceOverflowInDepotException {
+        StorableResource resource = null;
+        try {
+            resource = new StorableResource (type, 0);
+        } catch (NegativeResourceAmountException e) {
+            e.printStackTrace ();
+        }
+        try {
+            if (! getStoredResource ().ifSameResourceType (resource))
+                throw new NotEqualResourceTypeException (resource, resourceToStore);
+            else
+                super.storeResourceInDepot (resourceToStore);
+        } catch (EmptyDepotException e) {
+            e.printStackTrace ();
+        }
+    }
+
     @Override
     void removeResourceFromDepot(StorableResource resourceToRemove) throws NegativeResourceAmountException, NotEqualResourceTypeException, EmptyDepotException {
         super.removeResourceFromDepot(resourceToRemove);
@@ -41,9 +67,8 @@ public class ExtraDepot extends Depot{
     @Override
     StorableResource getStoredResource() throws EmptyDepotException {
         StorableResource resource = super.getStoredResource();
-        if(resource.getAmount() == 0){
-            resource = null;
-        }
+        if(resource.getAmount() == 0)
+            throw new EmptyDepotException ();
         return resource;
     }
 }

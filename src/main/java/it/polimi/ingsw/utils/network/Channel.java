@@ -79,7 +79,7 @@ public class Channel {
                         send (new ErrorMessage (e));
                     }
                     else {
-                        System.out.println ("NETWORK ERROR: Invalid message   \"" + msg + "\" from Server!");
+                        System.out.println ("NETWORK ERROR: Invalid message \"" + msg + "\" from Server!");
                         System.out.println ("DESCRIPTION: " + e.getMessage ());
                     }
                 }

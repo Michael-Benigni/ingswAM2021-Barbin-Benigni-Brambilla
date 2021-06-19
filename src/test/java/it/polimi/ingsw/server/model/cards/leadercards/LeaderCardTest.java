@@ -31,6 +31,7 @@ public class LeaderCardTest {
     public static Game game;
     public static StorableResource resourceForWhiteMarble;
     private int cardID = 1;
+    private final int numOfResourcesToProduce = 2;
 
     @BeforeEach
     public void prepareTests() throws IllegalNumberOfPlayersException, TooManyPlayersException, InvalidUserException {
@@ -44,8 +45,8 @@ public class LeaderCardTest {
         capacities.add(3);
         WarehouseDepots warehouseDepots = new WarehouseDepots(3, capacities);
         int numOfResourcesForProduction = 2;
-        PersonalBoard personalBoard1 = new PersonalBoard(numOfResourcesForProduction, warehouseDepots, 3, 3, 2, 2);
-        PersonalBoard personalBoard2 = new PersonalBoard(numOfResourcesForProduction, warehouseDepots, 3, 3, 2, 2);
+        PersonalBoard personalBoard1 = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, warehouseDepots, 3, 3, 2, 2);
+        PersonalBoard personalBoard2 = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, warehouseDepots, 3, 3, 2, 2);
         player.buildBoard(personalBoard1);
         auxPlayer.buildBoard(personalBoard2);
     }
@@ -135,7 +136,7 @@ public class LeaderCardTest {
         ArrayList<PersonalBoard> personalBoards = new ArrayList<>();
         int numOfResourcesForProduction = 2;
         for (int i = 0; i < 2; i++)
-            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
+            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
         game.setup(personalBoards, gameBoard, new ArrayList<>());
         try {
             leaderCard.play(player, game);
@@ -243,7 +244,7 @@ public class LeaderCardTest {
         VictoryPoint victoryPoints = new VictoryPoint(1);
         StorableResource resource = new StorableResource(ResourceType.COIN, 1);
         LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, null);
-        leaderCard.setExtraProductionPowerEffect(resource);
+        leaderCard.setExtraProductionPowerEffect(resource, 1, 1);
         return leaderCard;
     }
 

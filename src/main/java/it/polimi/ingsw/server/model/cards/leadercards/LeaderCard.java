@@ -59,8 +59,8 @@ public class LeaderCard {
         this.effectDesc = "Extra-Depot with capacity\nof  " + depotCapacity + " " + resourceType;
     }
 
-    public void setExtraProductionPowerEffect(StorableResource resource) {
-        this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource);
+    public void setExtraProductionPowerEffect(StorableResource resource, int toProduce, int amountToProduce) {
+        this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource, amountToProduce, toProduce);
         this.effectDesc = "Extra Production Power\nthat consumes " + resource + "\nto earn 1 Faith Point and" +
                 "\none resource of your choice";
     }

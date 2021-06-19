@@ -24,6 +24,7 @@ public class ActionTest {
     public FaithTrackTest faithTrackTest = new FaithTrackTest();
     public Player player1, player2;
     public ArrayList<Integer> capacities = new ArrayList<>();
+    private final int numOfResourcesToProduce = 1;
 
     @BeforeEach
     void initPayTest() throws IllegalNumberOfPlayersException, TooManyPlayersException, NegativeResourceAmountException, EmptyDeckException, WrongBoardException, CellNotFoundInFaithTrackException {
@@ -47,10 +48,10 @@ public class ActionTest {
         player1 = game.createPlayer();
         player2 = game.createPlayer();
         int numOfResourcesForProduction = 2;
-        PersonalBoard personalBoard1 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
-        PersonalBoard personalBoard2 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
-        PersonalBoard personalBoard3 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
-        PersonalBoard personalBoard4 = new PersonalBoard(numOfResourcesForProduction, depots,3,3,4, 2);
+        PersonalBoard personalBoard1 = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, depots,3,3,4, 2);
+        PersonalBoard personalBoard2 = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, depots,3,3,4, 2);
+        PersonalBoard personalBoard3 = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, depots,3,3,4, 2);
+        PersonalBoard personalBoard4 = new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, depots,3,3,4, 2);
         ArrayList<PersonalBoard> listOfPersonalBoard = new ArrayList<>(0);
         listOfPersonalBoard.add(personalBoard1);
         listOfPersonalBoard.add(personalBoard2);

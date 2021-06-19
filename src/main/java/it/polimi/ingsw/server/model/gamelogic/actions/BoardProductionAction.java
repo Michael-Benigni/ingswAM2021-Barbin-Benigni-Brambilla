@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.gamelogic.actions;
 
 import it.polimi.ingsw.server.model.exception.AlreadyUsedForProductionException;
+import it.polimi.ingsw.server.model.exception.InvalidAmountForProductionProducedResource;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -29,8 +30,9 @@ class BoardProductionAction implements ProductionAction {
     @Override
     public void perform(Game game, Player player) throws Exception {
         List<StorableResource> resourcesToPay = payActions.stream ().map (PayAction::getResource).collect (Collectors.toList ());
-        int numOfResources = resourcesToPay.stream ().map (StorableResource::getAmount).reduce(0, (a, b) -> a + b);
-        if (player.getPersonalBoard().isAvailableForProduction() && numOfResources >= player.getPersonalBoard ().getNumOfResourcesForProduction()) {
+        int numOfResources = resourcesToPay.stream ().map (StorableResource::getAmount).reduce(0, Integer::sum);
+        if (player.getPersonalBoard().isAvailableForProduction() && numOfResources == player.getPersonalBoard ().getNumOfResourcesToPay ()
+                && produced.getAmount () == player.getPersonalBoard ().getNumOfResourcesToProduce()) {
             UnboundedResourcesContainer cost = new UnboundedResourcesContainer();
             for (PayAction action : payActions)
                 cost.store(action.getResource());
@@ -44,7 +46,10 @@ class BoardProductionAction implements ProductionAction {
                 player.getPersonalBoard().setAvailableForProduction(false);
             }
         }
-        else
-            throw new AlreadyUsedForProductionException();
+        else {
+            if (! (numOfResources == player.getPersonalBoard ().getNumOfResourcesToPay ()))
+                throw new InvalidAmountForProductionProducedResource (player.getPersonalBoard ().getNumOfResourcesToPay ());
+            throw new AlreadyUsedForProductionException ();
+        }
     }
 }

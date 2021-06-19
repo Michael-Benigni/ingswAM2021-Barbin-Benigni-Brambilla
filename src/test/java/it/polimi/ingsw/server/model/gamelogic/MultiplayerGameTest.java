@@ -22,8 +22,9 @@ class MultiplayerGameTest extends ActionTest {
     void initGames() throws IllegalNumberOfPlayersException, TooManyPlayersException {
         personalBoards = new ArrayList<>();
         int numOfResourcesForProduction = 2;
+        int numOfResourcesToProduce = 1;
         for (int i = 0; i < 4; i++)
-            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
+            personalBoards.add(new PersonalBoard(numOfResourcesForProduction, numOfResourcesToProduce, new WarehouseDepots(0, new ArrayList<>()), 4, 3, 4, 2));
         gameNoPlayers = new MultiplayerGame(4);
         game4Players = new MultiplayerGame(4);
         game3Players = new MultiplayerGame(4);

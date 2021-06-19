@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
-import it.polimi.ingsw.server.model.exception.IllegalTurnState;
-import it.polimi.ingsw.server.model.exception.IncorrectPaymentException;
-import it.polimi.ingsw.server.model.exception.NoValidActionException;
-import it.polimi.ingsw.server.model.exception.WrongInitialConfiguration;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.server.model.gamelogic.actions.PayAction;
 import it.polimi.ingsw.utils.network.Header;
@@ -20,12 +17,12 @@ public class Turn {
     /**
      * list of performed Actions in this Turn
      */
-    private ArrayList<Action> performedActions;
+    private final ArrayList<Action> performedActions;
 
     /**
      * list of all the payments that can be reverted if something goes wrong
      */
-    private ArrayList<PayAction> payActions;
+    private final ArrayList<PayAction> payActions;
 
     /**
      * current state of This Turn
@@ -91,6 +88,7 @@ public class Turn {
         this.performedActions = new ArrayList<>();
         this.payActions = new ArrayList<>();
         this.state = TurnState.START;
+        this.token = TurnToken.UNAVAILABLE;
     }
 
 
@@ -138,7 +136,9 @@ public class Turn {
      *
      * @param game -> game in which has been performed this Turn
      */
-    public void terminate(Game game) throws WrongInitialConfiguration {
+    public void terminate(Game game) throws WrongInitialConfiguration, YouMustEndTheProductionPhaseException {
+        if (!this.state.equals (TurnState.END) && this.token.equals (TurnToken.AVAILABLE_FOR_PRODUCTION))
+            throw new YouMustEndTheProductionPhaseException ("You must end your production phase before terminate your turn!");
         this.state = TurnState.END;
     }
 
