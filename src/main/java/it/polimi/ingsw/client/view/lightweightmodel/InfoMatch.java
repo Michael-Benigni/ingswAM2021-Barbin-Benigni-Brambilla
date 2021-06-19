@@ -14,6 +14,10 @@ public class InfoMatch {
         this.positionsAndPlayers = new HashMap<> ();
     }
 
+    public int getNumPlayerInTurn() {
+        return numPlayerInTurn;
+    }
+
     public void setRoomID(int roomID) {
         this.roomID = roomID;
     }

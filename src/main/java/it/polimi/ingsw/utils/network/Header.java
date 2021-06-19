@@ -43,7 +43,8 @@ public interface Header {
         SET_NUM_PLAYERS ("set_num_players"),
         INITIAL_FAITH_TRACK_UPDATE("initial_faith_track_update"),
         DISCONNECTION_UP ("disconnection"),
-        GENERIC_INFO ("tile_already_activated");
+        GENERIC_INFO ("tile_already_activated"),
+        RECONNECTION_RESPONSE ("reconnection_response");
 
         private final String headerStr;
 

@@ -14,7 +14,7 @@ public class ExistingRoomConnectionCommand implements Command {
     }
 
     @Override
-    public void handled(Controller controller, User user) throws FileNotFoundException, InvalidUserException, Exception {
+    public void handled(Controller controller, User user) throws Exception {
         controller.registerToWaitingRoomWith (ID, user);
     }
 }

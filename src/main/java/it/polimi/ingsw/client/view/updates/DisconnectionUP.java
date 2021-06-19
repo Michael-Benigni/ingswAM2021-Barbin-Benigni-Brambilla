@@ -11,7 +11,7 @@ public class DisconnectionUP implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        controller.getUI ().notifyMessage ("Player " + playerDisconnected + " with username "
-                + controller.getModel ().getInfoMatch ().getPlayerAt (playerDisconnected));
+        controller.getUI ().notifyMessage ("Player " + playerDisconnected + " with username \""
+                + controller.getModel ().getInfoMatch ().getPlayerAt (playerDisconnected) + "\" disconnected" );
     }
 }

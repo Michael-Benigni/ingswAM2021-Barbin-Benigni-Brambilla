@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller;
 import it.polimi.ingsw.server.controller.exception.FullWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
 import it.polimi.ingsw.server.controller.exception.InvalidUserException;
+import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
@@ -102,10 +103,10 @@ public class WaitingRoom {
         return this.leader;
     }
 
-    public void disconnect(User user) {
+    public void disconnect(User user, Game game) {
         if (contains (user)) {
             Player player = this.usersPlayers.get (user);
-            if (player != null && !player.isConnected ()) {
+            if (player != null && player.isConnected ()) {
                 player.setIsConnected (false);
                 usersPlayers.values ().stream ().filter ((p) -> p != player).forEach ((p) -> p.notifyUpdate (getDisconnectionUpdate(user)));
             }
@@ -113,13 +114,22 @@ public class WaitingRoom {
                 this.usersPlayers.remove (user);
                 if (leader == user) {
                     ArrayList<User> users = new ArrayList<> (this.usersPlayers.keySet ());
-                    if (!this.usersPlayers.isEmpty ())
+                    if (!this.usersPlayers.isEmpty ()) {
                         leader = users.get (0);
+                        leader.getView ().onChanged (newLeaderUpdate());
+                    }
                     else
                         leader = null;
                 }
             }
         }
+    }
+
+    private Sendable newLeaderUpdate() {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.GENERIC_INFO);
+        writer.addProperty ("text", "You are the new Leader of the Room!");
+        return writer.write ();
     }
 
     private Sendable getDisconnectionUpdate(User user) {
@@ -130,10 +140,23 @@ public class WaitingRoom {
     }
 
     public void reconnection(User user) throws FullWaitingRoomException, InvalidUserException {
-        if (contains (user))
-            usersPlayers.get (user).setIsConnected(true);
-        else
+        if (contains (user) || !isUnique (user)) {
+            User oldUser = findOldUserWithUsername (user.getUsername ());
+            Player player = this.usersPlayers.get (oldUser);
+            this.usersPlayers.remove (oldUser);
+            put(user);
+            setPlayerOf (user, player);
+            usersPlayers.get (user).setIsConnected (true);
+        } else
             put (user);
+    }
+
+    private User findOldUserWithUsername(String username) {
+        for (User user : this.usersPlayers.keySet ()) {
+            if (user.getUsername ().equals (username))
+                return user;
+        }
+        return null;
     }
 
     private void notifyRegistration(User user) {
@@ -155,5 +178,11 @@ public class WaitingRoom {
         writer.addProperty ("username", user.getUsername ());
         writer.addProperty ("numWaitingRoom", getID());
         return writer.write ();
+    }
+
+    public void sendReconnectionMessageOf(User user) {
+        MessageWriter writer = new MessageWriter ();
+        writer.setHeader (Header.ToClient.RECONNECTION_RESPONSE);
+        writer.addProperty ("playerPosition", this.usersPlayers.get (user).getPosition ());
     }
 }

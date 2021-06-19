@@ -29,7 +29,7 @@ public class Controller {
                 return entry.getValue ();
             }
         }
-        throw new InvalidUserException ();
+        return null;
     }
 
     private WaitingRoom getWaitingRoomOf(User user) throws InvalidUserException {
@@ -124,13 +124,15 @@ public class Controller {
     }
 
     public synchronized void disconnect(User user) throws InvalidUserException {
-        getWaitingRoomOf (user).disconnect (user);
+        getWaitingRoomOf (user).disconnect (user, getGameOf (user));
     }
 
     public synchronized void registerToWaitingRoomWith(int ID, User user) throws FullWaitingRoomException, InvalidUserException {
         for (WaitingRoom room : allRooms ())
-            if (room.getID () == ID)
+            if (room.getID () == ID) {
                 room.reconnection (user);
+                room.sendReconnectionMessageOf(user);
+            }
     }
 
     private ArrayList<WaitingRoom> allRooms() {
