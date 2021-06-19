@@ -2,11 +2,11 @@ package it.polimi.ingsw.client.view.updates;
 
 import it.polimi.ingsw.client.view.Controller;
 
-public class PlayerPositionUP implements ViewUpdate {
+public class PlayerInfoUP implements ViewUpdate {
     private final int positionInTurn;
     private final String name;
 
-    public PlayerPositionUP(int positionInTurn, String name) {
+    public PlayerInfoUP(int positionInTurn, String name) {
         this.positionInTurn = positionInTurn;
         this.name = name;
     }

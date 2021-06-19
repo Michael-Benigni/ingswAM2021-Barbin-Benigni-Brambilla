@@ -22,7 +22,7 @@ public class UpdateFactory {
         map.put (Header.ToClient.STRONGBOX_UPDATE, StrongboxUpdate.class);
         map.put (Header.ToClient.TEMP_CONTAINER_UPDATE, TempContainerUpdate.class);
         map.put (Header.ToClient.INITIAL_FAITH_TRACK_UPDATE, InitialFaithTrackUpdate.class);
-        map.put (Header.ToClient.PLAYER_POSITION_UP, PlayerPositionUP.class);
+        map.put (Header.ToClient.PLAYER_INFO_FOR_OTHERS, PlayerInfoUP.class);
         map.put (Header.ToClient.WAIT_YOUR_TURN, WaitYourTurnUP.class);
         map.put (Header.ToClient.LAST_ROUND_UP, LastRoundUP.class);
         map.put (Header.ToClient.SET_NUM_PLAYERS, SetNumPlayersResponseUP.class);

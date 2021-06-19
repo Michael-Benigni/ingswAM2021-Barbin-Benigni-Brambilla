@@ -130,8 +130,11 @@ public class Controller {
     public synchronized void registerToWaitingRoomWith(int ID, User user) throws FullWaitingRoomException, InvalidUserException {
         for (WaitingRoom room : allRooms ())
             if (room.getID () == ID) {
-                room.reconnection (user);
-                room.sendReconnectionMessageOf(user);
+                boolean isReconnection = room.reconnection (user);
+                if (isReconnection) {
+                    getGameOf (user).reconnectionOf(room.getPlayerOf (user));
+                    room.sendReconnectionMessageOf(user);
+                }
             }
     }
 

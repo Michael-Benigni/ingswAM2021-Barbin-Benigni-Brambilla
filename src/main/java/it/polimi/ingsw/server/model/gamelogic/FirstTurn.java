@@ -47,7 +47,7 @@ public class FirstTurn extends Turn {
 
 
     @Override
-    public void terminate(Game game) throws WrongInitialConfiguration, YouMustEndTheProductionPhaseException {
+    public void terminate(Game game) throws WrongInitialConfiguration {
         int initialResources = game.getParams(game.getCurrentPlayer()).getInitialResources();
         if(!game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(initialResources))
             throw new WrongInitialConfiguration();

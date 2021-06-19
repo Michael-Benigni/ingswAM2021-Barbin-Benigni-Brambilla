@@ -139,16 +139,21 @@ public class WaitingRoom {
         return writer.write ();
     }
 
-    public void reconnection(User user) throws FullWaitingRoomException, InvalidUserException {
+    public boolean reconnection(User user) throws FullWaitingRoomException, InvalidUserException {
+        boolean isReconnection = false;
         if (contains (user) || !isUnique (user)) {
             User oldUser = findOldUserWithUsername (user.getUsername ());
             Player player = this.usersPlayers.get (oldUser);
             this.usersPlayers.remove (oldUser);
             put(user);
             setPlayerOf (user, player);
+            player.getObservers ().clear ();
+            player.attach (user.getView ());
             usersPlayers.get (user).setIsConnected (true);
+            isReconnection = true;
         } else
             put (user);
+        return isReconnection;
     }
 
     private User findOldUserWithUsername(String username) {
@@ -184,5 +189,6 @@ public class WaitingRoom {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.RECONNECTION_RESPONSE);
         writer.addProperty ("playerPosition", this.usersPlayers.get (user).getPosition ());
+        this.usersPlayers.keySet ().forEach ((u) -> u.getView ().onChanged (writer.write ()));
     }
 }

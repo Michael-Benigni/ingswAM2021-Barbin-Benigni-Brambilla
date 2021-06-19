@@ -44,7 +44,11 @@ public class VirtualView extends AbstractView implements Observer {
     }
 
     @Override
-    public void disconnect() throws InvalidUserException {
-        controller.disconnect (user);
+    public void disconnect() {
+        try {
+            controller.disconnect (user);
+        } catch (InvalidUserException e) {
+            System.out.println ("The user was still not in a waiting room and it has been disconnected.");
+        }
     }
 }

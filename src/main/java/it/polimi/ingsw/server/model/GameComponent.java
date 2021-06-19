@@ -22,6 +22,13 @@ public interface GameComponent extends Subject {
         });
     }
 
+    default void notifyUpdateTo(ArrayList<Observer> observers, Sendable sendable) {
+        observers.forEach(observer -> {
+            if (observer != null)
+                observer.onChanged (sendable);
+        });
+    }
+
     /**
      * @return the Iterable object of Observers of this.
      */

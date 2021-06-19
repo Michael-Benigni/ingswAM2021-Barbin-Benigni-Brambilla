@@ -177,9 +177,9 @@ public class Player implements GameComponent {
         this.observer = observer;
     }
 
-    public Sendable getPositionUpdate() {
+    public Sendable getPlayerInfoForOtherUpdate() {
         MessageWriter writer = new MessageWriter ();
-        writer.setHeader (Header.ToClient.PLAYER_POSITION_UP);
+        writer.setHeader (Header.ToClient.PLAYER_INFO_FOR_OTHERS);
         writer.addProperty ("name", username);
         writer.addProperty ("positionInTurn", position);
         return writer.write ();

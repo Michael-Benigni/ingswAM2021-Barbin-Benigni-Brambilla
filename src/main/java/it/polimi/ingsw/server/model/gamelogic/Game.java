@@ -105,7 +105,7 @@ public abstract class Game implements GameComponent {
                 player.buildBoard (personalBoards.get (index));
                 player.setPosition (index + 1);
             }
-            playersOrder.forEach ((p1) -> playersOrder.stream().filter ((p2) -> p2 != p1).forEach ((p3) -> p1.notifyUpdate (p3.getPositionUpdate())));
+            playersOrder.forEach ((p1) -> playersOrder.stream().filter ((p2) -> p2 != p1).forEach ((p3) -> p1.notifyUpdate (p3.getPlayerInfoForOtherUpdate ())));
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());
             this.attachToGameBoard ();
@@ -215,9 +215,14 @@ public abstract class Game implements GameComponent {
         }
         nextTurn();
         this.currentPlayer.notifyUpdate (currentTurn.getNextPlayerMessage (this));
-        sendWaitMessage ();
+        sendWaitMessage();
         if (!this.currentPlayer.isConnected ())
             setNextPlayer ();
+    }
+
+    private void sendWaitMessage() {
+        this.playersOrder.stream ().filter ((p1) -> p1 != currentPlayer)
+                .forEach ((p2) -> p2.notifyUpdate (getWaitMessage ()));
     }
 
     private void onGameOver() {
@@ -268,13 +273,11 @@ public abstract class Game implements GameComponent {
      * This method sends to all the Observers of the players different from the current one that they have to wait that
      * the current player ends his turn.
      */
-    private void sendWaitMessage() {
+    private Sendable getWaitMessage() {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.WAIT_YOUR_TURN);
         writer.addProperty ("currPlayer", currentPlayer.getPosition ());
-        playersOrder.stream ()
-                .filter ((p) -> p != currentPlayer)
-                .forEach ((p)-> p.notifyUpdate(writer.write ()));
+        return writer.write ();
     }
 
 
@@ -397,5 +400,12 @@ public abstract class Game implements GameComponent {
     }
 
     public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, YouMustEndTheProductionPhaseException;
+
+    public void reconnectionOf(Player player) {
+        player.setPosition (player.getPosition ());
+        playersOrder.forEach ((p) -> player.notifyUpdate (p.getPlayerInfoForOtherUpdate ()));
+        player.notifyUpdate (getWaitMessage ());
+        this.gameBoard.sendInitialUpdateTo(player);
+    }
 }
 

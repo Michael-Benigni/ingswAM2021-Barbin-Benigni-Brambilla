@@ -29,6 +29,14 @@ public class DevelopmentCardsGrid implements GameComponent {
     private final Integer columns;
     private final ArrayList<Observer> observers;
 
+    public void notifyInitialUpdateTo(Player player) {
+        try {
+            notifyUpdateTo (player.getObservers (), generateInitialUpdate ());
+        } catch (EmptyDeckException e) {
+            e.printStackTrace ();
+        }
+    }
+
     /**
      * this class represents the players
      * that are able to obtain a discount

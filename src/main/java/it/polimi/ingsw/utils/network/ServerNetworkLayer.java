@@ -105,7 +105,7 @@ public class ServerNetworkLayer {
         });
     }
 
-    private void closeChannel(Channel channel) throws NoChannelException, InvalidUserException {
+    private void closeChannel(Channel channel) throws NoChannelException {
         System.out.printf ("Client %s has closed the channel", getTokenOf (channel));
         if (channel.getStatus() != Channel.ChannelStatus.CLOSED)
             channel.close ();
@@ -156,11 +156,7 @@ public class ServerNetworkLayer {
                     }
                 }
                 if (!channel.isActive ()) {
-                    try {
-                        channel.close ();
-                    } catch (InvalidUserException e) {
-                        e.printStackTrace ();
-                    }
+                    channel.close ();
                     System.out.printf ("Client %s disconnected!\n", this.channels.get (indexCh).getKey ());
                     this.channels.remove (entry);
                 }

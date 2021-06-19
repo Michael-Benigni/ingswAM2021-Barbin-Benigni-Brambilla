@@ -100,7 +100,7 @@ public class Channel {
         return false;
     }
 
-    void close() throws InvalidUserException {
+    void close() {
         // closing streams and socket
         try {
             socket.close();

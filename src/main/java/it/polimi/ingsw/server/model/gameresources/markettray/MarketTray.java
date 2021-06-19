@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model.gameresources.markettray;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.InvalidMarketColumnException;
 import it.polimi.ingsw.server.model.exception.InvalidMarketRowException;
+import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gameresources.Resource;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.network.Header;
@@ -293,5 +294,9 @@ public class MarketTray implements GameComponent {
 
     public void notifyInitialUpdate() {
         notifyUpdate (generateUpdate ());
+    }
+
+    public void notifyInitialUpdateTo(Player player) {
+        notifyUpdateTo (player.getObservers (), generateUpdate ());
     }
 }

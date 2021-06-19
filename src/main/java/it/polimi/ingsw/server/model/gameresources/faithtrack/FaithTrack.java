@@ -18,18 +18,18 @@ import java.util.Set;
  */
 public class FaithTrack implements GameComponent {
 
-    private ArrayList<Section> listOfSections;
-    private HashMap<Player, FaithMarker> mapOfFaithMarkers;
-    private ArrayList<Observer> observers;
+    private final ArrayList<Section> listOfSections;
+    private final HashMap<Player, FaithMarker> mapOfFaithMarkers;
+    private final ArrayList<Observer> observers;
 
     /**
      * Constructor method of this class. It builds the entire structure of the track.
      * @param arrayOfSections
      */
     public FaithTrack(ArrayList<Section> arrayOfSections) {
-        this.listOfSections = new ArrayList<>(0);
         this.listOfSections = arrayOfSections;
         this.observers = new ArrayList<> ();
+        this.mapOfFaithMarkers = new HashMap<>(0);
     }
 
     /**
@@ -37,7 +37,6 @@ public class FaithTrack implements GameComponent {
      * @param players
      */
     public void initMarkers(ArrayList<Player> players) {
-        this.mapOfFaithMarkers = new HashMap<>(0);
         Cell firstCell = null;
         try {
             firstCell = firstCellInFaithTrack();
@@ -53,7 +52,7 @@ public class FaithTrack implements GameComponent {
     public void notifyInitialUpdate() throws CellNotFoundInFaithTrackException {
         notifyUpdate (generateInitialUpdate ());
         for (Player player : getPlayersFromFaithTrack ())
-            notifyUpdate (generateUpdate (player, 0));
+            notifyUpdate (generateUpdate (player, getCellIndex (this.mapOfFaithMarkers.get (player).getCurrentCell ())));
     }
 
     private Sendable generateInitialUpdate() throws CellNotFoundInFaithTrackException {
@@ -205,5 +204,13 @@ public class FaithTrack implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+    }
+
+    public void notifyInitialUpdateTo(Player player) {
+        try {
+            notifyUpdateTo (player.getObservers (), generateInitialUpdate ());
+        } catch (CellNotFoundInFaithTrackException e) {
+            e.printStackTrace ();
+        }
     }
 }

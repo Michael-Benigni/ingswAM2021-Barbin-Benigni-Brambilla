@@ -6,11 +6,8 @@ import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.exception.WrongCellIndexException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.network.MessageWriter;
-import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class SoloPlayerFaithTrack extends FaithTrack {
 
@@ -38,7 +35,7 @@ public class SoloPlayerFaithTrack extends FaithTrack {
 
     private void notifyBlackCrossCreation(ArrayList<Observer> observers) {
         blackCross.attachAll (observers);
-        blackCross.notifyUpdate (blackCross.getPositionUpdate ());
+        blackCross.notifyUpdate (blackCross.getPlayerInfoForOtherUpdate ());
     }
 
     private void createBlackCross() {

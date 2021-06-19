@@ -16,5 +16,5 @@ public abstract class AbstractView {
         return channel;
     }
 
-    public abstract void disconnect() throws InvalidUserException;
+    public abstract void disconnect();
 }

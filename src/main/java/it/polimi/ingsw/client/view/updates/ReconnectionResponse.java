@@ -15,8 +15,8 @@ public class ReconnectionResponse implements ViewUpdate {
         InfoMatch info = controller.getModel ().getInfoMatch ();
         if (info.getNumPlayerInTurn () == playerPosition) {
             controller.getUI ().notifyMessage ("You are reconnected!");
-            controller.getUI ().setNextState ();
+            controller.getUI ().nextInputRequest ();
         } else
-            controller.getUI ().notifyMessage ("The player number " + playerPosition + " with username " + info.getPlayerAt (playerPosition) + " is reconnected|");
+            controller.getUI ().notifyMessage ("The player number " + playerPosition + " with username " + info.getPlayerAt (playerPosition) + " is reconnected!");
     }
 }

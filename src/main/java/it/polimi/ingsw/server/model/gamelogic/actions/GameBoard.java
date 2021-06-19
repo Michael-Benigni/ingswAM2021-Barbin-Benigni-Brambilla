@@ -84,4 +84,10 @@ public class GameBoard {
         this.getMarketTray ().notifyInitialUpdate ();
         this.getFaithTrack ().notifyInitialUpdate ();
     }
+
+    public void sendInitialUpdateTo(Player player) {
+        this.getDevelopmentCardGrid ().notifyInitialUpdateTo(player);
+        this.getMarketTray ().notifyInitialUpdateTo (player);
+        this.getFaithTrack ().notifyInitialUpdateTo (player);
+    }
 }
