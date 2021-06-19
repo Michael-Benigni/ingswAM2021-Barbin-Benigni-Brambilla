@@ -77,9 +77,10 @@ class WarehouseActionTest extends ActionTest {
         assertEquals (resourcesFromDepots.get (2), new StorableResource (ResourceType.SHIELD, capacities.get (2)));
 
         ArrayList<StorableResource> resourcesFromTempContainer = player1.getPersonalBoard().getTempContainer().getAllResources();
-        assertTrue (resourcesFromTempContainer.size () == 0);
-}
-
+        assertEquals (resourcesFromTempContainer.get (0), new StorableResource (ResourceType.STONE, 1));
+        assertEquals (resourcesFromTempContainer.get (1), new StorableResource (ResourceType.SERVANT, 1));
+        assertEquals (resourcesFromTempContainer.get (2), new StorableResource (ResourceType.SHIELD, 1));
+    }
 
 
     @Test

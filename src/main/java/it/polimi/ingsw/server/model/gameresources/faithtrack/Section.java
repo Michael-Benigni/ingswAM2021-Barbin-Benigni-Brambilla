@@ -34,7 +34,7 @@ public abstract class Section {
      */
     Cell getCell(int cellIndex) throws WrongCellIndexException {
         if(cellIndex < 0 || cellIndex >= listCells.size())
-            throw new WrongCellIndexException();
+            throw new WrongCellIndexException(cellIndex);
         else
             return this.listCells.get(cellIndex);
     }

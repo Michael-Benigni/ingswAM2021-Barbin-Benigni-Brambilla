@@ -5,5 +5,6 @@ package it.polimi.ingsw.server.model.exception;
  */
 public class TileAlreadyActivatedException extends Exception{
     public TileAlreadyActivatedException() {
+        super("This tile has been activated yet.");
     }
 }

@@ -5,6 +5,7 @@ package it.polimi.ingsw.server.model.exception;
  * negative or exceeds the number of slots.
  */
 public class WrongSlotDevelopmentIndexException extends Exception{
-    public WrongSlotDevelopmentIndexException() {
+    public WrongSlotDevelopmentIndexException(Integer slotIndex) {
+        super("This slot index isn't valid: '" + slotIndex + "'.");
     }
 }

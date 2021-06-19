@@ -40,7 +40,7 @@ public class FirstTurn extends Turn {
             getPerformedActions().add(nextAction);
         } else {
             if (!nextAction.isValid (this))
-                throw new NoValidActionException ();
+                throw new NoValidActionException (nextAction);
             throw new IllegalTurnState ();
         }
     }

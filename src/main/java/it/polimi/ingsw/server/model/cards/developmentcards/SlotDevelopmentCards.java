@@ -91,7 +91,7 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
                     throw new DevelopmentCardNotAddableException(idCardAlreadyPlaced, idCardToAdd);
         }
         else
-            throw new SlotDevelopmentCardsIsFullException();
+            throw new SlotDevelopmentCardsIsFullException(maxNumberOfCardsInSlot);
     }
 
     /**

@@ -5,6 +5,7 @@ package it.polimi.ingsw.server.model.exception;
  * than zero or exceeds the number of depots.
  */
 public class WrongDepotIndexException extends Exception{
-    public WrongDepotIndexException() {
+    public WrongDepotIndexException(Integer depotIndex) {
+        super("This depot index isn't valid: '" + depotIndex + "'.");
     }
 }

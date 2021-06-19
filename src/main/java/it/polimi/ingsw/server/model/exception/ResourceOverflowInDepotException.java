@@ -10,6 +10,7 @@ public class ResourceOverflowInDepotException extends Exception{
     private StorableResource resource;
 
     public ResourceOverflowInDepotException(StorableResource resource) {
+        super("Amount of the resource exceeds the capacity of the depot.");
         this.resource = resource;
     }
 
