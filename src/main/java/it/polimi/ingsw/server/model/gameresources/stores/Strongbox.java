@@ -63,7 +63,7 @@ public class Strongbox extends UnboundedResourcesContainer implements Cloneable,
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -76,5 +76,10 @@ public class Strongbox extends UnboundedResourcesContainer implements Cloneable,
     public void attach(Observer observer) {
         this.observers.add (observer);
         notifyUpdate (generateUpdate ());
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

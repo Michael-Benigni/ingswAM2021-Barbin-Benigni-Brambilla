@@ -1,9 +1,7 @@
 package it.polimi.ingsw.server.model.cards.actiontoken;
 
-import com.google.gson.JsonArray;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.Subject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +57,7 @@ public class SoloActionTokenDeck implements GameComponent {
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -71,5 +69,10 @@ public class SoloActionTokenDeck implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

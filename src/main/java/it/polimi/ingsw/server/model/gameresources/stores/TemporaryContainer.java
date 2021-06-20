@@ -136,7 +136,7 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -157,5 +157,10 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
 
     public boolean isContainerForProduction() {
         return this.isContainerForProduction;
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

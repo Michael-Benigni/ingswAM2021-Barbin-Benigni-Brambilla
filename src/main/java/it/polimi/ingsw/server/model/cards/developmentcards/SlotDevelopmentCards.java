@@ -135,7 +135,7 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -157,5 +157,10 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
     @Override
     public void setAvailableForProduction(boolean availableForProduction) {
         this.availableForProduction = availableForProduction;
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

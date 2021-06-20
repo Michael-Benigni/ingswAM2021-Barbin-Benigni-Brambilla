@@ -107,7 +107,8 @@ public class WaitingRoom {
         if (contains (user)) {
             Player player = this.usersPlayers.get (user);
             if (player != null && player.isConnected ()) {
-                player.setIsConnected (false);
+                player.setIsConnected (false, game);
+                game.detach (user.getView ());
                 usersPlayers.values ().stream ().filter ((p) -> p != player).forEach ((p) -> p.notifyUpdate (getDisconnectionUpdate(user)));
             }
             else {
@@ -139,17 +140,16 @@ public class WaitingRoom {
         return writer.write ();
     }
 
-    public boolean reconnection(User user) throws FullWaitingRoomException, InvalidUserException {
+    public boolean reconnection(User user, Game game) throws FullWaitingRoomException, InvalidUserException {
         boolean isReconnection = false;
-        if (contains (user) || !isUnique (user)) {
+        if ((contains (user) || !isUnique (user)) && game != null) {
             User oldUser = findOldUserWithUsername (user.getUsername ());
             Player player = this.usersPlayers.get (oldUser);
             this.usersPlayers.remove (oldUser);
             put(user);
             setPlayerOf (user, player);
-            player.getObservers ().clear ();
             player.attach (user.getView ());
-            usersPlayers.get (user).setIsConnected (true);
+            usersPlayers.get (user).setIsConnected (true, game);
             isReconnection = true;
         } else
             put (user);

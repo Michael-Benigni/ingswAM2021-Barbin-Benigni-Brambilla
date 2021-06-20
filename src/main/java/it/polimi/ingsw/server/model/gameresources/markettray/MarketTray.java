@@ -278,7 +278,7 @@ public class MarketTray implements GameComponent {
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -292,8 +292,9 @@ public class MarketTray implements GameComponent {
         this.observers.add (observer);
     }
 
-    public void notifyInitialUpdate() {
-        notifyUpdate (generateUpdate ());
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 
     public void notifyInitialUpdateTo(Player player) {

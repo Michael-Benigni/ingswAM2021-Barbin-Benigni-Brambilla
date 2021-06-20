@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class GameBoard {
 
-    private FaithTrack faithTrack;
-    private DevelopmentCardsGrid developmentCardGrid;
-    private MarketTray marketTray;
-    private LeaderCardsDeck leaderCardsDeck;
+    private final FaithTrack faithTrack;
+    private final DevelopmentCardsGrid developmentCardGrid;
+    private final MarketTray marketTray;
+    private final LeaderCardsDeck leaderCardsDeck;
 
 
     /**
@@ -79,15 +79,22 @@ public class GameBoard {
         return this.developmentCardGrid;
     }
 
-    public void sendInitialUpdate() throws CellNotFoundInFaithTrackException {
-        this.getDevelopmentCardGrid ().notifyInitialUpdate();
-        this.getMarketTray ().notifyInitialUpdate ();
-        this.getFaithTrack ().notifyInitialUpdate ();
-    }
-
-    public void sendInitialUpdateTo(Player player) {
+    private void sendInitialUpdateTo(Player player) {
         this.getDevelopmentCardGrid ().notifyInitialUpdateTo(player);
         this.getMarketTray ().notifyInitialUpdateTo (player);
         this.getFaithTrack ().notifyInitialUpdateTo (player);
+    }
+
+    public void detachFromAllComponents(Player player) {
+        this.getDevelopmentCardGrid ().detachAll (player.getObservers ());
+        this.getMarketTray ().detachAll (player.getObservers ());
+        this.getFaithTrack ().detachAll (player.getObservers ());
+    }
+
+    public void attachToAllComponents(Player player) {
+        this.getDevelopmentCardGrid ().attachAll (player.getObservers ());
+        this.getFaithTrack ().attachAll (player.getObservers ());
+        this.getMarketTray ().attachAll (player.getObservers ());
+        this.sendInitialUpdateTo(player);
     }
 }

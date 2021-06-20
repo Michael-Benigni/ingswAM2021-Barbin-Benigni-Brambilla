@@ -37,6 +37,11 @@ public class DevelopmentCardsGrid implements GameComponent {
         }
     }
 
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
+    }
+
     /**
      * this class represents the players
      * that are able to obtain a discount
@@ -312,16 +317,8 @@ public class DevelopmentCardsGrid implements GameComponent {
         return result;
     }
 
-    public void notifyInitialUpdate() {
-        try {
-            notifyUpdate (generateInitialUpdate ());
-        } catch (EmptyDeckException e) {
-            e.printStackTrace ();
-        }
-    }
-
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 

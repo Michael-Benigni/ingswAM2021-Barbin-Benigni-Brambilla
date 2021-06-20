@@ -165,7 +165,7 @@ public class SlotLeaderCards implements GameComponent {
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -185,5 +185,10 @@ public class SlotLeaderCards implements GameComponent {
      */
     public int getMaxNumOfCardsDuringGame() {
         return maxNumOfCardsDuringGame;
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

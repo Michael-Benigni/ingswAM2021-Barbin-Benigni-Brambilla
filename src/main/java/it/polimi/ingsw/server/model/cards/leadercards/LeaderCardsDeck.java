@@ -59,7 +59,7 @@ public class LeaderCardsDeck implements GameComponent {
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -71,5 +71,10 @@ public class LeaderCardsDeck implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

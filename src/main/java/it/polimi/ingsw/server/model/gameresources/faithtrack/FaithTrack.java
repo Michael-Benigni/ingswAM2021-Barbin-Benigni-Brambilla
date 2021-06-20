@@ -49,12 +49,6 @@ public class FaithTrack implements GameComponent {
         }
     }
 
-    public void notifyInitialUpdate() throws CellNotFoundInFaithTrackException {
-        notifyUpdate (generateInitialUpdate ());
-        for (Player player : getPlayersFromFaithTrack ())
-            notifyUpdate (generateUpdate (player, getCellIndex (this.mapOfFaithMarkers.get (player).getCurrentCell ())));
-    }
-
     private Sendable generateInitialUpdate() throws CellNotFoundInFaithTrackException {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.INITIAL_FAITH_TRACK_UPDATE);
@@ -192,7 +186,7 @@ public class FaithTrack implements GameComponent {
 
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -209,8 +203,16 @@ public class FaithTrack implements GameComponent {
     public void notifyInitialUpdateTo(Player player) {
         try {
             notifyUpdateTo (player.getObservers (), generateInitialUpdate ());
+            notifyUpdate (generateInitialUpdate ());
+            for (Player p : getPlayersFromFaithTrack ())
+                notifyUpdate (generateUpdate (p, getCellIndex (this.mapOfFaithMarkers.get (player).getCurrentCell ())));
         } catch (CellNotFoundInFaithTrackException e) {
             e.printStackTrace ();
         }
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

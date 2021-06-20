@@ -26,8 +26,10 @@ public class SingleplayerGame extends Game {
      * the game board.
      */
     private void setup(ArrayList<PersonalBoard> personalBoards, SoloPlayerGameBoard gameBoard, ArrayList<InitialParams> params) throws IllegalNumberOfPlayersException, WrongBoardException, CellNotFoundInFaithTrackException {
-        if (gameBoard.getActionTokenDeck () != null)
-            super.setup(personalBoards, gameBoard, params);
+        if (gameBoard.getActionTokenDeck () != null) {
+            super.setup (personalBoards, gameBoard, params);
+            getGameBoard ().getActionTokenDeck ().attachAll(new ArrayList<> (getObservers ()));
+        }
         else
             throw new WrongBoardException ();
     }
@@ -54,12 +56,6 @@ public class SingleplayerGame extends Game {
         } catch (GameOverByCardsGridException e) {
             e.printStackTrace ();
         }
-    }
-
-    @Override
-    protected void attachToGameBoard() {
-        super.attachToGameBoard ();
-        getGameBoard ().getActionTokenDeck ().attachAll(new ArrayList<> ((Collection<? extends Observer>) getObservers ()));
     }
 
     public static class EndTurnSingleplayerAction extends MultiplayerGame.EndTurnMultiplayerAction {

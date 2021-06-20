@@ -108,8 +108,7 @@ public abstract class Game implements GameComponent {
             playersOrder.forEach ((p1) -> playersOrder.stream().filter ((p2) -> p2 != p1).forEach ((p3) -> p1.notifyUpdate (p3.getPlayerInfoForOtherUpdate ())));
             this.gameBoard = gameBoard;
             this.gameBoard.prepare (getAllPlayers ());
-            this.attachToGameBoard ();
-            this.gameBoard.sendInitialUpdate();
+            this.playersOrder.forEach ((player) -> this.gameBoard.attachToAllComponents (player));
             this.currentTurn = new FirstTurn ();
             this.currentTurn.start (this);
             this.currentPlayer = playersOrder.getFirst ();
@@ -118,12 +117,6 @@ public abstract class Game implements GameComponent {
             this.numberOfRounds = 0;
         } else
             throw new IllegalNumberOfPlayersException ();
-    }
-
-    protected void attachToGameBoard() {
-        this.gameBoard.getDevelopmentCardGrid ().attachAll (observers);
-        this.gameBoard.getFaithTrack ().attachAll (observers);
-        this.gameBoard.getMarketTray ().attachAll (observers);
     }
 
 
@@ -384,7 +377,7 @@ public abstract class Game implements GameComponent {
      * @return the Iterable object of Observers of this.
      */
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -405,7 +398,11 @@ public abstract class Game implements GameComponent {
         player.setPosition (player.getPosition ());
         playersOrder.forEach ((p) -> player.notifyUpdate (p.getPlayerInfoForOtherUpdate ()));
         player.notifyUpdate (getWaitMessage ());
-        this.gameBoard.sendInitialUpdateTo(player);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }
 

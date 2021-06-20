@@ -24,6 +24,11 @@ import java.util.Objects;
  */
 public class PersonalBoard implements Producer, GameComponent {
 
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
+    }
+
     /**
      * this class models the extra
      * production power provided
@@ -32,7 +37,6 @@ public class PersonalBoard implements Producer, GameComponent {
     class ExtraProductionPower implements Producer {
 
         private final StorableResource consumedResource;
-
         private final int amountToPay;
         private boolean availableForProduction;
         private final int amountToProduce;
@@ -134,7 +138,7 @@ public class PersonalBoard implements Producer, GameComponent {
     }
 
     @Override
-    public Iterable<Observer> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
@@ -146,6 +150,11 @@ public class PersonalBoard implements Producer, GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+    }
+
+
+    public void detachAll() {
+
     }
 
     public ArrayList<SlotDevelopmentCards> getListOfSlotDevelopmentCards() {

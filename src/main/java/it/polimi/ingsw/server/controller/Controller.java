@@ -130,12 +130,20 @@ public class Controller {
     public synchronized void registerToWaitingRoomWith(int ID, User user) throws FullWaitingRoomException, InvalidUserException {
         for (WaitingRoom room : allRooms ())
             if (room.getID () == ID) {
-                boolean isReconnection = room.reconnection (user);
+                boolean isReconnection;
+                isReconnection = room.reconnection (user, getGameOf(room));
                 if (isReconnection) {
                     getGameOf (user).reconnectionOf(room.getPlayerOf (user));
                     room.sendReconnectionMessageOf(user);
                 }
             }
+    }
+
+    private Game getGameOf(WaitingRoom room) {
+        for (Entry<WaitingRoom, Game> entry : this.waitingRooms)
+            if (entry.getKey ().equals (room))
+                return this.waitingRooms.get (this.waitingRooms.indexOf (entry)).getValue ();
+            return null;
     }
 
     private ArrayList<WaitingRoom> allRooms() {

@@ -66,12 +66,25 @@ public class Player implements GameComponent {
      */
     public void buildBoard(PersonalBoard personalBoard) {
         this.personalBoard = personalBoard;
+        attachToAllComponent();
+    }
+
+    private void attachToAllComponent() {
         this.personalBoard.getStrongbox ().attach(observer);
         for (SlotDevelopmentCards slot : this.personalBoard.getListOfSlotDevelopmentCards ())
             slot.attach (observer);
         this.personalBoard.getSlotLeaderCards ().attach(observer);
         this.personalBoard.getTempContainer ().attach(observer);
         this.personalBoard.getWarehouseDepots ().attach (observer);
+    }
+
+    private void detachFromAllComponent() {
+        this.personalBoard.getStrongbox ().detach(observer);
+        for (SlotDevelopmentCards slot : this.personalBoard.getListOfSlotDevelopmentCards ())
+            slot.detach (observer);
+        this.personalBoard.getSlotLeaderCards ().detach (observer);
+        this.personalBoard.getTempContainer ().detach (observer);
+        this.personalBoard.getWarehouseDepots ().detach (observer);
     }
 
 
@@ -155,8 +168,15 @@ public class Player implements GameComponent {
         return this.isConnected;
     }
 
-    public void setIsConnected(boolean connected) {
+    public void setIsConnected(boolean connected, Game game) {
         isConnected = connected;
+        if (!isConnected ()) {
+            detachFromAllComponent ();
+            game.getGameBoard ().detachFromAllComponents (this);
+        } else {
+            attachToAllComponent ();
+            game.getGameBoard ().attachToAllComponents (this);
+        }
     }
 
     @Override
@@ -195,5 +215,15 @@ public class Player implements GameComponent {
 
     public String getUsername() {
         return username;
+    }
+
+    public void detachAll() {
+        getObservers ().clear ();
+        getPersonalBoard ().detachAll();
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
     }
 }

@@ -29,8 +29,14 @@ public interface GameComponent extends Subject {
         });
     }
 
+    void detach(Observer observer);
+
     /**
      * @return the Iterable object of Observers of this.
      */
     Iterable<Observer> getObservers();
+
+    default void detachAll(Iterable<Observer> observers) {
+        observers.forEach (this::detach);
+    }
 }
