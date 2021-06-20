@@ -217,11 +217,6 @@ public class Player implements GameComponent {
         return username;
     }
 
-    public void detachAll() {
-        getObservers ().clear ();
-        getPersonalBoard ().detachAll();
-    }
-
     @Override
     public void detach(Observer observer) {
         getObservers ().remove(observer);

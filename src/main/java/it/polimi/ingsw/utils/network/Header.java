@@ -8,7 +8,8 @@ public interface Header {
     enum Common implements Header{
         ACK("ack"),
         ERROR ("error"),
-        VALID ("valid");
+        VALID ("valid"),
+        QUIT ("quit");
 
         private final String stringInfo;
 
@@ -58,7 +59,6 @@ public interface Header {
      * Headers of messages that can be received from Server and sent by Client
      */
     enum ToServer implements Header {
-        QUIT ("quit"),
         NEW_USER("new_user"),
         SET_USERNAME("set_username"),
         SET_NUM_PLAYERS("set_num_players"),

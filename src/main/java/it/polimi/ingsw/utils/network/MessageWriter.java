@@ -25,6 +25,10 @@ public class MessageWriter {
 
     public void addProperty(String nameProperty, Object input) {
         JsonObject info = message.get("info").getAsJsonObject ();
+        if (nameProperty.equals ("info")) {
+            message.remove ("info");
+            message.addProperty ("info", String.valueOf (input));
+        }
         if (info.has (nameProperty)) {
             JsonElement property = info.get (nameProperty);
             info.remove (nameProperty);

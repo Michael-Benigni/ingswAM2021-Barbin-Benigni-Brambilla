@@ -28,8 +28,11 @@ public class ClientNetworkLayer {
         controller.loop ();
         channel.listeningLoop ((msg)-> {
             // DEBUG: System.out.print (msg + "\n");
-            if (ACK.isACKMessage (msg))
+            if (QuitMessage.isQuitMessage (msg))
+                channel.close ();
+            else if (ACK.isACKMessage (msg)) {
                 responseACK(channel, msg);
+            }
             else if(ErrorMessage.isErrorMessage(msg))
                 controller.handleError(new ErrorMessage (msg));
             else {
@@ -38,6 +41,7 @@ public class ClientNetworkLayer {
                 controller.handle (message);
             }
         });
+        System.out.println ("CLIENT CLOSED.\n");
     }
 
     private void responseACK(Channel channel, String msg) {

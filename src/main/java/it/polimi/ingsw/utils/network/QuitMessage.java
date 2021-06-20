@@ -7,7 +7,11 @@ import java.util.Objects;
 public class QuitMessage extends AbstractMessage<String> {
 
     public QuitMessage(String message) throws IllegalMessageException {
-        super (message, String.class, Header.ToServer.class);
+        super (message, String.class, Header.Common.class);
+    }
+
+    public QuitMessage() {
+        super (Header.Common.QUIT, "Quit");
     }
 
     public static boolean isQuitMessage(String message) {
@@ -17,7 +21,7 @@ public class QuitMessage extends AbstractMessage<String> {
         } catch (Exception e) {
             return false;
         }
-        return Objects.equals (msgFromNetwork.getHeader (), Header.ToServer.QUIT);
+        return Objects.equals (msgFromNetwork.getHeader (), Header.Common.QUIT);
     }
 
     @Override

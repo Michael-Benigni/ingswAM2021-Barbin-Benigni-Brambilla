@@ -68,7 +68,8 @@ public enum PlayMove implements MoveType {
     private static Move quitMove() {
         return (ui) -> {
             MessageWriter writer = new MessageWriter ();
-            writer.setHeader (Header.ToServer.QUIT);
+            writer.setHeader (Header.Common.QUIT);
+            writer.addProperty ("info", "Quit");
             return writer.write ();
         };
     }

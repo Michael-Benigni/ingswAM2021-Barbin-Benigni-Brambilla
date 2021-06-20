@@ -124,19 +124,25 @@ public class Controller {
     }
 
     public synchronized void disconnect(User user) throws InvalidUserException {
-        getWaitingRoomOf (user).disconnect (user, getGameOf (user));
+        try {
+            getWaitingRoomOf (user).disconnect (user, getGameOf (user));
+        } catch (EmptyWaitingRoomException e) {
+            Entry<WaitingRoom, Game> entry = getEntryOf(getWaitingRoomOf (user));
+            this.waitingRooms.remove (entry);
+        }
+    }
+
+    private Entry<WaitingRoom, Game> getEntryOf(WaitingRoom room) {
+        for (Entry<WaitingRoom, Game> entry : this.waitingRooms)
+            if (entry.getKey ().equals (room))
+                return entry;
+            return null;
     }
 
     public synchronized void registerToWaitingRoomWith(int ID, User user) throws FullWaitingRoomException, InvalidUserException {
         for (WaitingRoom room : allRooms ())
-            if (room.getID () == ID) {
-                boolean isReconnection;
-                isReconnection = room.reconnection (user, getGameOf(room));
-                if (isReconnection) {
-                    getGameOf (user).reconnectionOf(room.getPlayerOf (user));
-                    room.sendReconnectionMessageOf(user);
-                }
-            }
+            if (room.getID () == ID)
+                room.reconnection (user, getGameOf(room));
     }
 
     private Game getGameOf(WaitingRoom room) {

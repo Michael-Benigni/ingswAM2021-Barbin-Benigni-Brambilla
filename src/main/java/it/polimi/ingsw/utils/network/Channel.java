@@ -1,8 +1,6 @@
 package it.polimi.ingsw.utils.network;
 
-import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.view.AbstractView;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -26,6 +24,8 @@ public class Channel {
     private final Socket socket;
     private final String id;
     private ChannelStatus status;
+
+
     public Channel(Socket socket, String id) {
         this.status = ChannelStatus.UNKNOWN;
         this.socket = socket;
@@ -68,7 +68,7 @@ public class Channel {
 
     public void listeningLoop(Receiver receiver) {
         String msg;
-        while (inSocket.hasNextLine ()) {
+        while (!status.equals (ChannelStatus.CLOSED) && !status.equals (ChannelStatus.ERROR) && inSocket.hasNextLine ()) {
             msg = inSocket.nextLine ();
             if (msg != null) {
                 try {
@@ -102,6 +102,10 @@ public class Channel {
 
     void close() {
         // closing streams and socket
+        if (!isClientSideChannel)
+            send (new QuitMessage ());
+        else
+            System.out.println ("\n\n\n----------------------------------------------------");
         try {
             socket.close();
             System.out.printf("Channel %s closed\n", this.id);
@@ -113,7 +117,8 @@ public class Channel {
         inSocket.close();
         outSocket.close();
         setStatus(ChannelStatus.CLOSED);
-        view.disconnect();
+        if (!isClientSideChannel)
+            view.disconnect();
     }
 
     public synchronized void send(Sendable sendable) {

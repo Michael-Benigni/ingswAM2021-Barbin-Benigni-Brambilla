@@ -153,10 +153,6 @@ public class PersonalBoard implements Producer, GameComponent {
     }
 
 
-    public void detachAll() {
-
-    }
-
     public ArrayList<SlotDevelopmentCards> getListOfSlotDevelopmentCards() {
         return listOfSlotDevelopmentCards;
     }

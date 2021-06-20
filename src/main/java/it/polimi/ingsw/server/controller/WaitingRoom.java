@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.controller.exception.EmptyWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.FullWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
 import it.polimi.ingsw.server.controller.exception.InvalidUserException;
@@ -11,6 +12,7 @@ import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class WaitingRoom {
     private int size;
@@ -103,7 +105,7 @@ public class WaitingRoom {
         return this.leader;
     }
 
-    public void disconnect(User user, Game game) {
+    public void disconnect(User user, Game game) throws EmptyWaitingRoomException {
         if (contains (user)) {
             Player player = this.usersPlayers.get (user);
             if (player != null && player.isConnected ()) {
@@ -119,8 +121,10 @@ public class WaitingRoom {
                         leader = users.get (0);
                         leader.getView ().onChanged (newLeaderUpdate());
                     }
-                    else
+                    else {
                         leader = null;
+                        throw new EmptyWaitingRoomException ();
+                    }
                 }
             }
         }
@@ -149,7 +153,9 @@ public class WaitingRoom {
             put(user);
             setPlayerOf (user, player);
             player.attach (user.getView ());
+            sendReconnectionMessageOf (user);
             usersPlayers.get (user).setIsConnected (true, game);
+            game.reconnectionOf (player);
             isReconnection = true;
         } else
             put (user);
@@ -190,5 +196,18 @@ public class WaitingRoom {
         writer.setHeader (Header.ToClient.RECONNECTION_RESPONSE);
         writer.addProperty ("playerPosition", this.usersPlayers.get (user).getPosition ());
         this.usersPlayers.keySet ().forEach ((u) -> u.getView ().onChanged (writer.write ()));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof WaitingRoom)) return false;
+        WaitingRoom room = (WaitingRoom) o;
+        return getSize () == room.getSize () && getID () == room.getID () && usersPlayers.equals (room.usersPlayers) && getLeader ().equals (room.getLeader ());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash (getSize (), usersPlayers, getLeader (), getID ());
     }
 }

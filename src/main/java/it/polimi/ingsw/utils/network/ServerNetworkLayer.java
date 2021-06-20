@@ -100,20 +100,19 @@ public class ServerNetworkLayer {
             else {
                 ToServerMessage toServerMessage = new ToServerMessage (msg);
                 view.passToController (toServerMessage);
-                //channel.send (new ValidMoveMessage ());
             }
         });
     }
 
     private void closeChannel(Channel channel) throws NoChannelException {
-        System.out.printf ("Client %s has closed the channel", getTokenOf (channel));
+        System.out.printf ("Client %s has closed the channel\n", getTokenOf (channel));
         if (channel.getStatus() != Channel.ChannelStatus.CLOSED)
             channel.close ();
     }
 
     private synchronized ClientToken getTokenOf(Channel channel) throws NoChannelException {
         for (Entry<ClientToken, Channel> ch : channels) {
-            if (ch.equals (channel))
+            if (ch.getValue ().equals (channel))
                 return ch.getKey ();
         }
         throw new NoChannelException ();
