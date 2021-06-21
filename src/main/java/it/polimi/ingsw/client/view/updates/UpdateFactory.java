@@ -31,6 +31,8 @@ public class UpdateFactory {
         map.put (Header.ToClient.GAME_OVER_UP, GameOverUpdate.class);
         map.put (Header.ToClient.GENERIC_INFO, GenericInfoUpdate.class);
         map.put (Header.ToClient.RECONNECTION_RESPONSE, ReconnectionResponse.class);
+        map.put (Header.ToClient.ADD_EXTRA_PRODUCTION_POWER_UPDATE, AddExtraProductionPowerUpdate.class);
+        map.put (Header.ToClient.ADD_WM_POWER_UPDATE, AddTransformWMUpdate.class);
         return map;
     }
 

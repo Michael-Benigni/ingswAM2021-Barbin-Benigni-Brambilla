@@ -105,7 +105,29 @@ public class CLI implements UI {
                 .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getWidthSection() / getMaxHorizDivisions() - 1), " ", getInterlocutor().getWidthSection()));
         String sectionHeader = getSectionHeader(" ACTIVE LEADER CARDS ", ".");
         activeLeaderCardsAsString.append ("\n");
-        return sectionHeader + "\n" + activeLeaderCardsAsString;
+        return sectionHeader + "\n" + activeLeaderCardsAsString + "\n" + activeEffectSection();
+    }
+
+    private String activeEffectSection() {
+        LWPersonalBoard board = getController ().getModel ().getPersonalBoard ();
+        String effects = board.getExtraProductionPowers ()
+                .stream ()
+                .map ((power) -> padding (
+                        "Index of power: " + power.getIndexOfPower ()
+                                + "\nNum. resources to pay: " + power.getNumberOfResourceToPay ()
+                                + "\nNum. resources to pay: " + power.getNumberOfResourceToProduce ()
+                                + "\nFixed resource you have to pay: " + power.getConsumedResource ().getAmount () + power.getConsumedResource ().getResourceType () + "\n\n",
+                        " ", getWidthSection()) + "\n")
+                .collect(Collectors.joining());
+        effects += "\n\n" + board.getWhiteMarblePowers ()
+                .stream ()
+                .map ((power) -> padding (
+                        "Index of power: " + power.getPowerWMIndex ()
+                                + "\nResource you'll obtain: " + power.getResourceObtained ().getAmount () + power.getResourceObtained ().getResourceType () + "\n\n",
+                        " ", getWidthSection()) + "\n")
+                .collect(Collectors.joining());
+        String sectionHeader = padding (" ACTIVE EFFECTS ", "_", getWidthSection ());
+        return sectionHeader + effects;
     }
 
     private String devCardsSection() {

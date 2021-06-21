@@ -16,4 +16,24 @@ public class LWXProductionPower {
         this.produced = produced;
         this.indexOfPower = indexOfPower;
     }
+
+    public LWResource getConsumedResource() {
+        return consumedResource;
+    }
+
+    public Integer getNumberOfResourceToPay() {
+        return numberOfResourceToPay;
+    }
+
+    public Integer getNumberOfResourceToProduce() {
+        return numberOfResourceToProduce;
+    }
+
+    public LWProducible getProduced() {
+        return produced;
+    }
+
+    public Integer getIndexOfPower() {
+        return indexOfPower;
+    }
 }
