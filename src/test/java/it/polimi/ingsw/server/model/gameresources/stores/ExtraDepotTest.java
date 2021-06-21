@@ -92,7 +92,11 @@ public class ExtraDepotTest {
         }
     }
 
-   /* @Test
+    /**
+     * Test on "clear" method of this class.
+     * It tests if the method successfully empties this extra depot.
+     */
+    @Test
     void checkClear() throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
         ExtraDepot extraDepot = new ExtraDepot(3, ResourceType.STONE);
         try {
@@ -112,5 +116,5 @@ public class ExtraDepotTest {
         } catch (NotEqualResourceTypeException | ResourceOverflowInDepotException e) {
             fail();
         }
-    }*/
+    }
 }

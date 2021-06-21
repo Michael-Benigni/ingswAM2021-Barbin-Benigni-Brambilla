@@ -27,9 +27,11 @@ public class ExtraDepot extends Depot{
     @Override
     public void clear() {
         try {
-            storeResourceInDepot (null);
-        } catch (NotEqualResourceTypeException | ResourceOverflowInDepotException e) {
-            e.printStackTrace ();
+            this.removeResourceFromDepot(this.getStoredResource());
+        } catch (NegativeResourceAmountException | NotEqualResourceTypeException e) {
+            e.printStackTrace();
+        } catch (EmptyDepotException e) {
+            //do nothing, because the depot is already empty.
         }
     }
 
