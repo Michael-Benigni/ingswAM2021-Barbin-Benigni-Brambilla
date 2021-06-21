@@ -54,7 +54,7 @@ public class SingleplayerGame extends Game {
         try {
             new EndTurnSingleplayerAction ().perform (this);
         } catch (GameOverByCardsGridException e) {
-            e.printStackTrace ();
+            e.printStackTrace (); //TODO: how should i do??
         }
     }
 

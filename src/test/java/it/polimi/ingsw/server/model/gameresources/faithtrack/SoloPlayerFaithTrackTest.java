@@ -26,7 +26,7 @@ public class SoloPlayerFaithTrackTest {
         ArrayList<Cell> listOfCells2 = new ArrayList<>(0);
         Cell cell1 = new ClassicCell();
         Cell cell2 = new VPCell(new VictoryPoint(6));
-        Cell cell3 = new ClassicCell();
+        Cell cell3 = new VPCell(new VictoryPoint(100));
         Cell cell4 = new ClassicCell();
         Cell cell5 = new PopeSpace(new PopeFavourTile(new VictoryPoint(10)));
         listOfCells1.add(cell1);
@@ -54,6 +54,6 @@ public class SoloPlayerFaithTrackTest {
     void checkMoveBlackCrossIfCorrect() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException {
         SoloPlayerFaithTrack faithTrack = initSoloPlayerFaithTrack();
         faithTrack.moveBlackCross(2);
-        assertEquals(faithTrack.getBlackCrossPosition(), new ClassicCell());
+        assertEquals(faithTrack.getBlackCrossPosition(), new VPCell(new VictoryPoint(100)));
     }
 }

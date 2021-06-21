@@ -53,7 +53,7 @@ public class VPCell extends Cell{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VPCell vpCell = (VPCell) o;
-        return victoryPoints == vpCell.victoryPoints;
+        return victoryPoints.equals(vpCell.victoryPoints);
     }
 
 }

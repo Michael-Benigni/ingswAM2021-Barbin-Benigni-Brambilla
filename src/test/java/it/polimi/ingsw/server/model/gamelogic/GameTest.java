@@ -99,7 +99,7 @@ class GameTest {
         boolean isCorrect = true;
         System.out.println("Sequence " + index);
         for(Action action : actions) {
-            //System.out.println(action.toString());
+            System.out.println(action.toString());
             if(isCorrect) {
                 try {
                     game.performActionOf(player, action);
