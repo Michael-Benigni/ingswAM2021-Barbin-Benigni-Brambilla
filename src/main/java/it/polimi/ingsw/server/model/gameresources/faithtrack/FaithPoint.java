@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
+import com.google.gson.annotations.SerializedName;
 import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.server.model.exception.GameOverByFaithTrackException;
 import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
@@ -10,13 +11,12 @@ import it.polimi.ingsw.server.model.gameresources.Producible;
 
 import java.util.Objects;
 
-
 /**
  * Class that represents a group of faith points, can be also "0", but not negative
  */
 public class FaithPoint implements Producible {
 
-    private int points;
+    private final int points;
 
 
     /**
@@ -24,10 +24,7 @@ public class FaithPoint implements Producible {
      * @param points -> how many faith points
      */
     public FaithPoint(int points) {
-        if(points < 0)
-            this.points = 0;
-        else
-            this.points = points;
+        this.points = Math.max (points, 0);
     }
 
 

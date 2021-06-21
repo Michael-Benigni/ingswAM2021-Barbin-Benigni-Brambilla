@@ -52,15 +52,10 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
     }
 
     public FaithPoint getPenalty() {
-        ArrayList<StorableResource> resources = null;
-        resources = getAllResources();
+        ArrayList<StorableResource> resources = getAllResources();
         int resourceCount = 0;
-        for (StorableResource r : resources) {
-            int amount = 1;
-            while (!r.amountLessEqualThan(amount-1))
-                amount++;
-            resourceCount += amount - 1;
-        }
+        for (StorableResource r : resources)
+            resourceCount += r.getAmount ();
         notifyUpdate(generateUpdate(resourceCount));
         return new FaithPoint(resourceCount);
     }

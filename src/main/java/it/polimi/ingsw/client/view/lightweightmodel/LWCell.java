@@ -3,10 +3,10 @@ package it.polimi.ingsw.client.view.lightweightmodel;
 import java.util.ArrayList;
 
 public class LWCell {
-    private ArrayList<String> playersInThisCell;
-    private int victoryPoints;
-    private boolean isPopeSpace;
-    private String section;
+    private final ArrayList<String> playersInThisCell;
+    private final int victoryPoints;
+    private final boolean isPopeSpace;
+    private final String section;
 
     public LWCell(ArrayList<String> playersInThisCell, int victoryPoints, boolean isPopeSpace, String section) {
         this.playersInThisCell = playersInThisCell;

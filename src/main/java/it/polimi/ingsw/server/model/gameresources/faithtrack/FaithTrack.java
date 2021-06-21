@@ -133,7 +133,7 @@ public class FaithTrack implements GameComponent {
     protected Sendable generateUpdate(Player player, int cellIndex){
         MessageWriter writer = new MessageWriter();
         writer.setHeader(Header.ToClient.FAITH_TRACK_UPDATE);
-        writer.addProperty("playerOrderReference", player.getPosition());
+        writer.addProperty("player", player.getUsername ());
         writer.addProperty("playerPositionInFT", cellIndex);
         return writer.write();
     }
@@ -203,7 +203,6 @@ public class FaithTrack implements GameComponent {
     public void notifyInitialUpdateTo(Player player) {
         try {
             notifyUpdateTo (player.getObservers (), generateInitialUpdate ());
-            notifyUpdate (generateInitialUpdate ());
             for (Player p : getPlayersFromFaithTrack ())
                 notifyUpdate (generateUpdate (p, getCellIndex (this.mapOfFaithMarkers.get (player).getCurrentCell ())));
         } catch (CellNotFoundInFaithTrackException e) {
