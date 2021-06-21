@@ -2033,6 +2033,10 @@
             "effectType": "extraProductionPower",
             "amountToPay": 1,
             "amountToProduce": 1,
+            "produced": {
+              "points": 1,
+              "className": "it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint"
+            },
             "resource": {
               "amount": 1,
               "resourceType": "SHIELD"
@@ -2056,6 +2060,10 @@
             "effectType": "extraProductionPower",
             "amountToPay": 1,
             "amountToProduce": 1,
+            "produced": {
+              "points": 1,
+              "className": "it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint"
+            },
             "resource": {
               "amount": 1,
               "resourceType": "SERVANT"
@@ -2079,6 +2087,10 @@
             "effectType": "extraProductionPower",
             "amountToPay": 1,
             "amountToProduce": 1,
+            "produced": {
+              "points": 1,
+              "className": "it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint"
+            },
             "resource": {
               "amount": 1,
               "resourceType": "STONE"
@@ -2102,6 +2114,10 @@
             "effectType": "extraProductionPower",
             "amountToPay": 1,
             "amountToProduce": 1,
+            "produced": {
+              "points": 1,
+              "className": "it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint"
+            },
             "resource": {
               "amount": 1,
               "resourceType": "COIN"

@@ -14,11 +14,11 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static it.polimi.ingsw.client.view.ui.cli.Interlocutor.*;
+import static it.polimi.ingsw.client.view.ui.cli.CLIInterlocutor.*;
 
 public class CLI implements UI {
-    private final Interpreter interpreter;
-    private final Interlocutor interlocutor;
+    private final CLIInterpreter interpreter;
+    private final CLIInterlocutor interlocutor;
     private final ArrayDeque<Sendable> messages;
     private ClientState state;
     private Controller controller;
@@ -26,8 +26,8 @@ public class CLI implements UI {
     public CLI() {
         this.messages = new ArrayDeque<> ();
         this.state = new WaitingRoomState ();
-        this.interpreter = new Interpreter ();
-        this.interlocutor = new Interlocutor();
+        this.interpreter = new CLIInterpreter ();
+        this.interlocutor = new CLIInterlocutor ();
     }
 
     public void start() {
@@ -232,15 +232,6 @@ public class CLI implements UI {
         return getSectionHeader (" FAITH TRACK ", "*") + faithTrackAsString;
     }
 
-    private String repeat (String toRepeat, int numOfRepetitions) {
-        StringBuilder result = new StringBuilder (toRepeat);
-        while (numOfRepetitions > 0) {
-            result.append (toRepeat);
-            numOfRepetitions--;
-        }
-        return result.toString ();
-    }
-
     private String cardsGridSection() {
         StringBuilder devCardsAsString = new StringBuilder ();
         LWCardsGrid grid = getController ().getModel ().getBoard ().getGrid ();
@@ -311,12 +302,12 @@ public class CLI implements UI {
     }
 
     @Override
-    public synchronized Interlocutor getInterlocutor() {
+    public synchronized CLIInterlocutor getInterlocutor() {
         return interlocutor;
     }
 
     @Override
-    public synchronized Interpreter getInterpreter() {
+    public synchronized CLIInterpreter getInterpreter() {
         return interpreter;
     }
 

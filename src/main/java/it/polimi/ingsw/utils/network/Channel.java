@@ -71,18 +71,20 @@ public class Channel {
         while (!status.equals (ChannelStatus.CLOSED) && !status.equals (ChannelStatus.ERROR) && inSocket.hasNextLine ()) {
             msg = inSocket.nextLine ();
             if (msg != null) {
-                try {
-                    receiver.onReceived (msg);
-                } catch (Exception e) {
-                    if (!isClientSideChannel) {
-                        System.out.printf ("NETWORK ERROR: Invalid message \"" + msg + "\" from Client n°%s!\n", this.id);
-                        send (new ErrorMessage (e));
+                String finalMsg = msg;
+                new Thread (() -> {
+                    try {
+                        receiver.onReceived (finalMsg);
+                    } catch (Exception e) {
+                        if (!isClientSideChannel) {
+                            System.out.printf ("NETWORK ERROR: Invalid message \"" + finalMsg + "\" from Client n°%s!\n", this.id);
+                            send (new ErrorMessage (e));
+                        } else {
+                            System.out.println ("NETWORK ERROR: Invalid message \"" + finalMsg + "\" from Server!");
+                            System.out.println ("DESCRIPTION: " + e.getMessage ());
+                        }
                     }
-                    else {
-                        System.out.println ("NETWORK ERROR: Invalid message \"" + msg + "\" from Server!");
-                        System.out.println ("DESCRIPTION: " + e.getMessage ());
-                    }
-                }
+                }).start ();
             }
         }
     }

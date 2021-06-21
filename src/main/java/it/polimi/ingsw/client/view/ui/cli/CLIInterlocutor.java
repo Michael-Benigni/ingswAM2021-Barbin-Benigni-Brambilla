@@ -1,17 +1,18 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
+import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.utils.config.StringParser;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class Interlocutor {
+public class CLIInterlocutor implements Interlocutor {
     private static final int WIDTH_SECTION = 160;
     private static final int MAX_HORIZ_DIVISIONS = 4;
     private final PrintWriter writer;
 
-    public Interlocutor() {
+    public CLIInterlocutor() {
         writer = new PrintWriter (System.out);
     }
 
@@ -23,6 +24,7 @@ public class Interlocutor {
         return MAX_HORIZ_DIVISIONS;
     }
 
+    @Override
     public synchronized void write(String string) {
         System.out.printf ("\n%s\n", string);
     }
@@ -97,6 +99,15 @@ public class Interlocutor {
             for (String string : strings)
                 result.append (string).append ("\n");
             result.append ("\n");
+        }
+        return result.toString ();
+    }
+
+    static String repeat (String toRepeat, int numOfRepetitions) {
+        StringBuilder result = new StringBuilder (toRepeat);
+        while (numOfRepetitions > 0) {
+            result.append (toRepeat);
+            numOfRepetitions--;
         }
         return result.toString ();
     }

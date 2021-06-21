@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
+import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.config.StringParser;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ResourceRequest extends Request{
         interlocutor.write ("The format of the input must be \"RESOURCE_TYPE AMOUNT\"");
         StringParser parser = new StringParser (separator);
         MessageWriter resource = new MessageWriter ();
-        ArrayList<String> info = parser.decompose(interpreter.listen ());
+        ArrayList<String> info = parser.decompose(interpreter.listen (getNamePropertyRequested ()));
         try {
             resource.addProperty ("resourceType", info.get (0));
             resource.addProperty ("amount", Integer.parseInt (info.get (1)));

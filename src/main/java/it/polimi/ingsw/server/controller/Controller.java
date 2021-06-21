@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Controller {
-    private ArrayList<Entry<WaitingRoom, Game>> waitingRooms;
+    private final ArrayList<Entry<WaitingRoom, Game>> waitingRooms;
 
     public Controller() {
         this.waitingRooms = new ArrayList<>();
@@ -119,7 +119,7 @@ public class Controller {
         command.handled (this, user);
     }
 
-    public void handleMatchMoveOf (User user, Action action) throws Exception {
+    public synchronized void handleMatchMoveOf (User user, Action action) throws Exception {
         Game game = getGameOf(user);
         try {
             game.performActionOf (this.getWaitingRoomOf (user).getPlayerOf (user), action);

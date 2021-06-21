@@ -74,6 +74,7 @@ public class GUI implements UI {
 
     @Override
     public void setNextState() {
+        Platform.runLater (() -> getState ());
     }
 
 

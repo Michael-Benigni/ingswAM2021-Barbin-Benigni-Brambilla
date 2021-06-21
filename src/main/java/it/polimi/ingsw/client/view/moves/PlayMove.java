@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.moves;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
 import it.polimi.ingsw.client.view.states.PlayState;
+import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
@@ -27,7 +28,6 @@ public enum PlayMove implements MoveType {
     SHOW_PERSONAL_BOARD("SPB", showPersonalBoard()),
     SHOW_GAME_BOARD("SGB", showGameBoard()),
     SHOW_INFO_GAME("INFO", showInfoGame ()),
-    SHOW_CARD_INFO("CI", showCardInfo()),
     SHOW_MENU("MENU", showMenu()),
     QUIT("QUIT", quitMove()) ,
     DISCARD_LEADER_CARD_FIRST_TURN("D", discardLeaderCard1stTurnMove());
@@ -45,22 +45,6 @@ public enum PlayMove implements MoveType {
     private static Move showMenu() {
         return (ui) -> {
             ui.printMenu ();
-            return null;
-        };
-    }
-
-    private static Move showCardInfo() {
-        return (ui) -> {
-            Interlocutor interlocutor = ui.getInterlocutor();
-            Interpreter interpreter = ui.getInterpreter();
-            interlocutor.write ("Choose the row and the column of the card in the grid: \nRow: ");
-            String rowAsStr = interpreter.listen ();
-            int row = Integer.parseInt (rowAsStr);
-            interlocutor.write ("Column :");
-            String columnAsStr = interpreter.listen ();
-            int column = Integer.parseInt (columnAsStr);
-            String desc = ui.getController ().getModel ().getBoard ().getGrid ().getCard(row, column).getDescription ();
-            interlocutor.write (desc);
             return null;
         };
     }
@@ -288,7 +272,7 @@ public enum PlayMove implements MoveType {
             Interlocutor interlocutor = ui.getInterlocutor();
             Interpreter interpreter = ui.getInterpreter();
             interlocutor.write ("You can choose from\n" + PlayState.TurnType.getPossibilities ());
-            String turnType = interpreter.listen ();
+            String turnType = interpreter.listen ("turn");
             try {
                 PlayState.addAvailableMoves (PlayState.TurnType.get (turnType));
             } catch (UnavailableMoveName unavailableMoveName) {
@@ -306,7 +290,7 @@ public enum PlayMove implements MoveType {
                     "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT DEPOT_INDEX\"", nameProperty);
             writer = payment.handleInput (interlocutor, interpreter, writer);
             interlocutor.write ("Digit \"A\" to add another payment, \"S\" to stop");
-            addOrStop = interpreter.listen ();
+            addOrStop = interpreter.listen ("stop");
             iterations++;
         } while (addOrStop.equals ("A"));
         interlocutor.write ("--------------END---------------");

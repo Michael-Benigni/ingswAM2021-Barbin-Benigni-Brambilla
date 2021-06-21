@@ -1,11 +1,7 @@
 package it.polimi.ingsw.client.view.states;
 
-import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
-import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,14 +15,13 @@ import javafx.scene.text.Text;
 
 public class GUIWaitingRoomState extends GUIState{
 
-
     @Override
-    public ClientState getNextState() {
+    public GUIState getNextState() {
         return new GUIPlayState();
     }
 
     @Override
-    public void buildScene(GUI gui){
+    public void buildScene(GUI gui) {
             GridPane grid = new GridPane();
             grid.setAlignment(Pos.CENTER);
             grid.setHgap(10);
@@ -38,7 +33,6 @@ public class GUIWaitingRoomState extends GUIState{
             scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             grid.add(scenetitle, 0, 0, 2, 1);
 
-
             Label userName = new Label("Username:");
             grid.add(userName, 0, 1);
 
@@ -48,31 +42,11 @@ public class GUIWaitingRoomState extends GUIState{
             Button button = new Button ("username");
             button.setOnAction (actionEvent -> {
                 String a = userTextField.getText ();
-                gui.getInterpreter ().addInteraction (a);
+                gui.getInterpreter ().addInteraction ("username", a);
                 new MoveService (WaitingRoomMove.SET_USERNAME.getMove (), gui).start ();
             });
             grid.add (button, 2,3);
             setScene (scene);
     }
 
-    class MoveService extends Service<Move> {
-        private final Move move;
-        private final GUI gui;
-
-        MoveService(Move move, GUI gui) {
-            this.move = move;
-            this.gui = gui;
-        }
-
-        @Override
-        protected Task<Move> createTask() {
-            return new Task<Move> () {
-                @Override
-                protected Move call() throws Exception {
-                    gui.addMessage (move.ask (gui));
-                    return move;
-                }
-            };
-        }
-    }
 }

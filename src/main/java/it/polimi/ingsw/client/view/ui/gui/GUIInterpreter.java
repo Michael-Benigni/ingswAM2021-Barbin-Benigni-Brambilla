@@ -2,17 +2,21 @@ package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.ui.cli.Interpreter;
 
-public class GUIInterpreter extends Interpreter {
-    private String interaction = "";
+import java.util.HashMap;
 
-    @Override
-    public String listen() {
-        return interaction;
+public class GUIInterpreter implements Interpreter {
+    private HashMap<String, String> interactions;
+
+    public GUIInterpreter() {
+        this.interactions = new HashMap<> ();
     }
 
-    public void addInteraction(String interaction) {
-        if (!this.interaction.equals (""))
-            this.interaction += " ";
-        this.interaction += interaction;
+    @Override
+    public String listen(String nameProperty) {
+        return interactions.get (nameProperty);
+    }
+
+    public void addInteraction(String name, String interaction) {
+        this.interactions.put (name, interaction);
     }
 }

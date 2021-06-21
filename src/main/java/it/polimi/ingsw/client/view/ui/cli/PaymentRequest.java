@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
+import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.config.StringParser;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class PaymentRequest extends Request {
     public MessageWriter handleInput(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) throws IllegalInputException {
         super.handleInput (interlocutor, interpreter, writer);
         StringParser parser = new StringParser (separator);
-        ArrayList<String> payment = parser.decompose(interpreter.listen ());
+        ArrayList<String> payment = parser.decompose(interpreter.listen (getNamePropertyRequested ()));
         MessageWriter resource = new MessageWriter ();
         MessageWriter toPay = new MessageWriter ();
         try {

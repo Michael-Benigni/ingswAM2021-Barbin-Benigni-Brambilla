@@ -1,10 +1,8 @@
 package it.polimi.ingsw.client.view.moves;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
-import it.polimi.ingsw.client.view.ui.cli.IntegerRequest;
-import it.polimi.ingsw.client.view.ui.cli.Interlocutor;
-import it.polimi.ingsw.client.view.ui.cli.Interpreter;
-import it.polimi.ingsw.client.view.ui.cli.StringRequest;
+import it.polimi.ingsw.client.view.ui.Interlocutor;
+import it.polimi.ingsw.client.view.ui.cli.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
@@ -71,7 +69,7 @@ public enum WaitingRoomMove implements MoveType {
             Interpreter interpreter = ui.getInterpreter ();
             Interlocutor interlocutor = ui.getInterlocutor ();
             interlocutor.write ("In which room you want to be added ? \"FIRST FREE\", \"EXISTENT\", \"NEW\"");
-            String whichRoomRequest = ui.getInterpreter ().listen ();
+            String whichRoomRequest = ui.getInterpreter ().listen ("room");
             return getMessageForRoomType(whichRoomRequest, interlocutor, interpreter);
         };
     }

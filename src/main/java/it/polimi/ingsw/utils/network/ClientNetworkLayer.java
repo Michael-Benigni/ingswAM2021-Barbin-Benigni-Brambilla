@@ -27,16 +27,13 @@ public class ClientNetworkLayer {
         controller.setChannel(channel);
         controller.loop ();
         channel.listeningLoop ((msg)-> {
-            // DEBUG: System.out.print (msg + "\n");
             if (QuitMessage.isQuitMessage (msg))
                 channel.close ();
             else if (ACK.isACKMessage (msg)) {
-                responseACK(channel, msg);
-            }
-            else if(ErrorMessage.isErrorMessage(msg))
+                responseACK (channel, msg);
+            } else if(ErrorMessage.isErrorMessage(msg))
                 controller.handleError(new ErrorMessage (msg));
             else {
-                // DEBUG: System.out.printf ("Received from Server: %s\n", msg);
                 ToClientMessage message = new ToClientMessage (msg);
                 controller.handle (message);
             }
@@ -45,12 +42,10 @@ public class ClientNetworkLayer {
     }
 
     private void responseACK(Channel channel, String msg) {
-        new Thread (() -> {
-            try {
-                channel.send (new ACK (msg));
-            } catch (IllegalMessageException e) {
-                e.printStackTrace ();
-            }
-        }).start ();
+        try {
+            channel.send (new ACK (msg));
+        } catch (IllegalMessageException e) {
+            e.printStackTrace ();
+        }
     }
 }

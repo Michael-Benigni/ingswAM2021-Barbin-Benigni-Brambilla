@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 public class JavaFXApp extends Application {
     private Scene scene;
+    private Stage stage;
 
     public JavaFXApp() {
         GUI gui = (GUI) Client.getUI ();
@@ -20,6 +21,7 @@ public class JavaFXApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
         stage.setTitle ("Master Of Renaissance");
         stage.setScene (scene);
         stage.show ();
@@ -27,5 +29,9 @@ public class JavaFXApp extends Application {
 
     public static void show () {
         Application.launch ();
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 }
