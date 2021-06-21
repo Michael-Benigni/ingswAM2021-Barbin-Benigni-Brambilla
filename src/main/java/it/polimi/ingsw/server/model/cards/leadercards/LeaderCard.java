@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.server.model.gameresources.Producible;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -50,18 +51,24 @@ public class LeaderCard {
      * @param
      */
     public void setDiscountEffect(StorableResource resource) {
-        this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid().addPlayerWithDiscount(player, resource);
+        this.effect = (player, game) -> game.getGameBoard().getDevelopmentCardGrid()
+                .addPlayerWithDiscount(player, resource);
         this.effectDesc = "Discount of " + resource;
     }
 
     public void setExtraDepotEffect (ResourceType resourceType, int depotCapacity){
-        this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots().addExtraDepot(depotCapacity, resourceType);
+        this.effect = (player, game) -> player.getPersonalBoard().getWarehouseDepots()
+                .addExtraDepot(depotCapacity, resourceType);
         this.effectDesc = "Extra-Depot with capacity\nof  " + depotCapacity + " " + resourceType;
     }
 
-    public void setExtraProductionPowerEffect(StorableResource resource, int toProduce, int amountToProduce) {
-        this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(resource, amountToProduce, toProduce);
-        this.effectDesc = "Extra Production Power\nthat consumes " + resource + "\nto earn 1 Faith Point and" +
+    public void setExtraProductionPowerEffect(StorableResource fixedProducedResource, Producible fixedProducedFP,
+                                              int amountToPay, int amountToProduce) {
+        this.effect = (player, game) -> player.getPersonalBoard().addExtraProductionPower(fixedProducedResource,
+                fixedProducedFP, amountToProduce, amountToPay);
+        this.effectDesc = "Extra Production Power" +
+                "\nthat consumes " + fixedProducedResource +
+                "\nto earn 1 Faith Point and" +
                 "\none resource of your choice";
     }
 
@@ -129,7 +136,8 @@ public class LeaderCard {
      * @throws NotEqualResourceTypeException
      * @throws NullResourceAmountException
      */
-    private boolean checkRequirementsOf (Player player) throws NegativeResourceAmountException, EmptySlotException, WrongSlotDevelopmentIndexException, NotEqualResourceTypeException, NullResourceAmountException {
+    private boolean checkRequirementsOf (Player player) throws NegativeResourceAmountException, EmptySlotException,
+            WrongSlotDevelopmentIndexException, NotEqualResourceTypeException, NullResourceAmountException {
         for(int i = 0; i < this.requirements.size(); i++) {
             if(! this.requirements.get(i).containedIn(player))
                 return false;
@@ -142,7 +150,8 @@ public class LeaderCard {
         if (this == o) return true;
         if (!(o instanceof LeaderCard)) return false;
         LeaderCard card = (LeaderCard) o;
-        return isAlreadyPlayed == card.isAlreadyPlayed && requirements.equals(card.requirements) && victoryPoint.equals(card.victoryPoint) && effect.equals(card.effect);
+        return isAlreadyPlayed == card.isAlreadyPlayed && requirements.equals(card.requirements) &&
+                victoryPoint.equals(card.victoryPoint) && effect.equals(card.effect);
     }
 
     @Override

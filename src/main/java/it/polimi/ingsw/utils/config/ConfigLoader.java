@@ -5,6 +5,8 @@ import it.polimi.ingsw.server.model.cards.actiontoken.SoloActionTokenDeck;
 import it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCard;
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
+import it.polimi.ingsw.server.model.gameresources.Producible;
+import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFaithTrack;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
@@ -205,7 +207,8 @@ public class ConfigLoader {
             case "extraProductionPower": {
                 int amountToProduce = (int) jsonHandler.getAsJavaObjectFromJSONArray(int.class, jsonPath + "amountToProduce", ints);
                 int amountToPay = (int) jsonHandler.getAsJavaObjectFromJSONArray(int.class, jsonPath + "amountToPay", ints);
-                card.setExtraProductionPowerEffect(resource, amountToProduce, amountToPay);
+                Producible produced = (Producible) jsonHandler.getAsJavaObjectFromJSONArray(Producible.class, jsonPath + "produced", ints);
+                card.setExtraProductionPowerEffect(resource, produced, amountToProduce, amountToPay);
                 break;
             }
             case "transformWhiteMarble": {

@@ -21,7 +21,7 @@ public class FaithPoint implements Producible {
 
     /**
      * Constructor method of the FaithPoint class
-     * @param points -> how many faith points
+     * @param points indicates how many faith points
      */
     public FaithPoint(int points) {
         this.points = Math.max (points, 0);

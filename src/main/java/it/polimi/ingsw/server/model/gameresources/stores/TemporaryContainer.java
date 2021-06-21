@@ -86,7 +86,8 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
      * @throws NotContainedResourceException thrown if the provided resource is not contained in this container.
      */
     @Override
-    public void remove(StorableResource storableResource) throws NegativeResourceAmountException, NotContainedResourceException {
+    public void remove(StorableResource storableResource) throws NegativeResourceAmountException,
+            NotContainedResourceException {
         super.remove (storableResource);
         notifyUpdate (generateUpdate ());
     }
@@ -128,6 +129,16 @@ public class TemporaryContainer extends UnboundedResourcesContainer implements G
             resources.add(resource);
             this.modifiers.put(player, resources);
         }
+        int powerWMIndex = this.modifiers.get(player).indexOf(resource);
+        notifyUpdate(generateUpdate(powerWMIndex, resource));
+    }
+
+    private Sendable generateUpdate(int powerWMIndex, StorableResource resourceObtained){
+        MessageWriter messageWriter = new MessageWriter();
+        messageWriter.setHeader(Header.ToClient.ADD_WM_POWER_UPDATE);
+        messageWriter.addProperty("powerWMIndex", powerWMIndex);
+        messageWriter.addProperty("resourceObtained", resourceObtained);
+        return messageWriter.write();
     }
 
     @Override

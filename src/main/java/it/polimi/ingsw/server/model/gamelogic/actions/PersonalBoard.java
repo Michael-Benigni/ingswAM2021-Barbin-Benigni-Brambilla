@@ -14,6 +14,9 @@ import it.polimi.ingsw.server.model.gameresources.stores.Strongbox;
 import it.polimi.ingsw.server.model.gameresources.stores.TemporaryContainer;
 import it.polimi.ingsw.server.model.gameresources.stores.WarehouseDepots;
 import it.polimi.ingsw.utils.Observer;
+import it.polimi.ingsw.utils.network.Header;
+import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,37 +39,44 @@ public class PersonalBoard implements Producer, GameComponent {
      */
     class ExtraProductionPower implements Producer {
 
-        private final StorableResource consumedResource;
+        private final StorableResource fixedConsumedResource;
+
         private final int amountToPay;
         private boolean availableForProduction;
         private final int amountToProduce;
+        private final Producible fixedProducedFP;
 
         /**
          * constructor method of this class
-         * @param consumedResource is the resource consumed to start the production
-         * @param amountToPay
-         * @param amountToProduce
+         * @param fixedConsumedResource is the resource consumed to start the production
+         * @param amountToPay number of the resource to pay
+         * @param amountToProduce number of the resource to produce
          */
-        private ExtraProductionPower(StorableResource consumedResource, int amountToPay, int amountToProduce) {
-            this.consumedResource = consumedResource;
+        private ExtraProductionPower(StorableResource fixedConsumedResource, Producible fixedProducedFP,
+                                     int amountToPay, int amountToProduce) {
+            this.fixedConsumedResource = fixedConsumedResource;
             this.amountToProduce = amountToProduce;
             this.amountToPay = amountToPay;
+            this.fixedProducedFP = fixedProducedFP;
         }
 
         /**
          * It's the getter method for the consumed resource.
-         * @return
+         * @return the resource consumed by the extra production power
          */
         public StorableResource getConsumedResource() {
-            return consumedResource.clone();
+            return fixedConsumedResource.clone();
         }
 
         /**
          * this method activates the extra production power
          * @param producedResource is the resource that the player wants to receive
-         * @return a list of resource, one of this resource is a faith point and the other one is the resource choose by the player
+         * @return a list of resource, one of this resource is a faith point and
+         * the other one is the resource choose by the player
          */
-        ArrayList <Producible> produce(Player player, StorableResource producedResource) throws NotExistingExtraProductionPower, NotContainedResourceException, InvalidAmountForExtraProductionProducedResource {
+        ArrayList <Producible> produce(Player player, StorableResource producedResource)
+                throws NotExistingExtraProductionPower, NotContainedResourceException,
+                InvalidAmountForExtraProductionProducedResource {
             if (checkExtraPower(player) && producedResource.getAmount () == this.getAmountToProduce()) {
                 FaithPoint faithPoint = new FaithPoint(this.getAmountToProduce ());
                 ArrayList<Producible> listOfResource = new ArrayList<>(0);
@@ -94,7 +104,7 @@ public class PersonalBoard implements Producer, GameComponent {
          * the action has to remove the consumed resource from the personal board
          */
         private boolean checkExtraPower(Player player) {
-            return this.consumedResource.containedIn(player);
+            return this.fixedConsumedResource.containedIn(player);
         }
 
 
@@ -162,7 +172,9 @@ public class PersonalBoard implements Producer, GameComponent {
      * Constructor method of this class. It creates an empty personal board.
      * The method is public because called by Action/Game/Controller outside this package.
      */
-    public PersonalBoard(int numOfResourcesToPay, int numOfResourcesToProduce, WarehouseDepots warehouseDepots, int numberOfSlotDevCards, int maxDevCardsInSlot, int maxLeaderCardsInSlot, int maxNumOfCardsDuringGame) {
+    public PersonalBoard(int numOfResourcesToPay, int numOfResourcesToProduce, WarehouseDepots warehouseDepots,
+                         int numberOfSlotDevCards, int maxDevCardsInSlot, int maxLeaderCardsInSlot,
+                         int maxNumOfCardsDuringGame) {
         this.numOfResourcesToPay = numOfResourcesToPay;
         this.numOfResourcesToProduce = numOfResourcesToProduce;
         this.strongbox = new Strongbox();
@@ -184,12 +196,29 @@ public class PersonalBoard implements Producer, GameComponent {
      * this method is called by the leader card
      * that adds an extra production power to
      * the personal board of a player.
-     * @param consumedResource the resource that the extra production power uses to activate the production
-     * @param toProduce
+     * @param fixedConsumedResource it is the resource that the extra production power uses to activate the production
+     * @param amountToProduce it is the number of resources to produce
+     * @param amountToPay it is the number of resources to pay
      */
-    public void addExtraProductionPower(StorableResource consumedResource, int toProduce, int amountToProduce) {
-        ExtraProductionPower extraProductionPower = new ExtraProductionPower(consumedResource, amountToProduce, toProduce);
+    public void addExtraProductionPower(StorableResource fixedConsumedResource, Producible fixedProducedFP,
+                                        int amountToProduce, int amountToPay) {
+        ExtraProductionPower extraProductionPower = new ExtraProductionPower(fixedConsumedResource,
+                fixedProducedFP, amountToPay, amountToProduce);
         this.extraProductionPowers.add(extraProductionPower);
+        int indexOfPower = extraProductionPowers.indexOf(extraProductionPower);
+        notifyUpdate(generateUpdate(fixedConsumedResource, amountToPay, amountToProduce, fixedProducedFP, indexOfPower));
+    }
+
+    private Sendable generateUpdate(StorableResource consumedResource, int amountToPay, int amountToProduce,
+                                    Producible fixedProducedFP, int indexOfPower){
+        MessageWriter writer = new MessageWriter();
+        writer.setHeader(Header.ToClient.ADD_EXTRA_PRODUCTION_POWER_UPDATE);
+        writer.addProperty("consumedResource", consumedResource);
+        writer.addProperty("numberOfResourceToPay", amountToPay);
+        writer.addProperty("numberOfResourceToProduce", amountToProduce);
+        writer.addProperty("produced", fixedProducedFP);
+        writer.addProperty("indexOfPower", indexOfPower);
+        return writer.write();
     }
 
 
@@ -315,7 +344,11 @@ public class PersonalBoard implements Producer, GameComponent {
         if (this == o) return true;
         if (!(o instanceof PersonalBoard)) return false;
         PersonalBoard that = (PersonalBoard) o;
-        return getStrongbox().equals(that.getStrongbox()) && getWarehouseDepots().equals(that.getWarehouseDepots()) && listOfSlotDevelopmentCards.equals(that.listOfSlotDevelopmentCards) && getTempContainer().equals(that.getTempContainer()) && getSlotLeaderCards().equals(that.getSlotLeaderCards()) && extraProductionPowers.equals(that.extraProductionPowers);
+        return getStrongbox().equals(that.getStrongbox()) && getWarehouseDepots().equals(that.getWarehouseDepots()) &&
+                listOfSlotDevelopmentCards.equals(that.listOfSlotDevelopmentCards) &&
+                getTempContainer().equals(that.getTempContainer()) &&
+                getSlotLeaderCards().equals(that.getSlotLeaderCards()) &&
+                extraProductionPowers.equals(that.extraProductionPowers);
     }
 
 
@@ -325,7 +358,8 @@ public class PersonalBoard implements Producer, GameComponent {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getStrongbox(), getWarehouseDepots(), listOfSlotDevelopmentCards, getTempContainer(), getSlotLeaderCards(), extraProductionPowers);
+        return Objects.hash(getStrongbox(), getWarehouseDepots(), listOfSlotDevelopmentCards, getTempContainer(),
+                getSlotLeaderCards(), extraProductionPowers);
     }
 
     public int getNumOfResourcesToPay() {

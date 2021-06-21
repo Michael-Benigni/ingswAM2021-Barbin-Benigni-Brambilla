@@ -11,6 +11,8 @@ public class LWPersonalBoard {
     private ArrayList<LWLeaderCard> leaderCardsPlayed;
     private ArrayList<LWLeaderCard> leaderCardsNotPlayed;
     private LWTemporaryContainer temporaryContainer;
+    private ArrayList <LWWMPower> whiteMarblePowers;
+    private ArrayList <LWXProductionPower> extraProductionPowers;
 
 
     public LWPersonalBoard() {
@@ -19,6 +21,8 @@ public class LWPersonalBoard {
         this.temporaryContainer = new LWTemporaryContainer();
         this.leaderCardsPlayed = new ArrayList<> ();
         this.leaderCardsNotPlayed = new ArrayList<> ();
+        this.whiteMarblePowers = new ArrayList<LWWMPower>();
+        this.extraProductionPowers = new ArrayList<LWXProductionPower>();
         initSlots();
     }
 
@@ -74,5 +78,13 @@ public class LWPersonalBoard {
                                   ArrayList<LWLeaderCard> leaderCardsPlayed) {
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;
         this.leaderCardsPlayed = leaderCardsPlayed;
+    }
+
+    public void addWMPowers(LWWMPower lwwmPower){
+        this.whiteMarblePowers.add(lwwmPower);
+    }
+
+    public void addXProductionPowers(LWXProductionPower lwxProductionPower){
+        this.extraProductionPowers.add(lwxProductionPower);
     }
 }

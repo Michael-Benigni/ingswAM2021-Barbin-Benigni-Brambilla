@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.view.lightweightmodel;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LWResource {
+public class LWResource implements LWProducible {
     @SerializedName ("resourceType")
     private LWResourceType resourceType;
     @SerializedName ("amount")

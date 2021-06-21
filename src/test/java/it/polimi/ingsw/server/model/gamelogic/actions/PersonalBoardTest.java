@@ -201,7 +201,7 @@ public class PersonalBoardTest {
             assertTrue(true);
         }
         StorableResource coin = new StorableResource(ResourceType.COIN, 1);
-        p.addExtraProductionPower(coin, 1, 1);
+        p.addExtraProductionPower(coin, new FaithPoint(1), 1, 1);
         try {
             p.getExtraPower(0).produce(player, coin);
             fail ();

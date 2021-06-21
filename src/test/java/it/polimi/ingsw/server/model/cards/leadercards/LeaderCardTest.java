@@ -12,6 +12,7 @@ import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoardTest;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithTrackTest;
 import it.polimi.ingsw.server.model.gameresources.markettray.MarketTrayTest;
 import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
@@ -244,7 +245,7 @@ public class LeaderCardTest {
         VictoryPoint victoryPoints = new VictoryPoint(1);
         StorableResource resource = new StorableResource(ResourceType.COIN, 1);
         LeaderCard leaderCard = new LeaderCard(cardID, requirements, victoryPoints, null);
-        leaderCard.setExtraProductionPowerEffect(resource, 1, 1);
+        leaderCard.setExtraProductionPowerEffect(resource, new FaithPoint(1), 1, 1);
         return leaderCard;
     }
 

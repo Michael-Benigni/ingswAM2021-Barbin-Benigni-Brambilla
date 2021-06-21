@@ -45,7 +45,9 @@ public interface Header {
         INITIAL_FAITH_TRACK_UPDATE("initial_faith_track_update"),
         DISCONNECTION_UP ("disconnection"),
         GENERIC_INFO ("tile_already_activated"),
-        RECONNECTION_RESPONSE ("reconnection_response");
+        RECONNECTION_RESPONSE ("reconnection_response"),
+        ADD_EXTRA_PRODUCTION_POWER_UPDATE("add_extra_production_power_update"),
+        ADD_WM_POWER_UPDATE("add_wm_power_update");
 
         private final String headerStr;
 
