@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.ui.cli;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.ui.Interlocutor;
+import it.polimi.ingsw.client.view.ui.Interpreter;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.config.StringParser;
 import java.util.ArrayList;

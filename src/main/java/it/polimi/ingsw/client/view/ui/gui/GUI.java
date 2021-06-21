@@ -3,7 +3,6 @@ package it.polimi.ingsw.client.view.ui.gui;
 import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.states.GUIState;
 import it.polimi.ingsw.client.view.states.GUIWaitingRoomState;
-import it.polimi.ingsw.client.view.ui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Sendable;
 import javafx.application.Platform;

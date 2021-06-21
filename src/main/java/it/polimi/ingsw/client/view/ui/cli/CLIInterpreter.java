@@ -5,6 +5,8 @@ import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
 import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
+import it.polimi.ingsw.client.view.ui.Interpreter;
+
 import java.util.*;
 
 public class CLIInterpreter implements Interpreter {

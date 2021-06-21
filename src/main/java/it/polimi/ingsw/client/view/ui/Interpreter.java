@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.ui.cli;
+package it.polimi.ingsw.client.view.ui;
 
 public interface Interpreter {
     String listen(String nameProperty);

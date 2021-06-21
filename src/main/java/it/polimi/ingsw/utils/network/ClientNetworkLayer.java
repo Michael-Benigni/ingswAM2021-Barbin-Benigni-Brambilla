@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ClientNetworkLayer {
-    private String ip;
-    private int port;
+    private final String ip;
+    private final int port;
 
     public ClientNetworkLayer(String ip, int port) {
         this.ip = ip;

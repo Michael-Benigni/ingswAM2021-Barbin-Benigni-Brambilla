@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.ui;
+package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.states.GUIState;

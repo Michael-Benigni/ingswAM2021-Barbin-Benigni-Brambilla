@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
-import it.polimi.ingsw.client.view.ui.cli.Interpreter;
+import it.polimi.ingsw.client.view.ui.Interpreter;
 
 import java.util.HashMap;
 

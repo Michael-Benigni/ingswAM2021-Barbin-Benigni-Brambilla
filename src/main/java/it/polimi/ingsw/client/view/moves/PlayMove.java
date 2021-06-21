@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
 import it.polimi.ingsw.client.view.states.PlayState;
 import it.polimi.ingsw.client.view.ui.Interlocutor;
+import it.polimi.ingsw.client.view.ui.Interpreter;
 import it.polimi.ingsw.client.view.ui.cli.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
