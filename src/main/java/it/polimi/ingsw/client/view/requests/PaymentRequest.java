@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.ui.cli;
+package it.polimi.ingsw.client.view.requests;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.ui.Interlocutor;

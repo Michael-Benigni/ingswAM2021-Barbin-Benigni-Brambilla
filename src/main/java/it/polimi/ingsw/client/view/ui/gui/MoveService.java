@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.states;
+package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
@@ -9,7 +9,7 @@ public class MoveService extends Service<Move> {
     private final Move move;
     private final GUI gui;
 
-    MoveService(Move move, GUI gui) {
+    public MoveService(Move move, GUI gui) {
         this.move = move;
         this.gui = gui;
     }

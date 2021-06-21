@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.moves;
 
-public interface MoveType {
+public interface MoveWrapper {
 
     default Move getMove() {
         return null;

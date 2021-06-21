@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
-import it.polimi.ingsw.client.view.moves.MoveType;
+import it.polimi.ingsw.client.view.moves.MoveWrapper;
 import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
 import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.moves.Move;
@@ -11,7 +11,7 @@ import java.util.*;
 
 public class CLIInterpreter implements Interpreter {
     private Scanner in;
-    private ArrayList<MoveType> moves;
+    private ArrayList<MoveWrapper> moves;
 
     public CLIInterpreter() {
         this.in = new Scanner (System.in);
@@ -20,8 +20,8 @@ public class CLIInterpreter implements Interpreter {
 
     private void initMoves() {
         moves = new ArrayList<> ();
-        ArrayList<MoveType> waitingRoomMoves = new ArrayList<> (Arrays.asList (WaitingRoomMove.values ()));
-        ArrayList<MoveType> playMoves = new ArrayList<> (Arrays.asList (PlayMove.values ()));
+        ArrayList<MoveWrapper> waitingRoomMoves = new ArrayList<> (Arrays.asList (WaitingRoomMove.values ()));
+        ArrayList<MoveWrapper> playMoves = new ArrayList<> (Arrays.asList (PlayMove.values ()));
         moves.addAll (waitingRoomMoves);
         moves.addAll (playMoves);
     }
@@ -54,7 +54,7 @@ public class CLIInterpreter implements Interpreter {
     }
 
     private Move getMove(String input) throws UnavailableMoveName {
-        for (MoveType type : moves) {
+        for (MoveWrapper type : moves) {
             if (type.getCmd().equals(input))
                 return type.getMove();
         }

@@ -2,16 +2,19 @@ package it.polimi.ingsw.client.view.moves;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
-import it.polimi.ingsw.client.view.states.PlayState;
+import it.polimi.ingsw.client.view.requests.IntegerRequest;
+import it.polimi.ingsw.client.view.requests.PaymentRequest;
+import it.polimi.ingsw.client.view.requests.ResourceRequest;
+import it.polimi.ingsw.client.view.requests.StringRequest;
+import it.polimi.ingsw.client.view.ui.cli.states.PlayState;
 import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.client.view.ui.Interpreter;
-import it.polimi.ingsw.client.view.ui.cli.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 
 import java.util.ArrayList;
 
-public enum PlayMove implements MoveType {
+public enum PlayMove implements MoveWrapper {
     BOARD_PRODUCTION ("BOARD", boardProductionMove ()),
     BUY_CARD ("BUY", buyCardMove ()),
     CARD_PRODUCTION ("CARD", cardProductionMove ()),

@@ -5,8 +5,8 @@ import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.*;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
-import it.polimi.ingsw.client.view.states.ClientState;
-import it.polimi.ingsw.client.view.states.WaitingRoomState;
+import it.polimi.ingsw.client.view.ui.cli.states.ClientState;
+import it.polimi.ingsw.client.view.ui.cli.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.Sendable;
 

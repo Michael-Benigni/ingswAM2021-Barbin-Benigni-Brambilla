@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.states;
+package it.polimi.ingsw.client.view.ui.cli.states;
 
 import it.polimi.ingsw.client.view.exceptions.UnavailableMoveName;
 import it.polimi.ingsw.client.view.moves.PlayMove;

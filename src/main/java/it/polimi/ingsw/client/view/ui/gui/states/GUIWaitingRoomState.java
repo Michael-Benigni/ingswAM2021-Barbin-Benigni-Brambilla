@@ -1,6 +1,7 @@
-package it.polimi.ingsw.client.view.states;
+package it.polimi.ingsw.client.view.ui.gui.states;
 
 import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
+import it.polimi.ingsw.client.view.ui.gui.MoveService;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

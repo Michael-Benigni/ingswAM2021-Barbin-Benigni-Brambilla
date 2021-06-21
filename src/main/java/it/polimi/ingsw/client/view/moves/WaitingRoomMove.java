@@ -1,14 +1,15 @@
 package it.polimi.ingsw.client.view.moves;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
+import it.polimi.ingsw.client.view.requests.IntegerRequest;
+import it.polimi.ingsw.client.view.requests.StringRequest;
 import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.client.view.ui.Interpreter;
-import it.polimi.ingsw.client.view.ui.cli.*;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
 
-public enum WaitingRoomMove implements MoveType {
+public enum WaitingRoomMove implements MoveWrapper {
     START_MATCH("S", startMatchMove ()),
     WAIT_OTHER_PLAYERS("", waitForOtherPlayersMove ()),
     SET_NUM_PLAYERS("P", numPlayersMove ()),

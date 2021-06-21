@@ -1,5 +1,6 @@
-package it.polimi.ingsw.client.view.states;
+package it.polimi.ingsw.client.view.ui.gui.states;
 
+import it.polimi.ingsw.client.view.ui.cli.states.ClientState;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
 import javafx.scene.Scene;
 
