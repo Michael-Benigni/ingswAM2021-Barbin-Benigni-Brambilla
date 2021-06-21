@@ -12,7 +12,7 @@ import java.util.Objects;
 public class WarehouseAction extends PayAction implements FirstTurnAction {
     private final int depotIdx;
 
-    WarehouseAction(StoreOrRemove storeOrRemove, StorableResource resourceToPay, int depotIdx) {
+    public WarehouseAction(StoreOrRemove storeOrRemove, StorableResource resourceToPay, int depotIdx) {
         super(resourceToPay, storeOrRemove);
         this.depotIdx = depotIdx;
     }

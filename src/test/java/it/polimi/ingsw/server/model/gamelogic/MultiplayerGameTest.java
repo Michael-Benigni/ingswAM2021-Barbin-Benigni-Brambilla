@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.gamelogic;
 
+import it.polimi.ingsw.server.model.exception.EndGameException;
 import it.polimi.ingsw.server.model.exception.IllegalNumberOfPlayersException;
 import it.polimi.ingsw.server.model.exception.TooManyPlayersException;
 import it.polimi.ingsw.server.model.gamelogic.actions.GameBoard;
@@ -104,7 +105,7 @@ class MultiplayerGameTest extends ActionTest {
     }
 
     @Test
-    void setNextPlayer() {
+    void setNextPlayer() throws EndGameException {
         game4Players = getMultiPlayerGame ();
         Player before = game4Players.getCurrentPlayer();
         game4Players.setNextPlayer();
@@ -113,7 +114,7 @@ class MultiplayerGameTest extends ActionTest {
     }
 
     @Test
-    void getCurrentTurn() {
+    void getCurrentTurn() throws EndGameException {
         game4Players = getMultiPlayerGame ();
         Turn before = game4Players.getCurrentTurn();
         game4Players.setNextPlayer();
@@ -124,7 +125,7 @@ class MultiplayerGameTest extends ActionTest {
     }
 
     @Test
-    void getCurrentPlayer() {
+    void getCurrentPlayer() throws EndGameException {
         game4Players = getMultiPlayerGame ();
         Player before = game4Players.getCurrentPlayer();
         game4Players.setNextPlayer();

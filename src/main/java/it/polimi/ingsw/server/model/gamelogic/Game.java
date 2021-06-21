@@ -11,6 +11,8 @@ import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
+
 import static java.util.Collections.shuffle;
 
 /**
@@ -162,7 +164,7 @@ public abstract class Game implements GameComponent {
                     if (player != playersOrder.getLast ())
                         notifyLastRoundUpdate ();
                     setLastRound ();
-                    performActionOf (player, new EndTurnAction ());
+                    e.handleEndGame(this, getAllPlayers ());
                 }
             } else
                 throw new IsNotCurrentPlayerException (currentPlayer.getUsername());
@@ -193,7 +195,7 @@ public abstract class Game implements GameComponent {
      * This method sets the next currentPlayer, according with the playersOrder, and creates and starts the next new
      * currentPlayer's Turn.
      */
-    public void setNextPlayer() {
+    public void setNextPlayer() throws EndGameException {
         int currPlayerIndex = this.playersOrder.indexOf(currentPlayer);
         try {
             this.currentPlayer = this.playersOrder.get(currPlayerIndex + 1);
@@ -209,8 +211,15 @@ public abstract class Game implements GameComponent {
         nextTurn();
         this.currentPlayer.notifyUpdate (currentTurn.getNextPlayerMessage (this));
         sendWaitMessage();
-        if (!this.currentPlayer.isConnected ())
-            setNextPlayer ();
+        if (!this.currentPlayer.isConnected ()) {
+            boolean isAnyoneConnected = this.playersOrder.stream ().map (Player::isConnected).reduce (true, Boolean::logicalAnd);
+            if (isAnyoneConnected)
+                setNextPlayer ();
+            else {
+                this.gameIsOver = true;
+                throw new EndGameException();
+            }
+        }
     }
 
     private void sendWaitMessage() {
@@ -229,33 +238,33 @@ public abstract class Game implements GameComponent {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.GAME_OVER_UP);
         String VPs = "";
-        String position = "";
+        String usernames = "";
         for (Player player : playersOrder) {
             if (winners.contains (player)) {
-                position = "winnersRoundPositions";
+                usernames = "winnersNames";
                 VPs = "winnersVPs";
             }
             else {
-                position = "losersRoundPositions";
+                usernames = "losersNames";
                 VPs = "losersVPs";
             }
             writer.addProperty (VPs, player.computeAllVP ().getPoints ());
-            writer.addProperty (position, player.getPosition ());
+            writer.addProperty (usernames, player.getUsername ());
         }
         ArrayList<Integer> VPAsArray = new ArrayList<> ();
-        ArrayList<Integer> positionsAsArray = new ArrayList<> ();
+        ArrayList<String> usernamesAsArray = new ArrayList<> ();
         if (winners.size () == 1) {
-            positionsAsArray.add (winners.get (0).getPosition ());
+            usernamesAsArray.add (winners.get (0).getUsername ());
             VPAsArray.add (winners.get (0).computeAllVP ().getPoints ());
             writer.resetProperty (VPs, VPAsArray);
-            writer.resetProperty (position, positionsAsArray);
+            writer.resetProperty (usernames, usernamesAsArray);
         } else if (winners.size () == numberOfPlayers - 1) {
             for (Player player : playersOrder)
                 if (!winners.contains (player)) {
-                    positionsAsArray.add (player.getPosition ());
+                    usernamesAsArray.add (player.getUsername ());
                     VPAsArray.add (player.computeAllVP ().getPoints ());
                     writer.resetProperty (VPs, VPAsArray);
-                    writer.resetProperty (position, positionsAsArray);
+                    writer.resetProperty (usernames, usernamesAsArray);
                 }
         }
         return writer.write ();
@@ -345,7 +354,7 @@ public abstract class Game implements GameComponent {
             }
             winners.add(winner);
             for (Player player : getAllPlayers())
-                if(player.computeAllVP().equals(winnerPoints))
+                if(player.computeAllVP().equals(winnerPoints) && !winners.contains (player))
                     winners.add(player);
         }
         return winners;
@@ -392,7 +401,7 @@ public abstract class Game implements GameComponent {
         this.observers.add (observer);
     }
 
-    public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, YouMustEndTheProductionPhaseException;
+    public abstract void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, YouMustEndTheProductionPhaseException, EndGameException, GameOverByCardsGridException, GameOverBlackCrossAtEndOfFaithTrackException;
 
     public void reconnectionOf(Player player) {
         player.setPosition (player.getPosition ());

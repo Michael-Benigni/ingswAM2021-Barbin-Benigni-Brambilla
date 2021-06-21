@@ -120,15 +120,33 @@ public class Controller {
     }
 
     public void handleMatchMoveOf (User user, Action action) throws Exception {
-        getGameOf(user).performActionOf (this.getWaitingRoomOf (user).getPlayerOf (user), action);
+        Game game = getGameOf(user);
+        try {
+            game.performActionOf (this.getWaitingRoomOf (user).getPlayerOf (user), action);
+        } catch (EndGameException e) {
+            System.out.printf ("The Game is ended. Room %d closed\n", this.waitingRooms.indexOf (getWaitingRoomOf (game)));
+            onGameEnded (getWaitingRoomOf(game));
+        }
+    }
+
+    private WaitingRoom getWaitingRoomOf(Game game) {
+        for (Entry<WaitingRoom, Game> entry : this.waitingRooms) {
+            if (entry.getValue ().equals (game))
+                return entry.getKey ();
+        }
+        return null;
     }
 
     public synchronized void disconnect(User user) throws InvalidUserException {
+        WaitingRoom room = getWaitingRoomOf (user);
         try {
-            getWaitingRoomOf (user).disconnect (user, getGameOf (user));
+            room.disconnect (user, getGameOf (user));
         } catch (EmptyWaitingRoomException e) {
             Entry<WaitingRoom, Game> entry = getEntryOf(getWaitingRoomOf (user));
             this.waitingRooms.remove (entry);
+        } catch (EndGameException e) {
+            System.out.printf ("No more player connected to the waiting room n° %d. Room closed\n", this.waitingRooms.indexOf (getEntryOf (room)));
+            onGameEnded (room);
         }
     }
 
@@ -141,8 +159,17 @@ public class Controller {
 
     public synchronized void registerToWaitingRoomWith(int ID, User user) throws FullWaitingRoomException, InvalidUserException {
         for (WaitingRoom room : allRooms ())
-            if (room.getID () == ID)
-                room.reconnection (user, getGameOf(room));
+            if (room.getID () == ID) {
+                try {
+                    room.reconnection (user, getGameOf(room));
+                } catch (EndGameException e) {
+                    onGameEnded(room);
+                }
+            }
+    }
+
+    private void onGameEnded(WaitingRoom room) {
+        this.waitingRooms.remove (getEntryOf (room));
     }
 
     private Game getGameOf(WaitingRoom room) {

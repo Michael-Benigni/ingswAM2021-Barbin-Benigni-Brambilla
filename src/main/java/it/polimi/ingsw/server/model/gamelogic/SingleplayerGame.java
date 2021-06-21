@@ -50,12 +50,8 @@ public class SingleplayerGame extends Game {
     }
 
     @Override
-    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, YouMustEndTheProductionPhaseException {
-        try {
-            new EndTurnSingleplayerAction ().perform (this);
-        } catch (GameOverByCardsGridException e) {
-            e.printStackTrace ();
-        }
+    public void performEndTurnAction() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, YouMustEndTheProductionPhaseException, EndGameException, GameOverByCardsGridException, GameOverBlackCrossAtEndOfFaithTrackException {
+        new EndTurnSingleplayerAction ().perform (this);
     }
 
     public static class EndTurnSingleplayerAction extends MultiplayerGame.EndTurnMultiplayerAction {
@@ -65,7 +61,7 @@ public class SingleplayerGame extends Game {
          * @param game   -> the Game on which this Action will be performed
          */
         public void perform(SingleplayerGame game) throws WrongCellIndexException, CellNotFoundInFaithTrackException,
-                GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, GameOverByCardsGridException, YouMustEndTheProductionPhaseException {
+                GameOverByFaithTrackException, WrongInitialConfiguration, NegativeVPAmountException, GameOverByCardsGridException, YouMustEndTheProductionPhaseException, EndGameException, GameOverBlackCrossAtEndOfFaithTrackException {
             super.perform (game, game.getCurrentPlayer ());
             game.getGameBoard ().getActionTokenDeck ().drawFirst ().activateEffect (game, game.getCurrentPlayer ());
         }

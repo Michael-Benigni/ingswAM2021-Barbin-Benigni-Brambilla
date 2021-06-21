@@ -4,6 +4,7 @@ import it.polimi.ingsw.server.controller.exception.EmptyWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.FullWaitingRoomException;
 import it.polimi.ingsw.server.controller.exception.ImpossibleChangingSizeException;
 import it.polimi.ingsw.server.controller.exception.InvalidUserException;
+import it.polimi.ingsw.server.model.exception.EndGameException;
 import it.polimi.ingsw.server.model.gamelogic.Game;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.utils.network.Header;
@@ -105,7 +106,7 @@ public class WaitingRoom {
         return this.leader;
     }
 
-    public void disconnect(User user, Game game) throws EmptyWaitingRoomException {
+    public void disconnect(User user, Game game) throws EmptyWaitingRoomException, EndGameException {
         if (contains (user)) {
             Player player = this.usersPlayers.get (user);
             if (player != null && player.isConnected ()) {
@@ -144,7 +145,7 @@ public class WaitingRoom {
         return writer.write ();
     }
 
-    public boolean reconnection(User user, Game game) throws FullWaitingRoomException, InvalidUserException {
+    public boolean reconnection(User user, Game game) throws FullWaitingRoomException, InvalidUserException, EndGameException {
         boolean isReconnection = false;
         if ((contains (user) || !isUnique (user)) && game != null) {
             User oldUser = findOldUserWithUsername (user.getUsername ());

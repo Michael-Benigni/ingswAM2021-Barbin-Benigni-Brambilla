@@ -5,6 +5,9 @@ import it.polimi.ingsw.server.model.exception.NoValidActionException;
 import it.polimi.ingsw.server.model.exception.WrongInitialConfiguration;
 import it.polimi.ingsw.server.model.exception.YouMustEndTheProductionPhaseException;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
+import it.polimi.ingsw.server.model.gamelogic.actions.DiscardLeaderCardFirstTurnAction;
+import it.polimi.ingsw.server.model.gamelogic.actions.PayAction;
+import it.polimi.ingsw.server.model.gamelogic.actions.WarehouseAction;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
@@ -49,8 +52,22 @@ public class FirstTurn extends Turn {
     @Override
     public void terminate(Game game) throws WrongInitialConfiguration {
         int initialResources = game.getParams(game.getCurrentPlayer()).getInitialResources();
-        if(!game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(initialResources))
+        if(!game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(initialResources) && game.getCurrentPlayer ().isConnected ())
             throw new WrongInitialConfiguration();
+        else if (!game.getCurrentPlayer ().isConnected ()) {
+            while (game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(0)) {
+                try {
+                    new DiscardLeaderCardFirstTurnAction (0).perform (game, game.getCurrentPlayer ());
+                } catch (Exception e) {
+                    e.printStackTrace ();
+                }
+            }
+            try {
+                super.terminate (game);
+            } catch (YouMustEndTheProductionPhaseException ignored) {
+                ignored.printStackTrace ();
+            }
+        }
     }
 
 

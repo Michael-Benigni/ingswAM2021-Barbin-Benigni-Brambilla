@@ -55,7 +55,7 @@ public class SoloActionToken {
      */
     public void activateEffect(SingleplayerGame game, Player player)
             throws WrongCellIndexException, CellNotFoundInFaithTrackException,
-            GameOverByFaithTrackException, NegativeVPAmountException, GameOverByCardsGridException {
+            GameOverBlackCrossAtEndOfFaithTrackException, NegativeVPAmountException, GameOverByCardsGridException, GameOverByFaithTrackException {
         this.effect.activateEffect(game);
         player.notifyUpdate (generateUpdate());
     }

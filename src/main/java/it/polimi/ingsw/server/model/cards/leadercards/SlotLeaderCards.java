@@ -177,7 +177,7 @@ public class SlotLeaderCards implements GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
-        this.generateUpdate (getAllNotPlayedCards (), getAllPlayedCards ());
+        this.notifyUpdate (generateUpdate (getAllNotPlayedCards (), getAllPlayedCards ()));
     }
 
     /**

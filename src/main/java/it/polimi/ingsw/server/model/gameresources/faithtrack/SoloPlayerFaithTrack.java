@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
-import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
-import it.polimi.ingsw.server.model.exception.GameOverByFaithTrackException;
-import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
-import it.polimi.ingsw.server.model.exception.WrongCellIndexException;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.utils.Observer;
 
@@ -33,6 +30,7 @@ public class SoloPlayerFaithTrack extends FaithTrack {
         notifyBlackCrossCreation(singlePlayer.getObservers ());
     }
 
+
     private void notifyBlackCrossCreation(ArrayList<Observer> observers) {
         blackCross.attachAll (observers);
         blackCross.notifyUpdate (blackCross.getPlayerInfoForOtherUpdate ());
@@ -49,8 +47,12 @@ public class SoloPlayerFaithTrack extends FaithTrack {
      * Method that move the black cross forward by a provided number of cells.
      * @param numberOfSteps integer representing how many cells the black cross must move.
      */
-    public void moveBlackCross(int numberOfSteps) throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException {
-        super.moveMarkerForward(blackCross, numberOfSteps);
+    public void moveBlackCross(int numberOfSteps) throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException, GameOverBlackCrossAtEndOfFaithTrackException {
+        try {
+            super.moveMarkerForward (blackCross, numberOfSteps);
+        } catch (GameOverByFaithTrackException e) {
+            throw new GameOverBlackCrossAtEndOfFaithTrackException ();
+        }
     }
 
     /**

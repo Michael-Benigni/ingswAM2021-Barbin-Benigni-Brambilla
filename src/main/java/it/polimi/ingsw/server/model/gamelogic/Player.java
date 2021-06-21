@@ -3,9 +3,11 @@ package it.polimi.ingsw.server.model.gamelogic;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.cards.developmentcards.SlotDevelopmentCards;
 import it.polimi.ingsw.server.model.exception.EmptySlotException;
+import it.polimi.ingsw.server.model.exception.EndGameException;
 import it.polimi.ingsw.server.model.exception.NegativeResourceAmountException;
 import it.polimi.ingsw.server.model.exception.WrongSlotDevelopmentIndexException;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
+import it.polimi.ingsw.server.model.gamelogic.actions.EndTurnAction;
 import it.polimi.ingsw.server.model.gamelogic.actions.PersonalBoard;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import it.polimi.ingsw.server.model.gameresources.stores.StorableResource;
@@ -168,11 +170,21 @@ public class Player implements GameComponent {
         return this.isConnected;
     }
 
-    public void setIsConnected(boolean connected, Game game) {
+    public void setIsConnected(boolean connected, Game game) throws EndGameException {
         isConnected = connected;
         if (!isConnected ()) {
             detachFromAllComponent ();
             game.getGameBoard ().detachFromAllComponents (this);
+            if (game.getCurrentPlayer () == this) {
+                try {
+                    game.performActionOf (this, new EndTurnAction ());
+                } catch (EndGameException end) {
+                    throw end;
+                } catch (Exception e) {
+                    e.printStackTrace ();
+                }
+                game.setNextPlayer ();
+            }
         } else {
             attachToAllComponent ();
             game.getGameBoard ().attachToAllComponents (this);

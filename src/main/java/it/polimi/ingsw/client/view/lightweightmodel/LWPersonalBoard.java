@@ -66,8 +66,8 @@ public class LWPersonalBoard {
         this.temporaryContainer.emptyResources = emptyResources;
     }
 
-    public void updateSlots(LWDevCard addedDevCard, int numberOfSlot) {
-        slots.get(numberOfSlot).add(addedDevCard);
+    public void updateSlots(LWDevCard addedDevCard, int numberOfSlot, int positionInSlot) {
+        slots.get(numberOfSlot).add(positionInSlot, addedDevCard);
     }
 
     public void updateLeaderCards(ArrayList<LWLeaderCard> leaderCardsNotPlayed,

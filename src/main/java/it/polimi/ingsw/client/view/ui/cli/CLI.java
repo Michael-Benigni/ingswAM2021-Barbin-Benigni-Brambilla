@@ -81,7 +81,7 @@ public class CLI implements UI {
                         resource.getResourceType () +
                                 " " +
                                 resource.getAmount (),
-                        " ", getInterlocutor().getWidthSection()) + "\n")
+                        " ", getWidthSection()) + "\n")
                 .collect(Collectors.joining());
         strongboxAsString += padding (board.getTemporaryContainer ().getEmptyResources () > 0 ? board.getTemporaryContainer ().getEmptyResources () + " White Marbles\n" : "\n", " ", getInterlocutor().getWidthSection());
         String sectionHeader = getSectionHeader(" TEMPORARY CONTAINER ", "*");
@@ -93,7 +93,7 @@ public class CLI implements UI {
         ArrayList<LWLeaderCard> cards = getController ().getModel ().getPersonalBoard ().getLeaderCardsNotPlayed ();
         inactiveLeaderCardsAsString = new StringBuilder (padding (juxtapose (cards.stream ()
                 .map ((card) -> String.format ("index: %d", card.getSlotIndex ()) + "\n" + encapsulate (card.getDescription (), (int) Math.floor (getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 4)))
-                .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 2), " ", getInterlocutor().getWidthSection()));
+                .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getWidthSection() / getMaxHorizDivisions() - 2), " ", getInterlocutor().getWidthSection()));
         String sectionHeader = getSectionHeader(" INACTIVE LEADER CARDS ", ".");
         return sectionHeader + "\n" + inactiveLeaderCardsAsString;
     }
@@ -102,7 +102,7 @@ public class CLI implements UI {
         ArrayList<LWLeaderCard> cards = getController ().getModel ().getPersonalBoard ().getLeaderCardsPlayed ();
         StringBuilder activeLeaderCardsAsString = new StringBuilder (padding (juxtapose (cards.stream ()
                 .map ((card) -> String.format ("index: %d", card.getSlotIndex ()) + "\n" + encapsulate (card.getDescription (), (int) Math.floor (getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 2)))
-                .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 1), " ", getInterlocutor().getWidthSection()));
+                .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getWidthSection() / getMaxHorizDivisions() - 1), " ", getInterlocutor().getWidthSection()));
         String sectionHeader = getSectionHeader(" ACTIVE LEADER CARDS ", ".");
         activeLeaderCardsAsString.append ("\n");
         return sectionHeader + "\n" + activeLeaderCardsAsString;
@@ -111,20 +111,22 @@ public class CLI implements UI {
     private String devCardsSection() {
         StringBuilder devCardsAsString = new StringBuilder ();
         ArrayList<ArrayList<LWDevCard>> slots = getController ().getModel ().getPersonalBoard ().getSlots ();
+        int slotIdx = 0;
         for (ArrayList<LWDevCard> slot : slots) {
+            devCardsAsString.append (padding ("SLOT n° ", ".", getWidthSection ()))
+                    .append (slotIdx)
+                    .append ("\n");
+            slotIdx++;
             if (!slot.isEmpty ()) {
-                devCardsAsString.append (("SLOT n° "))
-                        .append (slots.indexOf (slot))
-                        .append ("\n");
                 devCardsAsString.append ("\n");
                 devCardsAsString.append (padding (juxtapose (slot.stream ()
-                                .map ((card) -> String.format ("index: %d", card.getIndexInSlot ()) + "\n"
-                                        + encapsulate (card.getDescription (), (int) Math.floor (getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 2)))
-                                .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 1), " ", getInterlocutor().getWidthSection()))
+                        .map ((card) -> (slot.size () == card.getIndexInSlot () - 1 ? "TOP CARD" : " ") + "\n"
+                                + encapsulate (card.getDescription (), (int) Math.floor (getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 2)))
+                        .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 1), " ", getInterlocutor().getWidthSection()))
                         .append ("\n");
             }
         }
-        String sectionHeader = getSectionHeader(" TOP DEVELOPMENT CARDS ", "*");
+        String sectionHeader = getSectionHeader(" SLOT DEVELOPMENT CARDS ", "*");
         return sectionHeader + devCardsAsString;
     }
 
@@ -136,7 +138,7 @@ public class CLI implements UI {
                         resource.getResourceType () +
                         " " +
                         resource.getAmount (),
-                        " ", getInterlocutor().getWidthSection()) + "\n")
+                        " ", getWidthSection()) + "\n")
                 .collect(Collectors.joining());
         String sectionHeader = getSectionHeader(" STRONGBOX ", "*");
         return sectionHeader + strongboxAsString;
@@ -156,7 +158,7 @@ public class CLI implements UI {
                                 "\n" +
                                 ((depot.getType () != null) ? "type: " : "") +
                                 ((depot.getType () != null) ? depot.getType () : "") +
-                                "\n", getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() * depot.getCapacity ()), " ", getInterlocutor().getWidthSection())
+                                "\n", getWidthSection() / getMaxHorizDivisions() * depot.getCapacity ()), " ", getInterlocutor().getWidthSection())
                         ).collect(Collectors.joining());
         String sectionHeader = getSectionHeader(" WAREHOUSE ", "*");
         return sectionHeader + warehouseAsString;
@@ -221,14 +223,14 @@ public class CLI implements UI {
         StringBuilder devCardsAsString = new StringBuilder ();
         LWCardsGrid grid = getController ().getModel ().getBoard ().getGrid ();
         for (int column = 0; column < grid.getColumns(); column++)
-            devCardsAsString.append (padding (String.format ("COL: %d", column), " ", getInterlocutor().getWidthSection() / grid.getColumns()));
+            devCardsAsString.append (padding (String.format ("COL: %d", column), " ", getWidthSection() / grid.getColumns()));
         devCardsAsString.append ("\n");
         for (ArrayList<LWDevCard> row : grid.getCardsGrid ()) {
             ArrayList<String> elements = row.stream ()
-                    .map ((card) -> encapsulate (card.getDescription () != null ? card.getDescription () : " ", (int) Math.floor (getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 4)))
+                    .map ((card) -> encapsulate (card.getDescription () != null ? card.getDescription () : " ", (int) Math.floor (getWidthSection() / getMaxHorizDivisions() - 4)))
                     .collect (ArrayList::new, ArrayList::add, ArrayList::addAll);
             devCardsAsString.append (String.format ("ROW: %d\n", grid.getCardsGrid ().indexOf (row)));
-            devCardsAsString.append (padding (juxtapose (elements, getInterlocutor().getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 2), " ", getInterlocutor().getWidthSection()))
+            devCardsAsString.append (padding (juxtapose (elements, getWidthSection() / getMaxHorizDivisions() - 2), " ", getWidthSection()))
                     .append ("\n");
         }
         String sectionHeader = getSectionHeader(" CARDS GRID ", "*");

@@ -14,8 +14,15 @@ public enum WaitingRoomMove implements MoveType {
     WAIT_OTHER_PLAYERS("", waitForOtherPlayersMove ()),
     SET_NUM_PLAYERS("P", numPlayersMove ()),
     SET_USERNAME("USER", usernameMove ()),
-    CHOOSE_ROOM("ROOM", newOrExistentMatchMove ())
-    ;
+    CHOOSE_ROOM("ROOM", newOrExistentMatchMove ()),
+    NEW_MATCH ("NM", getNewMatchMove());
+
+    private static Move getNewMatchMove() {
+        return (ui) -> {
+            ui.setNextState ();
+            return null;
+        };
+    }
 
     private final Move move;
     private final String cmd;

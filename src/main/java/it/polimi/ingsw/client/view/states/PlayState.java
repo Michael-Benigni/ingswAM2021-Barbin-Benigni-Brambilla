@@ -84,7 +84,7 @@ public class PlayState extends ClientState {
 
     @Override
     public ClientState getNextState() {
-        return null;
+        return new GameOverState ();
     }
 }
 

@@ -9,5 +9,5 @@ import it.polimi.ingsw.server.model.gamelogic.SingleplayerGame;
  * Interface used to implements the effects of the action tokens with a strategy pattern.
  */
 public interface SoloActionTokenEffect {
-    void activateEffect(SingleplayerGame game) throws GameOverByCardsGridException, WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException;
+    void activateEffect(SingleplayerGame game) throws GameOverByCardsGridException, WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException, GameOverBlackCrossAtEndOfFaithTrackException;
 }

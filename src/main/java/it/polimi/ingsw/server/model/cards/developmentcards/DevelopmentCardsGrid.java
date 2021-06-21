@@ -300,21 +300,21 @@ public class DevelopmentCardsGrid implements GameComponent {
                 } catch (EmptyDeckException ignored) {
 
                 }
-        if (checkIfNoMoreCardLike(colourToRemove))
+        if (noMoreCardLike (colourToRemove))
             throw new GameOverByCardsGridException (colourToRemove.getCardColour());
     }
 
-    private boolean checkIfNoMoreCardLike(GeneralDevelopmentCard colour) {
-        boolean result = true;
-        for(int i = rows - 1; i >= 0; i--)
-            for(int j = 0; j < columns; j++)
+    private boolean noMoreCardLike(GeneralDevelopmentCard colour) {
+        for(int i = rows - 1; i >= 0; i--) {
+            for (int j = 0; j < columns; j++) {
                 try {
-                    if (getDeck(i, j).get(0).hasSameColour(colour))
-                        result = false;
+                    if (getDeck (i, j).get (0).hasSameColour (colour))
+                        return false;
                 } catch (EmptyDeckException ignored) {
-
                 }
-        return result;
+            }
+        }
+        return true;
     }
 
     @Override

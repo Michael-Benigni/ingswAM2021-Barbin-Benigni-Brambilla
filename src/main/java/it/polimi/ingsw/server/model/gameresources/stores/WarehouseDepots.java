@@ -16,7 +16,7 @@ public class WarehouseDepots implements GameComponent {
     private Integer numberOfDepots;
     private ArrayList<Integer> capacities;
     private ArrayList<Depot> listDepot;
-    private Observer observer;
+    private ArrayList<Observer> observers;
 
     /**
      * Constructor method of this class. It reads from
@@ -25,6 +25,7 @@ public class WarehouseDepots implements GameComponent {
     public WarehouseDepots(int numberOfDepots, ArrayList<Integer> capacities) {
         this.numberOfDepots = numberOfDepots;
         this.capacities = capacities;
+        this.observers = new ArrayList<> ();
         setListDepot();
         notifyUpdate(generateUpdate ());
     }
@@ -261,9 +262,6 @@ public class WarehouseDepots implements GameComponent {
 
     @Override
     public ArrayList<Observer> getObservers() {
-        ArrayList<Observer> observers = new ArrayList<> ();
-        if (observer != null)
-            observers.add (observer);
         return observers;
     }
 
@@ -274,12 +272,13 @@ public class WarehouseDepots implements GameComponent {
      */
     @Override
     public void attach(Observer observer) {
-        this.observer = observer;
+        if (observer != null)
+            this.observers.add (observer);
         this.notifyUpdate (generateUpdate ());
     }
 
     @Override
     public void detach(Observer observer) {
-        getObservers ().remove(observer);
+        this.observers.remove(observer);
     }
 }

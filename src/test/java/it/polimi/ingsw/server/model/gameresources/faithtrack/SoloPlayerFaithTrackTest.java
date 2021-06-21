@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server.model.gameresources.faithtrack;
 
-import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
-import it.polimi.ingsw.server.model.exception.GameOverByFaithTrackException;
-import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
-import it.polimi.ingsw.server.model.exception.WrongCellIndexException;
+import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
 import org.junit.jupiter.api.Test;
@@ -51,7 +48,7 @@ public class SoloPlayerFaithTrackTest {
      * It tests if the method move correctly the black cross. It also tests if the method "getBlackCrossPosition" works successfully.
      */
     @Test
-    void checkMoveBlackCrossIfCorrect() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException {
+    void checkMoveBlackCrossIfCorrect() throws WrongCellIndexException, CellNotFoundInFaithTrackException, GameOverByFaithTrackException, NegativeVPAmountException, GameOverBlackCrossAtEndOfFaithTrackException {
         SoloPlayerFaithTrack faithTrack = initSoloPlayerFaithTrack();
         faithTrack.moveBlackCross(2);
         assertEquals(faithTrack.getBlackCrossPosition(), new ClassicCell());

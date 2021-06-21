@@ -25,6 +25,6 @@ public class SlotDevCardUpdate implements ViewUpdate{
     @Override
     public void update(Controller controller) {
         LWDevCard cardToAdd = new LWDevCard(addedDevCard, description, colour, level, index);
-        controller.getModel().getPersonalBoard().updateSlots(cardToAdd, numberOfSlot);
+        controller.getModel().getPersonalBoard().updateSlots(cardToAdd, numberOfSlot, index);
     }
 }

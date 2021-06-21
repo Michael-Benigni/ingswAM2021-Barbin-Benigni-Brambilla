@@ -147,6 +147,10 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+        if (!this.listOfDevelopmentCards.isEmpty ()) {
+            for (DevelopmentCard card : this.listOfDevelopmentCards)
+                notifyUpdate (generateUpdate (card));
+        }
     }
 
     @Override
