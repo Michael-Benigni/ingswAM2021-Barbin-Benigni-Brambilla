@@ -177,13 +177,11 @@ public class Player implements GameComponent {
             game.getGameBoard ().detachFromAllComponents (this);
             if (game.getCurrentPlayer () == this) {
                 try {
-                    game.performActionOf (this, new EndTurnAction ());
+                    game.performEndTurnAction ();
                 } catch (EndGameException end) {
                     throw end;
-                } catch (Exception e) {
-                    e.printStackTrace ();
+                } catch (Exception ignored) {
                 }
-                game.setNextPlayer ();
             }
         } else {
             attachToAllComponent ();
