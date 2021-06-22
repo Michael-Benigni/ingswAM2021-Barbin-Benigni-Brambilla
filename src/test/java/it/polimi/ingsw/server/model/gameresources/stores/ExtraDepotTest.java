@@ -117,4 +117,82 @@ public class ExtraDepotTest {
             fail();
         }
     }
+
+    /**
+     * Test on "removeResourceFromDepot" method of this class.
+     * It tests if the method successfully decreases the amount of the stored resource.
+     */
+    @Test
+    void checkRemoveIfCorrect() throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
+        ExtraDepot extraDepot = new ExtraDepot(3, ResourceType.STONE);
+        extraDepot.storeResourceInDepot(new StorableResource(ResourceType.STONE, 3));
+        try {
+            extraDepot.removeResourceFromDepot(new StorableResource(ResourceType.STONE, 1));
+            assertEquals(extraDepot.getStoredResource(), new StorableResource(ResourceType.STONE, 2));
+        } catch (NotEqualResourceTypeException | EmptyDepotException e) {
+            fail();
+        }
+    }
+
+    /**
+     * Test on "removeResourceFromDepot" method of this class.
+     * It tests if the method successfully throws an exception when trying to remove a resource with a different type.
+     */
+    @Test
+    void checkRemoveIfDifferentType() throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException, EmptyDepotException {
+        ExtraDepot extraDepot = new ExtraDepot(3, ResourceType.STONE);
+        extraDepot.storeResourceInDepot(new StorableResource(ResourceType.STONE, 3));
+        try {
+            extraDepot.removeResourceFromDepot(new StorableResource(ResourceType.SERVANT, 1));
+            fail();
+        } catch (NotEqualResourceTypeException e) {
+            assertEquals(extraDepot.getStoredResource(), new StorableResource(ResourceType.STONE, 3));
+        } catch (EmptyDepotException e) {
+            fail();
+        }
+    }
+
+    /**
+     * Test on "removeResourceFromDepot" method of this class.
+     * It tests if the method successfully empties this extra depot.
+     */
+    @Test
+    void checkRemoveIfEmpties() throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
+        ExtraDepot extraDepot = new ExtraDepot(3, ResourceType.STONE);
+        extraDepot.storeResourceInDepot(new StorableResource(ResourceType.STONE, 3));
+        try {
+            extraDepot.removeResourceFromDepot(extraDepot.getStoredResource());
+            try {
+                extraDepot.getStoredResource();
+                fail();
+            } catch(EmptyDepotException e) {
+                assertTrue(true);
+            }
+        } catch (NegativeResourceAmountException | NotEqualResourceTypeException | EmptyDepotException e) {
+            fail();
+        }
+    }
+
+    /**
+     * Test on "removeResourceFromDepot" method of this class.
+     * It tests if the method successfully throws an exception if trying to decrease the amount of the stored resource by a greater amount.
+     */
+    @Test
+    void checkRemoveIfNegativeAmount() throws NegativeResourceAmountException, NotEqualResourceTypeException, ResourceOverflowInDepotException {
+        ExtraDepot extraDepot = new ExtraDepot(3, ResourceType.STONE);
+        extraDepot.storeResourceInDepot(new StorableResource(ResourceType.STONE, 3));
+        try {
+            extraDepot.removeResourceFromDepot(new StorableResource(ResourceType.STONE, 100));
+            fail();
+        } catch (NotEqualResourceTypeException | EmptyDepotException e) {
+            fail();
+        } catch (NegativeResourceAmountException e) {
+            try {
+                assertEquals(extraDepot.getStoredResource(), new StorableResource(ResourceType.STONE, 3));
+            } catch (EmptyDepotException emptyDepotException) {
+                fail();
+            }
+            assertEquals(e.getRemainder(), new StorableResource(ResourceType.STONE, 97));
+        }
+    }
 }
