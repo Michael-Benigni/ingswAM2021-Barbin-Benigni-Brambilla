@@ -29,9 +29,9 @@ public class ClientNetworkLayer {
         channel.listeningLoop ((msg)-> {
             if (QuitMessage.isQuitMessage (msg))
                 channel.close ();
-            else if (ACK.isACKMessage (msg)) {
+            else if (ACK.isACKMessage (msg))
                 responseACK (channel, msg);
-            } else if(ErrorMessage.isErrorMessage(msg))
+            else if(ErrorMessage.isErrorMessage(msg))
                 controller.handleError(new ErrorMessage (msg));
             else {
                 ToClientMessage message = new ToClientMessage (msg);

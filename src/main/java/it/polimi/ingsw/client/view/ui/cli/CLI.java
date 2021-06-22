@@ -50,7 +50,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public void showGameBoard() {
+    public synchronized void showGameBoard() {
         String boardAsString = cardsGridSection ()
                 + "\n\n" + faithTrackSection ()
                 + "\n\n" + marketSection();
@@ -58,7 +58,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public void showPersonalBoard() {
+    public synchronized void showPersonalBoard() {
         String boardAsString =
                 strongboxSection ()
                 + "\n\n" + warehouseSection ()
@@ -263,7 +263,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public void printMenu() {
+    public synchronized void printMenu() {
         interlocutor.write (getState ().menu ());
     }
 
@@ -341,12 +341,12 @@ public class CLI implements UI {
     }
 
     @Override
-    public void setController(Controller controller) {
+    public synchronized void setController(Controller controller) {
         this.controller = controller;
     }
 
     @Override
-    public Controller getController() {
+    public synchronized Controller getController() {
         return controller;
     }
 }

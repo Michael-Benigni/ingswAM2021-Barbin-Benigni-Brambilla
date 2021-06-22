@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.Controller;
+import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
@@ -73,7 +74,10 @@ public class GUI implements UI {
 
     @Override
     public void setNextState() {
-        Platform.runLater (() -> getState ());
+        Platform.runLater (() -> {
+                getState ().getNextState ().buildScene (this);
+                JavaFXApp.setCurrentScene (getState ().getScene ());
+        });
     }
 
 

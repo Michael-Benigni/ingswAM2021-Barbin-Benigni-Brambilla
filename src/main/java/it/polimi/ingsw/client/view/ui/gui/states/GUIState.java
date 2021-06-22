@@ -17,4 +17,8 @@ public abstract class GUIState extends ClientState {
         this.scene = scene;
     }
 
+    @Override
+    public GUIState getNextState() {
+        return null;
+    }
 }

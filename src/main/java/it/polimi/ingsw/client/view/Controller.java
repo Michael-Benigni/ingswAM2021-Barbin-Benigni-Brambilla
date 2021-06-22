@@ -17,10 +17,12 @@ public class Controller {
     public void loop() {
         new Thread (()->
         {
-            while (true) {
-                Sendable sendable = getNextMove ();
+            Sendable sendable;
+            do {
+                sendable = getNextMove ();
                 this.channel.send (sendable);
-            }
+            } while (!QuitMessage.isQuitMessage (sendable.transmit ()));
+
         }).start ();
     }
 
@@ -32,7 +34,7 @@ public class Controller {
         return this.getUI ().getNextMessage ();
     }
 
-    public void setChannel(Channel channel) {
+    public synchronized void setChannel(Channel channel) {
         this.channel = channel;
     }
 
@@ -40,15 +42,15 @@ public class Controller {
         message.getInfo ().update (this);
     }
 
-    public void handleError(ErrorMessage errorMessage) {
+    public synchronized void handleError(ErrorMessage errorMessage) {
         ui.notifyError(errorMessage.getInfo ());
     }
 
-    public UI getUI() {
+    public synchronized UI getUI() {
         return this.ui;
     }
 
-    public LWModel getModel() {
+    public synchronized LWModel getModel() {
         return model;
     }
 }
