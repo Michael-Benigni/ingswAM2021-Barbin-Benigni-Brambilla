@@ -48,6 +48,11 @@ public class CLI implements UI {
         }).start ();
     }
 
+    @Override
+    public void notifyRoomSizeChanged() {
+        nextInputRequest ();
+    }
+
     private void userInteraction() {
         Move move = interpreter.listenForMove ();
         try {

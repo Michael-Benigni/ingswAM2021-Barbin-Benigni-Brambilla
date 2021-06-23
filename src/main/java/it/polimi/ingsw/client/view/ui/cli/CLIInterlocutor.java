@@ -3,7 +3,9 @@ package it.polimi.ingsw.client.view.ui.cli;
 import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.utils.config.StringParser;
 
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -13,7 +15,7 @@ public class CLIInterlocutor implements Interlocutor {
     private final PrintWriter writer;
 
     public CLIInterlocutor() {
-        writer = new PrintWriter (System.out);
+        writer = new PrintWriter (new OutputStreamWriter (System.out, StandardCharsets.UTF_8));
     }
 
     static int getWidthSection() {

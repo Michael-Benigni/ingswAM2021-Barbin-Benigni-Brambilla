@@ -27,7 +27,6 @@ public class UserRegisteredUP implements ViewUpdate {
         infoMatch.setTotalNumPlayers (numUsers);
         controller.getUI ().notifyMessage (numUser + "° user registered, in the waiting room n° " + numWaitingRoom + ", with name: " + username);
         controller.getUI ().nextInputRequest ();
-        if (infoMatch.isLeader ())
-            controller.getUI ().notifyRegistration (isLeader);
+        controller.getUI ().notifyRegistration (isLeader);
     }
 }

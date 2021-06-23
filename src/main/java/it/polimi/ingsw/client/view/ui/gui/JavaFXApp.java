@@ -2,27 +2,37 @@ package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
 import it.polimi.ingsw.client.view.moves.PlayMove;
-import it.polimi.ingsw.client.view.ui.cli.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
 import javafx.application.Application;
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class JavaFXApp extends Application {
     private ArrayList<Scene> scenes;
-    private Stage mainWindow;
+    private static Stage mainWindow;
     private GUI gui;
     private static JavaFXApp instance;
+    private final static double fixedWidth = 1300;
+    private final static double fixedHeight = 700;
+
+    public static ReadOnlyObjectProperty<Double> getFixedWidth() {
+        return mainWindow.widthProperty ().asObject ();
+    }
+
+    public static ReadOnlyObjectProperty<Double> getFixedHeight() {
+        return mainWindow.heightProperty ().asObject ();
+    }
 
 
     public JavaFXApp() {
         gui = GUI.getInstance ();
         //scenes = getAllScenes();
-        scenes = new ArrayList<> ();
-        scenes.add (new GUIPlayState().buildScene (gui));
         instance = this;
     }
 
@@ -57,13 +67,16 @@ public class JavaFXApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
+        scenes = new ArrayList<> ();
+        scenes.add (new GUIPlayState().buildScene (gui));
         mainWindow.setTitle ("Master Of Renaissance");
         mainWindow.setScene (scenes.get (0));
-        mainWindow.setWidth (650);
-        mainWindow.setHeight (400);
-        mainWindow.setResizable (true);
-        mainWindow.setMaximized (true);
+        mainWindow.setWidth (fixedWidth);
+        mainWindow.setHeight (fixedHeight);
+        //mainWindow.setFullScreen (true);
+
         mainWindow.setOnCloseRequest (e -> new MoveService (PlayMove.QUIT.getMove (), gui).start ());
+
         stage.show ();
     }
 
@@ -77,5 +90,9 @@ public class JavaFXApp extends Application {
     public void setStartMatchScene(boolean isLeader) {
         mainWindow.setScene (GUIWaitingRoomState.getStartMatchScene(isLeader));
         mainWindow.show ();
+    }
+
+    public void enableButtonStartGame() {
+
     }
 }

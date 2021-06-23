@@ -43,6 +43,11 @@ public class GUI implements UI {
         }).start();
     }
 
+    @Override
+    public void notifyRoomSizeChanged() {
+        Platform.runLater (() -> JavaFXApp.getInstance ().enableButtonStartGame());
+    }
+
 
     @Override
     public void showPersonalBoard() {

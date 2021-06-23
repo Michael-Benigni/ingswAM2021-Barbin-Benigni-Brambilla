@@ -1,9 +1,11 @@
 package it.polimi.ingsw.client.view.ui.gui.states;
 
 import it.polimi.ingsw.client.view.ui.gui.GUI;
+import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,7 +36,7 @@ public class GUIPlayState extends GUIState {
     public Scene buildScene(GUI gui) {
         if (getScene () == null) {
             TabPane tabPane = new TabPane ();
-            Rectangle2D screenBounds = Screen.getPrimary ().getBounds ();
+            Rectangle2D screenBounds = Screen.getPrimary ().getVisualBounds ();
             Tab tabPersonalBoard = getPersonalBoardTab (screenBounds.getWidth (), screenBounds.getHeight ());
             Tab tabGameBoard = getGameBoardTab (screenBounds.getWidth (), screenBounds.getHeight ());
             tabPane.getTabs ().addAll (tabGameBoard, tabPersonalBoard);
@@ -49,24 +51,48 @@ public class GUIPlayState extends GUIState {
     }
 
     private Tab getPersonalBoardTab(double width, double height) {
-        Image image = new Image (getClass ().getResourceAsStream ("/images/board/Masters of Renaissance_PlayerBoard (11_2020)-1.png"), width, height, true, false);
+
+
+        GridPane grid = new GridPane ();
+        Image image = new Image (getClass ().getResourceAsStream ("/images/board/Masters of Renaissance_PlayerBoard (11_2020)-1.png"));
+        ImageView imageView = new ImageView (image);
+        imageView.fitWidthProperty ().asObject ().bind (JavaFXApp.getFixedWidth ());
+        imageView.fitHeightProperty ().asObject ().bind (JavaFXApp.getFixedHeight ());
+        /*ColumnConstraints column1 = new ColumnConstraints ();
+        column1.setPercentWidth (20);
+        grid.getColumnConstraints ().add (column1);
+        ColumnConstraints column2 = new ColumnConstraints ();
+        column1.setPercentWidth (80);
+        grid.getColumnConstraints ().add (column2);
+
+        GridPane paneImages = new GridPane ();
+        RowConstraints row1 = new RowConstraints ();
+        row1.setPercentHeight (70);
+        paneImages.getRowConstraints ().add (row1);
+        RowConstraints row2 = new RowConstraints ();
+        row2.setPercentHeight (30);
+        paneImages.getRowConstraints ().add (row2);
+
+        paneImages.add (imageView, 0, 0);*/
+        grid.add (imageView, 3, 1);
 
         // create a background image
-        BackgroundImage backgroundimage = new BackgroundImage(image,
+        /*BackgroundImage backgroundimage = new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                BackgroundSize.DEFAULT
+                new BackgroundPosition (Side.LEFT, 0, false, Side.BOTTOM, 0, false),
+                new BackgroundSize (width / 2, height / 2, false, false, true, true)
         );
         Background background = new Background(backgroundimage);
-
         BorderPane borderPane = new BorderPane ();
-        borderPane.setBackground (background);
+        borderPane.setBackground (background);*/
 
-        VBox vBox = getTurnsButtonsVBox (width, image);
-        borderPane.setLeft (vBox);
+        //VBox vBox = getTurnsButtonsVBox (width, image);
+        //grid.add (vBox, 0, 0);
 
-        return new Tab ("Personal Board", borderPane);
+        Tab tab = new Tab ("Personal Board", grid);
+        tab.setClosable (false);
+        return tab;
     }
 
     private VBox getTurnsButtonsVBox(double width, Image image) {
@@ -106,6 +132,8 @@ public class GUIPlayState extends GUIState {
         Background background = new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY));
         grid.setBackground (background);
         grid.add (view, 0, 0);
-        return new Tab ("Game Board", grid);
+        Tab tab = new Tab ("Game Board", grid);
+        tab.setClosable (false);
+        return tab;
     }
 }

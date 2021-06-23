@@ -39,4 +39,6 @@ public interface UI {
     void notifyRegistration(boolean isLeader);
 
     void start();
+
+    void notifyRoomSizeChanged();
 }
