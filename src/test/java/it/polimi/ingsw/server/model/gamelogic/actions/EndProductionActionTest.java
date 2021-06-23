@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EndProductionActionTest extends ActionTest {
+/*class EndProductionActionTest extends ActionTest {
     private BoardProductionActionTest boardProductionActionTest = new BoardProductionActionTest();
 
     EndProductionActionTest() throws NegativeResourceAmountException {
@@ -28,4 +28,4 @@ class EndProductionActionTest extends ActionTest {
         endProductionAction.perform(game, player1);
         assertEquals(player1.getPersonalBoard().getStrongbox().getAllResources().get(0), boardProductionActionTest.coin1);
     }
-}
+}*/
