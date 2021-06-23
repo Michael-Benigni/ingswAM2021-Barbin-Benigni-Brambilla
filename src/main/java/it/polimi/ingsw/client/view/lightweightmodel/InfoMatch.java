@@ -7,7 +7,7 @@ public class InfoMatch {
     private int roomID;
     private String yourUsername;
     private int numPlayerInTurn;
-    private int totalNumPlayers;
+    private int waitingRoomSize;
     private HashMap<Integer, String> positionsAndPlayers;
     private boolean isLeader;
 
@@ -35,8 +35,8 @@ public class InfoMatch {
         this.numPlayerInTurn = numPlayerInTurn;
     }
 
-    public void setTotalNumPlayers(int totalNumPlayers) {
-        this.totalNumPlayers = totalNumPlayers;
+    public void setWaitingRoomSize(int waitingRoomSize) {
+        this.waitingRoomSize = waitingRoomSize;
     }
 
     public String getYourUsername() {
@@ -52,6 +52,18 @@ public class InfoMatch {
         if (player == null)
             player = yourUsername;
         return player;
+    }
+
+    public int getRoomID() {
+        return roomID;
+    }
+
+    public int getWaitingRoomSize() {
+        return waitingRoomSize;
+    }
+
+    public int getNumCurrentPlayersInRoom(){
+        return positionsAndPlayers.size();
     }
 
     public void putNewPlayer(int position, String name) {

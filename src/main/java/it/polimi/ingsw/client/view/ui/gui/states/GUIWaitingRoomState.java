@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.ui.gui.states;
 
+import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
 import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
 import it.polimi.ingsw.client.view.ui.gui.MoveService;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
@@ -18,9 +19,15 @@ import javafx.scene.text.Text;
 
 public class GUIWaitingRoomState extends GUIState {
 
+    private static GUIWaitingRoomState instance;
+    private Button startButton;
     private static Scene scene;
     private static Scene startMatchScene;
     private static Scene waitScene;
+
+    private GUIWaitingRoomState() {
+        instance = this;
+    }
 
     public static Scene getStartMatchScene(boolean isLeader) {
         return isLeader ? startMatchScene : waitScene;
@@ -50,6 +57,7 @@ public class GUIWaitingRoomState extends GUIState {
             grid.setVgap(10);
             grid.setPadding(new Insets(25, 25, 25, 25));
             Scene scene = new Scene(grid, 700, 400);
+
 
             Text scenetitle = new Text("Welcome");
             scenetitle.setFont(Font.font("sans serif", FontWeight.EXTRA_BOLD, 30));
@@ -82,7 +90,7 @@ public class GUIWaitingRoomState extends GUIState {
                     Popup.alert("Error", "You must insert a valid match ID");
                 }
                 else{
-                    gui.getInterpreter().addInteraction("id", idFriendParty);
+                    gui.getInterpreter().addInteraction("ID", idFriendParty);
                     gui.getInterpreter ().addInteraction ("room", "EXISTENT");
                     new MoveService(WaitingRoomMove.CHOOSE_ROOM.getMove(), gui).start();
                 }
@@ -139,8 +147,6 @@ public class GUIWaitingRoomState extends GUIState {
         Text scenetitle = new Text("Match Settings");
         scenetitle.setFont(Font.font("sans serif", FontWeight.EXTRA_BOLD, 30));
 
-        Button setPlayerNumberAndStart = new Button("START GAME");
-
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
         choiceBox.getItems().add("1");
@@ -150,7 +156,15 @@ public class GUIWaitingRoomState extends GUIState {
 
         choiceBox.setValue("1");
 
-        setPlayerNumberAndStart.setOnAction(actionEvent -> {
+        InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
+
+        this.startButton = new Button("START");
+        this.startButton.setDisable(true);
+
+        Label infoRoom = new Label("You are in the Room N° " + infoMatch.getRoomID() +
+                "\n" + infoMatch.getNumCurrentPlayersInRoom() + "players entered your room");
+
+        this.startButton.setOnAction(actionEvent -> {
             String numberOfPlayers = choiceBox.getValue();
             gui.getInterpreter ().addInteraction ("dimension", numberOfPlayers);
             new MoveService (WaitingRoomMove.SET_NUM_PLAYERS.getMove (), gui).start ();
@@ -159,7 +173,7 @@ public class GUIWaitingRoomState extends GUIState {
 
         gridPane.add(scenetitle, 0, 0);
         gridPane.add(choiceBox, 0, 1);
-        gridPane.add(setPlayerNumberAndStart, 0, 2);
+        gridPane.add(this.startButton, 0, 2);
 
         return scene;
     }
@@ -173,4 +187,14 @@ public class GUIWaitingRoomState extends GUIState {
         return scene;
     }
 
+    public Button getStartButton() {
+        return startButton;
+    }
+
+    public static GUIWaitingRoomState getInstance(){
+        if (instance == null)
+            return new GUIWaitingRoomState();
+        else
+            return instance;
+    }
 }

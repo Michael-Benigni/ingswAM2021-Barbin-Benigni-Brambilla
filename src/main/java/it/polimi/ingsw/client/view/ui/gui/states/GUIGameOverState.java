@@ -13,7 +13,7 @@ public class GUIGameOverState extends GUIState {
 
     @Override
     public GUIState getNextState() {
-        return new GUIWaitingRoomState ();
+        return GUIWaitingRoomState.getInstance();
     }
 
     public Scene buildScene(GUI gui) {

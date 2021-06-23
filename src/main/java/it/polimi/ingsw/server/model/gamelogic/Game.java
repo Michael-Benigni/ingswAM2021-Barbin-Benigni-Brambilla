@@ -279,6 +279,7 @@ public abstract class Game implements GameComponent {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.WAIT_YOUR_TURN);
         writer.addProperty ("currPlayer", currentPlayer.getPosition ());
+        writer.addProperty("currPlayerName", currentPlayer.getUsername());
         return writer.write ();
     }
 

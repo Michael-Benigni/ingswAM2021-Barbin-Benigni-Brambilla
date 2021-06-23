@@ -20,7 +20,7 @@ public class GUI implements UI {
     private final ArrayDeque<Sendable> messages;
 
     private GUI() {
-        this.state = new GUIWaitingRoomState ();
+        this.state = GUIWaitingRoomState.getInstance();
         this.interlocutor = new GUIInterlocutor();
         this.interpreter = new GUIInterpreter();
         this.messages = new ArrayDeque<>();

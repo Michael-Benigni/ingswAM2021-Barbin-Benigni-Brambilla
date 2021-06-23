@@ -32,7 +32,9 @@ public class JavaFXApp extends Application {
 
     public JavaFXApp() {
         gui = GUI.getInstance ();
-        //scenes = getAllScenes();
+        scenes = getAllScenes();
+        //scenes = new ArrayList<> ();
+        //scenes.add (new GUIPlayState().buildScene (gui));
         instance = this;
     }
 
@@ -93,6 +95,6 @@ public class JavaFXApp extends Application {
     }
 
     public void enableButtonStartGame() {
-
+        GUIWaitingRoomState.getInstance().getStartButton().setDisable(false);
     }
 }
