@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*class EndProductionActionTest extends ActionTest {
+class EndProductionActionTest extends ActionTest {
     private BoardProductionActionTest boardProductionActionTest = new BoardProductionActionTest();
 
     EndProductionActionTest() throws NegativeResourceAmountException {
@@ -23,9 +23,14 @@ import static org.junit.jupiter.api.Assertions.*;
         StartProductionAction startProductionAction = new StartProductionAction();
         startProductionAction.perform(game, player1);
         BoardProductionAction boardProductionAction = new BoardProductionAction(boardProductionActionTest.coin1, boardProductionActionTest.payActions);
-        boardProductionAction.perform(game, player1);
+        try {
+            boardProductionAction.perform(game, player1);
+            fail ();
+        } catch (TooMuchResourcesProvided e) {
+            assertTrue (true);
+        }
         EndProductionAction endProductionAction = new EndProductionAction();
         endProductionAction.perform(game, player1);
-        assertEquals(player1.getPersonalBoard().getStrongbox().getAllResources().get(0), boardProductionActionTest.coin1);
+        assertEquals(player1.getPersonalBoard().getStrongbox().getAllResources().get(0), boardProductionActionTest.stone2);
     }
-}*/
+}

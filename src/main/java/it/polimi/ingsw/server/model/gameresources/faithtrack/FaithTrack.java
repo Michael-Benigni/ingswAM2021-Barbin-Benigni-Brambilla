@@ -53,12 +53,15 @@ public class FaithTrack implements GameComponent {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.INITIAL_FAITH_TRACK_UPDATE);
         ArrayList<Cell> allCellOfFT = new ArrayList<>();
-        for(Section s : this.listOfSections){
+        for(Section s : this.listOfSections)
             allCellOfFT.addAll(s.getAllCells());
-        }
         for(Cell c : allCellOfFT){
             c.getInfo(writer);
             writer.addProperty ("sections", findSectionOfThisCell (c).getInfo());
+        }
+        for (Player player : getPlayersFromFaithTrack ()) {
+            writer.addProperty ("players", player.getUsername ());
+            writer.addProperty ("positions", getCellIndex (getMapOfFaithMarkers ().get (player).getCurrentCell ()));
         }
         return writer.write ();
     }
@@ -111,9 +114,9 @@ public class FaithTrack implements GameComponent {
     }
 
     /**
-     * Method that move the marker that belongs to the provided player by a provide number of cells.
+     * Method that move the marker that belongs to the provided player by a provide number of positions.
      * @param player player whose marker to move.
-     * @param numberOfSteps number of cells.
+     * @param numberOfSteps number of positions.
      * @throws Exception
      */
     void moveMarkerForward(Player player, int numberOfSteps) throws WrongCellIndexException,
@@ -141,8 +144,8 @@ public class FaithTrack implements GameComponent {
     private int getCellIndex(Cell cell)  {
         int cellIndex = 0;
         for (Section s : this.listOfSections){
-            ArrayList<Cell> cells = s.getAllCells();
-            for(Cell c : cells){
+            ArrayList<Cell> positions = s.getAllCells();
+            for(Cell c : positions){
                 if(c == cell)
                     return cellIndex;
                 cellIndex++;
@@ -203,8 +206,6 @@ public class FaithTrack implements GameComponent {
     public void notifyInitialUpdateTo(Player player) {
         try {
             notifyUpdateTo (player.getObservers (), generateInitialUpdate ());
-            for (Player p : getPlayersFromFaithTrack ())
-                notifyUpdate (generateUpdate (p, getCellIndex (this.mapOfFaithMarkers.get (player).getCurrentCell ())));
         } catch (CellNotFoundInFaithTrackException e) {
             e.printStackTrace ();
         }

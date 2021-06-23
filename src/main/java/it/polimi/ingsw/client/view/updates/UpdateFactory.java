@@ -4,7 +4,7 @@ import it.polimi.ingsw.utils.network.Header;
 import java.util.HashMap;
 
 public class UpdateFactory {
-    private static HashMap<Header.ToClient, Class<? extends ViewUpdate>> map = init ();
+    private static final HashMap<Header.ToClient, Class<? extends ViewUpdate>> map = init ();
 
     private static HashMap<Header.ToClient, Class<? extends ViewUpdate>> init() {
         HashMap<Header.ToClient, Class<? extends ViewUpdate>> map = new HashMap<> ();

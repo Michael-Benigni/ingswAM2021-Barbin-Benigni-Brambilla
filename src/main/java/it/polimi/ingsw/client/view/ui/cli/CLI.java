@@ -232,9 +232,9 @@ public class CLI implements UI {
         int cellDim = 12;
         InfoMatch info = getController ().getModel ().getInfoMatch ();
         int numOfPlayers = info.getOtherPlayersUsernames ().size () + 1 ;
-        ArrayList<LWCell> cells = getController ().getModel ().getBoard ().getFaithTrack ();
-        ArrayList<String> cellsAsString = cells.stream ()
-                .map ((cell)-> encapsulate ("Cell n°" + cells.indexOf (cell)
+        ArrayList<LWCell> positions = getController ().getModel ().getBoard ().getFaithTrack ();
+        ArrayList<String> cellsAsString = positions.stream ()
+                .map ((cell)-> encapsulate ("Cell n°" + positions.indexOf (cell)
                         + "\nVP: " + cell.getVictoryPoints () + "\n"
                         + cell.getSection () + "\n"
                         + (cell.isPopeSpace () ? "Pope Cell" : " ")

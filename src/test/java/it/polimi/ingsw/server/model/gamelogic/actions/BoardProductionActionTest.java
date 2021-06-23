@@ -10,13 +10,14 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*class BoardProductionActionTest extends ActionTest {
-     StorableResource coin1 = new StorableResource(ResourceType.COIN, 1);
-     StorableResource stone2 = new StorableResource(ResourceType.STONE, 2);
-     StorableResource servant1 = new StorableResource(ResourceType.SERVANT, 1);
-     StrongboxAction pay2stone = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, stone2);
-     WarehouseAction pay1servant = new WarehouseAction(PayAction.StoreOrRemove.REMOVE, servant1, 1);
-     ArrayList<PayAction> payActions = new ArrayList<>();
+class BoardProductionActionTest extends ActionTest {
+    StorableResource coin1 = new StorableResource(ResourceType.COIN, 1);
+    StorableResource stone2 = new StorableResource(ResourceType.STONE, 2);
+    StorableResource servant1 = new StorableResource(ResourceType.SERVANT, 1);
+    StrongboxAction pay2stone = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, stone2);
+    StrongboxAction pay1stone = new StrongboxAction(PayAction.StoreOrRemove.REMOVE, new StorableResource (ResourceType.STONE, 1));
+    WarehouseAction pay1servant = new WarehouseAction(PayAction.StoreOrRemove.REMOVE, servant1, 1);
+    ArrayList<PayAction> payActions = new ArrayList<>();
     BoardProductionAction boardProductionAction;
 
     BoardProductionActionTest() throws NegativeResourceAmountException {
@@ -25,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
     void buildProductionTest() throws Exception {
         player1.getPersonalBoard().getStrongbox().store(stone2);
         player1.getPersonalBoard().getWarehouseDepots().store(servant1, 1);
-        payActions.add(pay2stone);
+        payActions.add(pay1stone);
         payActions.add(pay1servant);
         StartProductionAction startProductionAction = new StartProductionAction();
         startProductionAction.perform(game, player1);
@@ -46,4 +47,4 @@ import static org.junit.jupiter.api.Assertions.*;
             assertTrue(true);
         }
     }
-}*/
+}
