@@ -18,6 +18,12 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 
 public class GUIPlayState extends GUIState {
+    private static Scene scene;
+
+    @Override
+    protected void setScene(Scene scene) {
+        GUIPlayState.scene = scene;
+    }
 
     @Override
     public GUIState getNextState() {
@@ -26,12 +32,20 @@ public class GUIPlayState extends GUIState {
 
     @Override
     public Scene buildScene(GUI gui) {
-        TabPane tabPane = new TabPane ();
-        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-        Tab tabPersonalBoard = getPersonalBoardTab (screenBounds.getWidth (), screenBounds.getHeight ());
-        Tab tabGameBoard = getGameBoardTab(screenBounds.getWidth (), screenBounds.getHeight ());
-        tabPane.getTabs ().addAll (tabGameBoard, tabPersonalBoard);
-        return new Scene (tabPane);
+        if (getScene () == null) {
+            TabPane tabPane = new TabPane ();
+            Rectangle2D screenBounds = Screen.getPrimary ().getBounds ();
+            Tab tabPersonalBoard = getPersonalBoardTab (screenBounds.getWidth (), screenBounds.getHeight ());
+            Tab tabGameBoard = getGameBoardTab (screenBounds.getWidth (), screenBounds.getHeight ());
+            tabPane.getTabs ().addAll (tabGameBoard, tabPersonalBoard);
+            setScene (new Scene (tabPane));
+        }
+        return getScene ();
+    }
+
+    @Override
+    protected Scene getScene() {
+        return scene;
     }
 
     private Tab getPersonalBoardTab(double width, double height) {

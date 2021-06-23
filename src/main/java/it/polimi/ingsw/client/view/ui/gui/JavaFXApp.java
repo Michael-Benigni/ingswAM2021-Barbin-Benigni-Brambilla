@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
 import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
-import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,8 +18,8 @@ public class JavaFXApp extends Application {
 
     public JavaFXApp() {
         gui = GUI.getInstance ();
-        scenes = new ArrayList<> ();//getAllScenes();
-        scenes.add (new GUIWaitingRoomState ()/*GUIPlayState()*/.buildScene (gui));
+        scenes = getAllScenes();
+        //scenes.add (new /*GUIWaitingRoomState ()*/GUIPlayState().buildScene (gui));
         instance = this;
     }
 
@@ -28,9 +27,15 @@ public class JavaFXApp extends Application {
         GUIState state = gui.getCurrentState ();
         Scene newScene = state.buildScene (gui);
         ArrayList<Scene> scenes = new ArrayList<> ();
-        while (!scenes.contains (newScene)) {
+        ArrayList<GUIState> states = new ArrayList<> ();
+        int i = 0;
+        while (!states.contains (state)) {
             scenes.add (newScene);
-            newScene = state.getNextState ().buildScene (gui);
+            states.add (state);
+            state = state.getNextState ();
+            newScene = state.buildScene (gui);
+            System.out.println (i);
+            i++;
         }
         return scenes;
     }
