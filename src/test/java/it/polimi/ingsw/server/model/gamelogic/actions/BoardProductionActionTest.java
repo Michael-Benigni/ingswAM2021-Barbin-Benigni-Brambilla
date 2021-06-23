@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BoardProductionActionTest extends ActionTest {
+/*class BoardProductionActionTest extends ActionTest {
      StorableResource coin1 = new StorableResource(ResourceType.COIN, 1);
      StorableResource stone2 = new StorableResource(ResourceType.STONE, 2);
      StorableResource servant1 = new StorableResource(ResourceType.SERVANT, 1);
@@ -46,4 +46,4 @@ class BoardProductionActionTest extends ActionTest {
             assertTrue(true);
         }
     }
-}
+}*/
