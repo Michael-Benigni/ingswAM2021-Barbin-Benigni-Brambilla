@@ -17,6 +17,12 @@ import javafx.scene.text.Text;
 public class GUIWaitingRoomState extends GUIState {
 
     private static Scene scene;
+    private static Scene startMatch;
+    private static Scene waitScene;
+
+    public static Scene getStartMatchScene(boolean isLeader) {
+        return isLeader ? startMatch : waitScene;
+    }
 
     @Override
     protected void setScene(Scene scene) {

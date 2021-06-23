@@ -130,6 +130,6 @@ public class GUI implements UI {
 
     @Override
     public void notifyRegistration(boolean isLeader) {
-
+        Platform.runLater (() -> JavaFXApp.getInstance ().setStartMatchScene (isLeader));
     }
 }

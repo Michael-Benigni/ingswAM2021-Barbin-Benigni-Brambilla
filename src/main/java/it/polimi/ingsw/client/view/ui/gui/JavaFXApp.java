@@ -2,8 +2,10 @@ package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
 import it.polimi.ingsw.client.view.moves.PlayMove;
+import it.polimi.ingsw.client.view.ui.cli.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
+import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,8 +20,9 @@ public class JavaFXApp extends Application {
 
     public JavaFXApp() {
         gui = GUI.getInstance ();
-        scenes = getAllScenes();
-        //scenes.add (new /*GUIWaitingRoomState ()*/GUIPlayState().buildScene (gui));
+        //scenes = getAllScenes();
+        scenes = new ArrayList<> ();
+        scenes.add (new GUIPlayState().buildScene (gui));
         instance = this;
     }
 
@@ -69,5 +72,10 @@ public class JavaFXApp extends Application {
             Application.launch ();
         else
             throw new AlreadyInstantiatedException ();
+    }
+
+    public void setStartMatchScene(boolean isLeader) {
+        mainWindow.setScene (GUIWaitingRoomState.getStartMatchScene(isLeader));
+        mainWindow.show ();
     }
 }
