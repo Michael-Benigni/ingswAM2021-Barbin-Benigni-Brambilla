@@ -118,6 +118,8 @@ public class GUIWaitingRoomState extends GUIState {
             existentGame.setDisable(true);
             newRoom.setDisable(true);
             matchIDTextField.setDisable(true);
+
+            setScene(scene);
         }
 
         return getScene();
