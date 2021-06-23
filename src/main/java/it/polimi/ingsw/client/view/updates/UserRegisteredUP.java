@@ -4,23 +4,30 @@ import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
 
 public class UserRegisteredUP implements ViewUpdate {
-    private final int numUsers;
+    private final boolean isLeader;
+    private final int numUser;
     private final int numWaitingRoom;
     private final String username;
+    private final int numUsers;
 
-    public UserRegisteredUP(int numUsers, int numWaitingRoom, String username) {
-        this.numUsers = numUsers;
+    public UserRegisteredUP(boolean isLeader, int numUser, int numWaitingRoom, String username, int numUsers) {
+        this.isLeader = isLeader;
+        this.numUser = numUser;
         this.numWaitingRoom = numWaitingRoom;
         this.username = username;
+        this.numUsers = numUsers;
     }
 
     @Override
     public void update(Controller controller) {
         InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
+        infoMatch.setIsLeader(isLeader);
         infoMatch.setYourUsername (username);
         infoMatch.setRoomID (numWaitingRoom);
         infoMatch.setTotalNumPlayers (numUsers);
-        controller.getUI ().notifyMessage (numUsers + "° user registered, in the waiting room n° " + numWaitingRoom + ", with name: " + username);
+        controller.getUI ().notifyMessage (numUser + "° user registered, in the waiting room n° " + numWaitingRoom + ", with name: " + username);
         controller.getUI ().nextInputRequest ();
+        if (infoMatch.isLeader ())
+            controller.getUI ().notifyRegistration (isLeader);
     }
 }

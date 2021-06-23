@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.Controller;
-import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
+import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
@@ -12,18 +12,35 @@ import java.util.ArrayDeque;
 
 public class GUI implements UI {
 
+    private static GUI instance;
     private GUIState state;
     private Controller controller;
     private final GUIInterlocutor interlocutor;
     private final GUIInterpreter interpreter;
     private final ArrayDeque<Sendable> messages;
 
-    public GUI() {
+    private GUI() {
         this.state = new GUIWaitingRoomState ();
         this.interlocutor = new GUIInterlocutor();
         this.interpreter = new GUIInterpreter();
         this.messages = new ArrayDeque<>();
-        new Thread (JavaFXApp::show).start();
+    }
+
+    public static GUI getInstance() {
+        if (instance == null)
+            instance = new GUI ();
+        return instance;
+    }
+
+    @Override
+    public void start() {
+        new Thread (() -> {
+            try {
+                JavaFXApp.show ();
+            } catch (AlreadyInstantiatedException e) {
+                e.printStackTrace ();
+            }
+        }).start();
     }
 
 
@@ -68,16 +85,13 @@ public class GUI implements UI {
     }
 
     @Override
-    public synchronized GUIState getState() {
+    public synchronized GUIState getCurrentState() {
         return state;
     }
 
     @Override
     public void setNextState() {
-        Platform.runLater (() -> {
-                getState ().getNextState ().buildScene (this);
-                JavaFXApp.setCurrentScene (getState ().getScene ());
-        });
+        Platform.runLater (() -> JavaFXApp.getInstance ().setNextScene ());
     }
 
 
@@ -112,5 +126,10 @@ public class GUI implements UI {
             }
         }
         return messages.remove ();
+    }
+
+    @Override
+    public void notifyRegistration(boolean isLeader) {
+
     }
 }

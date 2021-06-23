@@ -9,6 +9,11 @@ public class InfoMatch {
     private int numPlayerInTurn;
     private int totalNumPlayers;
     private HashMap<Integer, String> positionsAndPlayers;
+    private boolean isLeader;
+
+    public boolean isLeader() {
+        return isLeader;
+    }
 
     public InfoMatch() {
         this.positionsAndPlayers = new HashMap<> ();
@@ -51,5 +56,9 @@ public class InfoMatch {
 
     public void putNewPlayer(int position, String name) {
         positionsAndPlayers.put (position, name);
+    }
+
+    public void setIsLeader(boolean isLeader) {
+        this.isLeader = isLeader;
     }
 }

@@ -14,7 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class GUIWaitingRoomState extends GUIState{
+public class GUIWaitingRoomState extends GUIState {
 
     @Override
     public GUIState getNextState() {
@@ -22,7 +22,7 @@ public class GUIWaitingRoomState extends GUIState{
     }
 
     @Override
-    public void buildScene(GUI gui){
+    public Scene buildScene(GUI gui){
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -33,7 +33,6 @@ public class GUIWaitingRoomState extends GUIState{
         Text scenetitle = new Text("Welcome");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
-
 
         Label userName = new Label("Username:");
         grid.add(userName, 0, 1);
@@ -78,8 +77,6 @@ public class GUIWaitingRoomState extends GUIState{
         grid.add(newRoom, 3, 6);
         grid.add(existentGame, 3, 7);
 
-        setScene (scene);
-
-
+        return scene;
     }
 }

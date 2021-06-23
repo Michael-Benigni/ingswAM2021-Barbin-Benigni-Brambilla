@@ -8,14 +8,12 @@ public class UIFactory {
         UI ui;
         switch (cliOrGui) {
             case "--cli": {
-                CLI cli = new CLI ();
-                cli.start ();
-                ui = cli;
+                ui = CLI.getInstance();
                 break;
             }
             case "--gui":
             default: {
-                ui = new GUI ();
+                ui = GUI.getInstance ();
                 break;
             }
         }

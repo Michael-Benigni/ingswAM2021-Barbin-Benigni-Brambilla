@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.ui.gui.states;
 
 import it.polimi.ingsw.client.view.ui.gui.GUI;
+import javafx.scene.Scene;
 
 public class GUIGameOverState extends GUIState {
     @Override
@@ -8,8 +9,8 @@ public class GUIGameOverState extends GUIState {
         return new GUIWaitingRoomState ();
     }
 
-    @Override
-    public void buildScene(GUI gui) {
+    public Scene buildScene(GUI gui) {
 
+        return null;
     }
 }

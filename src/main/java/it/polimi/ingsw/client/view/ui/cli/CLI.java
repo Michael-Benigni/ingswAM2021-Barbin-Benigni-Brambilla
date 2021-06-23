@@ -22,14 +22,23 @@ public class CLI implements UI {
     private final ArrayDeque<Sendable> messages;
     private ClientState state;
     private Controller controller;
+    private static CLI instance;
 
-    public CLI() {
+
+    private CLI() {
         this.messages = new ArrayDeque<> ();
         this.state = new WaitingRoomState ();
         this.interpreter = new CLIInterpreter ();
         this.interlocutor = new CLIInterlocutor ();
     }
 
+    public static CLI getInstance() {
+        if (instance == null)
+            instance = new CLI ();
+        return instance;
+    }
+
+    @Override
     public void start() {
         new Thread (() -> {
             registration();
@@ -264,7 +273,7 @@ public class CLI implements UI {
 
     @Override
     public synchronized void printMenu() {
-        interlocutor.write (getState ().menu ());
+        interlocutor.write (getCurrentState ().menu ());
     }
 
     private void registration() {
@@ -318,7 +327,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public synchronized ClientState getState() {
+    public synchronized ClientState getCurrentState() {
         return state;
     }
 
@@ -338,6 +347,11 @@ public class CLI implements UI {
             }
         }
         return messages.remove ();
+    }
+
+    @Override
+    public void notifyRegistration(boolean isLeader) {
+
     }
 
     @Override

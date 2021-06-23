@@ -6,7 +6,7 @@ import it.polimi.ingsw.utils.network.Sendable;
 
 public interface UI {
 
-    ClientState getState();
+    ClientState getCurrentState();
 
     void showPersonalBoard();
 
@@ -34,6 +34,9 @@ public interface UI {
 
     void addMessage(Sendable sendable);
 
-
     Sendable getNextMessage();
+
+    void notifyRegistration(boolean isLeader);
+
+    void start();
 }

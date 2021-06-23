@@ -186,7 +186,9 @@ public class WaitingRoom {
     private Sendable getUserInfo(User user) {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.USER_REGISTERED);
-        writer.addProperty ("numUsers", getAllUsers ().size ());
+        writer.addProperty ("numUser", getAllUsers ().size ());
+        writer.addProperty ("numUsers", size);
+        writer.addProperty ("isLeader", user == leader);
         writer.addProperty ("username", user.getUsername ());
         writer.addProperty ("numWaitingRoom", getID());
         return writer.write ();
