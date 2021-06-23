@@ -32,9 +32,6 @@ public class JavaFXApp extends Application {
 
     public JavaFXApp() {
         gui = GUI.getInstance ();
-        scenes = getAllScenes();
-        //scenes = new ArrayList<> ();
-        //scenes.add (new GUIPlayState().buildScene (gui));
         instance = this;
     }
 
@@ -69,12 +66,11 @@ public class JavaFXApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
-        scenes = new ArrayList<> ();
-        scenes.add (new GUIPlayState().buildScene (gui));
-        mainWindow.setTitle ("Master Of Renaissance");
-        mainWindow.setScene (scenes.get (0));
         mainWindow.setWidth (fixedWidth);
         mainWindow.setHeight (fixedHeight);
+        mainWindow.setTitle ("Master Of Renaissance");
+        scenes = getAllScenes ();
+        mainWindow.setScene (scenes.get (0));
         //mainWindow.setFullScreen (true);
 
         mainWindow.setOnCloseRequest (e -> new MoveService (PlayMove.QUIT.getMove (), gui).start ());
