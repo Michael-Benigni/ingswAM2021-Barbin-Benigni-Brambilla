@@ -60,7 +60,7 @@ public class GUIWaitingRoomState extends GUIState {
 
 
             Text scenetitle = new Text("Welcome");
-            scenetitle.setFont(Font.font("sans serif", FontWeight.EXTRA_BOLD, 30));
+            scenetitle.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 30));
 
             Label username = new Label("Username:");
 
@@ -145,7 +145,7 @@ public class GUIWaitingRoomState extends GUIState {
         Scene scene = new Scene(gridPane, 700, 400);
 
         Text scenetitle = new Text("Match Settings");
-        scenetitle.setFont(Font.font("sans serif", FontWeight.EXTRA_BOLD, 30));
+        scenetitle.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 30));
 
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
@@ -161,25 +161,44 @@ public class GUIWaitingRoomState extends GUIState {
         this.startButton = new Button("START");
         this.startButton.setDisable(true);
 
+        Button setNumPlayersButton = new Button("Set room size");
+
         Label infoRoom = new Label("You are in the Room N° " + infoMatch.getRoomID() +
                 "\n" + infoMatch.getNumCurrentPlayersInRoom() + "players entered your room");
 
-        this.startButton.setOnAction(actionEvent -> {
+        setNumPlayersButton.setOnAction(actionEvent -> {
             String numberOfPlayers = choiceBox.getValue();
             gui.getInterpreter ().addInteraction ("dimension", numberOfPlayers);
             new MoveService (WaitingRoomMove.SET_NUM_PLAYERS.getMove (), gui).start ();
-            new MoveService (WaitingRoomMove.START_MATCH.getMove (), gui).start ();
         });
 
         gridPane.add(scenetitle, 0, 0);
-        gridPane.add(choiceBox, 0, 1);
-        gridPane.add(this.startButton, 0, 2);
+        gridPane.add(infoRoom, 0, 1);
+        gridPane.add(choiceBox, 0, 3);
+        gridPane.add(setNumPlayersButton, 1, 3);
+        gridPane.add(this.startButton, 1, 4);
+
 
         return scene;
     }
 
     private Scene goToWaitScene(GUI gui) {
-        return null;
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(25, 25, 25, 25));
+        Scene scene = new Scene(gridPane, 700, 400);
+
+        Text scenetitle = new Text("Waiting Room");
+        scenetitle.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 30));
+
+        Label waitLabel = new Label("Please, wait until the party manager start the game");
+
+        gridPane.add(scenetitle, 0, 0);
+        gridPane.add(waitLabel, 0, 2);
+
+        return scene;
     }
 
     @Override

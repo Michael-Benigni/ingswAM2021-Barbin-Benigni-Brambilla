@@ -159,23 +159,27 @@ public class CLI implements UI {
     @Override
     public void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames, ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
         String message = "";
-        String winners = String.join (", ", winnersNames) + ".";
-        String losers = String.join (", ", losersNames) + ".";
-        if (winnersNames.size () > 1)
+        String winners = String.join(", ", winnersNames) + ".";
+        String losers = String.join(", ", losersNames) + ".";
+        if (winnersNames.size() > 1)
             message += "The winners are " + winners + "\n";
         else
             message += "The winner is " + winners + "\n";
-        if (winnersNames.size () > 1)
+        if (winnersNames.size() > 1)
             message += "The losers are " + losers + "\n\n";
         else
             message += "The loser is " + losers + "\n\n";
         message += "--------------------VPs--------------------\n\n";
-        message += winnersNames.stream ().map ((name) -> name + " -> VP: " + winnersVPs.get(winnersNames.indexOf (name)));
+        message += winnersNames.stream().map((name) -> name + " -> VP: " + winnersVPs.get(winnersNames.indexOf(name)));
         message += "\n";
-        message += losersNames.stream ().map ((name) -> name + " -> VP: " + losersVPs.get(losersNames.indexOf (name)));
+        message += losersNames.stream().map((name) -> name + " -> VP: " + losersVPs.get(losersNames.indexOf(name)));
         if (addInfo != null)
             message += addInfo;
-        controller.getUI ().notifyMessage (message);
+        controller.getUI().notifyMessage(message);
+    }
+
+    public void notifyRoomFull() {
+        nextInputRequest ();
     }
 
     private void userInteraction() {

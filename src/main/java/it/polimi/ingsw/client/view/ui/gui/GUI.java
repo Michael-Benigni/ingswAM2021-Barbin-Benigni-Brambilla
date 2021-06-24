@@ -87,6 +87,9 @@ public class GUI implements UI {
 
     @Override
     public void onRoomSizeChanged() {
+
+    }
+    public void notifyRoomFull() {
         Platform.runLater (() -> JavaFXApp.getInstance ().enableButtonStartGame());
     }
 

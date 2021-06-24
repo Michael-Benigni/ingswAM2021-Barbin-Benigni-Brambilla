@@ -81,4 +81,6 @@ public interface UI {
     void onXPowersChanged();
 
     void onCurrentPlayerChanged(String additionalMsg);
+
+    void notifyRoomFull();
 }
