@@ -11,9 +11,9 @@ public class YourTurnUP implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        controller.getUI ().notifyMessage ("It's your Turn!");
+        String msg = "It's your Turn! ";
         if (additionalMsg != null)
-            controller.getUI ().notifyMessage (additionalMsg);
-        controller.getUI ().nextInputRequest ();
+            msg += additionalMsg;
+        controller.getUI ().notifyMessage (msg);
     }
 }

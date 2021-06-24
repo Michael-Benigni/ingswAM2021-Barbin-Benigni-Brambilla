@@ -1,11 +1,13 @@
 package it.polimi.ingsw.client.view.ui.gui.states;
 
+import it.polimi.ingsw.client.ClientPrefs;
+import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
+import it.polimi.ingsw.client.view.lightweightmodel.LWCardsGrid;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
+import it.polimi.ingsw.utils.config.JsonHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,14 +19,23 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Screen;
+
+import java.io.FileNotFoundException;
 
 public class GUIPlayState extends GUIState {
     private static Scene scene;
+    private static GUIPlayState instance;
+    private GUI gui;
+    private GridPane cardsGrid;
+
+    private GUIPlayState() {
+        instance = this;
+    }
 
     @Override
-    protected void setScene(Scene scene) {
-        GUIPlayState.scene = scene;
+    protected void setSceneInstance(Scene scene) {
+        if (GUIPlayState.scene == null)
+            GUIPlayState.scene = scene;
     }
 
     @Override
@@ -34,47 +45,37 @@ public class GUIPlayState extends GUIState {
 
     @Override
     public Scene buildScene(GUI gui) {
-        if (getScene () == null) {
+        if (getSceneInstance () == null) {
+            this.gui = gui;
+            HBox hBox = new HBox ();
             TabPane tabPane = new TabPane ();
-            Rectangle2D screenBounds = Screen.getPrimary ().getVisualBounds ();
-            Tab tabPersonalBoard = getPersonalBoardTab (screenBounds.getWidth (), screenBounds.getHeight ());
-            Tab tabGameBoard = getGameBoardTab (screenBounds.getWidth (), screenBounds.getHeight ());
-            tabPane.getTabs ().addAll (tabGameBoard, tabPersonalBoard);
-            setScene (new Scene (tabPane));
+            Tab tabPersonalBoard = getPersonalBoardTab ();
+            Tab tabGameBoard = getGameBoardTab ();
+            tabPane.getTabs ().addAll (tabPersonalBoard, tabGameBoard);
+            tabPane.prefWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.9));
+            hBox.spacingProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.02));
+            hBox.getChildren ().addAll (tabPane, getTurnsButtonsVBox ()) ;
+            setSceneInstance (new Scene (hBox));
         }
-        return getScene ();
+        return getSceneInstance ();
     }
 
     @Override
-    protected Scene getScene() {
+    protected Scene getSceneInstance() {
         return scene;
     }
 
-    private Tab getPersonalBoardTab(double width, double height) {
-
-
-        GridPane grid = new GridPane ();
+    private Tab getPersonalBoardTab() {
         Image image = new Image (getClass ().getResourceAsStream ("/images/board/Masters of Renaissance_PlayerBoard (11_2020)-1.png"));
         ImageView imageView = new ImageView (image);
-        imageView.fitWidthProperty ().asObject ().bind (JavaFXApp.getFixedWidth ());
-        imageView.fitHeightProperty ().asObject ().bind (JavaFXApp.getFixedHeight ());
-        /*ColumnConstraints column1 = new ColumnConstraints ();
-        column1.setPercentWidth (20);
-        grid.getColumnConstraints ().add (column1);
-        ColumnConstraints column2 = new ColumnConstraints ();
-        column1.setPercentWidth (80);
-        grid.getColumnConstraints ().add (column2);
-
-        GridPane paneImages = new GridPane ();
-        RowConstraints row1 = new RowConstraints ();
-        row1.setPercentHeight (70);
-        paneImages.getRowConstraints ().add (row1);
-        RowConstraints row2 = new RowConstraints ();
-        row2.setPercentHeight (30);
-        paneImages.getRowConstraints ().add (row2);
-
-        paneImages.add (imageView, 0, 0);*/
-        grid.add (imageView, 3, 1);
+        imageView.setPreserveRatio (true);
+        HBox hBox = new HBox ();
+        hBox.getChildren ().add (imageView);
+        hBox.setBackground (new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
+        imageView.fitHeightProperty().bind (JavaFXApp.getFixedHeight ().multiply (0.93));
+        Tab tab = new Tab ("Personal Board", hBox);
+        //grid.addColumn (0, imageView);
+        //grid.addColumn (1, getTurnsButtonsVBox ());
 
         // create a background image
         /*BackgroundImage backgroundimage = new BackgroundImage(image,
@@ -90,12 +91,11 @@ public class GUIPlayState extends GUIState {
         //VBox vBox = getTurnsButtonsVBox (width, image);
         //grid.add (vBox, 0, 0);
 
-        Tab tab = new Tab ("Personal Board", grid);
         tab.setClosable (false);
         return tab;
     }
 
-    private VBox getTurnsButtonsVBox(double width, Image image) {
+    private VBox getTurnsButtonsVBox() {
         Button marketTurn = new Button ("Market");
         marketTurn.setMaxWidth (Double.MAX_VALUE);
         marketTurn.setOnAction (e -> {});
@@ -108,32 +108,60 @@ public class GUIPlayState extends GUIState {
         productionTurn.setMaxWidth (Double.MAX_VALUE);
         productionTurn.setOnAction (e -> {});
 
-        Label buttonsLabel = new Label ("Choose \nyour \nTurn \nType!");
+        Label buttonsLabel = new Label ("Choose your Turn Type!");
         buttonsLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 
         VBox buttons = new VBox (10);
         buttons.setSpacing(10);
         buttons.setPadding(new Insets(20, 20, 10, 20));
         buttons.setBackground (new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
-        buttons.setPrefWidth ((width - image.getWidth ()) / 2);
         buttons.setAlignment (Pos.TOP_CENTER);
         buttons.getChildren ().addAll (buttonsLabel, marketTurn, buyCardTurn, productionTurn);
 
         return buttons;
     }
 
-    private Tab getGameBoardTab(double width, double height) {
-        Image image = new Image (getClass ().getResourceAsStream ("/images/punchboard/plancia portabiglie.png"), width, height, true, false);
-        ImageView view = new ImageView (image);
-        GridPane grid = new GridPane ();
-        grid.setGridLinesVisible (true);
-        grid.setHgap (5);
-        grid.setHgap (4);
+    private Tab getGameBoardTab() {
+        Image image = new Image (getClass ().getResourceAsStream ("/images/punchboard/plancia portabiglie.png"));
+        ImageView market = new ImageView (image);
+        market.setPreserveRatio (true);
+        market.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.91));
+
+
+        this.cardsGrid = new GridPane ();
+
+        HBox hBox = new HBox ();
+        hBox.getChildren ().addAll (market, cardsGrid);
+        hBox.spacingProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.01));
+        hBox.setAlignment (Pos.CENTER);
         Background background = new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY));
-        grid.setBackground (background);
-        grid.add (view, 0, 0);
-        Tab tab = new Tab ("Game Board", grid);
+        hBox.setBackground (background);
+
+        Tab tab = new Tab ("Game Board", hBox);
         tab.setClosable (false);
         return tab;
+    }
+
+    private void initCardsGrid(GridPane grid) throws IllegalInputException, FileNotFoundException {
+        LWCardsGrid lwCardsGrid = gui.getController ().getModel ().getBoard ().getGrid ();
+        JsonHandler jsonHandler = new JsonHandler (ClientPrefs.getPathToDB());
+        for (int i = 0; i < 3 /*lwCardsGrid.getRows ()*/; i++) {
+            for (int j = 0; j < 4 /*lwCardsGrid.getColumns ()*/; j++) {
+                //String fileImgPath = (String) jsonHandler.getAsJavaObjectFromJSON (String.class, String.valueOf (lwCardsGrid.getCard (i, j).getId ()));
+                Image card = new Image (this.getClass ().getResourceAsStream ("/images/front/Masters of Renaissance_Cards_FRONT_3mmBleed_1-1-1.png"));
+                ImageView cardWrapper = new ImageView (card);
+                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.25));
+                cardWrapper.setPreserveRatio (true);
+                Button buttonCard = new Button ("", cardWrapper);
+                grid.add (buttonCard, j, i);
+            }
+        }
+        grid.setAlignment (Pos.CENTER);
+    }
+
+    public static GUIPlayState getInstance() {
+        if (instance == null)
+            return new GUIPlayState ();
+        return instance;
     }
 }

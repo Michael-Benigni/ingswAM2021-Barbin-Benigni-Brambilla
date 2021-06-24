@@ -34,19 +34,19 @@ public class GUIWaitingRoomState extends GUIState {
     }
 
     @Override
-    protected void setScene(Scene scene) {
+    protected void setSceneInstance(Scene scene) {
         GUIWaitingRoomState.scene = scene;
     }
 
     @Override
     public GUIState getNextState() {
-        return new GUIPlayState();
+        return GUIPlayState.getInstance ();
     }
 
     @Override
     public Scene buildScene(GUI gui){
 
-        if(getScene() == null) {
+        if(getSceneInstance () == null) {
 
             startMatchScene = goToSetPlayersScene(gui);
             waitScene = goToWaitScene(gui);
@@ -127,10 +127,10 @@ public class GUIWaitingRoomState extends GUIState {
             newRoom.setDisable(true);
             matchIDTextField.setDisable(true);
 
-            setScene(scene);
+            setSceneInstance (scene);
         }
 
-        return getScene();
+        return getSceneInstance ();
     }
 
 
@@ -183,7 +183,7 @@ public class GUIWaitingRoomState extends GUIState {
     }
 
     @Override
-    protected Scene getScene() {
+    protected Scene getSceneInstance() {
         return scene;
     }
 

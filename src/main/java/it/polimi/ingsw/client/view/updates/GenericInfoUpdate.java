@@ -12,6 +12,5 @@ public class GenericInfoUpdate implements ViewUpdate {
     @Override
     public void update(Controller controller) {
         controller.getUI ().notifyMessage (text);
-        controller.getUI ().nextInputRequest ();
     }
 }

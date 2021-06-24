@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public abstract class GUIState extends ClientState {
 
-    protected abstract void setScene(Scene scene);
+    protected abstract void setSceneInstance(Scene scene);
 
     @Override
     public GUIState getNextState() {
@@ -17,18 +17,18 @@ public abstract class GUIState extends ClientState {
 
     public abstract Scene buildScene(GUI gui);
 
-    protected abstract Scene getScene();
+    protected abstract Scene getSceneInstance();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GUIState)) return false;
         GUIState state = (GUIState) o;
-        return Objects.equals (getScene (), state.getScene ());
+        return Objects.equals (getSceneInstance (), state.getSceneInstance ());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash (getScene ());
+        return Objects.hash (getSceneInstance ());
     }
 }

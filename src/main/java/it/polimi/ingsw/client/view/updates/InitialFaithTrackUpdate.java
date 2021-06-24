@@ -21,7 +21,7 @@ public class InitialFaithTrackUpdate implements ViewUpdate{
 
     @Override
     public void update(Controller controller) {
-        controller.getModel().getBoard().updateFaithTrack(buildListOfCells());
+        controller.getModel().getBoard().buildFaithTrack (buildListOfCells());
         for (int i = 0; i < players.size (); i++)
             controller.getModel ().getBoard ().updatePlayerPosition (players.get (i), positions.get (i));
     }

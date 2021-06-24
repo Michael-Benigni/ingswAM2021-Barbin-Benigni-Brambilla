@@ -67,7 +67,7 @@ public abstract class Game implements GameComponent {
     private boolean gameIsOver;
 
     /**
-     * the observers of the game: this is to implement the pattern Observer-Observable
+     * the observers of the game: this is to implement the pattern Observer-Subgect
      */
     private ArrayList<Observer> observers;
 

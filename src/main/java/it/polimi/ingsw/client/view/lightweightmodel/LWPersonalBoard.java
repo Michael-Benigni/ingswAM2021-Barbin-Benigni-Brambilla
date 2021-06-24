@@ -1,9 +1,11 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
 
+import it.polimi.ingsw.client.view.ui.UI;
+import it.polimi.ingsw.utils.Attachable;
 import java.util.ArrayList;
 
-public class LWPersonalBoard {
+public class LWPersonalBoard implements Attachable<UI> {
 
     private ArrayList<LWDepot> warehouse;
     private ArrayList<LWResource> strongbox;
@@ -13,6 +15,7 @@ public class LWPersonalBoard {
     private final LWTemporaryContainer temporaryContainer;
     private final ArrayList <LWWMPower> whiteMarblePowers;
     private final ArrayList <LWXProductionPower> extraProductionPowers;
+    private UI ui;
 
 
     public LWPersonalBoard() {
@@ -59,33 +62,40 @@ public class LWPersonalBoard {
 
     public void updateWarehouse(ArrayList<LWDepot> warehouse) {
         this.warehouse = warehouse;
+        this.ui.onWarehouseChanged();
     }
 
     public void updateStrongbox(ArrayList<LWResource> strongbox) {
         this.strongbox = strongbox;
+        this.ui.onStrongboxChanged();
     }
 
     public void updateTemporaryContainer(ArrayList<LWResource> storableResources, int emptyResources) {
         this.temporaryContainer.storableResources = storableResources;
         this.temporaryContainer.emptyResources = emptyResources;
+        this.ui.onTempContainerChanged();
     }
 
     public void updateSlots(LWDevCard addedDevCard, int numberOfSlot, int positionInSlot) {
         slots.get(numberOfSlot).add(positionInSlot, addedDevCard);
+        this.ui.onSlotDevCardsChanged ();
     }
 
     public void updateLeaderCards(ArrayList<LWLeaderCard> leaderCardsNotPlayed,
                                   ArrayList<LWLeaderCard> leaderCardsPlayed) {
         this.leaderCardsNotPlayed = leaderCardsNotPlayed;
         this.leaderCardsPlayed = leaderCardsPlayed;
+        this.ui.onSlotLeaderCardsChanged ();
     }
 
     public void addWMPowers(LWWMPower lwwmPower){
         this.whiteMarblePowers.add(lwwmPower);
+        this.ui.onWMPowerChanged ();
     }
 
     public void addXProductionPowers(LWXProductionPower lwxProductionPower){
         this.extraProductionPowers.add(lwxProductionPower);
+        this.ui.onXPowersChanged();
     }
 
     public ArrayList<LWWMPower> getWhiteMarblePowers() {
@@ -94,5 +104,15 @@ public class LWPersonalBoard {
 
     public ArrayList<LWXProductionPower> getExtraProductionPowers() {
         return extraProductionPowers;
+    }
+
+    /**
+     * This method is used to attach the observer to the object that implements this interface
+     *
+     * @param attached
+     */
+    @Override
+    public void attach(UI attached) {
+        this.ui = attached;
     }
 }

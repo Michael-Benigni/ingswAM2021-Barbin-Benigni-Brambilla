@@ -52,8 +52,121 @@ public class CLI implements UI {
     }
 
     @Override
-    public void notifyRoomSizeChanged() {
-        nextInputRequest ();
+    public void onMarketChanged() {
+
+    }
+
+    @Override
+    public void onFaithTrackChanged() {
+
+    }
+
+    @Override
+    public void onPlayerPositionFaithTrackChanged() {
+
+    }
+
+    @Override
+    public void onCardsGridBuilt() {
+
+    }
+
+    @Override
+    public void onCardBoughtFromGrid() {
+
+    }
+
+    @Override
+    public void onRoomIDChanged() {
+
+    }
+
+    @Override
+    public void onSetUsername() {
+
+    }
+
+    @Override
+    public void onPositionInTurnChanged() {
+        controller.getUI().notifyMessage ("You are the " + controller.getModel ().getInfoMatch ().getPlayerPositionInTurn () + "° player!");
+    }
+
+    @Override
+    public void onRoomSizeChanged() {
+        notifyMessage ("The number of players of the Game has been set to " + controller.getModel ().getInfoMatch ().getWaitingRoomSize ());
+    }
+
+    @Override
+    public void onNewPlayerInRoom() {
+
+    }
+
+    @Override
+    public void onIsLeaderChanged() {
+
+    }
+
+    @Override
+    public void onWarehouseChanged() {
+
+    }
+
+    @Override
+    public void onStrongboxChanged() {
+
+    }
+
+    @Override
+    public void onTempContainerChanged() {
+
+    }
+
+    @Override
+    public void onSlotDevCardsChanged() {
+
+    }
+
+    @Override
+    public void onSlotLeaderCardsChanged() {
+
+    }
+
+    @Override
+    public void onWMPowerChanged() {
+
+    }
+
+    @Override
+    public void onXPowersChanged() {
+
+    }
+
+    @Override
+    public void onCurrentPlayerChanged() {
+        InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
+        notifyMessage ("It's the turn of " + infoMatch.getPlayerAt (infoMatch.getCurrentPlayerPos()) + " (Player number " + infoMatch.getCurrentPlayerPos () + ")" + ". Wait your turn.");
+    }
+
+    @Override
+    public void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames, ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
+        String message = "";
+        String winners = String.join (", ", winnersNames) + ".";
+        String losers = String.join (", ", losersNames) + ".";
+        if (winnersNames.size () > 1)
+            message += "The winners are " + winners + "\n";
+        else
+            message += "The winner is " + winners + "\n";
+        if (winnersNames.size () > 1)
+            message += "The losers are " + losers + "\n\n";
+        else
+            message += "The loser is " + losers + "\n\n";
+        message += "--------------------VPs--------------------\n\n";
+        message += winnersNames.stream ().map ((name) -> name + " -> VP: " + winnersVPs.get(winnersNames.indexOf (name)));
+        message += "\n";
+        message += losersNames.stream ().map ((name) -> name + " -> VP: " + losersVPs.get(losersNames.indexOf (name)));
+        if (addInfo != null)
+            message += addInfo;
+        controller.getUI ().notifyMessage (message);
     }
 
     private void userInteraction() {
@@ -310,6 +423,7 @@ public class CLI implements UI {
     @Override
     public synchronized void notifyMessage(String info) {
         this.interlocutor.write (colour (Colour.BLUE, "From Server: " + info));
+        nextInputRequest ();
     }
 
     @Override
@@ -360,8 +474,9 @@ public class CLI implements UI {
     }
 
     @Override
-    public void notifyRegistration(boolean isLeader) {
-
+    public void notifyRegistration(boolean isLeader, int orderOfRegistration) {
+        InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
+        notifyMessage (orderOfRegistration + "° user registered, in the waiting room n° " + infoMatch.getRoomID () + ", with name: " + infoMatch.getYourUsername ());
     }
 
     @Override

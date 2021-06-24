@@ -13,9 +13,8 @@ public class ReconnectionResponse implements ViewUpdate {
     @Override
     public void update(Controller controller) {
         InfoMatch info = controller.getModel ().getInfoMatch ();
-        if (info.getNumPlayerInTurn () == playerPosition) {
+        if (info.getPlayerPositionInTurn () == playerPosition) {
             controller.getUI ().notifyMessage ("You are reconnected!");
-            controller.getUI ().nextInputRequest ();
         } else
             controller.getUI ().notifyMessage ("The player number " + playerPosition + " with username " + info.getPlayerAt (playerPosition) + " is reconnected!");
     }

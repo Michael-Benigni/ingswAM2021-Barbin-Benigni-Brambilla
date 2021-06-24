@@ -22,23 +22,6 @@ public class GameOverUpdate implements ViewUpdate {
     @Override
     public void update(Controller controller) {
         controller.setNextState ();
-        String message = "";
-        String winners = String.join (", ", winnersNames) + ".";
-        String losers = String.join (", ", losersNames) + ".";
-        if (this.winnersNames.size () > 1)
-            message += "The winners are " + winners + "\n";
-        else
-            message += "The winner is " + winners + "\n";
-        if (this.winnersNames.size () > 1)
-            message += "The losers are " + losers + "\n\n";
-        else
-            message += "The loser is " + losers + "\n\n";
-        message += "--------------------VPs--------------------\n\n";
-        message += winnersNames.stream ().map ((name) -> name + " -> VP: " + winnersVPs.get(winnersNames.indexOf (name)));
-        message += "\n";
-        message += losersNames.stream ().map ((name) -> name + " -> VP: " + losersVPs.get(losersNames.indexOf (name)));
-        controller.getUI ().notifyMessage (message);
-        if (info != null)
-            controller.getUI ().notifyMessage (info);
+        controller.getUI ().onGameOver (winnersNames, losersNames, winnersVPs, losersVPs, info);
     }
 }

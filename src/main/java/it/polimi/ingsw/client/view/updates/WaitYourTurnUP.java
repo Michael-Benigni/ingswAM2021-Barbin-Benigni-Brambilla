@@ -13,6 +13,6 @@ public class WaitYourTurnUP implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        controller.getUI ().notifyMessage ("It's the turn of " + currPlayerName + " (Player number " + currPlayer + ")" + ". Wait your turn.");
+        controller.getModel ().getInfoMatch ().setCurrentPlayer(currPlayer);
     }
 }

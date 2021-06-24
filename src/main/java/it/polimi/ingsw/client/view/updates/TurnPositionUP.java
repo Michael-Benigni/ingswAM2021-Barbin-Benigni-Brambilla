@@ -11,8 +11,7 @@ public class TurnPositionUP implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        controller.getModel ().getInfoMatch ().setNumPlayerInTurn (turnPosition);
+        controller.getModel ().getInfoMatch ().setPlayerPositionInTurn (turnPosition);
         controller.setNextState ();
-        controller.getUI().notifyMessage ("You are the " + turnPosition + "° player!");
     }
 }

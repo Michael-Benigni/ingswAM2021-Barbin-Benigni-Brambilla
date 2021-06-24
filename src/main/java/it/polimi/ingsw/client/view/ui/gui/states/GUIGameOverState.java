@@ -7,7 +7,7 @@ public class GUIGameOverState extends GUIState {
     private static Scene scene;
 
     @Override
-    protected void setScene(Scene scene) {
+    protected void setSceneInstance(Scene scene) {
         GUIGameOverState.scene = scene;
     }
 
@@ -22,7 +22,7 @@ public class GUIGameOverState extends GUIState {
     }
 
     @Override
-    protected Scene getScene() {
+    protected Scene getSceneInstance() {
         return scene;
     }
 }

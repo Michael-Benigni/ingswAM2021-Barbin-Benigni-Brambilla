@@ -12,6 +12,7 @@ public class Controller {
     public Controller(UI ui) {
         this.ui = ui;
         this.model = new LWModel ();
+        this.model.attach (ui);
     }
 
     public void loop() {

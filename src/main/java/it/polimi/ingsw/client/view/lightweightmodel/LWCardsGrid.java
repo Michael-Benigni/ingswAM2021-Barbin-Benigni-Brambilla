@@ -1,12 +1,16 @@
 package it.polimi.ingsw.client.view.lightweightmodel;
 
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
+import it.polimi.ingsw.client.view.ui.UI;
+import it.polimi.ingsw.utils.Attachable;
+
 import java.util.ArrayList;
 
-public class LWCardsGrid {
+public class LWCardsGrid implements Attachable<UI> {
     private ArrayList<ArrayList<LWDevCard>> cardsGrid;
     private int rows;
     private int columns;
+    private UI ui;
 
     public LWCardsGrid(ArrayList<ArrayList<LWDevCard>> cardsGrid, int rows, int columns) {
         this.cardsGrid = cardsGrid;
@@ -21,6 +25,7 @@ public class LWCardsGrid {
                     cardsGrid.get (i).set (j, cardToShow);
             }
         }
+        this.ui.onCardBoughtFromGrid();
     }
 
     public ArrayList<ArrayList<LWDevCard>> getCardsGrid() {
@@ -41,5 +46,22 @@ public class LWCardsGrid {
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             throw new IllegalInputException();
         }
+    }
+
+    /**
+     * This method is used to attach the attached to the object that implements this interface
+     *
+     * @param attached
+     */
+    @Override
+    public void attach(UI attached) {
+        this.ui = attached;
+    }
+
+    public void setGrid(ArrayList<ArrayList<LWDevCard>> initialCardsGrid, int rows, int columns) {
+        this.columns = columns;
+        this.rows = rows;
+        this.cardsGrid = initialCardsGrid;
+        this.ui.onCardsGridBuilt();
     }
 }

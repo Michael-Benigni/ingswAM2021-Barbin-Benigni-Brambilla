@@ -11,7 +11,6 @@ public class SetNumPlayersResponseUP implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        controller.getUI ().notifyMessage ("The number of players of the Game has been set to " + numPlayers);
-        controller.getUI ().nextInputRequest ();
+        controller.getModel ().getInfoMatch ().setWaitingRoomSize (numPlayers);
     }
 }

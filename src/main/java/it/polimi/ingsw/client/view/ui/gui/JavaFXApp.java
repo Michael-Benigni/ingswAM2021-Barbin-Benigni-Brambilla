@@ -9,8 +9,11 @@ import javafx.application.Application;
 import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 public class JavaFXApp extends Application {
@@ -21,12 +24,12 @@ public class JavaFXApp extends Application {
     private final static double fixedWidth = 1300;
     private final static double fixedHeight = 700;
 
-    public static ReadOnlyObjectProperty<Double> getFixedWidth() {
-        return mainWindow.widthProperty ().asObject ();
+    public static ReadOnlyDoubleProperty getFixedWidth() {
+        return mainWindow.widthProperty ();
     }
 
-    public static ReadOnlyObjectProperty<Double> getFixedHeight() {
-        return mainWindow.heightProperty ().asObject ();
+    public static ReadOnlyDoubleProperty getFixedHeight() {
+        return mainWindow.heightProperty ();
     }
 
 
@@ -66,15 +69,17 @@ public class JavaFXApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
-        mainWindow.setWidth (fixedWidth);
-        mainWindow.setHeight (fixedHeight);
+        Rectangle2D bounds = Screen.getPrimary ().getVisualBounds ();
+        //mainWindow.setResizable (false);
+        mainWindow.setMinWidth (fixedWidth);
+        mainWindow.setMinHeight (fixedHeight);
+        mainWindow.setWidth (bounds.getWidth ());
+        mainWindow.setHeight (bounds.getHeight ());
         mainWindow.setTitle ("Master Of Renaissance");
-        scenes = getAllScenes ();
-        mainWindow.setScene (scenes.get (0));
-        //mainWindow.setFullScreen (true);
-
+        mainWindow.setScene (GUIPlayState.getInstance ().buildScene (gui));
+        //scenes = getAllScenes ();
+        //mainWindow.setScene (scenes.get (1));
         mainWindow.setOnCloseRequest (e -> new MoveService (PlayMove.QUIT.getMove (), gui).start ());
-
         stage.show ();
     }
 

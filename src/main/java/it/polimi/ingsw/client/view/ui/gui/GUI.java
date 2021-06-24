@@ -10,6 +10,7 @@ import it.polimi.ingsw.utils.network.Sendable;
 import javafx.application.Platform;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 public class GUI implements UI {
 
@@ -45,13 +46,108 @@ public class GUI implements UI {
     }
 
     @Override
-    public void notifyRoomSizeChanged() {
+    public void onMarketChanged() {
+
+    }
+
+    @Override
+    public void onFaithTrackChanged() {
+
+    }
+
+    @Override
+    public void onPlayerPositionFaithTrackChanged() {
+
+    }
+
+    @Override
+    public void onCardsGridBuilt() {
+
+    }
+
+    @Override
+    public void onCardBoughtFromGrid() {
+
+    }
+
+    @Override
+    public void onRoomIDChanged() {
+
+    }
+
+    @Override
+    public void onSetUsername() {
+
+    }
+
+    @Override
+    public void onPositionInTurnChanged() {
+
+    }
+
+    @Override
+    public void onRoomSizeChanged() {
         Platform.runLater (() -> JavaFXApp.getInstance ().enableButtonStartGame());
+    }
+
+    @Override
+    public void onNewPlayerInRoom() {
+
+    }
+
+    @Override
+    public void onIsLeaderChanged() {
+
+    }
+
+    @Override
+    public void onWarehouseChanged() {
+
+    }
+
+    @Override
+    public void onStrongboxChanged() {
+
+    }
+
+    @Override
+    public void onTempContainerChanged() {
+
+    }
+
+    @Override
+    public void onSlotDevCardsChanged() {
+
+    }
+
+    @Override
+    public void onSlotLeaderCardsChanged() {
+
+    }
+
+    @Override
+    public void onWMPowerChanged() {
+
+    }
+
+    @Override
+    public void onXPowersChanged() {
+
+    }
+
+    @Override
+    public void onCurrentPlayerChanged() {
+
     }
 
 
     @Override
     public void showPersonalBoard() {
+
+    }
+
+    @Override
+    public void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames, ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
 
     }
 
@@ -137,7 +233,7 @@ public class GUI implements UI {
     }
 
     @Override
-    public void notifyRegistration(boolean isLeader) {
+    public void notifyRegistration(boolean isLeader, int orderOfRegistration) {
         Platform.runLater (() -> JavaFXApp.getInstance ().setStartMatchScene (isLeader));
     }
 }
