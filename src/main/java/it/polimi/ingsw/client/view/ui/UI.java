@@ -80,5 +80,5 @@ public interface UI {
 
     void onXPowersChanged();
 
-    void onCurrentPlayerChanged();
+    void onCurrentPlayerChanged(String additionalMsg);
 }

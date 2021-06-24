@@ -136,7 +136,7 @@ public class GUI implements UI {
     }
 
     @Override
-    public void onCurrentPlayerChanged() {
+    public void onCurrentPlayerChanged(String additionalMsg) {
 
     }
 

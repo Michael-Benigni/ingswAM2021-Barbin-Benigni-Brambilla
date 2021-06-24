@@ -95,9 +95,9 @@ public class InfoMatch implements Attachable<UI> {
         this.ui = attached;
     }
 
-    public void setCurrentPlayer(int playerPositionInTurn) {
+    public void setCurrentPlayer(int playerPositionInTurn, String additionalInfo) {
         this.currentPlayer = playerPositionInTurn;
-        this.ui.onCurrentPlayerChanged();
+        this.ui.onCurrentPlayerChanged(additionalInfo);
     }
 
     public int getCurrentPlayerPos() {

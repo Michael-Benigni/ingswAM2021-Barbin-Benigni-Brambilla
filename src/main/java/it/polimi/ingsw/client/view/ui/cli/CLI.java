@@ -142,9 +142,18 @@ public class CLI implements UI {
     }
 
     @Override
-    public void onCurrentPlayerChanged() {
+    public void onCurrentPlayerChanged(String additionalMsg) {
         InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
-        notifyMessage ("It's the turn of " + infoMatch.getPlayerAt (infoMatch.getCurrentPlayerPos()) + " (Player number " + infoMatch.getCurrentPlayerPos () + ")" + ". Wait your turn.");
+        int playerPos = infoMatch.getCurrentPlayerPos ();
+        String msg;
+        if (playerPos == infoMatch.getPlayerPositionInTurn ()) {
+            msg = "It's your Turn! ";
+            if (additionalMsg != null)
+                msg += additionalMsg;
+        }
+        else
+            msg = "It's the turn of " + infoMatch.getPlayerAt (infoMatch.getCurrentPlayerPos()) + " (Player number " + playerPos + ")" + ". Wait your turn.";
+        notifyMessage (msg);
     }
 
     @Override

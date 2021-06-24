@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.updates;
 
 import it.polimi.ingsw.client.view.Controller;
+import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
 
 public class YourTurnUP implements ViewUpdate {
     private final String additionalMsg;
@@ -11,9 +12,7 @@ public class YourTurnUP implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        String msg = "It's your Turn! ";
-        if (additionalMsg != null)
-            msg += additionalMsg;
-        controller.getUI ().notifyMessage (msg);
+        InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
+        infoMatch.setCurrentPlayer (infoMatch.getPlayerPositionInTurn (), additionalMsg);
     }
 }

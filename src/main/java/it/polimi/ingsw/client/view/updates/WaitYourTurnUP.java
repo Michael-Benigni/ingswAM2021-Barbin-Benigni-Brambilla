@@ -13,6 +13,6 @@ public class WaitYourTurnUP implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        controller.getModel ().getInfoMatch ().setCurrentPlayer(currPlayer);
+        controller.getModel ().getInfoMatch ().setCurrentPlayer(currPlayer, "");
     }
 }
