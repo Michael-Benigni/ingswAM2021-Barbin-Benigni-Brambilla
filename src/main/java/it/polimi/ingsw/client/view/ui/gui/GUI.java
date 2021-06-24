@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
+import it.polimi.ingsw.utils.network.QuitMessage;
 import it.polimi.ingsw.utils.network.Sendable;
 import javafx.application.Platform;
 
@@ -119,6 +120,8 @@ public class GUI implements UI {
     public synchronized void addMessage(Sendable sendable) {
         this.messages.addLast (sendable);
         notifyAll ();
+        if (QuitMessage.isQuitMessage (sendable.transmit ()))
+            Thread.currentThread ().interrupt ();
     }
 
     @Override

@@ -8,6 +8,7 @@ import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
 import it.polimi.ingsw.client.view.ui.cli.states.ClientState;
 import it.polimi.ingsw.client.view.ui.cli.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
+import it.polimi.ingsw.utils.network.QuitMessage;
 import it.polimi.ingsw.utils.network.Sendable;
 
 import java.util.ArrayDeque;
@@ -23,6 +24,7 @@ public class CLI implements UI {
     private ClientState state;
     private Controller controller;
     private static CLI instance;
+    private boolean isRunning;
 
 
     private CLI() {
@@ -30,6 +32,7 @@ public class CLI implements UI {
         this.state = new WaitingRoomState ();
         this.interpreter = new CLIInterpreter ();
         this.interlocutor = new CLIInterlocutor ();
+        this.isRunning = true;
     }
 
     public static CLI getInstance() {
@@ -42,7 +45,7 @@ public class CLI implements UI {
     public void start() {
         new Thread (() -> {
             registration();
-            while (true) {
+            while (isRunning) {
                 userInteraction();
             }
         }).start ();
@@ -202,27 +205,27 @@ public class CLI implements UI {
 
     private String marketSection() {
         StringBuilder marketAsString = new StringBuilder ();
-        final String LEFT_ARROW = "\uD83E\uDC14\n";
-        final String UP_ARROW = "\uD83E\uDC15";
-        final String MARBLE = "\u2B24";
+        final String LEFT_ARROW = "<-\n";//"\uD83E\uDC14\n";
+        final String UP_ARROW = "^";//"\uD83E\uDC15";
+        final String MARBLE = "O";//"\u2B24";
         ArrayList<ArrayList<Colour>> marbles = getController ().getModel ().getBoard ().getMarket ().getMarbles ();
         String headerColumns = "";
         StringBuilder res = new StringBuilder ();
         for (ArrayList<Colour> c : marbles) {
-            res.append (String.format ("ROW: %d\t", marbles.indexOf (c)));
+            res.append (String.format ("ROW: %d\t\t", marbles.indexOf (c)));
             for (Colour co : c)
                 res.append (String.format ("%s\t", colour (co, MARBLE)));
-            res.append (LEFT_ARROW);
+            res.append ("\t" + LEFT_ARROW);
         }
         for (int column = 0; column < marbles.get (0).size (); column++)
             headerColumns = String.format ("%s%s\t", headerColumns, column);
-        marketAsString.append (String.format ("\t\t%s\n", headerColumns));
+        marketAsString.append (String.format ("\t\t\t%s\n", headerColumns));
         marketAsString.append (res);
-        StringBuilder arrows = new StringBuilder ("\t");
+        StringBuilder arrows = new StringBuilder ("\n\t\t");
         for (int column = 0; column < marbles.get (0).size (); column++)
             arrows.append (String.format ("\t%s", UP_ARROW));
         marketAsString.append (String.format ("%s\n", arrows));
-        marketAsString.append (String.format ("On Slide: %s", colour (getController ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (),"\u2B24")));
+        marketAsString.append (String.format ("On Slide: %s", colour (getController ().getModel ().getBoard ().getMarket ().getMarbleOnSlide (),MARBLE)));
         marketAsString.append ("\n");
         return getSectionHeader (" MARKET TRAY ", "*") + marketAsString;
     }
@@ -340,6 +343,8 @@ public class CLI implements UI {
     public synchronized void addMessage(Sendable sendable) {
         this.messages.addLast (sendable);
         this.notifyAll ();
+        if (QuitMessage.isQuitMessage (sendable.transmit ()))
+            isRunning = false;
     }
 
     @Override
