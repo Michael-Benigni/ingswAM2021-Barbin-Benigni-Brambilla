@@ -65,7 +65,7 @@ public class CLI implements UI {
             } catch (InterruptedException e) {
                 e.printStackTrace ();
             }
-        return false;
+        return isRunning;
     }
 
     @Override

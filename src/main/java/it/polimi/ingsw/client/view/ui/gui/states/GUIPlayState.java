@@ -12,6 +12,7 @@ import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import it.polimi.ingsw.client.view.ui.gui.MoveService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -123,25 +124,8 @@ public class GUIPlayState extends GUIState {
     }
 
     private VBox getTurnsButtonsVBox() {
+        VBox turnButtons = new VBox (10);
         AtomicReference<Move> chosenMove = new AtomicReference<>();
-
-        Button marketTurn = new Button ("Market");
-        marketTurn.setMaxWidth (Double.MAX_VALUE);
-        marketTurn.setOnAction (e -> {
-            marketButtons.forEach (radioButton -> radioButton.setDisable (false));
-            chosenMove.set (PlayMove.MARKET.getMove ());
-        });
-
-        Button buyCardTurn = new Button ("Buy Card");
-        buyCardTurn.setMaxWidth (Double.MAX_VALUE);
-        buyCardTurn.setOnAction (e -> {
-            enableCardsGrid(true);
-            chosenMove.set (PlayMove.BUY_CARD.getMove ());
-        });
-
-        Button productionTurn = new Button ("Production");
-        productionTurn.setMaxWidth (Double.MAX_VALUE);
-        productionTurn.setOnAction (e -> {});
 
         Button OK = new Button ("OK");
         OK.setMaxWidth (Double.MAX_VALUE);
@@ -149,19 +133,61 @@ public class GUIPlayState extends GUIState {
 
         Button endTurn = new Button ("End Turn");
         endTurn.setMaxWidth (Double.MAX_VALUE);
-        endTurn.setOnAction (e -> new MoveService (PlayMove.END_TURN.getMove (), gui));
+        endTurn.setOnAction (e -> {
+            new MoveService (PlayMove.END_TURN.getMove (), gui).start ();
+            turnButtons.getChildren ().stream().forEach (node -> node.setDisable (true));
+        });
+
+        Button marketTurn = new Button ("Market");
+        marketTurn.setMaxWidth (Double.MAX_VALUE);
+        marketTurn.setOnAction (e -> {
+            marketButtons.forEach (radioButton -> radioButton.setDisable (false));
+            chosenMove.set (PlayMove.MARKET.getMove ());
+            turnButtons.getChildren ().stream()
+                    .filter (b -> b != endTurn && b != OK)
+                    .forEach (node -> node.setDisable (true));
+        });
+
+        Button buyCardTurn = new Button ("Buy Card");
+        buyCardTurn.setMaxWidth (Double.MAX_VALUE);
+        buyCardTurn.setOnAction (e -> {
+            enableCardsGrid(true);
+            chosenMove.set (PlayMove.BUY_CARD.getMove ());
+            turnButtons.getChildren ().stream()
+                    .filter (b -> b != endTurn && b != OK)
+                    .forEach (node -> node.setDisable (true));
+        });
+
+        Button productionTurn = new Button ("Production");
+        productionTurn.setMaxWidth (Double.MAX_VALUE);
+        productionTurn.setOnAction (e -> {
+            chosenMove.set (PlayMove.BUY_CARD.getMove ());
+            turnButtons.getChildren ().stream()
+                    .filter (b -> b != endTurn && b != OK).
+                    forEach (node -> node.setDisable (true));
+        });
+
 
         Label buttonsLabel = new Label ("Choose your Turn Type!");
         buttonsLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 
-        VBox buttons = new VBox (10);
-        buttons.setSpacing(10);
-        buttons.setPadding(new Insets(20, 20, 10, 20));
-        buttons.setBackground (new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
-        buttons.setAlignment (Pos.TOP_CENTER);
-        buttons.getChildren ().addAll (buttonsLabel, marketTurn, buyCardTurn, productionTurn);
+        VBox okEndButtons = new VBox ();
+        okEndButtons.setAlignment (Pos.BOTTOM_CENTER);
+        okEndButtons.getChildren ().addAll (OK, endTurn);
 
-        return buttons;
+        turnButtons.setSpacing(10);
+        turnButtons.setPadding(new Insets(20, 20, 10, 20));
+        turnButtons.setBackground (new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
+        turnButtons.setAlignment (Pos.TOP_CENTER);
+        turnButtons.getChildren ().addAll (
+                buttonsLabel,
+                marketTurn,
+                buyCardTurn,
+                productionTurn,
+                okEndButtons
+        );
+
+        return turnButtons;
     }
 
     private void enableCardsGrid(boolean isToEnable) {
@@ -203,6 +229,9 @@ public class GUIPlayState extends GUIState {
         GridPane marketGrid = new GridPane ();
         LWMarket lwMarket = gui.getController ().getModel ().getBoard ().getMarket ();
         Canvas marbleOnSlideCanvas = getMarbleCanvas (lwMarket.getMarbleOnSlide ().name ());
+        VBox marbleOnSlide = new VBox ();
+        marbleOnSlide.getChildren ().add (marbleOnSlideCanvas);
+        marbleOnSlide.setPadding (new Insets (0, 0, 0, 130));
         int i, j;
         for (i = 0; i < lwMarket.getRows(); i++) {
             for (j = 0; j < lwMarket.getColumns (); j++) {
@@ -219,10 +248,10 @@ public class GUIPlayState extends GUIState {
         marketGrid.setVgap (10);
         marketGrid.setHgap (10);
         marketGrid.setAlignment (Pos.CENTER);
-        market.getChildren ().add (0, marbleOnSlideCanvas);
+        market.getChildren ().add (0, marbleOnSlide);
         market.getChildren ().add (1, marketGrid);
         market.setAlignment (Pos.TOP_LEFT);
-        market.setPadding (new Insets (100, 0, 0, 150));
+        market.setPadding (new Insets (130, 0, 0, 50));
         marketButtons.forEach (radioButton -> radioButton.setDisable (true));
     }
 

@@ -218,6 +218,7 @@ public class GUI implements UI {
 
     @Override
     public void setNextState() {
+        state = state.getNextState ();
         Platform.runLater (() -> JavaFXApp.getInstance ().setNextScene ());
     }
 
