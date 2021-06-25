@@ -47,7 +47,8 @@ public interface Header {
         GENERIC_INFO ("tile_already_activated"),
         RECONNECTION_RESPONSE ("reconnection_response"),
         ADD_EXTRA_PRODUCTION_POWER_UPDATE("add_extra_production_power_update"),
-        ADD_WM_POWER_UPDATE("add_wm_power_update");
+        ADD_WM_POWER_UPDATE("add_wm_power_update"),
+        USER_INFO_UP ("user_info");
 
         private final String headerStr;
 

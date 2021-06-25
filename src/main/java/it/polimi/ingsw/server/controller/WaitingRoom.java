@@ -45,6 +45,13 @@ public class WaitingRoom {
             throw new FullWaitingRoomException();
     }
 
+    private Sendable getUserInfo(User key) {
+        MessageWriter writer = new MessageWriter();
+        writer.setHeader (Header.ToClient.USER_REGISTERED);
+        writer.addProperty ("name", key.getUsername ());
+        return writer.write ();
+    }
+
     private boolean isUnique (User user) {
         for (User key : this.usersPlayers.keySet()) {
             if (user.sameUsername (key))
@@ -175,7 +182,7 @@ public class WaitingRoom {
     }
 
     private void notifyRegistration(User user) {
-        user.getView ().onChanged (getUserInfo (user));
+        user.getView ().onChanged (getInfoRoomFor (user));
         if (isFull ())
             notifyFullRoom();
     }
@@ -186,7 +193,7 @@ public class WaitingRoom {
         getLeader ().getView ().onChanged (writer.write ());
     }
 
-    private Sendable getUserInfo(User user) {
+    private Sendable getInfoRoomFor(User user) {
         MessageWriter writer = new MessageWriter();
         writer.setHeader (Header.ToClient.USER_REGISTERED);
         writer.addProperty ("numUser", getAllUsers ().size ());
