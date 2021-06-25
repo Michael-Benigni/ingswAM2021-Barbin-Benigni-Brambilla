@@ -36,6 +36,9 @@ public class WaitingRoom {
                     leader = key;
                 this.usersPlayers.put (key, null);
                 notifyRegistration (key);
+                usersPlayers.keySet ().stream ()
+                        .filter (user -> user != key)
+                        .forEach (user -> user.getView ().onChanged (getUserInfo (key)));
             } else
                 throw new InvalidUserException();
         } else
