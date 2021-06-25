@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,9 +12,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Popup {
+    private static Stage window;
 
     public static void alert(String title, String info) {
-        Stage window = new Stage ();
+        alert (title, info, event -> {});
+    }
+
+    public static void alert(String title, String info, EventHandler<ActionEvent> eventOnClosing) {
+        window = new Stage ();
         window.initModality (Modality.APPLICATION_MODAL);
         window.setTitle (title);
         window.setMinWidth (250);
@@ -20,7 +28,10 @@ public class Popup {
         Label label = new Label ();
         label.setText (info);
         Button closeButton = new Button ("OK");
-        closeButton.setOnAction (e -> window.close ());
+        closeButton.setOnAction (e -> {
+            eventOnClosing.handle (e);
+            window.close ();
+        });
 
         VBox vBox = new VBox (10);
         vBox.getChildren ().addAll (label, closeButton);

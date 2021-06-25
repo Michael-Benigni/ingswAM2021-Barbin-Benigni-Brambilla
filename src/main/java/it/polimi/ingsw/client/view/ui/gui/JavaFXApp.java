@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
-import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
 import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
@@ -11,13 +10,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 public class JavaFXApp extends Application {
     private ArrayList<Scene> scenes;
     private static Stage mainWindow;
-    private GUI gui;
+    private final GUI gui;
     private static JavaFXApp instance;
     private final static double fixedWidth = 1300;
     private final static double fixedHeight = 700;
@@ -74,7 +72,6 @@ public class JavaFXApp extends Application {
         mainWindow.setWidth (bounds.getWidth ());
         mainWindow.setHeight (bounds.getHeight ());
         mainWindow.setTitle ("Master Of Renaissance");
-        //mainWindow.setScene (GUIWaitingRoomState.getInstance ().buildScene (gui));
         scenes = getAllScenes ();
         mainWindow.setScene (scenes.get (0));
         mainWindow.setOnCloseRequest (e -> new MoveService (PlayMove.QUIT.getMove (), gui).start ());
@@ -90,10 +87,13 @@ public class JavaFXApp extends Application {
 
     public void setStartMatchScene(boolean isLeader) {
         Scene startMatchScene = GUIWaitingRoomState.getStartMatchScene(isLeader);
-        int currSceneIndex = this.scenes.indexOf(mainWindow.getScene()) + 1;
-        this.scenes.add(currSceneIndex, startMatchScene);
+        int currSceneIndex = scenes.indexOf (mainWindow.getScene ());
+        this.scenes.add (currSceneIndex + 1, startMatchScene);
         mainWindow.setScene (startMatchScene);
         mainWindow.show ();
     }
 
+    public Stage getWindow() {
+        return mainWindow;
+    }
 }

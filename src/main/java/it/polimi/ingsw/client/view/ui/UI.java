@@ -85,4 +85,8 @@ public interface UI {
     void notifyRoomFull();
 
     void onNewUserInRoom();
+
+    void notifyErrorConnection();
+
+    void connectionSuccessful();
 }

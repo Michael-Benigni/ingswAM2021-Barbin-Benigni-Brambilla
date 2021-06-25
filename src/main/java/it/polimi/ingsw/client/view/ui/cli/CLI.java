@@ -1,10 +1,13 @@
 package it.polimi.ingsw.client.view.ui.cli;
 
+import it.polimi.ingsw.client.ClientPrefs;
 import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.*;
 import it.polimi.ingsw.client.view.moves.Move;
+import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
+import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.states.ClientState;
 import it.polimi.ingsw.client.view.ui.cli.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
@@ -32,7 +35,7 @@ public class CLI implements UI {
         this.state = new WaitingRoomState ();
         this.interpreter = new CLIInterpreter ();
         this.interlocutor = new CLIInterlocutor ();
-        this.isRunning = true;
+        this.isRunning = false;
     }
 
     public static CLI getInstance() {
@@ -44,11 +47,25 @@ public class CLI implements UI {
     @Override
     public void start() {
         new Thread (() -> {
-            registration();
-            while (isRunning) {
-                userInteraction();
-            }
+            boolean connectionOk = waitConnection ();
+            if (connectionOk) {
+                registration ();
+                while (isRunning) {
+                    userInteraction ();
+                }
+            } else
+                notifyErrorConnection ();
         }).start ();
+    }
+
+    private boolean waitConnection() {
+        while (!isRunning)
+            try {
+                wait (ClientPrefs.getTimeToWaitConnection());
+            } catch (InterruptedException e) {
+                e.printStackTrace ();
+            }
+        return false;
     }
 
     @Override
@@ -185,6 +202,18 @@ public class CLI implements UI {
     @Override
     public void onNewUserInRoom() {
 
+    }
+
+    @Override
+    public void notifyErrorConnection() {
+        getInterlocutor ().write ("Connection Refused. The Server is not working.\n Try again in few minutes.");
+        if (isRunning)
+            getInterlocutor ().write ("Press \"QUIT\" to terminate the app." );
+    }
+
+    @Override
+    public void connectionSuccessful() {
+        isRunning = true;
     }
 
     private void userInteraction() {

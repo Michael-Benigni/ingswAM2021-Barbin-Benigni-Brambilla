@@ -1,3 +1,4 @@
 {
-  "pathToDB": "json/clientDB.json"
+  "pathToDB": "json/clientDB.json",
+  "timeToWaitConnection": 5000
 }

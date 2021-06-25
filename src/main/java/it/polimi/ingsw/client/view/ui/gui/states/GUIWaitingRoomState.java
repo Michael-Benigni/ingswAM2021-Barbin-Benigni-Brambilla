@@ -165,6 +165,7 @@ public class GUIWaitingRoomState extends GUIState {
 
         this.startButton = new Button("START");
         this.startButton.setDisable(true);
+        this.startButton.setOnAction (e -> new MoveService (WaitingRoomMove.START_MATCH.getMove (), gui).start ());
 
         this.startButton.setOnAction(actionEvent -> {
             new MoveService (WaitingRoomMove.START_MATCH.getMove (), gui).start ();

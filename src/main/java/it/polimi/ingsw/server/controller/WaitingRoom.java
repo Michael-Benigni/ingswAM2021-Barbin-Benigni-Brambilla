@@ -47,7 +47,7 @@ public class WaitingRoom {
 
     private Sendable getUserInfo(User key) {
         MessageWriter writer = new MessageWriter();
-        writer.setHeader (Header.ToClient.USER_REGISTERED);
+        writer.setHeader (Header.ToClient.USER_INFO_UP);
         writer.addProperty ("name", key.getUsername ());
         return writer.write ();
     }

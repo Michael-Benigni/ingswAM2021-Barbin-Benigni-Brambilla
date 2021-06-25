@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.controller.exception.InvalidUserException;
 import it.polimi.ingsw.server.view.ClientToken;
 import it.polimi.ingsw.server.view.VirtualView;
 import it.polimi.ingsw.utils.Entry;
+import it.polimi.ingsw.utils.network.exception.ConnectionRefusedException;
 import it.polimi.ingsw.utils.network.exception.NoChannelException;
 
 import java.io.IOException;
@@ -68,7 +69,9 @@ public class ServerNetworkLayer {
             try {
                 Socket socket = this.serverSocket.accept();
                 System.out.printf("Client %d accepted!\n", this.channels.size () + 1);
-                executor.submit(()->handleConnectionRequest(socket, this.channels.size () + 1));
+                executor.submit(()-> {
+                    handleConnectionRequest(socket, this.channels.size () + 1);
+                });
             } catch(IOException e) {
                 System.err.println (e.getMessage ());
                 break;

@@ -4,9 +4,12 @@ import it.polimi.ingsw.client.ClientPrefs;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.LWCardsGrid;
 import it.polimi.ingsw.client.view.lightweightmodel.LWMarket;
+import it.polimi.ingsw.client.view.moves.Move;
+import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
+import it.polimi.ingsw.client.view.ui.gui.MoveService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GUIPlayState extends GUIState {
     private static Scene scene;
@@ -119,21 +123,33 @@ public class GUIPlayState extends GUIState {
     }
 
     private VBox getTurnsButtonsVBox() {
+        AtomicReference<Move> chosenMove = new AtomicReference<>();
+
         Button marketTurn = new Button ("Market");
         marketTurn.setMaxWidth (Double.MAX_VALUE);
         marketTurn.setOnAction (e -> {
             marketButtons.forEach (radioButton -> radioButton.setDisable (false));
+            chosenMove.set (PlayMove.MARKET.getMove ());
         });
 
         Button buyCardTurn = new Button ("Buy Card");
         buyCardTurn.setMaxWidth (Double.MAX_VALUE);
         buyCardTurn.setOnAction (e -> {
             enableCardsGrid(true);
+            chosenMove.set (PlayMove.BUY_CARD.getMove ());
         });
 
         Button productionTurn = new Button ("Production");
         productionTurn.setMaxWidth (Double.MAX_VALUE);
         productionTurn.setOnAction (e -> {});
+
+        Button OK = new Button ("OK");
+        OK.setMaxWidth (Double.MAX_VALUE);
+        OK.setOnAction (e -> new MoveService (chosenMove.get (), gui));
+
+        Button endTurn = new Button ("End Turn");
+        endTurn.setMaxWidth (Double.MAX_VALUE);
+        endTurn.setOnAction (e -> new MoveService (PlayMove.END_TURN.getMove (), gui));
 
         Label buttonsLabel = new Label ("Choose your Turn Type!");
         buttonsLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));

@@ -5,6 +5,8 @@ import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.ClientNetworkLayer;
 import it.polimi.ingsw.client.view.ui.UIFactory;
 import it.polimi.ingsw.utils.config.ServerPrefs;
+import it.polimi.ingsw.utils.network.exception.ConnectionRefusedException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,7 +18,11 @@ public class Client {
         Controller controller = new Controller (ui);
         ui.setController (controller);
         ui.start ();
-        network.connect (controller);
+        try {
+            network.connect (controller);
+        } catch (ConnectionRefusedException e) {
+            ui.notifyErrorConnection ();
+        }
     }
 
     private static String getIP(String[] args) {

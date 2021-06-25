@@ -105,6 +105,17 @@ public class GUI implements UI {
     }
 
     @Override
+    public void notifyErrorConnection() {
+        String info = "Connection Refused. The Server is not working.\n Try again in few minutes.";
+        Platform.runLater (() -> Popup.alert ("ERROR", info, e -> JavaFXApp.getInstance ().getWindow().close()));
+    }
+
+    @Override
+    public void connectionSuccessful() {
+
+    }
+
+    @Override
     public void onNewUserInRoom() {
         Platform.runLater(() -> GUIWaitingRoomState.getInstance().notifyNewPlayerInRoom(this));
     }

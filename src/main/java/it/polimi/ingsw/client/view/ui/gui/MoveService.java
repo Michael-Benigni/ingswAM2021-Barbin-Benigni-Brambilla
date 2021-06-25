@@ -20,6 +20,7 @@ public class MoveService extends Service<Move> {
             @Override
             protected Move call() throws Exception {
                 gui.addMessage (move.ask (gui));
+                gui.getInterpreter ().clear();
                 return move;
             }
         };
