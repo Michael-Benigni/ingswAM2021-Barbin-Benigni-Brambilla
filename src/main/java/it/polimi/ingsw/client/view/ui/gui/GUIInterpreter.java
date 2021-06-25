@@ -19,4 +19,8 @@ public class GUIInterpreter implements Interpreter {
     public void addInteraction(String name, String interaction) {
         this.interactions.put (name, interaction);
     }
+
+    public void clear() {
+        interactions.clear ();
+    }
 }

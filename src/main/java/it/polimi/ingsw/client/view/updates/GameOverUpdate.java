@@ -21,7 +21,6 @@ public class GameOverUpdate implements ViewUpdate {
 
     @Override
     public void update(Controller controller) {
-        controller.setNextState ();
         controller.getUI ().onGameOver (winnersNames, losersNames, winnersVPs, losersVPs, info);
     }
 }

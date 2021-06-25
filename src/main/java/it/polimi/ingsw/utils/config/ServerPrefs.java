@@ -3,8 +3,8 @@ package it.polimi.ingsw.utils.config;
 import java.io.FileNotFoundException;
 import static it.polimi.ingsw.utils.config.JsonHandler.getAsJavaObjectFromJSON;
 
-public class Prefs {
-    private static final String PATH_TO_PREFS = "json/prefs.json";
+public class ServerPrefs {
+    private static final String PATH_TO_PREFS = "json/serverPrefs.json";
     private static int serverPort;
     private static int timerPeriod;
     private static String pathServerDB;

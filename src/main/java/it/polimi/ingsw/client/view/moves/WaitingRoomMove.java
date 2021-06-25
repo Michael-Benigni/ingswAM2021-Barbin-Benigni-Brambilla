@@ -17,13 +17,6 @@ public enum WaitingRoomMove implements MoveWrapper {
     CHOOSE_ROOM("ROOM", newOrExistentMatchMove ()),
     NEW_MATCH ("NM", getNewMatchMove());
 
-    private static Move getNewMatchMove() {
-        return (ui) -> {
-            ui.setNextState ();
-            return null;
-        };
-    }
-
     private final Move move;
     private final String cmd;
 
@@ -40,6 +33,13 @@ public enum WaitingRoomMove implements MoveWrapper {
     @Override
     public String getCmd() {
         return this.cmd;
+    }
+
+    private static Move getNewMatchMove() {
+        return (ui) -> {
+            ui.setNextState ();
+            return null;
+        };
     }
 
     private static Move startMatchMove() {

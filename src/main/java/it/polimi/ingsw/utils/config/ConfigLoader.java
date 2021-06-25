@@ -6,7 +6,6 @@ import it.polimi.ingsw.server.model.cards.developmentcards.GeneralDevelopmentCar
 import it.polimi.ingsw.server.model.exception.EmptyDeckException;
 import it.polimi.ingsw.server.model.gamelogic.actions.SoloPlayerGameBoard;
 import it.polimi.ingsw.server.model.gameresources.Producible;
-import it.polimi.ingsw.server.model.gameresources.faithtrack.FaithPoint;
 import it.polimi.ingsw.server.model.gameresources.faithtrack.SoloPlayerFaithTrack;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.developmentcards.DevelopmentCardsGrid;
@@ -32,7 +31,7 @@ public class ConfigLoader {
     private JsonHandler jsonHandler;
 
     public ConfigLoader() {
-        this.jsonHandler = new JsonHandler(Prefs.getDBPath());
+        this.jsonHandler = new JsonHandler(ServerPrefs.getDBPath());
     }
 
     public GameBoard loadGameBoard() throws FileNotFoundException, EmptyDeckException {

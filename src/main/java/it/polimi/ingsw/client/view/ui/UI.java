@@ -62,7 +62,7 @@ public interface UI {
 
     void onRoomSizeChanged();
 
-    void onNewPlayerInRoom();
+    void onNewPlayerInGame();
 
     void onIsLeaderChanged();
 
@@ -83,4 +83,6 @@ public interface UI {
     void onCurrentPlayerChanged(String additionalMsg);
 
     void notifyRoomFull();
+
+    void onNewUserInRoom();
 }

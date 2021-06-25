@@ -8,9 +8,7 @@ import it.polimi.ingsw.server.model.gamelogic.GameFactory;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.Action;
 import it.polimi.ingsw.utils.Entry;
-import it.polimi.ingsw.utils.config.Prefs;
-import it.polimi.ingsw.utils.network.Header;
-import it.polimi.ingsw.utils.network.MessageWriter;
+import it.polimi.ingsw.utils.config.ServerPrefs;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -82,7 +80,7 @@ public class Controller {
     }
 
     private WaitingRoom newWaitingRoom() {
-        WaitingRoom room = new WaitingRoom (Prefs.getMaxUsersInWaitingRoom ());
+        WaitingRoom room = new WaitingRoom (ServerPrefs.getMaxUsersInWaitingRoom ());
         waitingRooms.add (new Entry<> (room, null));
         return room;
     }

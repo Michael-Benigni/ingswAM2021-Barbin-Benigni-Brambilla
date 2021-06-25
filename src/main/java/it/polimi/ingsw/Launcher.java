@@ -1,13 +1,11 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.utils.config.Prefs;
+import it.polimi.ingsw.utils.config.ServerPrefs;
 import it.polimi.ingsw.server.Server;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 public class Launcher {
     public static void main(String[] args) {
@@ -39,6 +37,6 @@ public class Launcher {
             int indexPort = cmds.indexOf("-p") + 1;
             return Integer.parseInt(args[indexPort]);
         }
-        return Prefs.getServerPort();
+        return ServerPrefs.getServerPort();
     }
 }

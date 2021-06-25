@@ -97,7 +97,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public void onNewPlayerInRoom() {
+    public void onNewPlayerInGame() {
 
     }
 
@@ -180,6 +180,11 @@ public class CLI implements UI {
 
     public void notifyRoomFull() {
         nextInputRequest ();
+    }
+
+    @Override
+    public void onNewUserInRoom() {
+
     }
 
     private void userInteraction() {

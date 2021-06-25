@@ -11,17 +11,19 @@ public class InfoMatch implements Attachable<UI> {
     private String yourUsername;
     private int playerPositionInTurn;
     private int waitingRoomSize;
-    private HashMap<Integer, String> positionsAndPlayers;
+    private final HashMap<Integer, String> positionsAndPlayers;
     private boolean isLeader;
     private UI ui;
     private int currentPlayer;
-
-    public boolean isLeader() {
-        return isLeader;
-    }
+    private ArrayList<String> users;
 
     public InfoMatch() {
         this.positionsAndPlayers = new HashMap<> ();
+        this.users = new ArrayList<> ();
+    }
+
+    public boolean isLeader() {
+        return isLeader;
     }
 
     public int getPlayerPositionInTurn() {
@@ -77,7 +79,7 @@ public class InfoMatch implements Attachable<UI> {
 
     public void putNewPlayer(int position, String name) {
         positionsAndPlayers.put (position, name);
-        this.ui.onNewPlayerInRoom();
+        this.ui.onNewPlayerInGame ();
     }
 
     public void setIsLeader(boolean isLeader) {
@@ -102,5 +104,10 @@ public class InfoMatch implements Attachable<UI> {
 
     public int getCurrentPlayerPos() {
         return currentPlayer;
+    }
+
+    public void putNewUser(String name) {
+        this.users.add(name);
+        this.ui.onNewUserInRoom();
     }
 }

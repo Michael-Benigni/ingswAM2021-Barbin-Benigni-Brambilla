@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.ui.UI;
 import it.polimi.ingsw.utils.network.ClientNetworkLayer;
 import it.polimi.ingsw.client.view.ui.UIFactory;
-import it.polimi.ingsw.utils.config.Prefs;
+import it.polimi.ingsw.utils.config.ServerPrefs;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,7 +25,7 @@ public class Client {
             int indexIP = cmds.indexOf("-s") + 1;
             return args[indexIP];
         }
-        return Prefs.getServerIP();
+        return ServerPrefs.getServerIP();
     }
 
     private static String getCLIorGUI(String[] args) {
@@ -34,6 +34,6 @@ public class Client {
         String GUI = "--gui";
         return  cmds.contains (CLI) ? CLI
                 : cmds.contains (GUI) ? GUI
-                : Prefs.getDefaultUICmd();
+                : ServerPrefs.getDefaultUICmd();
     }
 }

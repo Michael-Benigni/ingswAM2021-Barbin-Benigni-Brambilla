@@ -5,13 +5,12 @@ import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.*;
 import it.polimi.ingsw.server.controller.exception.WrongCommandException;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.config.Prefs;
+import it.polimi.ingsw.utils.config.ServerPrefs;
 import it.polimi.ingsw.utils.network.Header;
 import it.polimi.ingsw.utils.network.MessageWriter;
 import it.polimi.ingsw.utils.network.Sendable;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 import static java.util.Collections.shuffle;
 
@@ -23,7 +22,7 @@ public abstract class Game implements GameComponent {
     /**
      * It's the Max Number of Players in a game
      */
-    private static final int MAX_NUM_PLAYER = Prefs.getMaxNumOfPlayers();
+    private static final int MAX_NUM_PLAYER = ServerPrefs.getMaxNumOfPlayers();
 
     /**
      * the number of Players in this Game
