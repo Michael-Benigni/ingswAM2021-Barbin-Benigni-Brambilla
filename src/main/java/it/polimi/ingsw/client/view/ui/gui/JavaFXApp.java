@@ -1,14 +1,12 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
+import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
 import it.polimi.ingsw.client.view.moves.PlayMove;
-import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
 import javafx.application.Application;
-import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
@@ -76,9 +74,9 @@ public class JavaFXApp extends Application {
         mainWindow.setWidth (bounds.getWidth ());
         mainWindow.setHeight (bounds.getHeight ());
         mainWindow.setTitle ("Master Of Renaissance");
-        mainWindow.setScene (GUIPlayState.getInstance ().buildScene (gui));
-        //scenes = getAllScenes ();
-        //mainWindow.setScene (scenes.get (1));
+        //mainWindow.setScene (GUIWaitingRoomState.getInstance ().buildScene (gui));
+        scenes = getAllScenes ();
+        mainWindow.setScene (scenes.get (0));
         mainWindow.setOnCloseRequest (e -> new MoveService (PlayMove.QUIT.getMove (), gui).start ());
         stage.show ();
     }
@@ -91,11 +89,11 @@ public class JavaFXApp extends Application {
     }
 
     public void setStartMatchScene(boolean isLeader) {
-        mainWindow.setScene (GUIWaitingRoomState.getStartMatchScene(isLeader));
+        Scene startMatchScene = GUIWaitingRoomState.getStartMatchScene(isLeader);
+        int currSceneIndex = this.scenes.indexOf(mainWindow.getScene()) + 1;
+        this.scenes.add(currSceneIndex, startMatchScene);
+        mainWindow.setScene (startMatchScene);
         mainWindow.show ();
     }
 
-    public void enableButtonStartGame() {
-        GUIWaitingRoomState.getInstance().getStartButton().setDisable(false);
-    }
 }

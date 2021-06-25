@@ -2,6 +2,8 @@ package it.polimi.ingsw.server.model.exception;
 
 public class IllegalNumberOfPlayersException extends Exception {
     public IllegalNumberOfPlayersException() {
-        super("Impossible to exceeds the max number of players of this game.");
+        super("Impossible to start the game" +
+                "\nThe number of player that joined the party" +
+                "\nmust be equal to the setted room size");
     }
 }

@@ -17,6 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 public class GUIWaitingRoomState extends GUIState {
 
     private static GUIWaitingRoomState instance;
@@ -24,6 +26,9 @@ public class GUIWaitingRoomState extends GUIState {
     private static Scene scene;
     private static Scene startMatchScene;
     private static Scene waitScene;
+    private Label labelNumPlayersInWait;
+    private Label labelNumRoom;
+    private Label labelSettedNewSize;
 
     private GUIWaitingRoomState() {
         instance = this;
@@ -154,17 +159,26 @@ public class GUIWaitingRoomState extends GUIState {
         choiceBox.getItems().add("3");
         choiceBox.getItems().add("4");
 
-        choiceBox.setValue("1");
+        choiceBox.setValue("4");
 
         InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
 
         this.startButton = new Button("START");
         this.startButton.setDisable(true);
 
+        this.startButton.setOnAction(actionEvent -> {
+            new MoveService (WaitingRoomMove.START_MATCH.getMove (), gui).start ();
+        });
+
         Button setNumPlayersButton = new Button("Set room size");
 
-        Label infoRoom = new Label("You are in the Room N° " + infoMatch.getRoomID() +
-                "\n" + infoMatch.getNumCurrentPlayersInRoom() + "players entered your room");
+        this.labelSettedNewSize = new Label("");
+
+        this.labelNumRoom = new Label("Room N° " + infoMatch.getRoomID());
+
+        this.labelNumPlayersInWait = new Label("0 players entered your room");
+
+        Label infoSelect = new Label("Select the number of players: ");
 
         setNumPlayersButton.setOnAction(actionEvent -> {
             String numberOfPlayers = choiceBox.getValue();
@@ -173,9 +187,12 @@ public class GUIWaitingRoomState extends GUIState {
         });
 
         gridPane.add(scenetitle, 0, 0);
-        gridPane.add(infoRoom, 0, 1);
-        gridPane.add(choiceBox, 0, 3);
-        gridPane.add(setNumPlayersButton, 1, 3);
+        gridPane.add(labelNumRoom, 0, 1);
+        gridPane.add(labelNumPlayersInWait, 0, 2);
+        gridPane.add(infoSelect, 0, 3);
+        gridPane.add(choiceBox, 1, 3);
+        gridPane.add(setNumPlayersButton, 2, 3);
+        gridPane.add(labelSettedNewSize, 3, 3);
         gridPane.add(this.startButton, 1, 4);
 
 
@@ -206,14 +223,33 @@ public class GUIWaitingRoomState extends GUIState {
         return scene;
     }
 
-    public Button getStartButton() {
-        return startButton;
-    }
-
     public static GUIWaitingRoomState getInstance(){
         if (instance == null)
             return new GUIWaitingRoomState();
         else
             return instance;
+    }
+
+    public void enableButtonStartGame() {
+        this.startButton.setDisable(false);
+    }
+
+    public void notifyNewPlayerInRoom(GUI gui) {
+
+        //TODO: this method isn't finished, so don't care about it, thank you guys. Ale
+
+        InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
+        ArrayList<String> usernames = infoMatch.getOtherPlayersUsernames();
+        this.labelNumPlayersInWait.setText("Players in your party:\n" + usernames.get(0));
+    }
+
+    public void updateRoomIDLabelInMatchSettings(GUI gui){
+        InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
+        this.labelNumRoom.setText("Room N° " + infoMatch.getRoomID());
+    }
+
+    public void notifyNewRoomSize(GUI gui){
+        InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
+        this.labelSettedNewSize.setText("The Room size has been setted to " + infoMatch.getWaitingRoomSize());
     }
 }

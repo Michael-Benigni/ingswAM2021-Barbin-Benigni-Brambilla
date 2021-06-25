@@ -77,7 +77,7 @@ public class GUI implements UI {
 
     @Override
     public void onRoomIDChanged() {
-
+        GUIWaitingRoomState.getInstance().updateRoomIDLabelInMatchSettings(this);
     }
 
     @Override
@@ -92,20 +92,21 @@ public class GUI implements UI {
 
     @Override
     public void onRoomSizeChanged() {
-
-    }
-    public void notifyRoomFull() {
-        Platform.runLater (() -> JavaFXApp.getInstance ().enableButtonStartGame());
-    }
-
-    @Override
-    public void onNewUserInRoom() {
-
+        Platform.runLater(() -> GUIWaitingRoomState.getInstance().notifyNewRoomSize(this));
     }
 
     @Override
     public void onNewPlayerInGame() {
 
+    }
+
+    public void notifyRoomFull() {
+        Platform.runLater (() -> GUIWaitingRoomState.getInstance ().enableButtonStartGame());
+    }
+
+    @Override
+    public void onNewUserInRoom() {
+        Platform.runLater(() -> GUIWaitingRoomState.getInstance().notifyNewPlayerInRoom(this));
     }
 
     @Override
