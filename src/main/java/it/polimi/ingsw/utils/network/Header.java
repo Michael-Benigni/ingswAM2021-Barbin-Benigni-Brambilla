@@ -48,7 +48,8 @@ public interface Header {
         RECONNECTION_RESPONSE ("reconnection_response"),
         ADD_EXTRA_PRODUCTION_POWER_UPDATE("add_extra_production_power_update"),
         ADD_WM_POWER_UPDATE("add_wm_power_update"),
-        USER_INFO_UP ("user_info");
+        USER_INFO_UP ("user_info"),
+        NEW_LEADER_UPDATE("new_leader_update");
 
         private final String headerStr;
 

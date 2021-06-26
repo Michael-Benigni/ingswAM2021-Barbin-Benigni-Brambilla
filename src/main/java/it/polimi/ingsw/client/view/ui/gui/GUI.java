@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
-import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
@@ -11,7 +10,6 @@ import it.polimi.ingsw.utils.network.QuitMessage;
 import it.polimi.ingsw.utils.network.Sendable;
 import javafx.application.Platform;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -123,11 +121,22 @@ public class GUI implements UI {
 
     @Override
     public void onIsLeaderChanged() {
-
+        Platform.runLater(() -> JavaFXApp.getInstance().setSecondScene(controller.getModel().getInfoMatch().isLeader()));
     }
 
     @Override
     public void onWarehouseChanged() {
+
+    }
+
+    @Override
+    public void onLeaderDisconnected(){
+        Platform.runLater(() -> {
+            JavaFXApp.getInstance().goToSecondSceneOnLeaderChanged();
+            notifyMessage("You are the new leader of the party");
+        });
+
+
 
     }
 
@@ -261,6 +270,6 @@ public class GUI implements UI {
 
     @Override
     public void notifyRegistration(boolean isLeader, int orderOfRegistration) {
-        Platform.runLater (() -> JavaFXApp.getInstance ().setStartMatchScene (isLeader));
+        Platform.runLater (() -> JavaFXApp.getInstance ().setNextScene ());
     }
 }

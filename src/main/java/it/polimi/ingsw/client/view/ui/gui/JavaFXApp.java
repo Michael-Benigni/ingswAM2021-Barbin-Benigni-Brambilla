@@ -17,8 +17,8 @@ public class JavaFXApp extends Application {
     private static Stage mainWindow;
     private final GUI gui;
     private static JavaFXApp instance;
-    private final static double fixedWidth = 1300;
-    private final static double fixedHeight = 700;
+    private final static double fixedWidth = 400;
+    private final static double fixedHeight = 200;
 
     public static ReadOnlyDoubleProperty getFixedWidth() {
         return mainWindow.widthProperty ();
@@ -62,6 +62,12 @@ public class JavaFXApp extends Application {
         mainWindow.show ();
     }
 
+    public void goToSecondSceneOnLeaderChanged(){
+        int indexOfWelcomeScene = scenes.indexOf(GUIWaitingRoomState.getInstance().getWelcomeSceneInstance());
+        mainWindow.setScene(scenes.get(indexOfWelcomeScene + 1));
+        mainWindow.show();
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
@@ -85,12 +91,8 @@ public class JavaFXApp extends Application {
             throw new AlreadyInstantiatedException ();
     }
 
-    public void setStartMatchScene(boolean isLeader) {
-        Scene startMatchScene = GUIWaitingRoomState.getStartMatchScene(isLeader);
-        int currSceneIndex = scenes.indexOf (mainWindow.getScene ());
-        this.scenes.add (currSceneIndex + 1, startMatchScene);
-        mainWindow.setScene (startMatchScene);
-        mainWindow.show ();
+    public void setSecondScene(boolean isLeader){
+        GUIWaitingRoomState.getInstance().setSecondScene(isLeader, scenes);
     }
 
     public Stage getWindow() {

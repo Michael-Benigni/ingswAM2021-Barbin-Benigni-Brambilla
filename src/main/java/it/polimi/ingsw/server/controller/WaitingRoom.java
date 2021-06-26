@@ -144,8 +144,7 @@ public class WaitingRoom {
 
     private Sendable newLeaderUpdate() {
         MessageWriter writer = new MessageWriter ();
-        writer.setHeader (Header.ToClient.GENERIC_INFO);
-        writer.addProperty ("text", "You are the new Leader of the Room!");
+        writer.setHeader (Header.ToClient.NEW_LEADER_UPDATE);
         return writer.write ();
     }
 

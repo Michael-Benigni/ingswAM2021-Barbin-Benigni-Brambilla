@@ -12,14 +12,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Popup {
-    private static Stage window;
+
 
     public static void alert(String title, String info) {
         alert (title, info, event -> {});
     }
 
     public static void alert(String title, String info, EventHandler<ActionEvent> eventOnClosing) {
-        window = new Stage ();
+        Stage window = new Stage();
         window.initModality (Modality.APPLICATION_MODAL);
         window.setTitle (title);
         window.setMinWidth (250);

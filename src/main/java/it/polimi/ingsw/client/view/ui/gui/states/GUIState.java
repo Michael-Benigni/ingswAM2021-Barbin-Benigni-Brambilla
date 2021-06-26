@@ -17,18 +17,18 @@ public abstract class GUIState extends ClientState {
 
     public abstract Scene buildScene(GUI gui);
 
-    protected abstract Scene getSceneInstance();
+    protected abstract Scene getWelcomeSceneInstance();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GUIState)) return false;
         GUIState state = (GUIState) o;
-        return Objects.equals (getSceneInstance (), state.getSceneInstance ());
+        return Objects.equals (getWelcomeSceneInstance(), state.getWelcomeSceneInstance());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash (getSceneInstance ());
+        return Objects.hash (getWelcomeSceneInstance());
     }
 }

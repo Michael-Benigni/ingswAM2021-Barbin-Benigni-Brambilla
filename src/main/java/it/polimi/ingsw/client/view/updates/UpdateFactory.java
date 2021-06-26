@@ -34,6 +34,7 @@ public class UpdateFactory {
         map.put (Header.ToClient.ADD_EXTRA_PRODUCTION_POWER_UPDATE, AddExtraProductionPowerUpdate.class);
         map.put (Header.ToClient.ADD_WM_POWER_UPDATE, AddTransformWMUpdate.class);
         map.put (Header.ToClient.USER_INFO_UP, UserInfoUP.class);
+        map.put(Header.ToClient.NEW_LEADER_UPDATE, NewLeaderUpdate.class);
         return map;
     }
 

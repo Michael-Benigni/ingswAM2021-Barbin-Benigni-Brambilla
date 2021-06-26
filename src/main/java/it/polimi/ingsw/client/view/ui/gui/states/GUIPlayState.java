@@ -12,7 +12,6 @@ import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import it.polimi.ingsw.client.view.ui.gui.MoveService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -30,9 +29,9 @@ public class GUIPlayState extends GUIState {
     private static Scene scene;
     private static GUIPlayState instance;
     private GUI gui;
-    private GridPane cardsGrid;
-    private VBox market;
-    private ArrayList<RadioButton> marketButtons;
+    private GameboardTab gameboardTab;
+    private PersonalboardTab personalboardTab;
+    private TempContLeaderCardsTab tempContLeaderCardsTab;
 
     private GUIPlayState() {
         instance = this;
@@ -40,25 +39,23 @@ public class GUIPlayState extends GUIState {
 
     @Override
     public Scene buildScene(GUI gui) {
-        if (getSceneInstance () == null) {
+        if (getWelcomeSceneInstance() == null) {
             this.gui = gui;
             HBox hBox = new HBox ();
             TabPane tabPane = new TabPane ();
-            Tab tabPersonalBoard = getPersonalBoardTab ();
-            Tab tabGameBoard = getGameBoardTab ();
-            Tab tabTempContainerAndLeaderCards = getTempContainerAndLeaderCardsTab();
-            tabPane.getTabs ().addAll (tabPersonalBoard, tabTempContainerAndLeaderCards, tabGameBoard);
+            personalboardTab = new PersonalboardTab();
+            gameboardTab = new GameboardTab();
+            tempContLeaderCardsTab = new TempContLeaderCardsTab();
+            tabPane.getTabs ().addAll (personalboardTab, tempContLeaderCardsTab, gameboardTab);
             tabPane.prefWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.9));
             hBox.spacingProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.02));
             hBox.getChildren ().addAll (tabPane, getTurnsButtonsVBox ()) ;
             setSceneInstance (new Scene (hBox));
         }
-        return getSceneInstance ();
+        return getWelcomeSceneInstance();
     }
 
-    private Tab getTempContainerAndLeaderCardsTab() {
-        return new Tab ("TemporaryContainer And Leader Cards Slot");
-    }
+
 
     @Override
     protected void setSceneInstance(Scene scene) {
@@ -67,60 +64,13 @@ public class GUIPlayState extends GUIState {
     }
 
     @Override
-    protected Scene getSceneInstance() {
+    protected Scene getWelcomeSceneInstance() {
         return scene;
     }
 
     @Override
     public GUIState getNextState() {
         return new GUIGameOverState();
-    }
-
-    private Tab getPersonalBoardTab() {
-        JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
-        ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
-        imageView.setPreserveRatio (true);
-        HBox hBox = new HBox ();
-        hBox.getChildren ().add (imageView);
-        hBox.setBackground (new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
-        imageView.fitHeightProperty().bind (JavaFXApp.getFixedHeight ().multiply (0.93));
-        Tab tab = new Tab ("Personal Board", hBox);
-        tab.setClosable (false);
-        return tab;
-    }
-
-    private Tab getGameBoardTab() {
-        this.cardsGrid = new GridPane ();
-        JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
-        ImageView marketContainer = new ImageView (loader.loadMarketImage());
-        marketContainer.setPreserveRatio (true);
-        marketContainer.setX (0);
-        marketContainer.setY (0);
-        marketContainer.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.91));
-
-        StackPane stackForMarket = new StackPane ();
-        market = new VBox ();
-        marketButtons = new ArrayList<> ();
-        Canvas canvas = new Canvas (400, 700);
-        GraphicsContext gc = canvas.getGraphicsContext2D ();
-        gc.setFill(Color.DARKSLATEGREY);
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(2);
-        gc.fillRoundRect (40, 120, 320, 250, 30, 30);
-        gc.strokeRoundRect (40, 120, 320, 250, 30, 30);
-        stackForMarket.getChildren ().addAll (marketContainer, canvas, market);
-        stackForMarket.setAlignment (Pos.TOP_CENTER);
-
-        HBox hBox = new HBox ();
-        hBox.getChildren ().addAll (stackForMarket, cardsGrid);
-        hBox.spacingProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.01));
-        hBox.setAlignment (Pos.CENTER);
-        Background background = new Background (new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY));
-        hBox.setBackground (background);
-
-        Tab tab = new Tab ("Game Board", hBox);
-        tab.setClosable (false);
-        return tab;
     }
 
     private VBox getTurnsButtonsVBox() {
@@ -141,7 +91,7 @@ public class GUIPlayState extends GUIState {
         Button marketTurn = new Button ("Market");
         marketTurn.setMaxWidth (Double.MAX_VALUE);
         marketTurn.setOnAction (e -> {
-            marketButtons.forEach (radioButton -> radioButton.setDisable (false));
+            gameboardTab.getMarketButtons().forEach (radioButton -> radioButton.setDisable (false));
             chosenMove.set (PlayMove.MARKET.getMove ());
             turnButtons.getChildren ().stream()
                     .filter (b -> b != endTurn && b != OK)
@@ -191,7 +141,7 @@ public class GUIPlayState extends GUIState {
     }
 
     private void enableCardsGrid(boolean isToEnable) {
-        cardsGrid.getChildren ().forEach ((n) -> n.setDisable (!isToEnable));
+        gameboardTab.getCardsGrid().getChildren ().forEach ((n) -> n.setDisable (!isToEnable));
     }
 
     public void initCardsGrid() {
@@ -215,15 +165,15 @@ public class GUIPlayState extends GUIState {
                     gui.getInterpreter ().addInteraction ("column", finalI);
                     //TODO: to enable the slots buttons
                 });
-                cardsGrid.add (buttonCard, j, i);
+                gameboardTab.getCardsGrid().add (buttonCard, j, i);
             }
         }
-        cardsGrid.setAlignment (Pos.CENTER);
+        gameboardTab.getCardsGrid().setAlignment (Pos.CENTER);
         enableCardsGrid (false);
     }
 
     public void initMarketGrid() {
-        market.getChildren ().clear ();
+        gameboardTab.getMarket().getChildren ().clear ();
         ToggleGroup columnGroup = new ToggleGroup ();
         ToggleGroup rowGroup = new ToggleGroup ();
         GridPane marketGrid = new GridPane ();
@@ -239,20 +189,20 @@ public class GUIPlayState extends GUIState {
                 marketGrid.add (canvas, j, i);
                 RadioButton columnButton = getRadioButton (columnGroup, rowGroup, j, "column");
                 marketGrid.add (columnButton, j, lwMarket.getRows ());
-                marketButtons.add (columnButton);
+                gameboardTab.getMarketButtons().add (columnButton);
             }
             RadioButton rowButton = getRadioButton (rowGroup, columnGroup, i, "row");
             marketGrid.add (rowButton, j, i);
-            marketButtons.add (rowButton);
+            gameboardTab.getMarketButtons().add (rowButton);
         }
         marketGrid.setVgap (10);
         marketGrid.setHgap (10);
         marketGrid.setAlignment (Pos.CENTER);
-        market.getChildren ().add (0, marbleOnSlide);
-        market.getChildren ().add (1, marketGrid);
-        market.setAlignment (Pos.TOP_LEFT);
-        market.setPadding (new Insets (130, 0, 0, 50));
-        marketButtons.forEach (radioButton -> radioButton.setDisable (true));
+        gameboardTab.getMarket().getChildren ().add (0, marbleOnSlide);
+        gameboardTab.getMarket().getChildren ().add (1, marketGrid);
+        gameboardTab.getMarket().setAlignment (Pos.TOP_LEFT);
+        gameboardTab.getMarket().setPadding (new Insets (130, 0, 0, 50));
+        gameboardTab.getMarketButtons().forEach (radioButton -> radioButton.setDisable (true));
     }
 
     private RadioButton getRadioButton(ToggleGroup owner, ToggleGroup mutualExclusive, int k, String rowOrColumn) {

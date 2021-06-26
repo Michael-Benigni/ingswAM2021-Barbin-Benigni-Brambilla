@@ -120,6 +120,11 @@ public class CLI implements UI {
     }
 
     @Override
+    public void onLeaderDisconnected() {
+
+    }
+
+    @Override
     public void onWarehouseChanged() {
 
     }

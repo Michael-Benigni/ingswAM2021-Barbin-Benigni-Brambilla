@@ -24,7 +24,7 @@ public class GUIWaitingRoomState extends GUIState {
     private static GUIWaitingRoomState instance;
     private Button startButton;
     private static Scene scene;
-    private static Scene startMatchScene;
+    private static Scene settingsScene;
     private static Scene waitScene;
     private Label labelPlayersInWait;
     private Label labelNumRoom;
@@ -35,7 +35,7 @@ public class GUIWaitingRoomState extends GUIState {
     }
 
     public static Scene getStartMatchScene(boolean isLeader) {
-        return isLeader ? startMatchScene : waitScene;
+        return isLeader ? settingsScene : waitScene;
     }
 
     @Override
@@ -51,10 +51,10 @@ public class GUIWaitingRoomState extends GUIState {
     @Override
     public Scene buildScene(GUI gui){
 
-        if(getSceneInstance () == null) {
+        if(getWelcomeSceneInstance() == null) {
 
-            startMatchScene = goToSetPlayersScene(gui);
-            waitScene = goToWaitScene(gui);
+            buildSettingsScene(gui);
+            buildWaitScene(gui);
 
             GridPane grid = new GridPane();
             grid.setAlignment(Pos.CENTER);
@@ -135,93 +135,110 @@ public class GUIWaitingRoomState extends GUIState {
             setSceneInstance (scene);
         }
 
-        return getSceneInstance ();
+        return getWelcomeSceneInstance();
     }
 
 
 
-    public Scene goToSetPlayersScene(GUI gui){
+    public Scene buildSettingsScene(GUI gui){
 
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(25, 25, 25, 25));
-        Scene scene = new Scene(gridPane, 700, 400);
+        if(settingsScene == null){
+            GridPane gridPane = new GridPane();
+            gridPane.setAlignment(Pos.CENTER);
+            gridPane.setHgap(10);
+            gridPane.setVgap(10);
+            gridPane.setPadding(new Insets(25, 25, 25, 25));
+            Scene scene = new Scene(gridPane, 700, 400);
 
-        Text scenetitle = new Text("Match Settings");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 30));
+            Text scenetitle = new Text("Match Settings");
+            scenetitle.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 30));
 
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+            ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
-        choiceBox.getItems().add("1");
-        choiceBox.getItems().add("2");
-        choiceBox.getItems().add("3");
-        choiceBox.getItems().add("4");
+            choiceBox.getItems().add("1");
+            choiceBox.getItems().add("2");
+            choiceBox.getItems().add("3");
+            choiceBox.getItems().add("4");
 
-        choiceBox.setValue("4");
+            choiceBox.setValue("4");
 
-        InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
+            InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
 
-        this.startButton = new Button("START");
-        this.startButton.setDisable(true);
-        this.startButton.setOnAction (e -> new MoveService (WaitingRoomMove.START_MATCH.getMove (), gui).start ());
+            this.startButton = new Button("START");
+            this.startButton.setDisable(true);
 
-        this.startButton.setOnAction(actionEvent -> {
-            new MoveService (WaitingRoomMove.START_MATCH.getMove (), gui).start ();
-        });
+            this.startButton.setOnAction(actionEvent -> {
+                new MoveService (WaitingRoomMove.START_MATCH.getMove (), gui).start ();
+            });
 
-        Button setNumPlayersButton = new Button("Set room size");
+            Button setNumPlayersButton = new Button("Set room size");
 
-        this.labelSettedNewSize = new Label("");
+            this.labelSettedNewSize = new Label("");
 
-        this.labelNumRoom = new Label("Room N° " + infoMatch.getRoomID());
+            this.labelNumRoom = new Label("Room N° " + infoMatch.getRoomID());
 
-        this.labelPlayersInWait = new Label("0 players entered your room");
+            this.labelPlayersInWait = new Label("0 players entered your room");
 
-        Label infoSelect = new Label("Select the number of players: ");
+            Label infoSelect = new Label("Select the number of players: ");
 
-        setNumPlayersButton.setOnAction(actionEvent -> {
-            String numberOfPlayers = choiceBox.getValue();
-            gui.getInterpreter ().addInteraction ("dimension", numberOfPlayers);
-            new MoveService (WaitingRoomMove.SET_NUM_PLAYERS.getMove (), gui).start ();
-        });
+            setNumPlayersButton.setOnAction(actionEvent -> {
+                String numberOfPlayers = choiceBox.getValue();
+                gui.getInterpreter ().addInteraction ("dimension", numberOfPlayers);
+                new MoveService (WaitingRoomMove.SET_NUM_PLAYERS.getMove (), gui).start ();
+            });
 
-        gridPane.add(scenetitle, 0, 0);
-        gridPane.add(labelNumRoom, 0, 1);
-        gridPane.add(labelPlayersInWait, 0, 2);
-        gridPane.add(infoSelect, 0, 3);
-        gridPane.add(choiceBox, 1, 3);
-        gridPane.add(setNumPlayersButton, 2, 3);
-        gridPane.add(labelSettedNewSize, 3, 3);
-        gridPane.add(this.startButton, 1, 4);
+            gridPane.add(scenetitle, 0, 0);
+            gridPane.add(labelNumRoom, 0, 1);
+            gridPane.add(labelPlayersInWait, 0, 2);
+            gridPane.add(infoSelect, 0, 3);
+            gridPane.add(choiceBox, 1, 3);
+            gridPane.add(setNumPlayersButton, 2, 3);
+            gridPane.add(labelSettedNewSize, 3, 3);
+            gridPane.add(this.startButton, 1, 4);
 
+            settingsScene = scene;
+        }
 
-        return scene;
+        return settingsScene;
     }
 
-    private Scene goToWaitScene(GUI gui) {
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(25, 25, 25, 25));
-        Scene scene = new Scene(gridPane, 700, 400);
+    private Scene buildWaitScene(GUI gui) {
 
-        Text scenetitle = new Text("Waiting Room");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 30));
+        if(waitScene == null){
+            GridPane gridPane = new GridPane();
+            gridPane.setAlignment(Pos.CENTER);
+            gridPane.setHgap(10);
+            gridPane.setVgap(10);
+            gridPane.setPadding(new Insets(25, 25, 25, 25));
+            Scene scene = new Scene(gridPane, 700, 400);
 
-        Label waitLabel = new Label("Please, wait until the party manager start the game");
+            Text scenetitle = new Text("Waiting Room");
+            scenetitle.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 30));
 
-        gridPane.add(scenetitle, 0, 0);
-        gridPane.add(waitLabel, 0, 2);
+            Label waitLabel = new Label("Please, wait until the party manager start the game");
 
-        return scene;
+            gridPane.add(scenetitle, 0, 0);
+            gridPane.add(waitLabel, 0, 2);
+
+            waitScene = scene;
+        }
+
+        return waitScene;
     }
 
     @Override
-    protected Scene getSceneInstance() {
+    public Scene getWelcomeSceneInstance() {
         return scene;
+    }
+
+    public void setSecondScene(boolean isLeader, ArrayList<Scene> scenes){
+        int welcomeSceneIndex = scenes.indexOf(getWelcomeSceneInstance());
+        if(scenes.get(welcomeSceneIndex + 1) == settingsScene || scenes.get(welcomeSceneIndex + 1) == waitScene){
+            scenes.set(welcomeSceneIndex + 1, getStartMatchScene(isLeader));
+        }
+        else{
+            scenes.add(welcomeSceneIndex + 1, getStartMatchScene(isLeader));
+        }
     }
 
     public static GUIWaitingRoomState getInstance(){
@@ -236,8 +253,6 @@ public class GUIWaitingRoomState extends GUIState {
     }
 
     public void notifyNewPlayerInRoom(InfoMatch infoMatch) {
-
-        //TODO: this method isn't finished, so don't care about it, thank you guys. Ale
 
         ArrayList<String> usernames = infoMatch.getUsers();
         String users = "";

@@ -22,7 +22,7 @@ public class GUIGameOverState extends GUIState {
     }
 
     @Override
-    protected Scene getSceneInstance() {
+    protected Scene getWelcomeSceneInstance() {
         return scene;
     }
 }

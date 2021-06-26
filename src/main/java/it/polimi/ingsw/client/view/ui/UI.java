@@ -66,6 +66,8 @@ public interface UI {
 
     void onIsLeaderChanged();
 
+    void onLeaderDisconnected();
+
     void onWarehouseChanged();
 
     void onStrongboxChanged();
