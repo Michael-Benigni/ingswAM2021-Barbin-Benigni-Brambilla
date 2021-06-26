@@ -53,73 +53,71 @@ public class CLI implements UI {
                 while (isRunning) {
                     userInteraction ();
                 }
-            } else
-                notifyErrorConnection ();
+            }
         }).start ();
     }
 
-    private boolean waitConnection() {
+    private synchronized boolean waitConnection() {
         while (!isRunning)
             try {
                 wait (ClientPrefs.getTimeToWaitConnection());
             } catch (InterruptedException e) {
-                e.printStackTrace ();
             }
         return isRunning;
     }
 
     @Override
-    public void onMarketChanged() {
+    public synchronized void onMarketChanged() {
 
     }
 
     @Override
-    public void onFaithTrackChanged() {
+    public synchronized void onFaithTrackChanged() {
 
     }
 
     @Override
-    public void onPlayerPositionFaithTrackChanged() {
+    public synchronized void onPlayerPositionFaithTrackChanged() {
 
     }
 
     @Override
-    public void onCardsGridBuilt() {
+    public synchronized void onCardsGridBuilt() {
 
     }
 
     @Override
-    public void onCardBoughtFromGrid() {
+    public synchronized void onCardBoughtFromGrid() {
 
     }
 
     @Override
-    public void onRoomIDChanged() {
+    public synchronized void onRoomIDChanged() {
 
     }
 
     @Override
-    public void onSetUsername() {
+    public synchronized void onSetUsername() {
 
     }
 
     @Override
-    public void onPositionInTurnChanged() {
+    public synchronized void onPositionInTurnChanged() {
         controller.getUI().notifyMessage ("You are the " + controller.getModel ().getInfoMatch ().getPlayerPositionInTurn () + "° player!");
     }
 
     @Override
-    public void onRoomSizeChanged() {
+    public synchronized void onRoomSizeChanged() {
         notifyMessage ("The number of players of the Game has been set to " + controller.getModel ().getInfoMatch ().getWaitingRoomSize ());
     }
 
     @Override
-    public void onNewPlayerInGame() {
+    public synchronized void onNewPlayerInGame() {
 
     }
 
     @Override
-    public void onIsLeaderChanged() {
+    public synchronized void onIsLeaderChanged() {
 
     }
 
@@ -129,37 +127,37 @@ public class CLI implements UI {
     }
 
     @Override
-    public void onStrongboxChanged() {
+    public synchronized void onStrongboxChanged() {
 
     }
 
     @Override
-    public void onTempContainerChanged() {
+    public synchronized void onTempContainerChanged() {
 
     }
 
     @Override
-    public void onSlotDevCardsChanged() {
+    public synchronized void onSlotDevCardsChanged() {
 
     }
 
     @Override
-    public void onSlotLeaderCardsChanged() {
+    public synchronized void onSlotLeaderCardsChanged() {
 
     }
 
     @Override
-    public void onWMPowerChanged() {
+    public synchronized void onWMPowerChanged() {
 
     }
 
     @Override
-    public void onXPowersChanged() {
+    public synchronized void onXPowersChanged() {
 
     }
 
     @Override
-    public void onCurrentPlayerChanged(String additionalMsg) {
+    public synchronized void onCurrentPlayerChanged(String additionalMsg) {
         InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
         int playerPos = infoMatch.getCurrentPlayerPos ();
         String msg;
@@ -174,7 +172,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames, ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
+    public synchronized void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames, ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
         String message = "";
         String winners = String.join(", ", winnersNames) + ".";
         String losers = String.join(", ", losersNames) + ".";
@@ -195,25 +193,28 @@ public class CLI implements UI {
         controller.getUI().notifyMessage(message);
     }
 
-    public void notifyRoomFull() {
+    public synchronized void notifyRoomFull() {
         nextInputRequest ();
     }
 
     @Override
-    public void onNewUserInRoom() {
+    public synchronized void onNewUserInRoom() {
 
     }
 
     @Override
-    public void notifyErrorConnection() {
+    public synchronized void notifyErrorConnection() {
         getInterlocutor ().write ("Connection Refused. The Server is not working.\n Try again in few minutes.");
         if (isRunning)
             getInterlocutor ().write ("Press \"QUIT\" to terminate the app." );
+        else
+            notifyAll ();
     }
 
     @Override
-    public void connectionSuccessful() {
+    public synchronized void connectionSuccessful() {
         isRunning = true;
+        notifyAll ();
     }
 
     private void userInteraction() {
@@ -439,7 +440,6 @@ public class CLI implements UI {
         }
     }
 
-    @Override
     public synchronized void printMenu() {
         interlocutor.write (getCurrentState ().menu ());
     }
@@ -473,7 +473,6 @@ public class CLI implements UI {
         nextInputRequest ();
     }
 
-    @Override
     public synchronized void nextInputRequest() {
         printMenu ();
         this.interlocutor.write ("Digit a new command: ");
@@ -521,7 +520,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public void notifyRegistration(boolean isLeader, int orderOfRegistration) {
+    public synchronized void notifyRegistration(boolean isLeader, int orderOfRegistration) {
         InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
         notifyMessage (orderOfRegistration + "° user registered, in the waiting room n° " + infoMatch.getRoomID () + ", with name: " + infoMatch.getYourUsername ());
     }
