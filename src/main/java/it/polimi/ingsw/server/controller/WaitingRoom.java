@@ -122,7 +122,6 @@ public class WaitingRoom {
             if (player != null && player.isConnected ()) {
                 player.setIsConnected (false, game);
                 game.detach (user.getView ());
-                usersPlayers.values ().stream ().filter ((p) -> p != player).forEach ((p) -> p.notifyUpdate (getDisconnectionUpdate(user)));
             }
             else {
                 this.usersPlayers.remove (user);
@@ -138,6 +137,8 @@ public class WaitingRoom {
                     }
                 }
             }
+            usersPlayers.keySet ().stream ().filter ((u) -> u != user).forEach ((u) ->
+                    u.getView().onChanged (getDisconnectionUpdate(user)));
         }
     }
 
@@ -151,7 +152,7 @@ public class WaitingRoom {
     private Sendable getDisconnectionUpdate(User user) {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.DISCONNECTION_UP);
-        writer.addProperty ("playerDisconnected", getPlayerOf (user).getPosition ());
+        writer.addProperty ("playerDisconnected", user.getUsername ());
         return writer.write ();
     }
 

@@ -5,9 +5,7 @@ import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.*;
 import it.polimi.ingsw.client.view.moves.Move;
-import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.moves.WaitingRoomMove;
-import it.polimi.ingsw.client.view.ui.Interlocutor;
 import it.polimi.ingsw.client.view.ui.cli.states.ClientState;
 import it.polimi.ingsw.client.view.ui.cli.states.WaitingRoomState;
 import it.polimi.ingsw.client.view.ui.UI;
@@ -159,7 +157,7 @@ public class CLI implements UI {
     @Override
     public synchronized void onCurrentPlayerChanged(String additionalMsg) {
         InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
-        int playerPos = infoMatch.getCurrentPlayerPos ();
+        String playerPos = infoMatch.getCurrentPlayerPos ();
         String msg;
         if (playerPos == infoMatch.getPlayerPositionInTurn ()) {
             msg = "It's your Turn! ";
@@ -198,7 +196,7 @@ public class CLI implements UI {
     }
 
     @Override
-    public synchronized void onNewUserInRoom() {
+    public void onUserInRoomEnteredOrDisconnected() {
 
     }
 
