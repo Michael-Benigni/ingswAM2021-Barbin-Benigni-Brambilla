@@ -9,12 +9,12 @@ import java.util.HashMap;
 public class InfoMatch implements Attachable<UI> {
     private int roomID;
     private String yourUsername;
-    private int playerPositionInTurn;
+    private String playerPositionInTurn;
     private int waitingRoomSize;
     private final HashMap<Integer, String> positionsAndPlayers;
     private boolean isLeader;
     private UI ui;
-    private int currentPlayer;
+    private String currentPlayer;
     private ArrayList<String> users;
 
     public InfoMatch() {
@@ -26,7 +26,7 @@ public class InfoMatch implements Attachable<UI> {
         return isLeader;
     }
 
-    public int getPlayerPositionInTurn() {
+    public String getPlayerPositionInTurn() {
         return playerPositionInTurn;
     }
 
@@ -40,7 +40,7 @@ public class InfoMatch implements Attachable<UI> {
         this.ui.onSetUsername ();
     }
 
-    public void setPlayerPositionInTurn(int numPlayerInTurn) {
+    public void setPlayerPositionInTurn(String numPlayerInTurn) {
         this.playerPositionInTurn = numPlayerInTurn;
         this.ui.onPositionInTurnChanged();
     }
@@ -58,7 +58,7 @@ public class InfoMatch implements Attachable<UI> {
         return new ArrayList<> (positionsAndPlayers.values ());
     }
 
-    public String getPlayerAt(int positionInGame){
+    public String getPlayerAt(String positionInGame){
         String player = positionsAndPlayers.get (positionInGame);
         if (player == null)
             player = yourUsername;
@@ -71,10 +71,6 @@ public class InfoMatch implements Attachable<UI> {
 
     public int getWaitingRoomSize() {
         return waitingRoomSize;
-    }
-
-    public int getNumCurrentPlayersInRoom(){
-        return positionsAndPlayers.size();
     }
 
     public void putNewPlayer(int position, String name) {
@@ -97,17 +93,26 @@ public class InfoMatch implements Attachable<UI> {
         this.ui = attached;
     }
 
-    public void setCurrentPlayer(int playerPositionInTurn, String additionalInfo) {
+    public void setCurrentPlayer(String playerPositionInTurn, String additionalInfo) {
         this.currentPlayer = playerPositionInTurn;
         this.ui.onCurrentPlayerChanged(additionalInfo);
     }
 
-    public int getCurrentPlayerPos() {
+    public String getCurrentPlayerPos() {
         return currentPlayer;
     }
 
     public void putNewUser(String name) {
         this.users.add(name);
-        this.ui.onNewUserInRoom();
+        this.ui.onUserInRoomEnteredOrDisconnected();
+    }
+
+    public ArrayList<String> getUsers(){
+        return this.users;
+    }
+
+    public void removeUserFromRoom(String playerDisconnected) {
+        this.users.remove(playerDisconnected);
+        this.ui.onUserInRoomEnteredOrDisconnected();
     }
 }

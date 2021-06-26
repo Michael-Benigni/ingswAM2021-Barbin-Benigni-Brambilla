@@ -26,7 +26,7 @@ public class GUIWaitingRoomState extends GUIState {
     private static Scene scene;
     private static Scene startMatchScene;
     private static Scene waitScene;
-    private Label labelNumPlayersInWait;
+    private Label labelPlayersInWait;
     private Label labelNumRoom;
     private Label labelSettedNewSize;
 
@@ -177,7 +177,7 @@ public class GUIWaitingRoomState extends GUIState {
 
         this.labelNumRoom = new Label("Room N° " + infoMatch.getRoomID());
 
-        this.labelNumPlayersInWait = new Label("0 players entered your room");
+        this.labelPlayersInWait = new Label("0 players entered your room");
 
         Label infoSelect = new Label("Select the number of players: ");
 
@@ -189,7 +189,7 @@ public class GUIWaitingRoomState extends GUIState {
 
         gridPane.add(scenetitle, 0, 0);
         gridPane.add(labelNumRoom, 0, 1);
-        gridPane.add(labelNumPlayersInWait, 0, 2);
+        gridPane.add(labelPlayersInWait, 0, 2);
         gridPane.add(infoSelect, 0, 3);
         gridPane.add(choiceBox, 1, 3);
         gridPane.add(setNumPlayersButton, 2, 3);
@@ -235,13 +235,16 @@ public class GUIWaitingRoomState extends GUIState {
         this.startButton.setDisable(false);
     }
 
-    public void notifyNewPlayerInRoom(GUI gui) {
+    public void notifyNewPlayerInRoom(InfoMatch infoMatch) {
 
         //TODO: this method isn't finished, so don't care about it, thank you guys. Ale
 
-        InfoMatch infoMatch = gui.getController().getModel().getInfoMatch();
-        ArrayList<String> usernames = infoMatch.getOtherPlayersUsernames();
-        this.labelNumPlayersInWait.setText("Players in your party:\n" + usernames.get(0));
+        ArrayList<String> usernames = infoMatch.getUsers();
+        String users = "";
+        for (String user : usernames){
+            users = users + " " + user;
+        }
+        this.labelPlayersInWait.setText("Players in your party: " + users);
     }
 
     public void updateRoomIDLabelInMatchSettings(GUI gui){

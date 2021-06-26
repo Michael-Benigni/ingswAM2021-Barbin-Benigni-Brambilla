@@ -3,10 +3,10 @@ package it.polimi.ingsw.client.view.updates;
 import it.polimi.ingsw.client.view.Controller;
 
 public class WaitYourTurnUP implements ViewUpdate {
-    private final int currPlayer;
+    private final String currPlayer;
     private final int currPlayerName;
 
-    public WaitYourTurnUP(int currPlayer, int currPlayerName) {
+    public WaitYourTurnUP(String currPlayer, int currPlayerName) {
         this.currPlayer = currPlayer;
         this.currPlayerName = currPlayerName;
     }

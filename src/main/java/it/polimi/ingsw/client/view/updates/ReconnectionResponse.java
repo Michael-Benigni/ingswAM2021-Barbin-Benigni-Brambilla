@@ -4,9 +4,9 @@ import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.lightweightmodel.InfoMatch;
 
 public class ReconnectionResponse implements ViewUpdate {
-    private final Integer playerPosition;
+    private final String playerPosition;
 
-    public ReconnectionResponse(Integer playerPosition) {
+    public ReconnectionResponse(String playerPosition) {
         this.playerPosition = playerPosition;
     }
 

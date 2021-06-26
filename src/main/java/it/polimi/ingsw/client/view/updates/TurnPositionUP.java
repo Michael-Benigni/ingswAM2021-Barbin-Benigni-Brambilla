@@ -3,9 +3,9 @@ package it.polimi.ingsw.client.view.updates;
 import it.polimi.ingsw.client.view.Controller;
 
 public class TurnPositionUP implements ViewUpdate {
-    private final int turnPosition;
+    private final String turnPosition;
 
-    public TurnPositionUP(int turnPosition) {
+    public TurnPositionUP(String turnPosition) {
         this.turnPosition = turnPosition;
     }
 
