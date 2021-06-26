@@ -55,7 +55,7 @@ public class FirstTurn extends Turn {
         if(!game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(initialResources) && game.getCurrentPlayer ().isConnected ())
             throw new WrongInitialConfiguration();
         else if (!game.getCurrentPlayer ().isConnected ()) {
-            while (game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(0)) {
+            while (!game.getCurrentPlayer().getPersonalBoard().checkFirstTurnConditions(0)) {
                 try {
                     new DiscardLeaderCardFirstTurnAction (0).perform (game, game.getCurrentPlayer ());
                 } catch (Exception e) {
