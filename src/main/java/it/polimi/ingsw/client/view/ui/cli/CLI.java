@@ -316,14 +316,13 @@ public class CLI implements UI {
         ArrayList<ArrayList<LWDevCard>> slots = getController ().getModel ().getPersonalBoard ().getSlots ();
         int slotIdx = 0;
         for (ArrayList<LWDevCard> slot : slots) {
-            devCardsAsString.append (padding ("SLOT n° ", ".", getWidthSection ()))
-                    .append (slotIdx)
+            devCardsAsString.append (padding ("SLOT n° " + slotIdx, ".", getWidthSection ()))
                     .append ("\n");
             slotIdx++;
             if (!slot.isEmpty ()) {
                 devCardsAsString.append ("\n");
                 devCardsAsString.append (padding (juxtapose (slot.stream ()
-                        .map ((card) -> (slot.size () == card.getIndexInSlot () - 1 ? "TOP CARD" : " ") + "\n"
+                        .map ((card) -> (slot.size () - 1 == card.getIndexInSlot () ? "TOP CARD" : " ") + "\n"
                                 + encapsulate (card.getDescription (), (int) Math.floor (getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 2)))
                         .collect (ArrayList::new, ArrayList::add, ArrayList::addAll), getWidthSection() / getInterlocutor().getMaxHorizDivisions() - 1), " ", getInterlocutor().getWidthSection()))
                         .append ("\n");
@@ -383,9 +382,9 @@ public class CLI implements UI {
         }
         for (int column = 0; column < marbles.get (0).size (); column++)
             headerColumns = String.format ("%s%s\t", headerColumns, column);
-        marketAsString.append (String.format ("\t\t\t%s\n", headerColumns));
+        marketAsString.append (String.format ("\t\t%s\n", headerColumns));
         marketAsString.append (res);
-        StringBuilder arrows = new StringBuilder ("\n\t\t");
+        StringBuilder arrows = new StringBuilder ("\n\t");
         for (int column = 0; column < marbles.get (0).size (); column++)
             arrows.append (String.format ("\t%s", UP_ARROW));
         marketAsString.append (String.format ("%s\n", arrows));

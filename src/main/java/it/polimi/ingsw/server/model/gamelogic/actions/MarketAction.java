@@ -32,8 +32,10 @@ public class MarketAction implements MutualExclusiveAction {
                 resources = market.pickResourcesOnColumn(numRowOrColumn);
                 break;
             }
-            default:
-                throw new NoValidActionException(this);
+            default: {
+                game.getCurrentTurn ().resetToken ();
+                throw new NoValidActionException (this);
+            }
         }
         for (Resource r : resources) {
             r.activate(player, game);
