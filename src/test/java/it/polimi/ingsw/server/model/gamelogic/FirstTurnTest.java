@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for "FirstTurn" class.
@@ -72,7 +71,7 @@ public class FirstTurnTest {
         }
     }
 
-    /*@Test
+    @Test
     void checkTerminateIfCorrect() throws NegativeResourceAmountException, EmptyDeckException, IllegalNumberOfPlayersException, TooManyPlayersException, CellNotFoundInFaithTrackException, WrongBoardException, EndGameException {
         //Create a new multiplayer game.
         Game game = new MultiplayerGame(4);
@@ -98,11 +97,10 @@ public class FirstTurnTest {
         player.setIsConnected(false, game);
         try {
             turn.terminate(game);
-            fail();
-        } catch (WrongInitialConfiguration e) {
-            assertTrue(true);
-        } catch (YouMustEndTheProductionPhaseException e) {
+            assertNotEquals(game.getCurrentTurn(), turn);
+            assertNotEquals(game.getCurrentPlayer(), player);
+        } catch (WrongInitialConfiguration | YouMustEndTheProductionPhaseException e) {
             fail();
         }
-    }*/
+    }
 }
