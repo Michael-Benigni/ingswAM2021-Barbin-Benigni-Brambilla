@@ -31,7 +31,7 @@ public class GUIPlayState extends GUIState {
     private static GUIPlayState instance;
     private GUI gui;
     private GameboardTab gameboardTab;
-    private PersonalBoardTab personalboardTab;
+    private PersonalboardTab personalboardTab;
     private TempContLeaderCardsTab tempContLeaderCardsTab;
 
     private GUIPlayState() {
@@ -44,7 +44,7 @@ public class GUIPlayState extends GUIState {
             this.gui = gui;
             HBox hBox = new HBox ();
             TabPane tabPane = new TabPane ();
-            personalboardTab = new PersonalBoardTab();
+            personalboardTab = new PersonalboardTab();
             gameboardTab = new GameboardTab();
             tempContLeaderCardsTab = new TempContLeaderCardsTab();
             tabPane.getTabs ().addAll (personalboardTab, tempContLeaderCardsTab, gameboardTab);
