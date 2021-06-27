@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.ui.gui.states;
 import it.polimi.ingsw.client.ClientPrefs;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.LWCardsGrid;
+import it.polimi.ingsw.client.view.lightweightmodel.LWDevCard;
 import it.polimi.ingsw.client.view.lightweightmodel.LWMarket;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.PlayMove;
@@ -30,7 +31,7 @@ public class GUIPlayState extends GUIState {
     private static GUIPlayState instance;
     private GUI gui;
     private GameboardTab gameboardTab;
-    private PersonalboardTab personalboardTab;
+    private PersonalBoardTab personalboardTab;
     private TempContLeaderCardsTab tempContLeaderCardsTab;
 
     private GUIPlayState() {
@@ -43,7 +44,7 @@ public class GUIPlayState extends GUIState {
             this.gui = gui;
             HBox hBox = new HBox ();
             TabPane tabPane = new TabPane ();
-            personalboardTab = new PersonalboardTab();
+            personalboardTab = new PersonalBoardTab();
             gameboardTab = new GameboardTab();
             tempContLeaderCardsTab = new TempContLeaderCardsTab();
             tabPane.getTabs ().addAll (personalboardTab, tempContLeaderCardsTab, gameboardTab);
@@ -170,6 +171,20 @@ public class GUIPlayState extends GUIState {
         }
         gameboardTab.getCardsGrid().setAlignment (Pos.CENTER);
         enableCardsGrid (false);
+    }
+
+    public void initSlots(){
+        ArrayList<ArrayList<LWDevCard>> slots = gui.getController ().getModel ().getPersonalBoard().getSlots();
+        JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
+        for (int i = 0; i < slots.size(); i++) {
+            for (int j = 0; j < slots.get(i).size(); j++) {
+                ImageView cardWrapper = null;
+                cardWrapper = new ImageView(loader.loadDevCardImage(slots.get(i).get(j).getId()));
+                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.35));
+                cardWrapper.setPreserveRatio (true);
+            }
+        }
+
     }
 
     public void initMarketGrid() {

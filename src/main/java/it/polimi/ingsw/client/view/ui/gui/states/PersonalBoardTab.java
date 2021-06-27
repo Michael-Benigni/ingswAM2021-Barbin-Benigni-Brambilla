@@ -12,9 +12,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-public class PersonalboardTab extends Tab {
+public class PersonalBoardTab extends Tab {
 
-    public PersonalboardTab(){
+    public PersonalBoardTab(){
         super("Personal Board");
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
@@ -26,4 +26,6 @@ public class PersonalboardTab extends Tab {
         this.setClosable (false);
         this.setContent(hBox);
     }
+
+
 }
