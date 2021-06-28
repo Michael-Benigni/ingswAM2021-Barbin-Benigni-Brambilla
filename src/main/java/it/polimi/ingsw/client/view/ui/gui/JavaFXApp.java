@@ -17,8 +17,8 @@ public class JavaFXApp extends Application {
     private static Stage mainWindow;
     private final GUI gui;
     private static JavaFXApp instance;
-    private final static double fixedWidth = 400;
-    private final static double fixedHeight = 200;
+    private final static double fixedWidth = 1280;
+    private final static double fixedHeight = 720;
 
     public static ReadOnlyDoubleProperty getFixedWidth() {
         return mainWindow.widthProperty ();
@@ -71,12 +71,12 @@ public class JavaFXApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
-        Rectangle2D bounds = Screen.getPrimary ().getVisualBounds ();
+
         //mainWindow.setResizable (false);
         mainWindow.setMinWidth (fixedWidth);
         mainWindow.setMinHeight (fixedHeight);
-        mainWindow.setWidth (bounds.getWidth ());
-        mainWindow.setHeight (bounds.getHeight ());
+        mainWindow.setWidth (fixedWidth);
+        mainWindow.setHeight (fixedHeight);
         mainWindow.setTitle ("Master Of Renaissance");
         scenes = getAllScenes ();
         mainWindow.setScene (scenes.get (0));

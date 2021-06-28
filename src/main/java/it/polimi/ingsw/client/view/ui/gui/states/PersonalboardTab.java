@@ -35,8 +35,8 @@ public class PersonalboardTab extends Tab {
         Translate translate1 = new Translate();
         translate1.setX(-8);
         Translate translate2 = new Translate();
-        translate2.setX(-105);
-        translate2.setY(-85);
+        translate2.setX(-180);
+        translate2.setY(-55);
 
         GridPane slotsGrid = new GridPane();
 
