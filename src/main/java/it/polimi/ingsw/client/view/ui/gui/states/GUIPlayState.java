@@ -180,7 +180,7 @@ public class GUIPlayState extends GUIState {
             for (int j = 0; j < slots.get(i).size(); j++) {
                 ImageView cardWrapper = null;
                 cardWrapper = new ImageView(loader.loadDevCardImage(slots.get(i).get(j).getId()));
-                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.35));
+                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.37));
                 cardWrapper.setPreserveRatio (true);
             }
         }
