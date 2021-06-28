@@ -2,6 +2,9 @@ package it.polimi.ingsw.client.view.lightweightmodel;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class that represents the view of a depot.
+ */
 public class LWDepot {
     @SerializedName ("storedResource")
     private LWResource storedResource;
@@ -10,15 +13,24 @@ public class LWDepot {
     @SerializedName ("type")
     private LWResourceType type;
 
+    /**
+     * Empty constructor method of this class.
+     */
     public LWDepot() {
     }
 
+    /**
+     * Constructor method of this class that constructs a depot that contains some resources.
+     */
     public LWDepot(LWResource storedResource, int capacity, LWResourceType type) {
         this.storedResource = storedResource;
         this.capacity = capacity;
         this.type = type;
     }
 
+    /**
+     * Override method of "toString()".
+     */
     @Override
     public String toString() {
         String borderChar = "_";
@@ -46,14 +58,23 @@ public class LWDepot {
                 "/" + resourceStr + "\\" ;
     }
 
+    /**
+     * Getter method for the resource stored in this depot.
+     */
     public LWResource getStoredResource() {
         return storedResource;
     }
 
+    /**
+     * Getter method for the capacity of this depot.
+     */
     public int getCapacity() {
         return capacity;
     }
 
+    /**
+     * Getter method for the resource type in this depot.
+     */
     public LWResourceType getType() {
         return type;
     }
