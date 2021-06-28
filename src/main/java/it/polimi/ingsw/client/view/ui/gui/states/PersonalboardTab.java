@@ -6,7 +6,6 @@ import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class PersonalboardTab extends Tab {
 
     private ArrayList<StackPane> slotsArray;
-    private AnchorPane slotsDevCards;
+    private StackPane slotsDevCards;
     private BorderPane personalBoard;
     private HBox faithTrack;
     private VBox warehouseAndStrongbox;
@@ -28,7 +27,7 @@ public class PersonalboardTab extends Tab {
         warehouseAndStrongbox = new VBox();
         faithTrack = new HBox();
         slotsArray = new ArrayList<> ();
-        slotsDevCards = new AnchorPane ();
+        slotsDevCards = new StackPane ();
         personalBoard = new BorderPane();
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
@@ -74,23 +73,15 @@ public class PersonalboardTab extends Tab {
         hBoxSlots.setAlignment (Pos.BOTTOM_RIGHT);
         //hBoxSlots.setPadding ();
 
-
+        hBoxSlots.translateYProperty ().bind (personalBoard.heightProperty ().multiply (0.2));
+        hBoxSlots.translateXProperty ().bind (personalBoard.widthProperty ().multiply (-0.05));
         content.getChildren ().addAll (imageView, personalBoard);
         content.setBackground (new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getChildren().add(slotsDevCards);
-
-
-        AnchorPane.setLeftAnchor(slotsDevCards, 500.0);
-        AnchorPane.setBottomAnchor(slotsDevCards, 70.0);
-
-        personalBoard.setCenter(hBoxSlots);
-        //personalBoard.setCenter(slotsDevCards);
+        slotsDevCards.getChildren ().add (hBoxSlots);
+        personalBoard.setCenter(slotsDevCards);
         personalBoard.setTop(faithTrack);
         personalBoard.setLeft(warehouseAndStrongbox);
-        personalBoard.setCenter(anchorPane);
 
         imageView.fitHeightProperty().bind (JavaFXApp.getFixedHeight ().multiply (0.93));
         this.setClosable (false);
