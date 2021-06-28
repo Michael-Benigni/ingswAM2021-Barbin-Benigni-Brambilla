@@ -1,3 +1,4 @@
+
 package it.polimi.ingsw.client.view.ui.gui.states;
 
 import it.polimi.ingsw.client.ClientPrefs;
@@ -5,6 +6,7 @@ import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -31,6 +33,8 @@ public class PersonalboardTab extends Tab {
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
         imageView.setPreserveRatio (true);
+        
+
 
 
         ImageView aaaaaaaa = new ImageView(loader.loadDevCardImage(45));
@@ -43,6 +47,10 @@ public class PersonalboardTab extends Tab {
         bbb.fitHeightProperty().bind(personalBoard.heightProperty ().multiply (0.37));
         bbb.setPreserveRatio(true);
         bbb.yProperty ().bind (personalBoard.heightProperty ().multiply (0.6));
+
+
+
+
 
 
         ImageView ccc = new ImageView(loader.loadDevCardImage(14));
@@ -71,13 +79,18 @@ public class PersonalboardTab extends Tab {
         content.setBackground (new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().add(slotsDevCards);
+
+
+        AnchorPane.setLeftAnchor(slotsDevCards, 500.0);
+        AnchorPane.setBottomAnchor(slotsDevCards, 70.0);
 
         personalBoard.setCenter(hBoxSlots);
+        //personalBoard.setCenter(slotsDevCards);
         personalBoard.setTop(faithTrack);
         personalBoard.setLeft(warehouseAndStrongbox);
-
-
-
+        personalBoard.setCenter(anchorPane);
 
         imageView.fitHeightProperty().bind (JavaFXApp.getFixedHeight ().multiply (0.93));
         this.setClosable (false);
