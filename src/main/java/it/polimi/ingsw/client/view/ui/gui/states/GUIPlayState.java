@@ -48,9 +48,11 @@ public class GUIPlayState extends GUIState {
             gameboardTab = new GameboardTab();
             tempContLeaderCardsTab = new TempContLeaderCardsTab();
             tabPane.getTabs ().addAll (personalboardTab, tempContLeaderCardsTab, gameboardTab);
-            tabPane.prefWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.9));
+            tabPane.prefWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.8));
             hBox.spacingProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.02));
-            hBox.getChildren ().addAll (tabPane, getTurnsButtonsVBox ()) ;
+            VBox buttons = getTurnsButtonsVBox ();
+            buttons.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.18));
+            hBox.getChildren ().addAll (tabPane, buttons) ;
             setSceneInstance (new Scene (hBox));
         }
         return getWelcomeSceneInstance();
