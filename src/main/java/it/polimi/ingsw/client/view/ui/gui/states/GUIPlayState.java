@@ -47,11 +47,23 @@ public class GUIPlayState extends GUIState {
             personalboardTab = new PersonalboardTab();
             gameboardTab = new GameboardTab();
             tempContLeaderCardsTab = new TempContLeaderCardsTab();
+            hBox.minWidthProperty ().bind (JavaFXApp.getFixedWidth ());
+            hBox.minHeightProperty ().bind (JavaFXApp.getFixedHeight ());
+            hBox.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ());
+            hBox.maxHeightProperty ().bind (JavaFXApp.getFixedHeight ());
+
             tabPane.getTabs ().addAll (personalboardTab, tempContLeaderCardsTab, gameboardTab);
-            tabPane.prefWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.8));
-            hBox.spacingProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.02));
+            tabPane.minWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.4));
+            tabPane.minHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.6));
+            tabPane.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.8));
+            tabPane.maxHeightProperty ().bind (JavaFXApp.getFixedHeight ());
+
             VBox buttons = getTurnsButtonsVBox ();
-            buttons.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.18));
+            buttons.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.2));
+            buttons.maxHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.6));
+            buttons.minWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.1));
+            buttons.minHeightProperty ().bind (JavaFXApp.getFixedHeight ());
+
             hBox.getChildren ().addAll (tabPane, buttons) ;
             setSceneInstance (new Scene (hBox));
         }

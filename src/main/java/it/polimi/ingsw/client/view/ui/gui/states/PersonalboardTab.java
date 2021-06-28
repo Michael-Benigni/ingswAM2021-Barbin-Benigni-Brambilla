@@ -9,68 +9,70 @@ import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Translate;
-
-import java.util.concurrent.TransferQueue;
+import java.util.ArrayList;
 
 public class PersonalboardTab extends Tab {
 
-    private StackPane slotsDevCards;
+    private ArrayList<StackPane> slotsArray;
+    private AnchorPane slotsDevCards;
     private BorderPane personalBoard;
     private HBox faithTrack;
     private VBox warehouseAndStrongbox;
 
     public PersonalboardTab(){
         super("Personal Board");
+        StackPane content = new StackPane ();
+
         warehouseAndStrongbox = new VBox();
         faithTrack = new HBox();
-        slotsDevCards = new StackPane();
+        slotsArray = new ArrayList<> ();
+        slotsDevCards = new AnchorPane ();
         personalBoard = new BorderPane();
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
         imageView.setPreserveRatio (true);
 
-        Translate translate = new Translate();
-        translate.setX(-16);
-        Translate translate1 = new Translate();
-        translate1.setX(-8);
-        Translate translate2 = new Translate();
-        translate2.setX(-180);
-        translate2.setY(-55);
-
-        GridPane slotsGrid = new GridPane();
 
         ImageView aaaaaaaa = new ImageView(loader.loadDevCardImage(45));
-        aaaaaaaa.fitHeightProperty().bind(JavaFXApp.getFixedHeight ().multiply (0.37));
+        aaaaaaaa.fitHeightProperty().bind(personalBoard.heightProperty ().multiply (0.37));
         aaaaaaaa.setPreserveRatio(true);
+        aaaaaaaa.yProperty ().bind (personalBoard.heightProperty ().multiply (0.5));
 
-        aaaaaaaa.getTransforms().add(translate);
 
         ImageView bbb = new ImageView(loader.loadDevCardImage(23));
-        bbb.fitHeightProperty().bind(JavaFXApp.getFixedHeight ().multiply (0.37));
+        bbb.fitHeightProperty().bind(personalBoard.heightProperty ().multiply (0.37));
         bbb.setPreserveRatio(true);
-
-        bbb.getTransforms().add(translate1);
+        bbb.yProperty ().bind (personalBoard.heightProperty ().multiply (0.6));
 
 
         ImageView ccc = new ImageView(loader.loadDevCardImage(14));
-        ccc.fitHeightProperty().bind(JavaFXApp.getFixedHeight ().multiply (0.37));
+        ccc.fitHeightProperty().bind(personalBoard.heightProperty ().multiply (0.37));
         ccc.setPreserveRatio(true);
-        slotsGrid.add(aaaaaaaa, 0, 0);
-        slotsGrid.add(bbb, 1, 0);
-        slotsGrid.add(ccc, 2, 0);
-        slotsGrid.setAlignment(Pos.BOTTOM_RIGHT);
-        slotsGrid.getTransforms().add(translate2);
+        ccc.yProperty ().bind (personalBoard.heightProperty ().multiply (0.2));
+
+        int numSlot = 3;
+        HBox hBoxSlots = new HBox ();
+        hBoxSlots.spacingProperty ().bind (personalBoard.widthProperty ().multiply (0.01));
+        for (int i = 0; i <= numSlot; i++) {
+            StackPane slot = new StackPane ();
+            hBoxSlots.getChildren ().add (slot);
+            slotsArray.add(slot);
+        }
+
+        slotsArray.get (0).getChildren ().add(aaaaaaaa);
+        slotsArray.get (1).getChildren ().add (bbb);
+        slotsArray.get (2).getChildren ().add (ccc);
+
+        hBoxSlots.setAlignment (Pos.BOTTOM_RIGHT);
+        //hBoxSlots.setPadding ();
 
 
-        slotsDevCards.getChildren().add(slotsGrid);
-
-        personalBoard.getChildren ().add (imageView);
-        personalBoard.setBackground (new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
+        content.getChildren ().addAll (imageView, personalBoard);
+        content.setBackground (new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
 
-        personalBoard.setCenter(slotsDevCards);
+        personalBoard.setCenter(hBoxSlots);
         personalBoard.setTop(faithTrack);
         personalBoard.setLeft(warehouseAndStrongbox);
 
@@ -79,7 +81,7 @@ public class PersonalboardTab extends Tab {
 
         imageView.fitHeightProperty().bind (JavaFXApp.getFixedHeight ().multiply (0.93));
         this.setClosable (false);
-        this.setContent(personalBoard);
+        this.setContent(content);
     }
 
 
