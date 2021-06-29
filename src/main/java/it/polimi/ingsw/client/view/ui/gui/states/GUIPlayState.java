@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.view.lightweightmodel.LWDevCard;
 import it.polimi.ingsw.client.view.lightweightmodel.LWMarket;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.PlayMove;
+import it.polimi.ingsw.client.view.ui.cli.Colour;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
@@ -33,6 +34,7 @@ public class GUIPlayState extends GUIState {
     private GameboardTab gameboardTab;
     private PersonalboardTab personalboardTab;
     private TempContLeaderCardsTab tempContLeaderCardsTab;
+    private ArrayList<Button> turnsButtons;
 
     private GUIPlayState() {
         instance = this;
@@ -89,6 +91,7 @@ public class GUIPlayState extends GUIState {
     }
 
     private VBox getTurnsButtonsVBox() {
+        turnsButtons = new ArrayList<>();
         VBox turnButtons = new VBox (10);
         AtomicReference<Move> chosenMove = new AtomicReference<>();
 
@@ -96,12 +99,16 @@ public class GUIPlayState extends GUIState {
         OK.setMaxWidth (Double.MAX_VALUE);
         OK.setOnAction (e -> new MoveService (chosenMove.get (), gui));
 
+        turnsButtons.add(OK);
+
         Button endTurn = new Button ("End Turn");
         endTurn.setMaxWidth (Double.MAX_VALUE);
         endTurn.setOnAction (e -> {
             new MoveService (PlayMove.END_TURN.getMove (), gui).start ();
-            turnButtons.getChildren ().stream().forEach (node -> node.setDisable (true));
+            //TODO: turnButtons.getChildren ().stream().forEach (node -> node.setDisable (true));
         });
+
+        turnsButtons.add(endTurn);
 
         Button marketTurn = new Button ("Market");
         marketTurn.setMaxWidth (Double.MAX_VALUE);
@@ -113,6 +120,8 @@ public class GUIPlayState extends GUIState {
                     .forEach (node -> node.setDisable (true));
         });
 
+        turnsButtons.add(marketTurn);
+
         Button buyCardTurn = new Button ("Buy Card");
         buyCardTurn.setMaxWidth (Double.MAX_VALUE);
         buyCardTurn.setOnAction (e -> {
@@ -123,6 +132,8 @@ public class GUIPlayState extends GUIState {
                     .forEach (node -> node.setDisable (true));
         });
 
+        turnsButtons.add(buyCardTurn);
+
         Button productionTurn = new Button ("Production");
         productionTurn.setMaxWidth (Double.MAX_VALUE);
         productionTurn.setOnAction (e -> {
@@ -132,6 +143,7 @@ public class GUIPlayState extends GUIState {
                     forEach (node -> node.setDisable (true));
         });
 
+        turnsButtons.add(productionTurn);
 
         Label buttonsLabel = new Label ("Choose your Turn Type!");
         buttonsLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -160,6 +172,7 @@ public class GUIPlayState extends GUIState {
     }
 
     public void initCardsGrid() {
+        gameboardTab.getCardsGrid().getChildren().clear();
         LWCardsGrid lwCardsGrid = gui.getController ().getModel ().getBoard ().getGrid ();
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         for (int i = 0; i < lwCardsGrid.getRows (); i++) {
@@ -170,7 +183,7 @@ public class GUIPlayState extends GUIState {
                 } catch (IllegalInputException e) {
                     e.printStackTrace ();
                 }
-                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.25));
+                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.22));
                 cardWrapper.setPreserveRatio (true);
                 Button buttonCard = new Button ("", cardWrapper);
                 String finalJ = String.valueOf (j);
@@ -188,17 +201,53 @@ public class GUIPlayState extends GUIState {
     }
 
     public void initSlots(){
+
+        personalboardTab.getSlotsHBox().getChildren().clear();
         ArrayList<ArrayList<LWDevCard>> slots = gui.getController ().getModel ().getPersonalBoard().getSlots();
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
-        for (int i = 0; i < slots.size(); i++) {
-            for (int j = 0; j < slots.get(i).size(); j++) {
-                ImageView cardWrapper = null;
-                cardWrapper = new ImageView(loader.loadDevCardImage(slots.get(i).get(j).getId()));
-                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.37));
-                cardWrapper.setPreserveRatio (true);
-            }
-        }
+        ArrayList<Button> slotButtons = new ArrayList<>();
+        ArrayList<Button> cardButtons = new ArrayList<>();
 
+        for (int i = 0; i < slots.size(); i ++){
+            String finalI = String.valueOf (i);
+            StackPane stackPane = new StackPane();
+
+            Button slotButton = new Button("", stackPane);
+            slotButton.setOnAction(actionEvent ->
+                    gui.getInterpreter ().addInteraction ("slotIdx", finalI));
+            slotButtons.add(slotButton);
+
+            slotButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+            if(slots.get(i).isEmpty()){
+                slotButton.setText("          EMPTY SLOT          ");
+            }
+
+            for (int j = 0; j < slots.get(i).size(); j ++){
+                ImageView cardWrapper = new ImageView(loader.loadDevCardImage(slots.get(i).get(j).getId()));
+                cardWrapper.fitHeightProperty().
+                        bind(personalboardTab.getPersonalBoardBorderPane().heightProperty ().multiply (0.37));
+                cardWrapper.setPreserveRatio (true);
+                if(j == slots.get(i).size() - 1){
+                    Button slotCardButton = new Button("", cardWrapper);
+                    slotCardButton.setOnAction(actionEvent -> {
+                        gui.getInterpreter ().addInteraction ("numSlot", finalI);
+                    });
+                    cardButtons.add(slotCardButton);
+                    stackPane.getChildren().add(slotCardButton);
+                    slotCardButton.translateYProperty().bind(personalboardTab.getPersonalBoardBorderPane().
+                            heightProperty().multiply(-j * 0.08));
+                }
+                else{
+                    stackPane.getChildren().add(cardWrapper);
+                    cardWrapper.translateYProperty().bind(personalboardTab.getPersonalBoardBorderPane().
+                            heightProperty().multiply(-j * 0.08));
+                }
+            }
+            personalboardTab.getSlotsHBox().getChildren().add(slotButton);
+        }
+        personalboardTab.setSlotButtons(slotButtons);
+        personalboardTab.setCardButtons(cardButtons);
     }
 
     public void initMarketGrid() {
@@ -228,11 +277,14 @@ public class GUIPlayState extends GUIState {
         marketGrid.setHgap (10);
         marketGrid.setAlignment (Pos.CENTER);
         gameboardTab.getMarket().getChildren ().add (0, marbleOnSlide);
+        gameboardTab.getMarket().setAlignment(Pos.CENTER_LEFT);
         gameboardTab.getMarket().getChildren ().add (1, marketGrid);
         gameboardTab.getMarket().setAlignment (Pos.TOP_LEFT);
         gameboardTab.getMarket().setPadding (new Insets (130, 0, 0, 50));
         gameboardTab.getMarketButtons().forEach (radioButton -> radioButton.setDisable (true));
     }
+
+
 
     private RadioButton getRadioButton(ToggleGroup owner, ToggleGroup mutualExclusive, int k, String rowOrColumn) {
         RadioButton columnButton = new RadioButton ();
@@ -249,6 +301,7 @@ public class GUIPlayState extends GUIState {
 
     private Canvas getMarbleCanvas(String colourName) {
         Canvas canvas = new Canvas (50, 50);
+        canvas.heightProperty().bind(gameboardTab.getMarket().heightProperty().multiply(0.055));
         GraphicsContext marbleGrCtx = canvas.getGraphicsContext2D();
         Color color = findColourbyName (colourName);
         marbleGrCtx.setFill(color);
@@ -267,5 +320,11 @@ public class GUIPlayState extends GUIState {
         if (instance == null)
             return new GUIPlayState ();
         return instance;
+    }
+
+    public void resetButtonsForTurnChanging() {
+        for (Button turnButton : turnsButtons){
+            turnButton.setDisable(false);
+        }
     }
 }

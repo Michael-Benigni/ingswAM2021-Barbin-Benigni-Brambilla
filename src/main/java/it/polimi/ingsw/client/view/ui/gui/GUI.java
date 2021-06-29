@@ -152,7 +152,7 @@ public class GUI implements UI {
 
     @Override
     public void onSlotDevCardsChanged() {
-
+        Platform.runLater(() -> GUIPlayState.getInstance().initSlots());
     }
 
     @Override
@@ -172,7 +172,9 @@ public class GUI implements UI {
 
     @Override
     public void onCurrentPlayerChanged(String additionalMsg) {
-
+        if(controller.getModel().getInfoMatch().getPlayerAt(controller.getModel().getInfoMatch().getCurrentPlayerPos()).equals(controller.getModel().getInfoMatch().getYourUsername())){
+            Platform.runLater(() -> GUIPlayState.getInstance().resetButtonsForTurnChanging());
+        }
     }
 
 

@@ -5,88 +5,77 @@ import it.polimi.ingsw.client.ClientPrefs;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class PersonalboardTab extends Tab {
 
-    private ArrayList<StackPane> slotsArray;
-    private StackPane slotsDevCards;
-    private BorderPane personalBoard;
-    private HBox faithTrack;
+    private BorderPane personalBoardBorderPane;
+    private HBox faithTrackHBox;
     private VBox warehouseAndStrongbox;
+    private HBox slotsHBox;
+    private ArrayList<Button> slotButtons;
+    private ArrayList<Button> cardButtons;
+
+    public HBox getSlotsHBox() {
+        return slotsHBox;
+    }
+
+    public BorderPane getPersonalBoardBorderPane() {
+        return personalBoardBorderPane;
+    }
+
+    public HBox getFaithTrackHBox() {
+        return faithTrackHBox;
+    }
+
+    public VBox getWarehouseAndStrongbox() {
+        return warehouseAndStrongbox;
+    }
 
     public PersonalboardTab(){
         super("Personal Board");
-        StackPane content = new StackPane ();
 
+        StackPane content = new StackPane ();
         warehouseAndStrongbox = new VBox();
-        faithTrack = new HBox();
-        slotsArray = new ArrayList<> ();
-        slotsDevCards = new StackPane ();
-        personalBoard = new BorderPane();
+        faithTrackHBox = new HBox();
+        slotsHBox = new HBox();
+        personalBoardBorderPane = new BorderPane();
+        slotButtons = new ArrayList<>();
+        cardButtons = new ArrayList<>();
+
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
         imageView.setPreserveRatio (true);
-        
+        imageView.fitHeightProperty().bind (JavaFXApp.getFixedHeight ().multiply (0.90));
 
-
-
-        ImageView aaaaaaaa = new ImageView(loader.loadDevCardImage(45));
-        aaaaaaaa.fitHeightProperty().bind(personalBoard.heightProperty ().multiply (0.37));
-        aaaaaaaa.setPreserveRatio(true);
-        aaaaaaaa.yProperty ().bind (personalBoard.heightProperty ().multiply (0.5));
-
-
-        ImageView bbb = new ImageView(loader.loadDevCardImage(23));
-        bbb.fitHeightProperty().bind(personalBoard.heightProperty ().multiply (0.37));
-        bbb.setPreserveRatio(true);
-        bbb.yProperty ().bind (personalBoard.heightProperty ().multiply (0.6));
-
-
-
-
-
-
-        ImageView ccc = new ImageView(loader.loadDevCardImage(14));
-        ccc.fitHeightProperty().bind(personalBoard.heightProperty ().multiply (0.37));
-        ccc.setPreserveRatio(true);
-        ccc.yProperty ().bind (personalBoard.heightProperty ().multiply (0.2));
-
-        int numSlot = 3;
-        HBox hBoxSlots = new HBox ();
-        hBoxSlots.spacingProperty ().bind (personalBoard.widthProperty ().multiply (0.01));
-        for (int i = 0; i <= numSlot; i++) {
-            StackPane slot = new StackPane ();
-            hBoxSlots.getChildren ().add (slot);
-            slotsArray.add(slot);
-        }
-
-        slotsArray.get (0).getChildren ().add(aaaaaaaa);
-        slotsArray.get (1).getChildren ().add (bbb);
-        slotsArray.get (2).getChildren ().add (ccc);
-
-        hBoxSlots.setAlignment (Pos.BOTTOM_RIGHT);
-        //hBoxSlots.setPadding ();
-
-        hBoxSlots.translateYProperty ().bind (personalBoard.heightProperty ().multiply (0.2));
-        hBoxSlots.translateXProperty ().bind (personalBoard.widthProperty ().multiply (-0.05));
-        content.getChildren ().addAll (imageView, personalBoard);
+        content.getChildren ().addAll (imageView, personalBoardBorderPane);
         content.setBackground (new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        slotsDevCards.getChildren ().add (hBoxSlots);
-        personalBoard.setCenter(slotsDevCards);
-        personalBoard.setTop(faithTrack);
-        personalBoard.setLeft(warehouseAndStrongbox);
+        personalBoardBorderPane.setTop(faithTrackHBox);
+        personalBoardBorderPane.setLeft(warehouseAndStrongbox);
+        personalBoardBorderPane.setCenter(slotsHBox);
 
-        imageView.fitHeightProperty().bind (JavaFXApp.getFixedHeight ().multiply (0.93));
+        slotsHBox.spacingProperty().bind(personalBoardBorderPane.widthProperty().multiply(0.01));
+        slotsHBox.translateYProperty().bind(this.getPersonalBoardBorderPane().heightProperty().multiply(0.5));
+        slotsHBox.translateXProperty().bind(this.getPersonalBoardBorderPane().widthProperty().multiply(0.38));
+
         this.setClosable (false);
         this.setContent(content);
     }
 
+    public void setSlotButtons(ArrayList<Button> buttons){
+        this.slotButtons.clear();
+        this.slotButtons.addAll(buttons);
+    }
 
+    public void setCardButtons(ArrayList<Button> buttons){
+        this.cardButtons.clear();
+        this.cardButtons.addAll(buttons);
+    }
 }
