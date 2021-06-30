@@ -103,12 +103,12 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
     private Sendable generateUpdate(DevelopmentCard addedCard){
         MessageWriter messageWriter = new MessageWriter();
         messageWriter.setHeader (Header.ToClient.SLOT_DEVCARD_UPDATE);
-        messageWriter.addProperty ("addedDevCard", addedCard.getCardID());
-        messageWriter.addProperty ("description", addedCard.toString());
-        messageWriter.addProperty ("numberOfSlot", this.slotIndex);
-        messageWriter.addProperty ("level", addedCard.getCardLevel ().ordinal () + 1);
-        messageWriter.addProperty ("colour", addedCard.getCardColour ());
-        messageWriter.addProperty ("index", listOfDevelopmentCards.indexOf (addedCard));
+        messageWriter.addProperty ("addedDevCard", addedCard != null ? addedCard.getCardID() : null);
+        messageWriter.addProperty ("description", addedCard != null ? addedCard.toString() : null);
+        messageWriter.addProperty ("numberOfSlot", addedCard != null ? this.slotIndex : null);
+        messageWriter.addProperty ("level", addedCard != null ? addedCard.getCardLevel ().ordinal () + 1 : null);
+        messageWriter.addProperty ("colour", addedCard != null ? addedCard.getCardColour () : null);
+        messageWriter.addProperty ("index", addedCard != null ? listOfDevelopmentCards.indexOf (addedCard) : null);
         return messageWriter.write ();
     }
 
@@ -150,7 +150,8 @@ public class SlotDevelopmentCards implements GameComponent, Producer {
         if (!this.listOfDevelopmentCards.isEmpty ()) {
             for (DevelopmentCard card : this.listOfDevelopmentCards)
                 notifyUpdate (generateUpdate (card));
-        }
+        } else
+            notifyUpdate (generateUpdate (null));
     }
 
     @Override
