@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.ui.gui;
 
+import it.polimi.ingsw.client.view.lightweightmodel.LWResource;
 import it.polimi.ingsw.client.view.ui.cli.Colour;
 import it.polimi.ingsw.utils.config.JsonHandler;
 import javafx.scene.image.Image;
@@ -46,6 +47,16 @@ public class JsonImageLoader {
     public Image loadPersonalBoardImage() {
         try {
             return new Image (Objects.requireNonNull (this.getClass ().getResourceAsStream ((String) jsonHandler.getAsJavaObjectFromJSON (String.class, "/board"))));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace ();
+        }
+        return null;
+    }
+
+    public Image loadResourceImage(LWResource resource) {
+        String jsonPath = "resources/";
+        try {
+            return new Image (Objects.requireNonNull (this.getClass ().getResourceAsStream ((String) jsonHandler.getAsJavaObjectFromJSON (String.class, jsonPath + resource.getResourceType ()))));
         } catch (FileNotFoundException e) {
             e.printStackTrace ();
         }
