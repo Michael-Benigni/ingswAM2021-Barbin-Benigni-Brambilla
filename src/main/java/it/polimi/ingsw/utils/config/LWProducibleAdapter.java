@@ -9,6 +9,9 @@ import it.polimi.ingsw.client.view.lightweightmodel.LWProducible;
 import it.polimi.ingsw.client.view.lightweightmodel.LWResource;
 import java.lang.reflect.Type;
 
+/**
+ * Class that represents the JsonAdapter for the LWResource.
+ */
 public class LWProducibleAdapter extends JsonAdapter<LWProducible> {
     /**
      * With this method the deserialization looks to a property "className" to understand which is the sublcass of T in
