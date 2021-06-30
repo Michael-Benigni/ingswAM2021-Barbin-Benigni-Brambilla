@@ -9,6 +9,9 @@ import it.polimi.ingsw.server.model.gamelogic.actions.StrongboxAction;
 import it.polimi.ingsw.server.model.gamelogic.actions.WarehouseAction;
 import java.lang.reflect.Type;
 
+/**
+ * Class that represents the JsonAdapter for the PayActions.
+ */
 public class PayActionAdapter extends JsonAdapter<PayAction> {
     /**
      * With this method the deserialization looks to a property "className" to understand which is the sublcass of T in

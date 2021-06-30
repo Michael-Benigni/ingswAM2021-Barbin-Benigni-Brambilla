@@ -3,6 +3,9 @@ package it.polimi.ingsw.utils.config;
 import java.io.FileNotFoundException;
 import static it.polimi.ingsw.utils.config.JsonHandler.getAsJavaObjectFromJSON;
 
+/**
+ * Class that collects all the information about the server, ad example the server ip, and so on...
+ */
 public class ServerPrefs {
     private static final String PATH_TO_PREFS = "json/serverPrefs.json";
     private static int serverPort;
@@ -13,6 +16,10 @@ public class ServerPrefs {
     private static String defaultServerIP;
     private static String defaultUICmd;
     private static int maxNumOfPlayers;
+
+    /**
+     * All the methods of this class are getter methods for each attribute of this class.
+     */
 
     public static int getServerPort() {
         try {

@@ -27,13 +27,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Class that contains methods to read from a json file and create a java object.
+ */
 public class ConfigLoader {
     private JsonHandler jsonHandler;
 
+    /**
+     * Constructor method of this class.
+     */
     public ConfigLoader() {
         this.jsonHandler = new JsonHandler(ServerPrefs.getDBPath());
     }
 
+    /**
+     * Method that creates a new game board for a multiplayer game with the information read by the database.
+     */
     public GameBoard loadGameBoard() throws FileNotFoundException, EmptyDeckException {
         return new GameBoard(
                 initFaithTrackFromJSON(),
@@ -43,6 +52,9 @@ public class ConfigLoader {
         );
     }
 
+    /**
+     * Method that creates a new game board for a single player game with the information read by the database.
+     */
     public SoloPlayerGameBoard loadGameBoard1P() throws FileNotFoundException, EmptyDeckException {
         return new SoloPlayerGameBoard(
                 initFaithTrack1PFromJSON(),
@@ -53,12 +65,18 @@ public class ConfigLoader {
         );
     }
 
+    /**
+     * Method that creates a new faith track for a single player game with the information read by the database.
+     */
     private SoloPlayerFaithTrack initFaithTrack1PFromJSON() throws FileNotFoundException {
         String jsonPath = "gameBoard/faithTrack/";
         int numOfSections = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numberOfSections/");
         return new SoloPlayerFaithTrack (getSectionsFromJSON (jsonPath, numOfSections));
     }
 
+    /**
+     * Method that creates a new action toke deck for a single player game with the information read by the database.
+     */
     private SoloActionTokenDeck initActionTokenDeckFromJSON() throws FileNotFoundException {
         final String keyInJSON = "gameBoard/actionTokensDeck/";
         int numActionTokens = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "numOfActionTokens/");
@@ -71,6 +89,9 @@ public class ConfigLoader {
         return new SoloActionTokenDeck (tokens);
     }
 
+    /**
+     * Method that sets a token effect to a solo action token with a key word written into the database.
+     */
     private void setTokenEffectFromJSON(SoloActionToken newToken, String keyInJSON, int index) throws FileNotFoundException {
         int[] ints = {index};
         String typeEffect = (String) jsonHandler.getAsJavaObjectFromJSONArray(String.class, keyInJSON + "effect/", ints);
@@ -100,6 +121,9 @@ public class ConfigLoader {
         }
     }
 
+    /**
+     * Method that creates a new personal board with the information read by the database.
+     */
     public ArrayList<PersonalBoard> loadPersonalBoards(int numOfPlayers) throws FileNotFoundException {
         final String keyInJSON = "personalBoard/";
         int maxNumberOfDevCardsInSlot = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, keyInJSON + "maxNumOfDevCardsInSlot/");
@@ -114,6 +138,9 @@ public class ConfigLoader {
         return boards;
     }
 
+    /**
+     * Method that loads, from the database, the initial parameters to start the game.
+     */
     public ArrayList<InitialParams> loadInitialParams(int maxNumOfPlayers) throws FileNotFoundException {
         final String keyInJSON = "initialParams/";
         ArrayList<InitialParams> paramsArrayList = new ArrayList<>();
@@ -125,6 +152,9 @@ public class ConfigLoader {
         return paramsArrayList;
     }
 
+    /**
+     * Method that loads, from the database, the faith track used in a multiplayer game as an array of sections.
+     */
     private FaithTrack initFaithTrackFromJSON() throws FileNotFoundException {
         String jsonPath = "gameBoard/faithTrack/";
         int numOfSections = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "numberOfSections/");
@@ -132,6 +162,9 @@ public class ConfigLoader {
         return new FaithTrack(sections);
     }
 
+    /**
+     *  Method that loads, from the database, an array of sections.
+     */
     private ArrayList<Section> getSectionsFromJSON(String jsonPath, int numOfSections) throws FileNotFoundException {
         ArrayList<Section> sections = new ArrayList<>();
         for (int i = 0; i < numOfSections; i++) {
@@ -141,6 +174,9 @@ public class ConfigLoader {
         return sections;
     }
 
+    /**
+     * Method that loads, from the database, the market of marbles.
+     */
     private MarketTray initMarketFromJSON() throws FileNotFoundException {
         String jsonPath = "gameBoard/marketTray/";
         int rows = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "rows");
@@ -156,6 +192,9 @@ public class ConfigLoader {
         return new MarketTray(columns, rows, howManyMarbles);
     }
 
+    /**
+     * Method that loads, from the database, the grid of development cards.
+     */
     private DevelopmentCardsGrid initCardsGridFromJSON() throws FileNotFoundException, EmptyDeckException {
         String jsonPath = "gameBoard/developmentCardsGrid/";
         int rows = (int) jsonHandler.getAsJavaObjectFromJSON(int.class, jsonPath + "rows");
@@ -169,6 +208,9 @@ public class ConfigLoader {
         return new DevelopmentCardsGrid(cards, rows, columns);
     }
 
+    /**
+     * Method that loads, from the database, the deck of leader cards.
+     */
     private LeaderCardsDeck initLeaderCardsDeckFromJSON() throws FileNotFoundException {
         String jsonPath = "gameBoard/leaderCardsDeck/";
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
@@ -185,8 +227,7 @@ public class ConfigLoader {
     /**
      * this method is used to set the effect of the leader card from the database
      * @param jsonPath is the path of the file that represents the database
-     * @param ints is an index used to pick the information from the json file
-     * @throws FileNotFoundException
+     * @param ints is an index used to pick the information from the json file.
      */
     private void setEffectLeaderCardFromJSON(LeaderCard card, String jsonPath, int[] ints) throws FileNotFoundException {
         jsonPath = jsonPath + "effect/";
@@ -223,7 +264,6 @@ public class ConfigLoader {
     /**
      * this method initializes the warehouse
      * of the player from the database
-     * @throws FileNotFoundException
      */
     private WarehouseDepots initWarehouseFromJSON() throws FileNotFoundException {
         final String keyInJSON = "personalBoard/warehouseDepots/";
