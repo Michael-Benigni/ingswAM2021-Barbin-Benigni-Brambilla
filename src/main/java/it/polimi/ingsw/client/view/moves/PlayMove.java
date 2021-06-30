@@ -238,7 +238,7 @@ public enum PlayMove implements MoveWrapper {
             writer.setHeader (Header.ToServer.EXTRA_PRODUCTION);
             IntegerRequest numExtraPower = new IntegerRequest ("Choose the index of the extra production power from those that you have active", "numExtraPower");
             writer = numExtraPower.handleInput (interlocutor, interpreter, writer);
-            ResourceRequest resource = new ResourceRequest ("Choose the resource to produce: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount to move", "resourceProduced");
+            ResourceRequest resource = new ResourceRequest ("Choose the resource to produce: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount that you want", "resourceProduced");
             writer = resource.handleInput (interlocutor, interpreter, writer);
             PaymentRequest payment = new PaymentRequest ("If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT\", " +
                     "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT DEPOT_INDEX\"", "payAction");
@@ -253,7 +253,7 @@ public enum PlayMove implements MoveWrapper {
             Interpreter interpreter = ui.getInterpreter();
             MessageWriter writer = new MessageWriter ();
             writer.setHeader (Header.ToServer.BOARD_PRODUCTION);
-            ResourceRequest resource = new ResourceRequest ("Choose the resource: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount to move", "produced");
+            ResourceRequest resource = new ResourceRequest ("Choose the resource: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount to produce", "produced");
             writer = resource.handleInput (interlocutor, interpreter, writer);
             return payments (interlocutor, interpreter, writer, "payActions").write ();
         };

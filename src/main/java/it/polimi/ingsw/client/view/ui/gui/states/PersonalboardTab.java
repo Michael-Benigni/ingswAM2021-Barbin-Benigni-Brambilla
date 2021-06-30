@@ -21,6 +21,19 @@ public class PersonalboardTab extends Tab {
     private HBox slotsHBox;
     private ArrayList<Button> slotButtons;
     private ArrayList<Button> cardButtons;
+    private GridPane strongboxGrid;
+
+    public GridPane getStrongboxGrid() {
+        return strongboxGrid;
+    }
+
+    public ArrayList<Button> getSlotButtons() {
+        return slotButtons;
+    }
+
+    public ArrayList<Button> getCardButtons() {
+        return cardButtons;
+    }
 
     public HBox getSlotsHBox() {
         return slotsHBox;
@@ -48,6 +61,7 @@ public class PersonalboardTab extends Tab {
         personalBoardBorderPane = new BorderPane();
         slotButtons = new ArrayList<>();
         cardButtons = new ArrayList<>();
+        strongboxGrid = new GridPane();
 
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
@@ -56,6 +70,8 @@ public class PersonalboardTab extends Tab {
 
         content.getChildren ().addAll (imageView, personalBoardBorderPane);
         content.setBackground (new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        warehouseAndStrongbox.getChildren().add(strongboxGrid);
 
         personalBoardBorderPane.setTop(faithTrackHBox);
         personalBoardBorderPane.setLeft(warehouseAndStrongbox);

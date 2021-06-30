@@ -142,7 +142,7 @@ public class GUI implements UI {
 
     @Override
     public void onStrongboxChanged() {
-
+        Platform.runLater(() -> GUIPlayState.getInstance().initStrongbox());
     }
 
     @Override
@@ -172,7 +172,8 @@ public class GUI implements UI {
 
     @Override
     public void onCurrentPlayerChanged(String additionalMsg) {
-        if(controller.getModel().getInfoMatch().getPlayerAt(controller.getModel().getInfoMatch().getCurrentPlayerPos()).equals(controller.getModel().getInfoMatch().getYourUsername())){
+        if(controller.getModel().getInfoMatch().getPlayerAt(controller.getModel().getInfoMatch().getCurrentPlayerPos()).
+                equals(controller.getModel().getInfoMatch().getYourUsername())){
             Platform.runLater(() -> GUIPlayState.getInstance().resetButtonsForTurnChanging());
         }
     }
@@ -184,7 +185,8 @@ public class GUI implements UI {
     }
 
     @Override
-    public void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames, ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
+    public void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames,
+                           ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
 
     }
 

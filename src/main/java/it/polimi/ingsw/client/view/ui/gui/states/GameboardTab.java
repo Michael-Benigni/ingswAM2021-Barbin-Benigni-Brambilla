@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
@@ -30,7 +29,7 @@ public class GameboardTab extends Tab {
         marketContainer.setPreserveRatio (true);
         marketContainer.setX (0);
         marketContainer.setY (0);
-        marketContainer.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.91));
+        marketContainer.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.85));
 
         StackPane stackForMarket = new StackPane ();
         market = new VBox();

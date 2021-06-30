@@ -2,9 +2,7 @@ package it.polimi.ingsw.client.view.ui.gui.states;
 
 import it.polimi.ingsw.client.ClientPrefs;
 import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
-import it.polimi.ingsw.client.view.lightweightmodel.LWCardsGrid;
-import it.polimi.ingsw.client.view.lightweightmodel.LWDevCard;
-import it.polimi.ingsw.client.view.lightweightmodel.LWMarket;
+import it.polimi.ingsw.client.view.lightweightmodel.*;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.ui.cli.Colour;
@@ -12,6 +10,7 @@ import it.polimi.ingsw.client.view.ui.gui.GUI;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import it.polimi.ingsw.client.view.ui.gui.MoveService;
+import it.polimi.ingsw.utils.config.ServerPrefs;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -191,13 +190,43 @@ public class GUIPlayState extends GUIState {
                 buttonCard.setOnAction (e -> {
                     gui.getInterpreter ().addInteraction ("row", finalJ);
                     gui.getInterpreter ().addInteraction ("column", finalI);
-                    //TODO: to enable the slots buttons
+                    personalboardTab.getSlotButtons().forEach(button -> button.setDisable(false));
                 });
                 gameboardTab.getCardsGrid().add (buttonCard, j, i);
             }
         }
         gameboardTab.getCardsGrid().setAlignment (Pos.CENTER);
         enableCardsGrid (false);
+    }
+
+    public void initStrongbox(){
+        int numRow = 2, numCol = 2, k = 0;
+        ArrayList<LWResource> strongbox = gui.getController().getModel().getPersonalBoard().getStrongbox();
+        JsonImageLoader resourceLoader = new JsonImageLoader(ClientPrefs.getPathToDB());
+        for(int i = 0; i < numRow; i++){
+            for(int j = 0; j < numCol; j++, k++){
+                try{
+                    LWResource resource = strongbox.get(k);
+                    ImageView resourceImage = new ImageView(resourceLoader.loadResourceImage(resource));
+                    resourceImage.fitHeightProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                            heightProperty().multiply(0.08));
+                    resourceImage.setPreserveRatio (true);
+                    Button resourceStrongboxButton = new Button(((Integer) resource.getAmount()).toString(), resourceImage);
+                    resourceStrongboxButton.setOnAction(actionEvent -> {
+                        //TODO: gui.getInterpreter ().addInteraction ("payActions", );
+                    });
+                    resourceStrongboxButton.translateYProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                            heightProperty().multiply(0.74));
+                    resourceStrongboxButton.translateXProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                            heightProperty().multiply(0.1));
+                    personalboardTab.getStrongboxGrid().add(resourceStrongboxButton, j, i);
+
+                }
+                catch (IndexOutOfBoundsException ignored){
+
+                }
+            }
+        }
     }
 
     public void initSlots(){
