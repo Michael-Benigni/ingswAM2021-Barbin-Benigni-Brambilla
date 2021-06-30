@@ -13,7 +13,7 @@ public class SlotDevCardUpdate implements ViewUpdate{
     private final Colour colour;
     private final Integer index;
 
-    public SlotDevCardUpdate(int addedDevCard, String description, int numberOfSlot, int level, Colour colour, int index) {
+    public SlotDevCardUpdate(Integer addedDevCard, String description, Integer numberOfSlot, Integer level, Colour colour, Integer index) {
         this.addedDevCard = addedDevCard;
         this.description = description;
         this.numberOfSlot = numberOfSlot;

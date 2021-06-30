@@ -151,7 +151,7 @@ public class LWPersonalBoard implements Attachable<UI> {
     /**
      * Method that updates the slots of development cards of this personal board with the ones provided.
      */
-    public void updateSlots(LWDevCard addedDevCard, int numberOfSlot, int positionInSlot) {
+    public void updateSlots(LWDevCard addedDevCard, Integer numberOfSlot, Integer positionInSlot) {
         if (addedDevCard.getId () != null)
             slots.get(numberOfSlot).add(positionInSlot, addedDevCard);
         this.ui.onSlotDevCardsChanged ();
