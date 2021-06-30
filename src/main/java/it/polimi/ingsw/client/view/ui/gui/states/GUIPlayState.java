@@ -105,7 +105,7 @@ public class GUIPlayState extends GUIState {
         endTurn.setMaxWidth (Double.MAX_VALUE);
         endTurn.setOnAction (e -> {
             new MoveService (PlayMove.END_TURN.getMove (), gui).start ();
-            //TODO: turnButtons.getChildren ().stream().forEach (node -> node.setDisable (true));
+            turnsButtons.forEach (node -> node.setDisable (true));
         });
 
         turnsButtons.add(endTurn);
@@ -115,7 +115,7 @@ public class GUIPlayState extends GUIState {
         marketTurn.setOnAction (e -> {
             gameboardTab.getMarketButtons().forEach (radioButton -> radioButton.setDisable (false));
             chosenMove.set (PlayMove.MARKET.getMove ());
-            turnButtons.getChildren ().stream()
+            turnsButtons.stream()
                     .filter (b -> b != endTurn && b != OK)
                     .forEach (node -> node.setDisable (true));
         });
@@ -127,7 +127,7 @@ public class GUIPlayState extends GUIState {
         buyCardTurn.setOnAction (e -> {
             enableCardsGrid(true);
             chosenMove.set (PlayMove.BUY_CARD.getMove ());
-            turnButtons.getChildren ().stream()
+            turnsButtons.stream()
                     .filter (b -> b != endTurn && b != OK)
                     .forEach (node -> node.setDisable (true));
         });
@@ -138,7 +138,7 @@ public class GUIPlayState extends GUIState {
         productionTurn.setMaxWidth (Double.MAX_VALUE);
         productionTurn.setOnAction (e -> {
             chosenMove.set (PlayMove.BUY_CARD.getMove ());
-            turnButtons.getChildren ().stream()
+            turnsButtons.stream()
                     .filter (b -> b != endTurn && b != OK).
                     forEach (node -> node.setDisable (true));
         });
