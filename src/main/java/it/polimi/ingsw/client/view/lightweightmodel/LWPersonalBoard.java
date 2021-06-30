@@ -75,6 +75,7 @@ public class LWPersonalBoard implements Attachable<UI> {
      */
     private void initSlots(){
         this.slots = new ArrayList<> ();
+        //TODO: 3 in file o sent in update
         for(int i = 0; i < 3; i++){
             slots.add(new ArrayList<>());
         }
@@ -151,7 +152,8 @@ public class LWPersonalBoard implements Attachable<UI> {
      * Method that updates the slots of development cards of this personal board with the ones provided.
      */
     public void updateSlots(LWDevCard addedDevCard, int numberOfSlot, int positionInSlot) {
-        slots.get(numberOfSlot).add(positionInSlot, addedDevCard);
+        if (addedDevCard.getId () != null)
+            slots.get(numberOfSlot).add(positionInSlot, addedDevCard);
         this.ui.onSlotDevCardsChanged ();
     }
 

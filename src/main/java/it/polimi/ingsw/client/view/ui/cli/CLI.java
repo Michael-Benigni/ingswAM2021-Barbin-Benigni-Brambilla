@@ -164,7 +164,7 @@ public class CLI implements UI {
         InfoMatch infoMatch = controller.getModel ().getInfoMatch ();
         String playerPos = infoMatch.getCurrentPlayerPos ();
         String msg;
-        if (playerPos == infoMatch.getPlayerPositionInTurn ()) {
+        if (playerPos.equals (infoMatch.getPlayerPositionInTurn ())) {
             msg = "It's your Turn! ";
             if (additionalMsg != null)
                 msg += additionalMsg;
