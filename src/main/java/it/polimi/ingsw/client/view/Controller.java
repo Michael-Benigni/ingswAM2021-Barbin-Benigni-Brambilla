@@ -41,6 +41,7 @@ public class Controller {
 
     public synchronized void handle(ToClientMessage message) {
         message.getInfo ().update (this);
+        System.out.println (message.transmit ());
     }
 
     public synchronized void handleError(ErrorMessage errorMessage) {
