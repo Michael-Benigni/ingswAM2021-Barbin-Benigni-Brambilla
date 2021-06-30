@@ -72,11 +72,11 @@ public class Channel {
             msg = inSocket.nextLine ();
             if (msg != null) {
                 String finalMsg = msg;
-                if (isClientSideChannel)
-                    System.out.println (" DEBUG: " + msg);
                 new Thread (() -> {
                     try {
                         receiver.onReceived (finalMsg);
+                        if (isClientSideChannel)
+                            System.out.println (" DEBUG: " + finalMsg);
                     } catch (Exception e) {
                         if (!isClientSideChannel) {
                             System.out.printf ("NETWORK ERROR: Invalid message \"" + finalMsg + "\" from Client n°%s!\n", this.id);
