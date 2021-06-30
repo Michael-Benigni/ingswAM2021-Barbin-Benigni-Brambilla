@@ -5,13 +5,13 @@ import it.polimi.ingsw.client.view.lightweightmodel.LWProducible;
 import it.polimi.ingsw.client.view.lightweightmodel.LWResource;
 import it.polimi.ingsw.client.view.lightweightmodel.LWXProductionPower;
 
-public class AddExtraProductionPowerUpdate implements ViewUpdate{
+public class AddExtraProductionPowerUpdate implements ViewUpdate {
 
-    private LWResource consumedResource;
-    private Integer numberOfResourceToPay;
-    private Integer numberOfResourceToProduce;
-    private LWProducible produced;
-    private Integer indexOfPower;
+    private final LWResource consumedResource;
+    private final Integer numberOfResourceToPay;
+    private final Integer numberOfResourceToProduce;
+    private final LWProducible produced;
+    private final Integer indexOfPower;
 
     public AddExtraProductionPowerUpdate(LWResource consumedResource, Integer numberOfResourceToPay,
                                          Integer numberOfResourceToProduce, LWProducible produced, Integer indexOfPower) {

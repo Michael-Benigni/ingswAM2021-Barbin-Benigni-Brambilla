@@ -72,21 +72,11 @@ public class Player implements GameComponent {
     }
 
     private void attachToAllComponent() {
-        this.personalBoard.getStrongbox ().attach(observer);
-        for (SlotDevelopmentCards slot : this.personalBoard.getListOfSlotDevelopmentCards ())
-            slot.attach (observer);
-        this.personalBoard.getSlotLeaderCards ().attach(observer);
-        this.personalBoard.getTempContainer ().attach(observer);
-        this.personalBoard.getWarehouseDepots ().attach (observer);
+        this.personalBoard.attach (observer);
     }
 
     private void detachFromAllComponent() {
-        this.personalBoard.getStrongbox ().detach(observer);
-        for (SlotDevelopmentCards slot : this.personalBoard.getListOfSlotDevelopmentCards ())
-            slot.detach (observer);
-        this.personalBoard.getSlotLeaderCards ().detach (observer);
-        this.personalBoard.getTempContainer ().detach (observer);
-        this.personalBoard.getWarehouseDepots ().detach (observer);
+        this.personalBoard.detach (observer);
     }
 
 

@@ -8,27 +8,27 @@ public class LWXProductionPower {
     /**
      * Resource consumed by this power.
      */
-    private LWResource consumedResource;
+    private final LWResource consumedResource;
 
     /**
      * Amount of the consumed resource
      */
-    private Integer numberOfResourceToPay;
+    private final Integer numberOfResourceToPay;
 
     /**
      * Amount of the produced resource
      */
-    private Integer numberOfResourceToProduce;
+    private final Integer numberOfResourceToProduce;
 
     /**
      * Resource produced by this power.
      */
-    private LWProducible produced;
+    private final LWProducible produced;
 
     /**
      * Index of this power.
      */
-    private Integer indexOfPower;
+    private final Integer indexOfPower;
 
     /**
      * Constructor method for his class.

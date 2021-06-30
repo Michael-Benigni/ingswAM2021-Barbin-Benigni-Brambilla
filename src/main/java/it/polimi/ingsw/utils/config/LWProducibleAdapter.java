@@ -27,7 +27,7 @@ public class LWProducibleAdapter extends JsonAdapter<LWProducible> {
     public LWProducible deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonElement amount = jsonElement.getAsJsonObject().get("amount");
         Class<? extends LWProducible> clazz;
-        if (amount.isJsonNull ()) {
+        if (amount == null) {
             clazz = LWFaithPoint.class;
         } else if (amount.isJsonPrimitive ()) {
             clazz = LWResource.class;

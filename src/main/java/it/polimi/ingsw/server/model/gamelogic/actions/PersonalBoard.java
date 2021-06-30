@@ -27,11 +27,6 @@ import java.util.Objects;
  */
 public class PersonalBoard implements Producer, GameComponent {
 
-    @Override
-    public void detach(Observer observer) {
-        getObservers ().remove(observer);
-    }
-
     /**
      * this class models the extra
      * production power provided
@@ -42,10 +37,10 @@ public class PersonalBoard implements Producer, GameComponent {
         private final StorableResource fixedConsumedResource;
 
         private final int amountToPay;
+
         private boolean availableForProduction;
         private final int amountToProduce;
         private final Producible fixedProducedFP;
-
         /**
          * constructor method of this class
          * @param fixedConsumedResource is the resource consumed to start the production
@@ -123,9 +118,12 @@ public class PersonalBoard implements Producer, GameComponent {
         }
 
 
+        public Producible getProducedResource() {
+            return this.fixedProducedFP;
+        }
     }
-
     private final Strongbox strongbox;
+
     private final int numOfResourcesToPay;
     private final int numOfResourcesToProduce;
     private final WarehouseDepots warehouseDepots;
@@ -135,7 +133,6 @@ public class PersonalBoard implements Producer, GameComponent {
     private final ArrayList <ExtraProductionPower> extraProductionPowers;
     private boolean availableForProduction;
     private final ArrayList<Observer> observers;
-
 
     @Override
     public boolean isAvailableForProduction() {
@@ -160,6 +157,14 @@ public class PersonalBoard implements Producer, GameComponent {
     @Override
     public void attach(Observer observer) {
         this.observers.add (observer);
+        for (ExtraProductionPower power : extraProductionPowers)
+            notifyUpdate (generateUpdate (power));
+        this.getStrongbox ().attach(observer);
+        for (SlotDevelopmentCards slot : this.getListOfSlotDevelopmentCards ())
+            slot.attach (observer);
+        this.getSlotLeaderCards ().attach(observer);
+        this.getTempContainer ().attach(observer);
+        this.getWarehouseDepots ().attach (observer);
     }
 
 
@@ -205,19 +210,17 @@ public class PersonalBoard implements Producer, GameComponent {
         ExtraProductionPower extraProductionPower = new ExtraProductionPower(fixedConsumedResource,
                 fixedProducedFP, amountToPay, amountToProduce);
         this.extraProductionPowers.add(extraProductionPower);
-        int indexOfPower = extraProductionPowers.indexOf(extraProductionPower);
-        notifyUpdate(generateUpdate(fixedConsumedResource, amountToPay, amountToProduce, fixedProducedFP, indexOfPower));
+        notifyUpdate(generateUpdate(extraProductionPower));
     }
 
-    private Sendable generateUpdate(StorableResource consumedResource, int amountToPay, int amountToProduce,
-                                    Producible fixedProducedFP, int indexOfPower){
+    private Sendable generateUpdate(ExtraProductionPower power){
         MessageWriter writer = new MessageWriter();
         writer.setHeader(Header.ToClient.ADD_EXTRA_PRODUCTION_POWER_UPDATE);
-        writer.addProperty("consumedResource", consumedResource);
-        writer.addProperty("numberOfResourceToPay", amountToPay);
-        writer.addProperty("numberOfResourceToProduce", amountToProduce);
-        writer.addProperty("produced", fixedProducedFP);
-        writer.addProperty("indexOfPower", indexOfPower);
+        writer.addProperty("consumedResource", power.getConsumedResource ());
+        writer.addProperty("numberOfResourceToPay", power.getAmountToPay ());
+        writer.addProperty("numberOfResourceToProduce", power.getAmountToProduce ());
+        writer.addProperty("produced", power.getProducedResource());
+        writer.addProperty("indexOfPower", extraProductionPowers.indexOf(power));
         return writer.write();
     }
 
@@ -415,5 +418,16 @@ public class PersonalBoard implements Producer, GameComponent {
         producers.addAll(this.listOfSlotDevelopmentCards);
         producers.addAll(this.extraProductionPowers);
         return producers;
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        getObservers ().remove(observer);
+        this.getStrongbox ().detach(observer);
+        for (SlotDevelopmentCards slot : this.getListOfSlotDevelopmentCards ())
+            slot.detach (observer);
+        this.getSlotLeaderCards ().detach (observer);
+        this.getTempContainer ().detach (observer);
+        this.getWarehouseDepots ().detach (observer);
     }
 }
