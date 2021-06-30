@@ -31,7 +31,6 @@ public class ClientNetworkLayer {
             else if(ErrorMessage.isErrorMessage(msg))
                 controller.handleError(new ErrorMessage (msg));
             else {
-                System.out.println (" DEBUG: " + msg);
                 ToClientMessage message = new ToClientMessage (msg);
                 controller.handle (message);
             }

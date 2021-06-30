@@ -72,6 +72,8 @@ public class Channel {
             msg = inSocket.nextLine ();
             if (msg != null) {
                 String finalMsg = msg;
+                if (isClientSideChannel)
+                    System.out.println (" DEBUG: " + msg);
                 new Thread (() -> {
                     try {
                         receiver.onReceived (finalMsg);
