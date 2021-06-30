@@ -174,9 +174,10 @@ public class DevelopmentCardsGrid implements GameComponent {
         chosenDeck.remove(chosenDeckLastIndex);
         if(chosenDeck.isEmpty())
             notifyUpdate(generateInitialUpdate (removeCard, null));
-        else
-            showCard = chosenDeck.get(chosenDeckLastIndex - 1);
-        notifyUpdate(generateInitialUpdate (removeCard, showCard));
+        else {
+            showCard = chosenDeck.get (chosenDeckLastIndex - 1);
+            notifyUpdate (generateInitialUpdate (removeCard, showCard));
+        }
     }
 
     /**
