@@ -42,13 +42,25 @@ public class InfoMatch implements Attachable<UI> {
      */
     private boolean isLeader;
 
+    /**
+     * the User Interface of this Client
+     */
     private UI ui;
+
+    /**
+     * name of the player whose is the turn
+     */
     private String currentPlayer;
 
     /**
      * List of players in this game.
      */
     private ArrayList<String> users;
+
+    /**
+     * number of the turn of this player
+     */
+    private Integer numTurn;
 
     /**
      * Constructor method of this class. It sets two empty arrays.
@@ -70,6 +82,13 @@ public class InfoMatch implements Attachable<UI> {
      */
     public String getPlayerPositionInTurn() {
         return playerPositionInTurn;
+    }
+
+    /**
+     * Getter method for the number of turn played by this player.
+     */
+    public Integer getNumTurn() {
+        return numTurn;
     }
 
     /**
@@ -203,5 +222,13 @@ public class InfoMatch implements Attachable<UI> {
     public void removeUserFromRoom(String playerDisconnected) {
         this.users.remove(playerDisconnected);
         this.ui.onUserInRoomEnteredOrDisconnected(false);
+    }
+
+    /**
+     * setter for attribute numTurn
+     * @param numTurn
+     */
+    public void setCurrentTurn(Integer numTurn) {
+        this.numTurn = numTurn;
     }
 }

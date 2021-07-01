@@ -413,5 +413,9 @@ public abstract class Game implements GameComponent {
     public void detach(Observer observer) {
         getObservers ().remove(observer);
     }
+
+    public int getCurrentRound() {
+        return numberOfRounds + 1;
+    }
 }
 
