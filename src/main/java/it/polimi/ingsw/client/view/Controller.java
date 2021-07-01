@@ -63,6 +63,8 @@ public class Controller {
         nextToHandle.getInfo ().update (this);
         this.messagesDeque.removeFirst ();
         expectedMsgProgNum++;
+        if (expectedMsgProgNum > ToClientMessage.maxValueProgrNum ())
+            expectedMsgProgNum = 0;
         notifyAll ();
 
     }
