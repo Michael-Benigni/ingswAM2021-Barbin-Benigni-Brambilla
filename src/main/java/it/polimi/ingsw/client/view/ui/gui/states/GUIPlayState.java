@@ -224,10 +224,7 @@ public class GUIPlayState extends GUIState {
                 personalboardTab.getWarehouseVBox().getChildren().add(resourceWarehouseButton);
             }
             else{
-                Button emptyDepotButton = new Button("EMPTY DEPOT");
-                emptyDepotButton.setOnAction(actionEvent -> {
-                    gui.getInterpreter().addInteraction("depotIdx", ((Integer)warehouse.indexOf(depot)).toString());
-                });
+                Label emptyDepotButton = new Label("");
                 personalboardTab.getWarehouseVBox().getChildren().add(emptyDepotButton);
             }
         }
