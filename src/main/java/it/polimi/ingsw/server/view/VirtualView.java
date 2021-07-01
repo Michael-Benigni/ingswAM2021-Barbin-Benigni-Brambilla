@@ -1,24 +1,24 @@
 package it.polimi.ingsw.server.view;
 
 import it.polimi.ingsw.server.controller.exception.InvalidUserException;
-import it.polimi.ingsw.utils.network.Sendable;
+import it.polimi.ingsw.utils.network.*;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.server.controller.commands.Command;
 import it.polimi.ingsw.utils.Observer;
-import it.polimi.ingsw.utils.network.Channel;
-import it.polimi.ingsw.utils.network.Receivable;
 
 import java.util.Objects;
 
 public class VirtualView extends AbstractView implements Observer {
     private final User user;
     private final Controller controller;
+    private Integer nextProgressiveNum;
 
     public VirtualView(Channel channel, Controller controller) {
         super(channel);
         this.controller = controller;
         this.user = new User (this);
+        this.nextProgressiveNum = 0;
     }
 
     public void passToController(Receivable<Command> message) throws Exception {
@@ -27,7 +27,11 @@ public class VirtualView extends AbstractView implements Observer {
 
     @Override
     public void onChanged(Sendable message) {
-        this.getChannel ().send(message);
+        Sendable newMsg = MessageWriter.addPropertyTo(message, "progressiveNumber", nextProgressiveNum);
+        this.getChannel ().send(newMsg);
+        nextProgressiveNum++;
+        if (nextProgressiveNum > ToClientMessage.maxValueProgrNum ())
+            nextProgressiveNum = 0;
     }
 
     @Override

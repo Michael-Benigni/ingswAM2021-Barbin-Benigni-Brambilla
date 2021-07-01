@@ -1,4 +1,6 @@
 {
   "pathToDB": "json/clientDB.json",
-  "timeToWaitConnection": 3000
+  "timeToWaitConnection": 3000,
+  "maxProgressiveNumber": 100,
+  "timeToWaitMsg": 3000
 }

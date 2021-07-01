@@ -1,18 +1,20 @@
 package it.polimi.ingsw.utils.network;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 public class MessageWriter {
     private JsonObject message;
-    private final Gson gson;
+    private static final Gson gson = new Gson();
 
     public MessageWriter() {
         this.message = new JsonObject ();
         this.message.add ("info", new JsonObject ());
-        this.gson = new Gson ();
+    }
+
+    public static Sendable addPropertyTo(Sendable message, String nameProperty, Object input) {
+        JsonElement element = JsonParser.parseString (message.transmit ());
+        element.getAsJsonObject ().addProperty (nameProperty, String.valueOf (input));
+        return gson.fromJson (element, Message.class);
     }
 
     public void setHeader(Header header) {
@@ -99,8 +101,9 @@ public class MessageWriter {
         info.add (subInfo, gson.toJsonTree (subInfoProperty));
     }
 
-    private class Message implements Sendable {
+    private static class Message implements Sendable {
         private JsonElement header;
         private JsonElement info;
+        private Integer progressiveNumber;
     }
 }

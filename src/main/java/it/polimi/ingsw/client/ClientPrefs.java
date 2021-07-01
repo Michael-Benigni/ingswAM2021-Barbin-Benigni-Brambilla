@@ -8,6 +8,8 @@ public class ClientPrefs {
     private static final String PATH_TO_PREFS = "json/clientPrefs.json";
     private static String pathToDB;
     private static long timeToWaitConnection;
+    private static Integer maxProgressiveNumber;
+    private static long timeToWaitMsg;
 
     public static String getPathToDB() {
         try {
@@ -25,5 +27,23 @@ public class ClientPrefs {
             e.printStackTrace ();
         }
         return timeToWaitConnection;
+    }
+
+    public static Integer getMaxProgressiveNumber() {
+        try {
+            maxProgressiveNumber = (Integer) getAsJavaObjectFromJSON(Integer.class, "maxProgressiveNumber/", PATH_TO_PREFS);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace ();
+        }
+        return maxProgressiveNumber;
+    }
+
+    public static long getTimeOutToExpectServerMsg() {
+        try {
+            timeToWaitMsg = (long) getAsJavaObjectFromJSON(long.class, "timeToWaitMsg/", PATH_TO_PREFS);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace ();
+        }
+        return timeToWaitMsg;
     }
 }
