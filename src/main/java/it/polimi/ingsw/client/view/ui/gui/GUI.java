@@ -126,7 +126,7 @@ public class GUI implements UI {
 
     @Override
     public void onWarehouseChanged() {
-
+        Platform.runLater(() -> GUIPlayState.getInstance().initWarehouse());
     }
 
     @Override

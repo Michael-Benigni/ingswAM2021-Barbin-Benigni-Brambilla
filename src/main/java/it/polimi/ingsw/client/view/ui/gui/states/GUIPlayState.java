@@ -11,6 +11,7 @@ import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import it.polimi.ingsw.client.view.ui.gui.MoveService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -63,13 +64,13 @@ public class GUIPlayState extends GUIState {
             buttons.minWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.1));
             buttons.minHeightProperty ().bind (JavaFXApp.getFixedHeight ());
 
+            initWarehouse();
+
             hBox.getChildren ().addAll (tabPane, buttons) ;
             setSceneInstance (new Scene (hBox));
         }
         return getWelcomeSceneInstance();
     }
-
-
 
     @Override
     protected void setSceneInstance(Scene scene) {
@@ -197,7 +198,39 @@ public class GUIPlayState extends GUIState {
         enableCardsGrid (false);
     }
 
+    public void initWarehouse(){
+        personalboardTab.getWarehouseVBox().getChildren().clear();
+        ArrayList<LWDepot> warehouse = gui.getController().getModel().getPersonalBoard().getWarehouse();
+        JsonImageLoader resourceLoader = new JsonImageLoader(ClientPrefs.getPathToDB());
+        for(LWDepot depot : warehouse){
+            LWResource resource = depot.getStoredResource();
+            if(resource != null){
+                ImageView resourceImage = new ImageView(resourceLoader.loadResourceImage(resource));
+                resourceImage.fitHeightProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                        heightProperty().multiply(0.06));
+                resourceImage.setPreserveRatio (true);
+                Button resourceWarehouseButton = new Button(((Integer)resource.getAmount()).toString(), resourceImage);
+                resourceWarehouseButton.setOnAction(actionEvent -> {
+                    //TODO: gui.getInterpreter ().addInteraction ("payActions", );
+                });
+                resourceWarehouseButton.translateYProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                        heightProperty().multiply(0.42));
+                resourceWarehouseButton.translateXProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                        heightProperty().multiply(0.15));
+                personalboardTab.getWarehouseVBox().getChildren().add(resourceWarehouseButton);
+            }
+            else{
+                Button emptyDepotButton = new Button("EMPTY DEPOT");
+                emptyDepotButton.setOnAction(actionEvent -> {
+                    gui.getInterpreter().addInteraction("depotIdx", ((Integer)warehouse.indexOf(depot)).toString());
+                });
+                personalboardTab.getWarehouseVBox().getChildren().add(emptyDepotButton);
+            }
+        }
+    }
+
     public void initStrongbox(){
+        personalboardTab.getStrongboxGrid().getChildren().clear();
         int numRow = 2, numCol = 2, k = 0;
         ArrayList<LWResource> strongbox = gui.getController().getModel().getPersonalBoard().getStrongbox();
         JsonImageLoader resourceLoader = new JsonImageLoader(ClientPrefs.getPathToDB());
@@ -218,7 +251,6 @@ public class GUIPlayState extends GUIState {
                     resourceStrongboxButton.translateXProperty().bind(personalboardTab.getWarehouseAndStrongbox().
                             heightProperty().multiply(0.1));
                     personalboardTab.getStrongboxGrid().add(resourceStrongboxButton, j, i);
-
                 }
                 catch (IndexOutOfBoundsException ignored){
 
