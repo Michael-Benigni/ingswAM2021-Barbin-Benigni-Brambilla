@@ -111,7 +111,6 @@ public class CLI implements UI {
 
     @Override
     public synchronized void onNewPlayerInGame() {
-
     }
 
     @Override
@@ -170,7 +169,7 @@ public class CLI implements UI {
                 msg += additionalMsg;
         }
         else
-            msg = "It's the turn of " + infoMatch.getPlayerAt (infoMatch.getCurrentPlayerPos()) + " (Player number " + playerPos + ")" + ". Wait your turn.";
+            msg = "It's the turn of " + infoMatch.getPlayerAt (playerPos) + " (Player number " + playerPos + ")" + ". Wait your turn.";
         notifyMessage (msg);
     }
 
@@ -201,7 +200,12 @@ public class CLI implements UI {
     }
 
     @Override
-    public void onUserInRoomEnteredOrDisconnected() {
+    public void onUserInRoomEnteredOrDisconnected(boolean entered) {
+        ArrayList<String> users = controller.getModel ().getInfoMatch ().getUsers ();
+        if (entered)
+            notifyMessage ("New user entered in the room! Now in this room there is also " + users.get(users.size () - 1));
+        else
+            notifyMessage ("User disconnected! The users in the room now are: " + String.join (", ", users));
     }
 
     @Override

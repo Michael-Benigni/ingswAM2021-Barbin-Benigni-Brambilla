@@ -187,7 +187,7 @@ public class InfoMatch implements Attachable<UI> {
      */
     public void putNewUser(String name) {
         this.users.add(name);
-        this.ui.onUserInRoomEnteredOrDisconnected();
+        this.ui.onUserInRoomEnteredOrDisconnected(true);
     }
 
     /**
@@ -202,6 +202,6 @@ public class InfoMatch implements Attachable<UI> {
      */
     public void removeUserFromRoom(String playerDisconnected) {
         this.users.remove(playerDisconnected);
-        this.ui.onUserInRoomEnteredOrDisconnected();
+        this.ui.onUserInRoomEnteredOrDisconnected(false);
     }
 }

@@ -86,7 +86,7 @@ public interface UI {
 
     void notifyRoomFull();
 
-    void onUserInRoomEnteredOrDisconnected();
+    void onUserInRoomEnteredOrDisconnected(boolean entered);
 
     void notifyErrorConnection();
 

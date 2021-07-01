@@ -168,7 +168,8 @@ public class JsonHandler {
     private static JsonElement getJsonElement(String pathToJsonElem, JsonElement json) {
         JsonObject obj;
         JsonElement elem = json;
-        ArrayList<String> jsonNodes = StringParser.decompose(pathToJsonElem);
+        StringParser stringParser = new StringParser ("/");
+        ArrayList<String> jsonNodes = stringParser.decompose(pathToJsonElem);
         for(int currNode = 0; jsonNodes.size() > 0; ) {
             obj = elem.getAsJsonObject();
             try {
@@ -180,8 +181,8 @@ public class JsonHandler {
                 elem = obj;
             }
             jsonNodes.remove(currNode);
-            pathToJsonElem = StringParser.compose(jsonNodes);
-            jsonNodes = StringParser.decompose(pathToJsonElem);
+            pathToJsonElem = stringParser.compose(jsonNodes);
+            jsonNodes = stringParser.decompose(pathToJsonElem);
         }
         return elem;
     }
@@ -221,7 +222,8 @@ public class JsonHandler {
      * @return
      */
     private static String updateJsonPath(JsonElement element, String path) {
-        ArrayList<String> listNodes = StringParser.decompose(path);
+        StringParser stringParser = new StringParser ("/");
+        ArrayList<String> listNodes = stringParser.decompose(path);
         int firstNode = 0;
         listNodes.remove(firstNode);
         while (listNodes.size() > 0) {
@@ -229,7 +231,7 @@ public class JsonHandler {
             if (element.isJsonPrimitive() || element.getAsJsonObject().has(node)) {
                 if (element.isJsonPrimitive())
                     return null;
-                return StringParser.compose(listNodes);
+                return stringParser.compose(listNodes);
             }
             listNodes.remove(node);
         }

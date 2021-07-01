@@ -119,7 +119,7 @@ public class GUI implements UI {
     }
 
     @Override
-    public void onUserInRoomEnteredOrDisconnected() {
+    public void onUserInRoomEnteredOrDisconnected(boolean entered) {
         Platform.runLater(() ->
                 GUIWaitingRoomState.getInstance().notifyNewPlayerInRoom(this.controller.getModel().getInfoMatch()));
     }

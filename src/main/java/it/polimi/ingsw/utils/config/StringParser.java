@@ -26,7 +26,7 @@ public class StringParser {
      *             a separator
      * @return the list of all the nodes as an ArrayList of Strings
      */
-    public static ArrayList<String> decompose(String path) {
+    public ArrayList<String> decompose(String path) {
         String[] nodes;
         try {
             nodes = path.split(SEPARATOR);
@@ -47,7 +47,7 @@ public class StringParser {
      * @param nodes list of nodes of a path (will be a  list of names of Json nodes in this project)
      * @return the concatenation of the nodes with the SEPARATOR -> nodeSEPARATORnodeSEPARATOR..
      */
-    static String compose (ArrayList<String> nodes) {
+    String compose (ArrayList<String> nodes) {
         String path;
         try {
             path = nodes.get(0);
