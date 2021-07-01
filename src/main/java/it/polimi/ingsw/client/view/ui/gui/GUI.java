@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.ui.gui;
 
 import it.polimi.ingsw.client.view.Controller;
 import it.polimi.ingsw.client.view.exceptions.AlreadyInstantiatedException;
+import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIPlayState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIState;
 import it.polimi.ingsw.client.view.ui.gui.states.GUIWaitingRoomState;
@@ -64,7 +65,11 @@ public class GUI implements UI {
     @Override
     public void onCardsGridBuilt() {
         Platform.runLater (() -> {
-            GUIPlayState.getInstance ().initCardsGrid ();
+            try {
+                GUIPlayState.getInstance ().initCardsGrid ();
+            } catch (IllegalInputException thrownByGetCardOfCardsGrid) {
+                thrownByGetCardOfCardsGrid.printStackTrace();
+            }
         });
     }
 

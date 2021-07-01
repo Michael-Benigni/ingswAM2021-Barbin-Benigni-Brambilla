@@ -15,7 +15,8 @@ public class CardsGridInitialUpdate implements ViewUpdate {
     private final int rows;
     private final int columns;
 
-    public CardsGridInitialUpdate(ArrayList<ArrayList<Integer>> initialGrid, ArrayList<ArrayList<String>> descriptions, ArrayList<ArrayList<Colour>> colours, ArrayList<ArrayList<Integer>> levels,
+    public CardsGridInitialUpdate(ArrayList<ArrayList<Integer>> initialGrid, ArrayList<ArrayList<String>> descriptions,
+                                  ArrayList<ArrayList<Colour>> colours, ArrayList<ArrayList<Integer>> levels,
                                   int rows, int columns) {
         this.initialGrid = initialGrid;
         this.descriptions = descriptions;

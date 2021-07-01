@@ -173,10 +173,10 @@ public class DevelopmentCardsGrid implements GameComponent {
         DevelopmentCard showCard = null;
         chosenDeck.remove(chosenDeckLastIndex);
         if(chosenDeck.isEmpty())
-            notifyUpdate(generateInitialUpdate (removeCard, null));
+            notifyUpdate(generateUpdate(removeCard, null));
         else {
             showCard = chosenDeck.get (chosenDeckLastIndex - 1);
-            notifyUpdate (generateInitialUpdate (removeCard, showCard));
+            notifyUpdate (generateUpdate(removeCard, showCard));
         }
     }
 
@@ -187,7 +187,7 @@ public class DevelopmentCardsGrid implements GameComponent {
      * @param showCard is card that the clients must show instead the removeCard
      * @return the message we want to send
      */
-    private Sendable generateInitialUpdate(DevelopmentCard removeCard, DevelopmentCard showCard){
+    private Sendable generateUpdate(DevelopmentCard removeCard, DevelopmentCard showCard){
         MessageWriter messageWriter = new MessageWriter();
         messageWriter.setHeader(Header.ToClient.REMOVE_SHOW_GRID);
         messageWriter.addProperty ("cardToRemove", removeCard.getCardID());
