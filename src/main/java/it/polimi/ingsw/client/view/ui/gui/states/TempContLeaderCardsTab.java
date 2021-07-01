@@ -1,8 +1,12 @@
 package it.polimi.ingsw.client.view.ui.gui.states;
 
 import it.polimi.ingsw.client.view.lightweightmodel.LWDepot;
+import it.polimi.ingsw.client.view.lightweightmodel.LWResourceType;
+import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
+import it.polimi.ingsw.client.view.ui.gui.MoveService;
+import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -24,8 +28,12 @@ public class TempContLeaderCardsTab extends Tab {
     private final ChoiceBox<Integer> depotBox;
     private final Button sendToWarehouse;
     private final HBox resources;
-
     private final VBox tabContent;
+    private LWResourceType selectedResource;
+
+    public void setSelectedResource(LWResourceType selectedResource) {
+        this.selectedResource = selectedResource;
+    }
 
     public TempContLeaderCardsTab(GUI gui) {
         super("Temporary Container And Leader Cards");
@@ -49,7 +57,8 @@ public class TempContLeaderCardsTab extends Tab {
         sendToWarehouse.setOnAction (e -> {
             gui.getInterpreter ().addInteraction ("storeOrRemove", "REMOVE");
             gui.getInterpreter ().addInteraction ("depotIdx", String.valueOf (depotBox.getValue ()));
-            gui.getInterpreter ().addInteraction ("resource", String.valueOf (depotBox.getValue ()));
+            gui.getInterpreter ().addInteraction ("resource", this.selectedResource + " " + amountBox.getValue());
+            new MoveService(PlayMove.MOVE_RESOURCES.getMove(), gui).start();
         });
 
 
