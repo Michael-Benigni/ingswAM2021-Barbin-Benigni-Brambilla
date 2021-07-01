@@ -21,6 +21,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
@@ -34,6 +35,9 @@ public class GUIPlayState extends GUIState {
     private PersonalboardTab personalboardTab;
     private TempContLeaderCardsTab tempContLeaderCardsTab;
     private ArrayList<Button> turnsButtons;
+    private boolean isBuyCardTurn;
+    private boolean isProductionTurn;
+    private boolean isMarketTurn;
 
     private GUIPlayState() {
         instance = this;
@@ -65,8 +69,6 @@ public class GUIPlayState extends GUIState {
             buttons.minWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.1));
             buttons.minHeightProperty ().bind (JavaFXApp.getFixedHeight ());
 
-            initWarehouse();
-
             hBox.getChildren ().addAll (tabPane, buttons) ;
             setSceneInstance (new Scene (hBox));
         }
@@ -96,13 +98,26 @@ public class GUIPlayState extends GUIState {
 
         Button OK = new Button ("OK");
         OK.setMaxWidth (Double.MAX_VALUE);
-        OK.setOnAction (e -> new MoveService (chosenMove.get (), gui));
+        OK.setOnAction (e -> {
+            if(isBuyCardTurn){
+                new MoveService (chosenMove.get (), gui).start();
+            }
+            else if(isMarketTurn){
+                new MoveService (chosenMove.get (), gui).start();
+            }
+            else if(isProductionTurn){
+                new MoveService (chosenMove.get (), gui).start();
+            }
+        });
 
         turnsButtons.add(OK);
 
         Button endTurn = new Button ("End Turn");
         endTurn.setMaxWidth (Double.MAX_VALUE);
         endTurn.setOnAction (e -> {
+            setProductionTurn(false);
+            setBuyCardTurn(false);
+            setMarketTurn(false);
             new MoveService (PlayMove.END_TURN.getMove (), gui).start ();
             turnsButtons.forEach (node -> node.setDisable (true));
         });
@@ -112,6 +127,7 @@ public class GUIPlayState extends GUIState {
         Button marketTurn = new Button ("Market");
         marketTurn.setMaxWidth (Double.MAX_VALUE);
         marketTurn.setOnAction (e -> {
+            setMarketTurn(true);
             gameboardTab.getMarketButtons().forEach (radioButton -> radioButton.setDisable (false));
             chosenMove.set (PlayMove.MARKET.getMove ());
             turnsButtons.stream()
@@ -124,6 +140,7 @@ public class GUIPlayState extends GUIState {
         Button buyCardTurn = new Button ("Buy Card");
         buyCardTurn.setMaxWidth (Double.MAX_VALUE);
         buyCardTurn.setOnAction (e -> {
+            setBuyCardTurn(true);
             enableCardsGrid(true);
             chosenMove.set (PlayMove.BUY_CARD.getMove ());
             turnsButtons.stream()
@@ -136,7 +153,8 @@ public class GUIPlayState extends GUIState {
         Button productionTurn = new Button ("Production");
         productionTurn.setMaxWidth (Double.MAX_VALUE);
         productionTurn.setOnAction (e -> {
-            chosenMove.set (PlayMove.BUY_CARD.getMove ());
+            setProductionTurn(true);
+            chosenMove.set (PlayMove.START_PRODUCTION.getMove ());
             turnsButtons.stream()
                     .filter (b -> b != endTurn && b != OK).
                     forEach (node -> node.setDisable (true));
@@ -166,6 +184,18 @@ public class GUIPlayState extends GUIState {
         return turnButtons;
     }
 
+    private void setBuyCardTurn(boolean buyCardTurn) {
+        isBuyCardTurn = buyCardTurn;
+    }
+
+    private void setProductionTurn(boolean productionTurn) {
+        isProductionTurn = productionTurn;
+    }
+
+    private void setMarketTurn(boolean marketTurn) {
+        isMarketTurn = marketTurn;
+    }
+
     private void enableCardsGrid(boolean isToEnable) {
         gameboardTab.getCardsGrid().getChildren ().forEach ((n) -> n.setDisable (!isToEnable));
     }
@@ -181,6 +211,7 @@ public class GUIPlayState extends GUIState {
 
                 if (cardID == null){
                     Label emptyDeckLabel = new Label("EMPTY DECK");
+                    emptyDeckLabel.setAlignment(Pos.CENTER);
                     gameboardTab.getCardsGrid().add (emptyDeckLabel, j, i);
                 }
                 else{
@@ -343,6 +374,7 @@ public class GUIPlayState extends GUIState {
         marketGrid.setVgap (10);
         marketGrid.setHgap (10);
         marketGrid.setAlignment (Pos.CENTER);
+        marbleOnSlide.translateXProperty().bind(personalboardTab.getPersonalBoardBorderPane().heightProperty().multiply(0.2));
         gameboardTab.getMarket().getChildren ().add (0, marbleOnSlide);
         gameboardTab.getMarket().setAlignment(Pos.CENTER_LEFT);
         gameboardTab.getMarket().getChildren ().add (1, marketGrid);
@@ -397,7 +429,8 @@ public class GUIPlayState extends GUIState {
 
     public void initTempContainer() {
         tempContLeaderCardsTab.getResources ().getChildren ().clear ();
-        ArrayList<LWResource> storableResources = gui.getController ().getModel ().getPersonalBoard ().getTemporaryContainer ().getStorableResources ();
+        ArrayList<LWResource> storableResources = gui.getController ().getModel ().getPersonalBoard ().
+                getTemporaryContainer ().getStorableResources ();
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         for (LWResource resource : storableResources) {
             Button resourceBtn = new Button ("", new ImageView (loader.loadResourceImage (resource)));
@@ -406,11 +439,11 @@ public class GUIPlayState extends GUIState {
             for (int i = 1; i <= resource.getAmount (); i++)
                 amounts.add (i);
             resourceBtn.setOnAction (e -> {
+                tempContLeaderCardsTab.setSelectedResource(resource.getResourceType());
                 tempContLeaderCardsTab.getAmountBox ().getItems ().addAll (amounts);
                 tempContLeaderCardsTab.getAmountBox ().setValue (amounts.get (0));
                 tempContLeaderCardsTab.getAmountBox ().setDisable (false);
                 tempContLeaderCardsTab.getDepotBox ().setDisable (false);
-                tempContLeaderCardsTab.getAmountBox ().setValue (amounts.get (0));
                 tempContLeaderCardsTab.getSendToWarehouse ().setDisable (false);
             });
         }
