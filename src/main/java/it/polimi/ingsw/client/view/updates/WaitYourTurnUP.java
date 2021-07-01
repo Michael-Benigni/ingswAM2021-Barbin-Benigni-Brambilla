@@ -3,16 +3,16 @@ package it.polimi.ingsw.client.view.updates;
 import it.polimi.ingsw.client.view.Controller;
 
 public class WaitYourTurnUP implements ViewUpdate {
-    private final String currPlayer;
-    private final int currPlayerName;
+    private final Integer currPlayer;
+    private final String currPlayerName;
 
-    public WaitYourTurnUP(String currPlayer, int currPlayerName) {
+    public WaitYourTurnUP(Integer currPlayer, String currPlayerName) {
         this.currPlayer = currPlayer;
         this.currPlayerName = currPlayerName;
     }
 
     @Override
     public void update(Controller controller) {
-        controller.getModel ().getInfoMatch ().setCurrentPlayer(currPlayer, "");
+        controller.getModel ().getInfoMatch ().setCurrentPlayer(String.valueOf (currPlayer), "");
     }
 }

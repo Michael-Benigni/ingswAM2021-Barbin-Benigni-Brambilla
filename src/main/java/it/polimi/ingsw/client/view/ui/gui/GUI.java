@@ -126,7 +126,9 @@ public class GUI implements UI {
 
     @Override
     public void onWarehouseChanged() {
-
+        Platform.runLater (() -> {
+            GUIPlayState.getInstance ().initWarehouse();
+        });
     }
 
     @Override
@@ -147,7 +149,9 @@ public class GUI implements UI {
 
     @Override
     public void onTempContainerChanged() {
-
+        Platform.runLater (() -> {
+            GUIPlayState.getInstance ().initTempContainer ();
+        });
     }
 
     @Override
@@ -157,7 +161,9 @@ public class GUI implements UI {
 
     @Override
     public void onSlotLeaderCardsChanged() {
-
+        Platform.runLater (() -> {
+            GUIPlayState.getInstance ().initSlotLeaderCards ();
+        });
     }
 
     @Override

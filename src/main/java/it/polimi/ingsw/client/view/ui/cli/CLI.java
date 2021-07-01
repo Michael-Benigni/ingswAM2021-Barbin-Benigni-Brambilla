@@ -202,7 +202,6 @@ public class CLI implements UI {
 
     @Override
     public void onUserInRoomEnteredOrDisconnected() {
-
     }
 
     @Override

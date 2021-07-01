@@ -23,6 +23,7 @@ import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class GUIPlayState extends GUIState {
     private static Scene scene;
@@ -45,7 +46,7 @@ public class GUIPlayState extends GUIState {
             TabPane tabPane = new TabPane ();
             personalboardTab = new PersonalboardTab();
             gameboardTab = new GameboardTab();
-            tempContLeaderCardsTab = new TempContLeaderCardsTab();
+            tempContLeaderCardsTab = new TempContLeaderCardsTab(gui);
             hBox.minWidthProperty ().bind (JavaFXApp.getFixedWidth ());
             hBox.minHeightProperty ().bind (JavaFXApp.getFixedHeight ());
             hBox.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ());
@@ -198,7 +199,8 @@ public class GUIPlayState extends GUIState {
     }
 
     public void initStrongbox(){
-        int numRow = 2, numCol = 2, k = 0;
+        final int numRow = 2, numCol = 2;
+        int k = 0;
         ArrayList<LWResource> strongbox = gui.getController().getModel().getPersonalBoard().getStrongbox();
         JsonImageLoader resourceLoader = new JsonImageLoader(ClientPrefs.getPathToDB());
         for(int i = 0; i < numRow; i++){
@@ -352,6 +354,54 @@ public class GUIPlayState extends GUIState {
     public void resetButtonsForTurnChanging() {
         for (Button turnButton : turnsButtons){
             turnButton.setDisable(false);
+        }
+    }
+
+    public void initTempContainer() {
+        tempContLeaderCardsTab.getResources ().getChildren ().clear ();
+        ArrayList<LWResource> storableResources = gui.getController ().getModel ().getPersonalBoard ().getTemporaryContainer ().getStorableResources ();
+        JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
+        for (LWResource resource : storableResources) {
+            Button resourceBtn = new Button ("", new ImageView (loader.loadResourceImage (resource)));
+            tempContLeaderCardsTab.getResources ().getChildren ().add (resourceBtn);
+            ArrayList<Integer> amounts = new ArrayList<> ();
+            for (int i = 1; i <= resource.getAmount (); i++)
+                amounts.add (i);
+            resourceBtn.setOnAction (e -> {
+                tempContLeaderCardsTab.getAmountBox ().getItems ().addAll (amounts);
+                tempContLeaderCardsTab.getAmountBox ().setValue (amounts.get (0));
+                tempContLeaderCardsTab.getAmountBox ().setDisable (false);
+                tempContLeaderCardsTab.getDepotBox ().setDisable (false);
+                tempContLeaderCardsTab.getAmountBox ().setValue (amounts.get (0));
+                tempContLeaderCardsTab.getSendToWarehouse ().setDisable (false);
+            });
+        }
+    }
+
+    public void initWarehouse() {
+        tempContLeaderCardsTab.getDepotBox ().getItems ().clear ();
+        tempContLeaderCardsTab.getDepotBox ().setDisable (true);
+        ArrayList<LWDepot> depots = gui.getController ().getModel ().getPersonalBoard ().getWarehouse ();
+        tempContLeaderCardsTab.getDepotBox ().getItems ().addAll (depots.stream ().map (depots::indexOf).collect(Collectors.toList()));
+    }
+
+    public void initSlotLeaderCards() {
+        tempContLeaderCardsTab.getLeaderCards ().getChildren ().clear ();
+        ArrayList<LWLeaderCard> activeCards = gui.getController ().getModel ().getPersonalBoard ().getLeaderCardsPlayed ();
+        ArrayList<LWLeaderCard> inactiveCards = gui.getController ().getModel ().getPersonalBoard ().getLeaderCardsNotPlayed ();
+        JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
+        for (LWLeaderCard card : inactiveCards) {
+            ImageView cardImage = new ImageView (loader.loadLeaderCardImage (card.getID()));
+            cardImage.fitHeightProperty ().bind (tempContLeaderCardsTab.getTabContent ().heightProperty ().multiply (0.4));
+            cardImage.setPreserveRatio (true);
+            HBox playOrDiscardBtns = new HBox ();
+            Button playBtn = new Button ("Play");
+            Button discardBtn = new Button ("Discard");
+            playOrDiscardBtns.getChildren ().addAll (playBtn, discardBtn);
+            playOrDiscardBtns.spacingProperty ().bind (cardImage.fitWidthProperty ().multiply (0.1));
+            VBox btnsAndCard = new VBox ();
+            btnsAndCard.getChildren ().addAll (playOrDiscardBtns, cardImage);
+            tempContLeaderCardsTab.getLeaderCards ().getChildren ().add (btnsAndCard);
         }
     }
 }
