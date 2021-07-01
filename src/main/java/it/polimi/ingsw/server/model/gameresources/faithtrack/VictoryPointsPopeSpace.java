@@ -4,6 +4,7 @@ import it.polimi.ingsw.server.model.exception.CellNotFoundInFaithTrackException;
 import it.polimi.ingsw.server.model.exception.NegativeVPAmountException;
 import it.polimi.ingsw.server.model.gamelogic.Player;
 import it.polimi.ingsw.server.model.gamelogic.actions.VictoryPoint;
+import it.polimi.ingsw.utils.network.MessageWriter;
 
 import java.util.HashMap;
 
@@ -35,6 +36,12 @@ public class VictoryPointsPopeSpace extends PopeSpace{
         VictoryPoint pointsToBeAdded = mapOfFaithMarker.get(player).updateLastVictoryPoint(victoryPoint);
         player.addVictoryPointsToPlayer(pointsToBeAdded);
         super.activateCell(faithTrack, player);
+    }
+
+    @Override
+    public void getInfo(MessageWriter writer) {
+        writer.addProperty ("isPopeSpace", true);
+        writer.addProperty ("VP", this.victoryPoints.getPoints());
     }
 
     /**

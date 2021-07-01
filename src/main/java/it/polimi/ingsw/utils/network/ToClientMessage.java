@@ -16,7 +16,7 @@ public class ToClientMessage extends AbstractMessage<ViewUpdate>{
 
     private int parseForProgressiveNumber(String msg) throws IllegalMessageException {
         try {
-            return (Integer) JsonHandler.getAsJavaObjectFromJSONStr (Integer.class, "progressiveNumber", msg);
+            return (int) JsonHandler.getAsJavaObjectFromJSONStr (int.class, "progressiveNumber", msg);
         } catch (Exception e) {
             throw new IllegalMessageException ();
         }

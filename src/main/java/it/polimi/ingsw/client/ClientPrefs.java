@@ -13,7 +13,7 @@ public class ClientPrefs {
 
     public static String getPathToDB() {
         try {
-            pathToDB = (String) getAsJavaObjectFromJSON(String.class, "pathToDB/", PATH_TO_PREFS);
+            pathToDB = (String) getAsJavaObjectFromJSON(String.class, "pathToDB", PATH_TO_PREFS);
         } catch (FileNotFoundException e) {
             e.printStackTrace ();
         }
@@ -22,28 +22,19 @@ public class ClientPrefs {
 
     public static long getTimeToWaitConnection() {
         try {
-            timeToWaitConnection = (long) getAsJavaObjectFromJSON(long.class, "timeToWaitConnection/", PATH_TO_PREFS);
+            timeToWaitConnection = (long) getAsJavaObjectFromJSON(long.class, "timeToWaitConnection", PATH_TO_PREFS);
         } catch (FileNotFoundException e) {
             e.printStackTrace ();
         }
         return timeToWaitConnection;
     }
 
-    public static Integer getMaxProgressiveNumber() {
+    public static int getMaxProgressiveNumber() {
         try {
-            maxProgressiveNumber = (Integer) getAsJavaObjectFromJSON(Integer.class, "maxProgressiveNumber/", PATH_TO_PREFS);
+            maxProgressiveNumber = (int) getAsJavaObjectFromJSON(int.class, "maxProgressiveNumber", PATH_TO_PREFS);
         } catch (FileNotFoundException e) {
             e.printStackTrace ();
         }
         return maxProgressiveNumber;
-    }
-
-    public static long getTimeOutToExpectServerMsg() {
-        try {
-            timeToWaitMsg = (long) getAsJavaObjectFromJSON(long.class, "timeToWaitMsg/", PATH_TO_PREFS);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace ();
-        }
-        return timeToWaitMsg;
     }
 }
