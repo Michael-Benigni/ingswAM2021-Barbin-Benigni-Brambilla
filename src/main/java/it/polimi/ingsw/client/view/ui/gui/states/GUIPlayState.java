@@ -170,29 +170,35 @@ public class GUIPlayState extends GUIState {
         gameboardTab.getCardsGrid().getChildren ().forEach ((n) -> n.setDisable (!isToEnable));
     }
 
-    public void initCardsGrid() {
+    public void initCardsGrid() throws IllegalInputException {
         gameboardTab.getCardsGrid().getChildren().clear();
         LWCardsGrid lwCardsGrid = gui.getController ().getModel ().getBoard ().getGrid ();
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         for (int i = 0; i < lwCardsGrid.getRows (); i++) {
             for (int j = 0; j < lwCardsGrid.getColumns (); j++) {
-                ImageView cardWrapper = null;
-                try {
-                    cardWrapper = new ImageView (loader.loadDevCardImage (lwCardsGrid.getCard (i, j).getId ()));
-                } catch (IllegalInputException e) {
-                    e.printStackTrace ();
+                LWDevCard card = lwCardsGrid.getCard (i, j);
+                Integer cardID = card.getId();
+
+                if (cardID == null){
+                    Label emptyDeckLabel = new Label("EMPTY DECK");
+                    gameboardTab.getCardsGrid().add (emptyDeckLabel, j, i);
                 }
-                cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.22));
-                cardWrapper.setPreserveRatio (true);
-                Button buttonCard = new Button ("", cardWrapper);
-                String finalJ = String.valueOf (j);
-                String finalI = String.valueOf (i);
-                buttonCard.setOnAction (e -> {
-                    gui.getInterpreter ().addInteraction ("row", finalJ);
-                    gui.getInterpreter ().addInteraction ("column", finalI);
-                    personalboardTab.getSlotButtons().forEach(button -> button.setDisable(false));
-                });
-                gameboardTab.getCardsGrid().add (buttonCard, j, i);
+                else{
+                    ImageView cardWrapper = null;
+                    cardWrapper = new ImageView (loader.loadDevCardImage (cardID));
+                    cardWrapper.fitHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.22));
+                    cardWrapper.setPreserveRatio (true);
+                    Button buttonCard = new Button ("", cardWrapper);
+                    String finalJ = String.valueOf (j);
+                    String finalI = String.valueOf (i);
+                    buttonCard.setOnAction (e -> {
+                        gui.getInterpreter ().addInteraction ("row", finalJ);
+                        gui.getInterpreter ().addInteraction ("column", finalI);
+                        personalboardTab.getSlotButtons().forEach(button -> button.setDisable(false));
+                    });
+                    gameboardTab.getCardsGrid().add (buttonCard, j, i);
+                }
+
             }
         }
         gameboardTab.getCardsGrid().setAlignment (Pos.CENTER);
