@@ -28,6 +28,7 @@ public class FirstTurn extends Turn {
                 "not more, not less. You have also to discard "
                 + game.getCurrentPlayer ().getPersonalBoard ().getSlotLeaderCards ().getMaxNumOfCardsDuringGame ()
                 + " Leader cards.");
+        writer.addProperty ("numTurn", 1);
         return writer.write ();
     }
 

@@ -98,6 +98,7 @@ public class Turn {
     public Sendable getNextPlayerMessage(Game game) {
         MessageWriter writer = new MessageWriter ();
         writer.setHeader (Header.ToClient.YOUR_TURN);
+        writer.addProperty ("numTurn", game.getCurrentRound());
         return writer.write ();
     }
 
