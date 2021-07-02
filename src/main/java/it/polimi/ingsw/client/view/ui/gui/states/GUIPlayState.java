@@ -39,6 +39,8 @@ public class GUIPlayState extends GUIState {
     private boolean isProductionTurn;
     private boolean isMarketTurn;
     private Button okButton;
+    private AtomicReference<Move> chosenMove;
+    private Button endTurnButton;
 
     private GUIPlayState() {
         instance = this;
@@ -94,10 +96,16 @@ public class GUIPlayState extends GUIState {
         return new GUIGameOverState();
     }
 
+    public void initExtraProductionPowers(){
+        ArrayList <LWXProductionPower> extraProductionPowers = gui.getController().getModel().getPersonalBoard().getExtraProductionPowers();
+
+    }
+
     public void initBoardProduction(){
         Button boardProductionButton = new Button("Board Production");
         boardProductionButton.setOnAction(actionEvent -> {
-            new MoveService(PlayMove.BOARD_PRODUCTION.getMove(), gui).start();
+            chosenMove.set(PlayMove.BOARD_PRODUCTION.getMove());
+            boardProductionButton.setDisable(true);
         });
         boardProductionButton.translateXProperty().bind(personalboardTab.getBoardAndExtraProductionsVBox().heightProperty().multiply(10));
         boardProductionButton.translateYProperty().bind(personalboardTab.getBoardAndExtraProductionsVBox().widthProperty().multiply(- 0.07));
@@ -109,7 +117,7 @@ public class GUIPlayState extends GUIState {
     private VBox getTurnsButtonsVBox() {
         turnsButtons = new ArrayList<>();
         VBox turnButtons = new VBox (10);
-        AtomicReference<Move> chosenMove = new AtomicReference<>();
+        chosenMove = new AtomicReference<>();
 
         Button OK = new Button ("OK");
         OK.setMaxWidth (Double.MAX_VALUE);
@@ -122,10 +130,12 @@ public class GUIPlayState extends GUIState {
             }
             else if(isProductionTurn){
                 new MoveService (chosenMove.get (), gui).start();
+                new MoveService(PlayMove.END_PRODUCTION.getMove(), gui).start();
+                endTurnButton.setDisable(false);
             }
         });
 
-        okButton = OK;
+        this.okButton = OK;
 
         turnsButtons.add(OK);
 
@@ -139,6 +149,8 @@ public class GUIPlayState extends GUIState {
             turnsButtons.forEach (node -> node.setDisable (true));
             personalboardTab.getBoardProductionButton().setDisable(true);
         });
+
+        this.endTurnButton = endTurn;
 
         turnsButtons.add(endTurn);
 
@@ -172,9 +184,9 @@ public class GUIPlayState extends GUIState {
         productionTurn.setMaxWidth (Double.MAX_VALUE);
         productionTurn.setOnAction (e -> {
             setProductionTurn(true);
-            chosenMove.set (PlayMove.START_PRODUCTION.getMove ());
+            new MoveService(PlayMove.START_PRODUCTION.getMove(), gui).start();
             turnsButtons.stream()
-                    .filter (b -> b != endTurn && b != OK).
+                    .filter (b -> b != OK).
                     forEach (node -> node.setDisable (true));
             if(!personalboardTab.getCardButtons().isEmpty())
                 personalboardTab.getCardButtons().forEach(button -> { button.setDisable(false); });

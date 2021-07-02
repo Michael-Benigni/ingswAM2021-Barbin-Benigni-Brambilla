@@ -178,7 +178,7 @@ public class GUI implements UI {
 
     @Override
     public void onXPowersChanged() {
-
+        Platform.runLater(() -> GUIPlayState.getInstance().initExtraProductionPowers());
     }
 
     @Override
