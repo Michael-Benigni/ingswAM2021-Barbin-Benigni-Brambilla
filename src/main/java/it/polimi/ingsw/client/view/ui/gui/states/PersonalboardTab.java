@@ -5,11 +5,15 @@ import it.polimi.ingsw.client.ClientPrefs;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
@@ -109,6 +113,8 @@ public class PersonalboardTab extends Tab {
         slotsHBox.translateXProperty().bind(this.getPersonalBoardBorderPane().widthProperty().multiply(0.40).
                 subtract (warehouseAndStrongbox.widthProperty ()));
 
+
+
         personalBoardBorderPane.setTop(faithTrackHBox);
         personalBoardBorderPane.setLeft(warehouseAndStrongbox);
         personalBoardBorderPane.setCenter(slotsHBox);
@@ -126,5 +132,16 @@ public class PersonalboardTab extends Tab {
     public void setCardButtons(ArrayList<Button> buttons){
         this.cardButtons.clear();
         this.cardButtons.addAll(buttons);
+    }
+
+    public void initExtraProdLabel(){
+        Label extraProductionLabel = new Label("Extra Production\nPowers");
+        extraProductionLabel.setAlignment(Pos.CENTER);
+        extraProductionLabel.setTextAlignment(TextAlignment.CENTER);
+        extraProductionLabel.backgroundProperty().setValue(new Background(new BackgroundFill(Paint.valueOf("ffffff"), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        boardAndExtraProductionsVBox.getChildren().add(extraProductionLabel);
+        boardAndExtraProductionsVBox.translateXProperty().bind(personalBoardBorderPane.widthProperty().multiply(0.28));
+        boardAndExtraProductionsVBox.translateYProperty().bind(personalBoardBorderPane.widthProperty().multiply(-0.35));
     }
 }

@@ -59,7 +59,7 @@ public class GUI implements UI {
 
     @Override
     public synchronized void onPlayerPositionFaithTrackChanged() {
-
+        Platform.runLater(() -> GUIPlayState.getInstance().initFaithTrack());
     }
 
     @Override

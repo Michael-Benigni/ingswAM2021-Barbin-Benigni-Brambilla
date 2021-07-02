@@ -40,6 +40,8 @@ public class GUIPlayState extends GUIState {
     private Button endTurnButton;
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;";
+    VBox buttons;
+    VBox faithTrackVBox;
 
 
     private GUIPlayState() {
@@ -66,18 +68,40 @@ public class GUIPlayState extends GUIState {
             tabPane.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.8));
             tabPane.maxHeightProperty ().bind (JavaFXApp.getFixedHeight ());
 
-            VBox buttons = getTurnsButtonsVBox ();
+            buttons = getTurnsButtonsVBox ();
+
+            faithTrackVBox = new VBox();
+            faithTrackVBox.spacingProperty().bind(personalboardTab.getPersonalBoardBorderPane().heightProperty().multiply(0.1));
+            buttons.getChildren().add(faithTrackVBox);
+
             buttons.maxWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.2));
             buttons.maxHeightProperty ().bind (JavaFXApp.getFixedHeight ().multiply (0.6));
             buttons.minWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.1));
             buttons.minHeightProperty ().bind (JavaFXApp.getFixedHeight ());
 
             initBoardProduction();
+            personalboardTab.initExtraProdLabel();
 
             hBox.getChildren ().addAll (tabPane, buttons) ;
             setSceneInstance (new Scene (hBox));
         }
         return getWelcomeSceneInstance();
+    }
+
+    public void initFaithTrack(){
+        faithTrackVBox.getChildren().clear();
+        Label faithTrackLabel = new Label("FAITH TRACK POSITIONS:");
+        faithTrackLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
+        faithTrackVBox.getChildren().add(faithTrackLabel);
+        LWModel model = gui.getController().getModel();
+        ArrayList<LWCell> faithTrack = model.getBoard().getFaithTrack();
+        for(LWCell cell : faithTrack){
+            ArrayList<String> usernamesInThisCell = cell.getPlayersInThisCell();
+            for(String user : usernamesInThisCell){
+                Label usernameLabel = new Label(user + "    Position: " + faithTrack.indexOf(cell));
+                faithTrackVBox.getChildren().add(usernameLabel);
+            }
+        }
     }
 
     @Override
@@ -98,7 +122,16 @@ public class GUIPlayState extends GUIState {
 
     public void initExtraProductionPowers(){
         ArrayList <LWXProductionPower> extraProductionPowers = gui.getController().getModel().getPersonalBoard().getExtraProductionPowers();
-
+        JsonImageLoader loader = new JsonImageLoader(ClientPrefs.getPathToDB());
+        for(LWXProductionPower prodPower : extraProductionPowers){
+            ImageView resourceImage = new ImageView(loader.loadResourceImage(prodPower.getConsumedResource()));
+            Button prodPowerButton = new Button("", resourceImage);
+            prodPowerButton.setOnAction(actionEvent -> {
+                gui.getInterpreter().addInteraction("numExtraPower", prodPower.getIndexOfPower().toString());
+                //TODO: FINISH THIS
+            });
+            personalboardTab.getBoardAndExtraProductionsVBox().getChildren().add(prodPowerButton);
+        }
     }
 
     public void initBoardProduction(){
@@ -107,8 +140,6 @@ public class GUIPlayState extends GUIState {
             chosenMove.set(PlayMove.BOARD_PRODUCTION.getMove());
             boardProductionButton.setDisable(true);
         });
-        boardProductionButton.translateXProperty().bind(personalboardTab.getBoardAndExtraProductionsVBox().heightProperty().multiply(10));
-        boardProductionButton.translateYProperty().bind(personalboardTab.getBoardAndExtraProductionsVBox().widthProperty().multiply(- 0.07));
         boardProductionButton.setDisable(true);
         personalboardTab.setBoardProductionButton(boardProductionButton);
         personalboardTab.getBoardAndExtraProductionsVBox().getChildren().add(boardProductionButton);
@@ -153,6 +184,7 @@ public class GUIPlayState extends GUIState {
             new MoveService (PlayMove.END_TURN.getMove (), gui).start ();
             turnsButtons.forEach (node -> node.setDisable (true));
             personalboardTab.getBoardProductionButton().setDisable(true);
+            personalboardTab.getSlotButtons().forEach(button -> button.setDisable(true));
         });
 
         this.endTurnButton = endTurn;
