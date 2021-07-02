@@ -41,6 +41,7 @@ public class GUIPlayState extends GUIState {
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;";
     private VBox buttons;
     private VBox faithTrackVBox;
+    private Button endProductionButton;
 
 
     private GUIPlayState() {
@@ -127,6 +128,7 @@ public class GUIPlayState extends GUIState {
             Button prodPowerButton = new Button("", resourceImage);
             prodPowerButton.setOnAction(actionEvent -> {
                 gui.getInterpreter().addInteraction("numExtraPower", prodPower.getIndexOfPower().toString());
+                BoardProductionPopup.alert(gui);
                 //TODO: FINISH THIS
             });
             personalboardTab.getBoardAndExtraProductionsVBox().getChildren().add(prodPowerButton);
@@ -167,9 +169,6 @@ public class GUIPlayState extends GUIState {
                 }
                 new MoveService (chosenMove.get (), gui).start();
                 endTurnButton.setDisable(false);
-                if (isProductionTurn) {
-                    new MoveService (PlayMove.END_PRODUCTION.getMove(), gui).start();
-                }
             }
         });
 
@@ -192,6 +191,17 @@ public class GUIPlayState extends GUIState {
         this.endTurnButton = endTurn;
 
         turnsButtons.add(endTurn);
+
+        Button endProduction = new Button("End Production Phase");
+        endProduction.setMaxWidth (Double.MAX_VALUE);
+        endProduction.setOnAction(actionEvent -> {
+            if(isProductionTurn)
+                new MoveService(PlayMove.END_PRODUCTION.getMove(), gui).start();
+        });
+
+        this.endProductionButton = endProduction;
+
+        turnsButtons.add(endProduction);
 
         Button marketTurn = new Button ("Market");
         marketTurn.setMaxWidth (Double.MAX_VALUE);
@@ -227,7 +237,7 @@ public class GUIPlayState extends GUIState {
             this.personalboardTab.getCardButtons ().forEach (button -> button.setDisable (false));
             this.personalboardTab.getStrongboxGrid ().getChildren ().forEach (button -> button.setDisable (false));
             turnsButtons.stream()
-                    .filter (b -> b != OK).
+                    .filter (b -> b != OK && b != endProduction).
                     forEach (node -> node.setDisable (true));
             if(!personalboardTab.getCardButtons().isEmpty())
                 personalboardTab.getCardButtons().forEach(button -> { button.setDisable(false); });
@@ -252,6 +262,7 @@ public class GUIPlayState extends GUIState {
                 marketTurn,
                 buyCardTurn,
                 productionTurn,
+                endProduction,
                 okEndButtons
         );
 
@@ -389,10 +400,12 @@ public class GUIPlayState extends GUIState {
                     resourceImage.setPreserveRatio (true);
                     Button resourceStrongboxButton = new Button(((Integer) resource.getAmount()).toString(), resourceImage);
                     resourceStrongboxButton.setOnAction(actionEvent -> {
-                        Integer amountSelected = PaymentPopup.howMuchPay (resource);
-                        gui.getInterpreter ().addInteraction ("payActions", resource.getResourceType () + " " + amountSelected);
+                        if(isProductionTurn || isBuyCardTurn){
+                            Integer amountSelected = PaymentPopup.howMuchPay (resource);
+                            gui.getInterpreter ().addInteraction ("payActions", resource.getResourceType () + " " + amountSelected);
+                        }
                     });
-                    resourceStrongboxButton.setDisable (true);
+                    //resourceStrongboxButton.setDisable (true);
                     resourceStrongboxButton.translateYProperty().bind(personalboardTab.getWarehouseAndStrongbox().
                             heightProperty().multiply(0.74));
                     resourceStrongboxButton.translateXProperty().bind(personalboardTab.getWarehouseAndStrongbox().

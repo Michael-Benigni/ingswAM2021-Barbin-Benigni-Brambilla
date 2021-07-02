@@ -107,6 +107,8 @@ public class PersonalboardTab extends Tab {
 
         warehouseAndStrongbox.getChildren().add(warehouseVBox);
         warehouseAndStrongbox.getChildren().add(strongboxGrid);
+        //TODO: FOR MICHAEL ---> warehouseAndStrongbox.spacingProperty().bind(personalBoardBorderPane.heightProperty().multiply(0.3));
+
 
         slotsHBox.spacingProperty().bind(personalBoardBorderPane.widthProperty().multiply(0.025));
         slotsHBox.translateYProperty().bind(this.getPersonalBoardBorderPane().heightProperty().multiply(0.5));

@@ -24,7 +24,7 @@ public class BoardProductionPopup {
     public static void alert(GUI gui) {
         Stage window = new Stage();
         window.initModality (Modality.APPLICATION_MODAL);
-        window.setTitle ("Payment");
+        window.setTitle ("Choose the resource you want to produce");
         window.setMinWidth (250);
         window.setMinHeight (200);
 
