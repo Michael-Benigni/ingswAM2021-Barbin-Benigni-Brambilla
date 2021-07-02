@@ -158,6 +158,8 @@ public class GUIPlayState extends GUIState {
             turnsButtons.stream()
                     .filter (b -> b != endTurn && b != OK).
                     forEach (node -> node.setDisable (true));
+            if(!personalboardTab.getCardButtons().isEmpty())
+                personalboardTab.getCardButtons().forEach(button -> { button.setDisable(false); });
         });
 
         turnsButtons.add(productionTurn);
@@ -225,7 +227,11 @@ public class GUIPlayState extends GUIState {
                     buttonCard.setOnAction (e -> {
                         gui.getInterpreter ().addInteraction ("row", finalJ);
                         gui.getInterpreter ().addInteraction ("column", finalI);
-                        personalboardTab.getSlotButtons().forEach(button -> button.setDisable(false));
+                        ArrayList<Button> slotButtonsArray = personalboardTab.getSlotButtons();
+                        for (Button button : slotButtonsArray){
+                            System.out.println(button.toString());
+                            button.setDisable(false);
+                        }
                     });
                     gameboardTab.getCardsGrid().add (buttonCard, j, i);
                 }
@@ -313,9 +319,8 @@ public class GUIPlayState extends GUIState {
             Button slotButton = new Button("", stackPane);
             slotButton.setOnAction(actionEvent ->
                     gui.getInterpreter ().addInteraction ("slotIdx", finalI));
+            slotButton.setDisable(true);
             slotButtons.add(slotButton);
-
-            slotButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
 
             if(slots.get(i).isEmpty()){
                 slotButton.setText("          EMPTY SLOT          ");

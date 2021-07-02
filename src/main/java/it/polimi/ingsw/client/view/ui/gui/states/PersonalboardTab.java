@@ -80,16 +80,14 @@ public class PersonalboardTab extends Tab {
         warehouseAndStrongbox.getChildren().add(warehouseVBox);
         warehouseAndStrongbox.getChildren().add(strongboxGrid);
 
-        slotsHBox.spacingProperty().bind(personalBoardBorderPane.widthProperty().multiply(0.01));
+        slotsHBox.spacingProperty().bind(personalBoardBorderPane.widthProperty().multiply(0.025));
         slotsHBox.translateYProperty().bind(this.getPersonalBoardBorderPane().heightProperty().multiply(0.5));
-        slotsHBox.translateXProperty().bind(this.getPersonalBoardBorderPane().widthProperty().multiply(0.38).
+        slotsHBox.translateXProperty().bind(this.getPersonalBoardBorderPane().widthProperty().multiply(0.40).
                 subtract (warehouseAndStrongbox.widthProperty ()));
 
         personalBoardBorderPane.setTop(faithTrackHBox);
         personalBoardBorderPane.setLeft(warehouseAndStrongbox);
         personalBoardBorderPane.setCenter(slotsHBox);
-
-
 
         this.setClosable (false);
         this.setContent(content);
