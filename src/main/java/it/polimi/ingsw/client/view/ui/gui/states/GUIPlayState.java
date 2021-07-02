@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.*;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.PlayMove;
-import it.polimi.ingsw.client.view.ui.Interpreter;
+import it.polimi.ingsw.client.view.ui.cli.Colour;
 import it.polimi.ingsw.client.view.ui.gui.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,7 +24,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class GUIPlayState extends GUIState {
-    private boolean activatedButtonsForPayments;
     private static Scene scene;
     private static GUIPlayState instance;
     private GUI gui;
@@ -166,8 +165,10 @@ public class GUIPlayState extends GUIState {
                     numOfPayments--;
                 }
                 new MoveService (chosenMove.get (), gui).start();
-                new MoveService(PlayMove.END_PRODUCTION.getMove(), gui).start();
                 endTurnButton.setDisable(false);
+                if (isProductionTurn) {
+                    new MoveService (PlayMove.END_PRODUCTION.getMove(), gui).start();
+                }
             }
         });
 
@@ -222,7 +223,6 @@ public class GUIPlayState extends GUIState {
         productionTurn.setOnAction (e -> {
             setProductionTurn(true);
             new MoveService(PlayMove.START_PRODUCTION.getMove(), gui).start();
-            this.activatedButtonsForPayments = true;
             this.personalboardTab.getCardButtons ().forEach (button -> button.setDisable (false));
             this.personalboardTab.getStrongboxGrid ().getChildren ().forEach (button -> button.setDisable (false));
             turnsButtons.stream()
@@ -561,6 +561,18 @@ public class GUIPlayState extends GUIState {
                 tempContLeaderCardsTab.getAmountBox ().setDisable (false);
                 tempContLeaderCardsTab.getDepotBox ().setDisable (false);
                 tempContLeaderCardsTab.getSendToWarehouse ().setDisable (false);
+            });
+        }
+        int numEmptyResources = gui.getController ().getModel ().getPersonalBoard ().
+                getTemporaryContainer ().getEmptyResources ();
+        for (int i = 0; i < numEmptyResources; i++) {
+            Canvas whiteMarble = getMarbleCanvas (Colour.WHITE.name ());
+            Button whiteMarbleBtn = new Button ("", whiteMarble);
+            tempContLeaderCardsTab.getResources ().getChildren ().add (whiteMarbleBtn);
+            whiteMarbleBtn.setOnAction (e -> {
+                ArrayList<LWWMPower> powers = gui.getController ().getModel ().getPersonalBoard ().getWhiteMarblePowers ();
+                if (!powers.isEmpty ())
+                    TrasformWhiteMarblePopup.alert(powers, gui);
             });
         }
     }

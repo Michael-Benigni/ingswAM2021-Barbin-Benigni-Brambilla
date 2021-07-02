@@ -1,12 +1,10 @@
 package it.polimi.ingsw.client.view.ui.gui.states;
 
-import it.polimi.ingsw.client.view.lightweightmodel.LWDepot;
 import it.polimi.ingsw.client.view.lightweightmodel.LWResourceType;
 import it.polimi.ingsw.client.view.moves.PlayMove;
 import it.polimi.ingsw.client.view.ui.gui.GUI;
 import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
 import it.polimi.ingsw.client.view.ui.gui.MoveService;
-import it.polimi.ingsw.server.model.gameresources.stores.ResourceType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -16,9 +14,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class TempContLeaderCardsTab extends Tab {
     private final HBox leaderCards;
