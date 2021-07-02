@@ -433,12 +433,16 @@ public class GUIPlayState extends GUIState {
                 getTemporaryContainer ().getStorableResources ();
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         for (LWResource resource : storableResources) {
-            Button resourceBtn = new Button ("", new ImageView (loader.loadResourceImage (resource)));
+            ImageView resourceImage = new ImageView (loader.loadResourceImage (resource));
+            resourceImage.fitHeightProperty().bind(tempContLeaderCardsTab.getResources().heightProperty().multiply(0.3));
+            resourceImage.setPreserveRatio(true);
+            Button resourceBtn = new Button (((Integer)resource.getAmount()).toString(), resourceImage);
             tempContLeaderCardsTab.getResources ().getChildren ().add (resourceBtn);
             ArrayList<Integer> amounts = new ArrayList<> ();
             for (int i = 1; i <= resource.getAmount (); i++)
                 amounts.add (i);
             resourceBtn.setOnAction (e -> {
+                tempContLeaderCardsTab.getAmountBox().getItems().clear();
                 tempContLeaderCardsTab.setSelectedResource(resource.getResourceType());
                 tempContLeaderCardsTab.getAmountBox ().getItems ().addAll (amounts);
                 tempContLeaderCardsTab.getAmountBox ().setValue (amounts.get (0));
@@ -460,12 +464,33 @@ public class GUIPlayState extends GUIState {
             cardImage.setPreserveRatio (true);
             HBox playOrDiscardBtns = new HBox ();
             Button playBtn = new Button ("Play");
+            playBtn.setOnAction(actionEvent -> {
+                gui.getInterpreter().addInteraction("playOrDiscard", "play");
+                gui.getInterpreter().addInteraction("numInSlot", ((Integer) card.getSlotIndex()).toString());
+                new MoveService(PlayMove.LEADER.getMove(), gui).start();
+            });
             Button discardBtn = new Button ("Discard");
+            discardBtn.setOnAction(actionEvent -> {
+                gui.getInterpreter().addInteraction("playOrDiscard", "discard");
+                gui.getInterpreter().addInteraction("numInSlot", ((Integer) card.getSlotIndex()).toString());
+                new MoveService(PlayMove.LEADER.getMove(), gui).start();
+            });
             playOrDiscardBtns.getChildren ().addAll (playBtn, discardBtn);
             playOrDiscardBtns.spacingProperty ().bind (cardImage.fitWidthProperty ().multiply (0.1));
             VBox btnsAndCard = new VBox ();
             btnsAndCard.getChildren ().addAll (playOrDiscardBtns, cardImage);
             tempContLeaderCardsTab.getLeaderCards ().getChildren ().add (btnsAndCard);
+        }
+        for (LWLeaderCard card : activeCards) {
+            ImageView cardImage = new ImageView (loader.loadLeaderCardImage (card.getID()));
+            cardImage.fitHeightProperty ().bind (tempContLeaderCardsTab.getTabContent ().heightProperty ().multiply (0.4));
+            cardImage.setPreserveRatio (true);
+            VBox cardAndActiveLabel = new VBox ();
+            Label activeLabel = new Label("ACTIVE");
+            activeLabel.setTextAlignment(TextAlignment.CENTER);
+            activeLabel.setAlignment(Pos.CENTER);
+            cardAndActiveLabel.getChildren ().addAll (activeLabel, cardImage);
+            tempContLeaderCardsTab.getLeaderCards ().getChildren ().add (cardAndActiveLabel);
         }
     }
 }
