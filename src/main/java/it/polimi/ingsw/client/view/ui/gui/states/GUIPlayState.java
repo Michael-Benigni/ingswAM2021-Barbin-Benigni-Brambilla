@@ -122,13 +122,10 @@ public class GUIPlayState extends GUIState {
         Button OK = new Button ("OK");
         OK.setMaxWidth (Double.MAX_VALUE);
         OK.setOnAction (e -> {
-            if(isBuyCardTurn){
+            if(isMarketTurn){
                 new MoveService (chosenMove.get (), gui).start();
             }
-            else if(isMarketTurn){
-                new MoveService (chosenMove.get (), gui).start();
-            }
-            else if(isProductionTurn){
+            else if(isProductionTurn || isBuyCardTurn){
                 int numOfPayments = gui.getInterpreter ().getNumInteractionsIn ("payActions");
                 while (numOfPayments > 0) {
                     if (numOfPayments == 1)
@@ -196,7 +193,6 @@ public class GUIPlayState extends GUIState {
             this.activatedButtonsForPayments = true;
             this.personalboardTab.getCardButtons ().forEach (button -> button.setDisable (false));
             this.personalboardTab.getStrongboxGrid ().getChildren ().forEach (button -> button.setDisable (false));
-            chosenMove.set (PlayMove.START_PRODUCTION.getMove ());
             turnsButtons.stream()
                     .filter (b -> b != OK).
                     forEach (node -> node.setDisable (true));

@@ -152,7 +152,7 @@ public class MarketTray implements GameComponent {
         ArrayList<MarketMarble> swappedRow = swap (rowToSwap);
         for (ArrayList<MarketMarble> columns : marblesMatrix) {
             int columnIdx = marblesMatrix.indexOf (columns);
-            marblesMatrix.get (columnIdx).set (selectedRow, swappedRow.get (columnIdx));
+            marblesMatrix.get (columnIdx).set (selectedRow, swappedRow.get (columnIdx).clone ());
         }
         // it has been swapped the row in marblesGrid or a copy of the row?
         notifyUpdate (generateUpdate ());
@@ -172,7 +172,7 @@ public class MarketTray implements GameComponent {
         ArrayList<Resource> resources = getResources (columnToSwap);
         ArrayList<MarketMarble> swappedColumn = swap (columnToSwap);
         for (int i = 0; i < columnToSwap.size (); i++)
-            marblesMatrix.get (selectedColumn).set (i, swappedColumn.get (i));
+            marblesMatrix.get (selectedColumn).set (i, swappedColumn.get (i).clone ());
         notifyUpdate (generateUpdate ());
         return resources;
     }
@@ -251,9 +251,9 @@ public class MarketTray implements GameComponent {
      */
     private ArrayList<MarketMarble> swap(ArrayList<MarketMarble> vectorToSwap) {
         MarketMarble oldMarbleOnSlide = marbleOnSlide.clone ();
-        setNewMarbleOnSlide (vectorToSwap.get (0));
+        setNewMarbleOnSlide (vectorToSwap.get (0).clone ());
         for (int i = 0; i < vectorToSwap.size () - 1; i++)
-            vectorToSwap.set (i, vectorToSwap.get (i + 1));
+            vectorToSwap.set (i, vectorToSwap.get (i + 1).clone ());
         vectorToSwap.set (vectorToSwap.size () - 1, oldMarbleOnSlide);
         return vectorToSwap;
     }

@@ -30,7 +30,7 @@ public class GUI implements UI {
         this.messages = new ArrayDeque<>();
     }
 
-    public static GUI getInstance() {
+    public synchronized static GUI getInstance() {
         if (instance == null)
             instance = new GUI ();
         return instance;
@@ -48,22 +48,22 @@ public class GUI implements UI {
     }
 
     @Override
-    public void onMarketChanged() {
+    public synchronized void onMarketChanged() {
         Platform.runLater (() -> GUIPlayState.getInstance ().initMarketGrid ());
     }
 
     @Override
-    public void onFaithTrackChanged() {
+    public synchronized void onFaithTrackChanged() {
 
     }
 
     @Override
-    public void onPlayerPositionFaithTrackChanged() {
+    public synchronized void onPlayerPositionFaithTrackChanged() {
 
     }
 
     @Override
-    public void onCardsGridBuilt() {
+    public synchronized void onCardsGridBuilt() {
         Platform.runLater (() -> {
             try {
                 GUIPlayState.getInstance ().initCardsGrid ();
@@ -74,70 +74,70 @@ public class GUI implements UI {
     }
 
     @Override
-    public void onCardBoughtFromGrid() {
+    public synchronized void onCardBoughtFromGrid() {
         onCardsGridBuilt ();
     }
 
     @Override
-    public void onRoomIDChanged() {
+    public synchronized void onRoomIDChanged() {
         GUIWaitingRoomState.getInstance().updateRoomIDLabelInMatchSettings(this);
     }
 
     @Override
-    public void onSetUsername() {
+    public synchronized void onSetUsername() {
 
     }
 
     @Override
-    public void onPositionInTurnChanged() {
+    public synchronized void onPositionInTurnChanged() {
 
     }
 
     @Override
-    public void onRoomSizeChanged() {
+    public synchronized void onRoomSizeChanged() {
         Platform.runLater(() -> GUIWaitingRoomState.getInstance().notifyNewRoomSize(this));
     }
 
     @Override
-    public void onNewPlayerInGame() {
+    public synchronized void onNewPlayerInGame() {
 
     }
 
-    public void notifyRoomFull() {
+    public synchronized void notifyRoomFull() {
         Platform.runLater (() -> GUIWaitingRoomState.getInstance ().enableButtonStartGame());
     }
 
     @Override
-    public void notifyErrorConnection() {
+    public synchronized void notifyErrorConnection() {
         String info = "Connection Refused. The Server is not working.\n Try again in few minutes.";
         Platform.runLater (() -> Popup.alert ("ERROR", info, e -> JavaFXApp.getInstance ().getWindow().close()));
     }
 
     @Override
-    public void connectionSuccessful() {
+    public synchronized void connectionSuccessful() {
 
     }
 
     @Override
-    public void onUserInRoomEnteredOrDisconnected(boolean entered) {
+    public synchronized void onUserInRoomEnteredOrDisconnected(boolean entered) {
         Platform.runLater(() ->
                 GUIWaitingRoomState.getInstance().notifyNewPlayerInRoom(this.controller.getModel().getInfoMatch()));
     }
 
     @Override
-    public void onIsLeaderChanged() {
+    public synchronized void onIsLeaderChanged() {
         Platform.runLater(() -> JavaFXApp.getInstance().setSecondScene(controller.getModel().getInfoMatch().isLeader()));
     }
 
     @Override
-    public void onWarehouseChanged() {
+    public synchronized void onWarehouseChanged() {
         Platform.runLater (() -> {
             GUIPlayState.getInstance ().initWarehouse();
         });
     }
 
     @Override
-    public void onLeaderDisconnected(){
+    public synchronized void onLeaderDisconnected(){
         Platform.runLater(() -> {
             JavaFXApp.getInstance().goToSecondSceneOnLeaderChanged();
             notifyMessage("You are the new leader of the party");
@@ -148,41 +148,41 @@ public class GUI implements UI {
     }
 
     @Override
-    public void onStrongboxChanged() {
+    public synchronized void onStrongboxChanged() {
         Platform.runLater(() -> GUIPlayState.getInstance().initStrongbox());
     }
 
     @Override
-    public void onTempContainerChanged() {
+    public synchronized void onTempContainerChanged() {
         Platform.runLater (() -> {
             GUIPlayState.getInstance ().initTempContainer ();
         });
     }
 
     @Override
-    public void onSlotDevCardsChanged() {
+    public synchronized void onSlotDevCardsChanged() {
         Platform.runLater(() -> GUIPlayState.getInstance().initSlots());
     }
 
     @Override
-    public void onSlotLeaderCardsChanged() {
+    public synchronized void onSlotLeaderCardsChanged() {
         Platform.runLater (() -> {
             GUIPlayState.getInstance ().initSlotLeaderCards ();
         });
     }
 
     @Override
-    public void onWMPowerChanged() {
+    public synchronized void onWMPowerChanged() {
 
     }
 
     @Override
-    public void onXPowersChanged() {
+    public synchronized void onXPowersChanged() {
         Platform.runLater(() -> GUIPlayState.getInstance().initExtraProductionPowers());
     }
 
     @Override
-    public void onCurrentPlayerChanged(String additionalMsg) {
+    public synchronized void onCurrentPlayerChanged(String additionalMsg) {
         if(controller.getModel().getInfoMatch().getPlayerAt(controller.getModel().getInfoMatch().getCurrentPlayerPos()).
                 equals(controller.getModel().getInfoMatch().getYourUsername())){
             Platform.runLater(() -> GUIPlayState.getInstance().resetButtonsForTurnChanging());
@@ -191,48 +191,48 @@ public class GUI implements UI {
 
 
     @Override
-    public void showPersonalBoard() {
+    public synchronized void showPersonalBoard() {
 
     }
 
     @Override
-    public void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames,
+    public synchronized void onGameOver(ArrayList<String> winnersNames, ArrayList<String> losersNames,
                            ArrayList<Integer> winnersVPs, ArrayList<Integer> losersVPs, String addInfo) {
 
     }
 
     @Override
-    public void showGameBoard() {
+    public synchronized void showGameBoard() {
 
     }
 
     @Override
-    public void showInfoGame() {
+    public synchronized  void showInfoGame() {
 
     }
 
     @Override
-    public void notifyError(String info) {
+    public synchronized void notifyError(String info) {
         Platform.runLater (() -> Popup.alert ("ERROR", info));
     }
 
     @Override
-    public void notifyMessage(String info) {
+    public synchronized void notifyMessage(String info) {
         Platform.runLater (() -> Popup.alert ("INFO", info));
     }
 
     @Override
-    public void nextInputRequest() {
+    public synchronized void nextInputRequest() {
 
     }
 
     @Override
-    public GUIInterlocutor getInterlocutor() {
+    public synchronized GUIInterlocutor getInterlocutor() {
         return interlocutor;
     }
 
     @Override
-    public GUIInterpreter getInterpreter() {
+    public synchronized GUIInterpreter getInterpreter() {
         return interpreter;
     }
 
@@ -242,24 +242,24 @@ public class GUI implements UI {
     }
 
     @Override
-    public void setNextState() {
+    public synchronized void setNextState() {
         state = state.getNextState ();
         Platform.runLater (() -> JavaFXApp.getInstance ().setNextScene ());
     }
 
 
     @Override
-    public void printMenu() {
+    public synchronized void printMenu() {
 
     }
 
     @Override
-    public void setController(Controller controller) {
+    public synchronized void setController(Controller controller) {
         this.controller = controller;
     }
 
     @Override
-    public Controller getController() {
+    public synchronized Controller getController() {
         return controller;
     }
 
@@ -284,7 +284,7 @@ public class GUI implements UI {
     }
 
     @Override
-    public void notifyRegistration(boolean isLeader, int orderOfRegistration) {
+    public synchronized void notifyRegistration(boolean isLeader, int orderOfRegistration) {
         Platform.runLater (() -> JavaFXApp.getInstance ().setNextScene ());
     }
 }

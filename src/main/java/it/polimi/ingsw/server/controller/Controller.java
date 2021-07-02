@@ -216,14 +216,16 @@ public class Controller {
      * Method that allows to the provided user to connect into the waiting room with the provided ID.
      */
     public synchronized void registerToWaitingRoomWith(int ID, User user) throws FullWaitingRoomException, InvalidUserException, WrongIdWaitingRoomException {
-        for (WaitingRoom room : allRooms ())
+        for (WaitingRoom room : allRooms ()) {
             if (room.getID () == ID) {
                 try {
-                    room.reconnection (user, getGameOf(room));
+                    room.reconnection (user, getGameOf (room));
                 } catch (EndGameException e) {
-                    onGameEnded(room);
+                    onGameEnded (room);
                 }
+                return;
             }
+        }
         throw new WrongIdWaitingRoomException(ID);
     }
 
