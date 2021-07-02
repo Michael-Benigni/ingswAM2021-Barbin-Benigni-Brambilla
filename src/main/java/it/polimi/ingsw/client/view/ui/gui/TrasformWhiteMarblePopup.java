@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class TrasformWhiteMarblePopup {
     public static void alert(ArrayList<LWWMPower> whiteMarblePowers, GUI gui) {
         Stage window = new Stage();
         window.initModality (Modality.APPLICATION_MODAL);
-        window.setTitle ("Payment");
+        window.setTitle ("Transform White Marble");
         window.setMinWidth (250);
         window.setMinHeight (200);
 
@@ -39,7 +40,14 @@ public class TrasformWhiteMarblePopup {
             hBox.getChildren ().add (powerButton);
         }
 
-        Scene scene = new Scene (hBox);
+        Button closeButton = new Button ("OK");
+        closeButton.setOnAction (e -> {
+            window.close ();
+        });
+
+        VBox vBox = new VBox ();
+        vBox.getChildren ().addAll (hBox, closeButton);
+        Scene scene = new Scene (vBox);
         window.setScene (scene);
         window.showAndWait ();
     }

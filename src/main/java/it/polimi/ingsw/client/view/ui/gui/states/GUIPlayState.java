@@ -39,8 +39,8 @@ public class GUIPlayState extends GUIState {
     private Button endTurnButton;
     private final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
     private final String HOVERED_BUTTON_STYLE = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;";
-    VBox buttons;
-    VBox faithTrackVBox;
+    private VBox buttons;
+    private VBox faithTrackVBox;
 
 
     private GUIPlayState() {
@@ -137,6 +137,7 @@ public class GUIPlayState extends GUIState {
         Button boardProductionButton = new Button("Board Production");
         boardProductionButton.setOnAction(actionEvent -> {
             chosenMove.set(PlayMove.BOARD_PRODUCTION.getMove());
+            BoardProductionPopup.alert(gui);
             boardProductionButton.setDisable(true);
         });
         boardProductionButton.setDisable(true);
