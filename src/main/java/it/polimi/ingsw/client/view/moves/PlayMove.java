@@ -226,7 +226,7 @@ public enum PlayMove implements MoveWrapper {
             writer = column.handleInput (interlocutor, interpreter, writer);
             IntegerRequest slotIdx = new IntegerRequest ("Choose the number of the card slot index on which you want to place the new card", "slotIdx");
             writer = slotIdx.handleInput (interlocutor, interpreter, writer);
-            return payments (interlocutor, interpreter, writer, "payActions").write ();
+            return payments (interlocutor, interpreter, writer).write ();
         };
     }
 
@@ -255,7 +255,7 @@ public enum PlayMove implements MoveWrapper {
             writer.setHeader (Header.ToServer.BOARD_PRODUCTION);
             ResourceRequest resource = new ResourceRequest ("Choose the resource: digit the type between " + PlayState.getAllResourceTypes () + " and the a amount to produce", "produced");
             writer = resource.handleInput (interlocutor, interpreter, writer);
-            return payments (interlocutor, interpreter, writer, "payActions").write ();
+            return payments (interlocutor, interpreter, writer).write ();
         };
     }
 
@@ -267,7 +267,7 @@ public enum PlayMove implements MoveWrapper {
             writer.setHeader (Header.ToServer.PRODUCTION_CARD);
             IntegerRequest numSlot = new IntegerRequest ("Choose the number of slot with the card that you want to use for production", "numSlot");
             writer = numSlot.handleInput (interlocutor, interpreter, writer);
-            return payments (interlocutor, interpreter, writer, "payActions").write ();
+            return payments (interlocutor, interpreter, writer).write ();
         };
     }
 
@@ -286,12 +286,12 @@ public enum PlayMove implements MoveWrapper {
         };
     }
 
-    private static MessageWriter payments(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer, String nameProperty) throws IllegalInputException {
+    private static MessageWriter payments(Interlocutor interlocutor, Interpreter interpreter, MessageWriter writer) throws IllegalInputException {
         String addOrStop;
         int iterations = 0;
         do {
             PaymentRequest payment = new PaymentRequest ("If you want to pay from STRONGBOX digit \"RESOURCE_TYPE AMOUNT\", " +
-                    "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT DEPOT_INDEX\"", nameProperty);
+                    "if you want to pay from WAREHOUSE digit \"RESOURCE_TYPE AMOUNT DEPOT_INDEX\"", "payActions");
             writer = payment.handleInput (interlocutor, interpreter, writer);
             interlocutor.write ("Digit \"A\" to add another payment, \"S\" to stop");
             addOrStop = interpreter.listen ("stop");
@@ -300,8 +300,8 @@ public enum PlayMove implements MoveWrapper {
         interlocutor.write ("--------------END---------------");
         if (iterations == 1) {
             ArrayList<Object> paymentArray = new ArrayList<> ();
-            paymentArray.add (writer.getInfo(nameProperty));
-            writer.resetProperty (nameProperty, paymentArray);
+            paymentArray.add (writer.getInfo("payActions"));
+            writer.resetProperty ("payActions", paymentArray);
         }
         return writer;
     }

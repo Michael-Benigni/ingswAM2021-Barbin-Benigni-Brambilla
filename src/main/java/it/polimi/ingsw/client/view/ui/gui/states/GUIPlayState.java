@@ -5,13 +5,10 @@ import it.polimi.ingsw.client.view.exceptions.IllegalInputException;
 import it.polimi.ingsw.client.view.lightweightmodel.*;
 import it.polimi.ingsw.client.view.moves.Move;
 import it.polimi.ingsw.client.view.moves.PlayMove;
-import it.polimi.ingsw.client.view.ui.gui.GUI;
-import it.polimi.ingsw.client.view.ui.gui.JavaFXApp;
-import it.polimi.ingsw.client.view.ui.gui.JsonImageLoader;
-import it.polimi.ingsw.client.view.ui.gui.MoveService;
+import it.polimi.ingsw.client.view.ui.Interpreter;
+import it.polimi.ingsw.client.view.ui.gui.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,12 +19,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
-
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class GUIPlayState extends GUIState {
+    private boolean activatedButtonsForPayments;
     private static Scene scene;
     private static GUIPlayState instance;
     private GUI gui;
@@ -41,6 +38,9 @@ public class GUIPlayState extends GUIState {
     private Button okButton;
     private AtomicReference<Move> chosenMove;
     private Button endTurnButton;
+    private final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
+    private final String HOVERED_BUTTON_STYLE = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;";
+
 
     private GUIPlayState() {
         instance = this;
@@ -129,6 +129,14 @@ public class GUIPlayState extends GUIState {
                 new MoveService (chosenMove.get (), gui).start();
             }
             else if(isProductionTurn){
+                int numOfPayments = gui.getInterpreter ().getNumInteractionsIn ("payActions");
+                while (numOfPayments > 0) {
+                    if (numOfPayments == 1)
+                        gui.getInterpreter ().addInteraction ("stop", "S");
+                    else
+                        gui.getInterpreter ().addInteraction ("stop", "A");
+                    numOfPayments--;
+                }
                 new MoveService (chosenMove.get (), gui).start();
                 new MoveService(PlayMove.END_PRODUCTION.getMove(), gui).start();
                 endTurnButton.setDisable(false);
@@ -185,6 +193,10 @@ public class GUIPlayState extends GUIState {
         productionTurn.setOnAction (e -> {
             setProductionTurn(true);
             new MoveService(PlayMove.START_PRODUCTION.getMove(), gui).start();
+            this.activatedButtonsForPayments = true;
+            this.personalboardTab.getCardButtons ().forEach (button -> button.setDisable (false));
+            this.personalboardTab.getStrongboxGrid ().getChildren ().forEach (button -> button.setDisable (false));
+            chosenMove.set (PlayMove.START_PRODUCTION.getMove ());
             turnsButtons.stream()
                     .filter (b -> b != OK).
                     forEach (node -> node.setDisable (true));
@@ -280,6 +292,14 @@ public class GUIPlayState extends GUIState {
         ArrayList<LWDepot> warehouse = gui.getController().getModel().getPersonalBoard().getWarehouse();
         tempContLeaderCardsTab.getDepotBox ().getItems ().addAll (warehouse.stream ().map (warehouse::indexOf).collect(Collectors.toList()));
         JsonImageLoader resourceLoader = new JsonImageLoader(ClientPrefs.getPathToDB());
+        Label label = new Label ("Send to Temporary \n Container");
+        label.setTextFill (Color.WHITE);
+        label.setVisible (false);
+        label.translateXProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                heightProperty().multiply(0.15));
+        label.translateYProperty().bind(personalboardTab.getWarehouseAndStrongbox().
+                heightProperty().multiply(0.35));
+        personalboardTab.getWarehouseVBox ().getChildren ().add (label);
         for(LWDepot depot : warehouse){
             LWResource resource = depot.getStoredResource();
             if(resource != null){
@@ -288,8 +308,28 @@ public class GUIPlayState extends GUIState {
                         heightProperty().multiply(0.06));
                 resourceImage.setPreserveRatio (true);
                 Button resourceWarehouseButton = new Button(((Integer)resource.getAmount()).toString(), resourceImage);
+                resourceWarehouseButton.setStyle(IDLE_BUTTON_STYLE);
+                resourceWarehouseButton.setOnMouseEntered(e -> {
+                    resourceWarehouseButton.setStyle(HOVERED_BUTTON_STYLE);
+                    if (!isProductionTurn && !isBuyCardTurn)
+                        label.setVisible (true);
+                });
+                resourceWarehouseButton.setOnMouseExited(e -> {
+                    resourceWarehouseButton.setStyle(IDLE_BUTTON_STYLE);
+                    label.setVisible (false);
+                });
                 resourceWarehouseButton.setOnAction(actionEvent -> {
-                    //TODO: gui.getInterpreter ().addInteraction ("payActions", );
+                    if (isProductionTurn || isBuyCardTurn) {
+                        Integer amountSelected = PaymentPopup.howMuchPay (resource);
+                        gui.getInterpreter ().addInteraction ("payActions", resource.getResourceType () + " " + amountSelected + " " + warehouse.indexOf (depot));
+                    }
+                    else {
+                        GUIInterpreter interpreter = gui.getInterpreter ();
+                        interpreter.addInteraction ("storeOrRemove", "STORE");
+                        interpreter.addInteraction ("resource", resource.getResourceType () + " 1");
+                        interpreter.addInteraction ("depotIdx", String.valueOf (warehouse.indexOf (depot)));
+                        new MoveService (PlayMove.MOVE_RESOURCES.getMove (), gui).start ();
+                    }
                 });
                 resourceWarehouseButton.translateYProperty().bind(personalboardTab.getWarehouseAndStrongbox().
                         heightProperty().multiply(0.42));
@@ -320,8 +360,10 @@ public class GUIPlayState extends GUIState {
                     resourceImage.setPreserveRatio (true);
                     Button resourceStrongboxButton = new Button(((Integer) resource.getAmount()).toString(), resourceImage);
                     resourceStrongboxButton.setOnAction(actionEvent -> {
-                        //TODO: gui.getInterpreter ().addInteraction ("payActions", );
+                        Integer amountSelected = PaymentPopup.howMuchPay (resource);
+                        gui.getInterpreter ().addInteraction ("payActions", resource.getResourceType () + " " + amountSelected);
                     });
+                    resourceStrongboxButton.setDisable (true);
                     resourceStrongboxButton.translateYProperty().bind(personalboardTab.getWarehouseAndStrongbox().
                             heightProperty().multiply(0.74));
                     resourceStrongboxButton.translateXProperty().bind(personalboardTab.getWarehouseAndStrongbox().
@@ -369,6 +411,7 @@ public class GUIPlayState extends GUIState {
                     slotCardButton.setOnAction(actionEvent -> {
                         gui.getInterpreter ().addInteraction ("numSlot", finalI);
                     });
+                    slotCardButton.setDisable (true);
                     cardButtons.add(slotCardButton);
                     stackPane.getChildren().add(slotCardButton);
                     slotCardButton.translateYProperty().bind(personalboardTab.getPersonalBoardBorderPane().
@@ -479,6 +522,9 @@ public class GUIPlayState extends GUIState {
             ArrayList<Integer> amounts = new ArrayList<> ();
             for (int i = 1; i <= resource.getAmount (); i++)
                 amounts.add (i);
+            resourceBtn.setStyle(IDLE_BUTTON_STYLE);
+            resourceBtn.setOnMouseEntered(e -> resourceBtn.setStyle(HOVERED_BUTTON_STYLE));
+            resourceBtn.setOnMouseExited(e -> resourceBtn.setStyle(IDLE_BUTTON_STYLE));
             resourceBtn.setOnAction (e -> {
                 tempContLeaderCardsTab.getAmountBox().getItems().clear();
                 tempContLeaderCardsTab.setSelectedResource(resource.getResourceType());
@@ -509,9 +555,14 @@ public class GUIPlayState extends GUIState {
             });
             Button discardBtn = new Button ("Discard");
             discardBtn.setOnAction(actionEvent -> {
-                gui.getInterpreter().addInteraction("playOrDiscard", "discard");
-                gui.getInterpreter().addInteraction("numInSlot", ((Integer) card.getSlotIndex()).toString());
-                new MoveService(PlayMove.LEADER.getMove(), gui).start();
+                if (gui.getController ().getModel ().getInfoMatch ().getNumTurn ().equals (1)) {
+                    gui.getInterpreter ().addInteraction ("cardIndex", ((Integer) card.getSlotIndex ()).toString ());
+                    new MoveService (PlayMove.DISCARD_LEADER_CARD_FIRST_TURN.getMove (), gui).start ();
+                } else {
+                    gui.getInterpreter ().addInteraction ("playOrDiscard", "discard");
+                    gui.getInterpreter ().addInteraction ("numInSlot", ((Integer) card.getSlotIndex ()).toString ());
+                    new MoveService (PlayMove.LEADER.getMove (), gui).start ();
+                }
             });
             playOrDiscardBtns.getChildren ().addAll (playBtn, discardBtn);
             playOrDiscardBtns.spacingProperty ().bind (cardImage.fitWidthProperty ().multiply (0.1));

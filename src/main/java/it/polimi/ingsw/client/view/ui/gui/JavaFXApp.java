@@ -39,14 +39,11 @@ public class JavaFXApp extends Application {
         Scene newScene = state.buildScene (gui);
         ArrayList<Scene> scenes = new ArrayList<> ();
         ArrayList<GUIState> states = new ArrayList<> ();
-        int i = 0;
         while (!states.contains (state)) {
             scenes.add (newScene);
             states.add (state);
             state = state.getNextState ();
             newScene = state.buildScene (gui);
-            System.out.println (i);
-            i++;
         }
         return scenes;
     }
