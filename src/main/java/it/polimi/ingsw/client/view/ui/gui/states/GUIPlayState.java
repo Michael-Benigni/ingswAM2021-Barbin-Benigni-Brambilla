@@ -38,6 +38,7 @@ public class GUIPlayState extends GUIState {
     private boolean isBuyCardTurn;
     private boolean isProductionTurn;
     private boolean isMarketTurn;
+    private Button okButton;
 
     private GUIPlayState() {
         instance = this;
@@ -69,6 +70,8 @@ public class GUIPlayState extends GUIState {
             buttons.minWidthProperty ().bind (JavaFXApp.getFixedWidth ().multiply (0.1));
             buttons.minHeightProperty ().bind (JavaFXApp.getFixedHeight ());
 
+            initBoardProduction();
+
             hBox.getChildren ().addAll (tabPane, buttons) ;
             setSceneInstance (new Scene (hBox));
         }
@@ -91,6 +94,18 @@ public class GUIPlayState extends GUIState {
         return new GUIGameOverState();
     }
 
+    public void initBoardProduction(){
+        Button boardProductionButton = new Button("Board Production");
+        boardProductionButton.setOnAction(actionEvent -> {
+            new MoveService(PlayMove.BOARD_PRODUCTION.getMove(), gui).start();
+        });
+        boardProductionButton.translateXProperty().bind(personalboardTab.getBoardAndExtraProductionsVBox().heightProperty().multiply(10));
+        boardProductionButton.translateYProperty().bind(personalboardTab.getBoardAndExtraProductionsVBox().widthProperty().multiply(- 0.07));
+        boardProductionButton.setDisable(true);
+        personalboardTab.setBoardProductionButton(boardProductionButton);
+        personalboardTab.getBoardAndExtraProductionsVBox().getChildren().add(boardProductionButton);
+    }
+
     private VBox getTurnsButtonsVBox() {
         turnsButtons = new ArrayList<>();
         VBox turnButtons = new VBox (10);
@@ -110,6 +125,8 @@ public class GUIPlayState extends GUIState {
             }
         });
 
+        okButton = OK;
+
         turnsButtons.add(OK);
 
         Button endTurn = new Button ("End Turn");
@@ -120,6 +137,7 @@ public class GUIPlayState extends GUIState {
             setMarketTurn(false);
             new MoveService (PlayMove.END_TURN.getMove (), gui).start ();
             turnsButtons.forEach (node -> node.setDisable (true));
+            personalboardTab.getBoardProductionButton().setDisable(true);
         });
 
         turnsButtons.add(endTurn);
@@ -144,7 +162,7 @@ public class GUIPlayState extends GUIState {
             enableCardsGrid(true);
             chosenMove.set (PlayMove.BUY_CARD.getMove ());
             turnsButtons.stream()
-                    .filter (b -> b != endTurn && b != OK)
+                    .filter (b -> b != endTurn)
                     .forEach (node -> node.setDisable (true));
         });
 
@@ -160,6 +178,7 @@ public class GUIPlayState extends GUIState {
                     forEach (node -> node.setDisable (true));
             if(!personalboardTab.getCardButtons().isEmpty())
                 personalboardTab.getCardButtons().forEach(button -> { button.setDisable(false); });
+            personalboardTab.getBoardProductionButton().setDisable(false);
         });
 
         turnsButtons.add(productionTurn);
@@ -317,8 +336,10 @@ public class GUIPlayState extends GUIState {
             StackPane stackPane = new StackPane();
 
             Button slotButton = new Button("", stackPane);
-            slotButton.setOnAction(actionEvent ->
-                    gui.getInterpreter ().addInteraction ("slotIdx", finalI));
+            slotButton.setOnAction(actionEvent -> {
+                gui.getInterpreter ().addInteraction ("slotIdx", finalI);
+                okButton.setDisable(false);
+            });
             slotButton.setDisable(true);
             slotButtons.add(slotButton);
 

@@ -23,6 +23,9 @@ public class PersonalboardTab extends Tab {
     private ArrayList<Button> cardButtons;
     private GridPane strongboxGrid;
     private VBox warehouseVBox;
+    private VBox boardAndExtraProductionsVBox;
+    private Button boardProductionButton;
+    private Button extraProductionButton;
 
     public VBox getWarehouseVBox() {
         return warehouseVBox;
@@ -56,6 +59,26 @@ public class PersonalboardTab extends Tab {
         return warehouseAndStrongbox;
     }
 
+    public Button getBoardProductionButton() {
+        return boardProductionButton;
+    }
+
+    public void setBoardProductionButton(Button boardProductionButton) {
+        this.boardProductionButton = boardProductionButton;
+    }
+
+    public Button getExtraProductionButton() {
+        return extraProductionButton;
+    }
+
+    public void setExtraProductionButton(Button extraProductionButton) {
+        this.extraProductionButton = extraProductionButton;
+    }
+
+    public VBox getBoardAndExtraProductionsVBox() {
+        return boardAndExtraProductionsVBox;
+    }
+
     public PersonalboardTab(){
         super("Personal Board");
 
@@ -68,6 +91,7 @@ public class PersonalboardTab extends Tab {
         cardButtons = new ArrayList<>();
         strongboxGrid = new GridPane();
         warehouseVBox = new VBox();
+        boardAndExtraProductionsVBox = new VBox();
 
         JsonImageLoader loader = new JsonImageLoader (ClientPrefs.getPathToDB ());
         ImageView imageView = new ImageView (loader.loadPersonalBoardImage ());
@@ -88,6 +112,7 @@ public class PersonalboardTab extends Tab {
         personalBoardBorderPane.setTop(faithTrackHBox);
         personalBoardBorderPane.setLeft(warehouseAndStrongbox);
         personalBoardBorderPane.setCenter(slotsHBox);
+        personalBoardBorderPane.setBottom(boardAndExtraProductionsVBox);
 
         this.setClosable (false);
         this.setContent(content);
