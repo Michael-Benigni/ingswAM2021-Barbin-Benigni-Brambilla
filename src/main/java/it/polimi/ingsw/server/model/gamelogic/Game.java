@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.model.gamelogic;
 import it.polimi.ingsw.server.model.GameComponent;
 import it.polimi.ingsw.server.model.exception.*;
 import it.polimi.ingsw.server.model.gamelogic.actions.*;
-import it.polimi.ingsw.server.controller.exception.WrongCommandException;
 import it.polimi.ingsw.utils.Observer;
 import it.polimi.ingsw.utils.config.ServerPrefs;
 import it.polimi.ingsw.utils.network.Header;
@@ -73,7 +72,7 @@ public abstract class Game implements GameComponent {
 
     /**
      * Constructor that will be reused in the subclasses
-     * @param numberOfPlayers
+     * @param numberOfPlayers integer that represents the number of players playing this match.
      */
     protected Game(int numberOfPlayers) throws IllegalNumberOfPlayersException {
         this.observers = new ArrayList<> ();
@@ -147,10 +146,7 @@ public abstract class Game implements GameComponent {
     }
 
     /**
-     *
-     * @throws NoValidActionException
-     * @throws IsNotCurrentPlayerException
-     * @throws WrongCommandException
+     * Method that executes the action in input, but only if the provided player is the current player.
      */
     public void performActionOf(Player player, Action action) throws Exception {
         if (!isGameOver ()) {
@@ -339,7 +335,7 @@ public abstract class Game implements GameComponent {
 
 
     /**
-     *
+     * Method that calculates the total victory points for each players, then returns the array of winners.
      */
     private ArrayList<Player> computeWinners() {
         ArrayList<Player> winners = new ArrayList<>();
